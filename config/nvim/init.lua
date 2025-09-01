@@ -12,6 +12,7 @@ vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
 vim.opt.whichwrap:append("<,>,h,l")
+vim.opt.clipboard = "unnamedplus"
 
 -- Add config directory to runtimepath for colorscheme loading
 vim.opt.rtp:append("~/.config/nvim")
