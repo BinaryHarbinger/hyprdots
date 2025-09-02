@@ -57,27 +57,27 @@ echo -e "   Binary Harbinger's Hyprland dotfiles\n\n"
 gum confirm "Proceed with setup?" || exit 0
 
 # --- Update system ---
-if ! check_dep yay; then
+if ! check_dep paru; then
     
-    if gum confirm "Install yay?"; then
+    if gum confirm "Install paru?"; then
         info "Installing dependecies..."
         sudo pacman -S --needed base-devel git
-        process "Cloning yay repository..." git clone https://aur.archlinux.org/yay.git 
+        process "Cloning paru repository..." git clone https://aur.archlinux.org/paru.git 
         info "Building package..."
-        cd yay
+        cd paru
         makepkg -si
         cd ..
-        rm -rf yay
-        info "Package (yay) installed."
+        rm -rf paru
+        info "Package (paru) installed."
     else
         error "Aborting setup."
-        rm -rf yay 
+        rm -rf paru 
         exit 1
     fi
 fi
 
 if process "Updating system..." bash -c '
-    if ! yay -Syu --noconfirm --repo >/dev/null 2>&1; then
+    if ! paru -Syu --noconfirm --repo >/dev/null 2>&1; then
         error "System update failed. Try to update manually."
         exit 1
     fi
@@ -102,7 +102,7 @@ PACKAGES=(
     rofi-wayland rofimoji
 )
 
-if ! process "Installing packages..." yay -S --noconfirm --needed "${PACKAGES[@]}"; then
+if ! process "Installing packages..." paru -S --noconfirm --needed "${PACKAGES[@]}"; then
     error "Package installation failed."
     exit 1
 fi
@@ -111,7 +111,7 @@ fi
 if lspci | grep -qi 'NVIDIA'; then
     info "NVIDIA GPU detected."
     if ! pacman -Qi nvidia-dkms >/dev/null 2>&1; then
-        process "Installing nvidia-dkms (required for NVIDIA GPUs)..." yay -S --noconfirm --needed nvidia-dkms || error "Failed to install 'nvidia-dkms'. Please install manually" 
+        process "Installing nvidia-dkms (required for NVIDIA GPUs)..." paru -S --noconfirm --needed nvidia-dkms || error "Failed to install 'nvidia-dkms'. Please install manually" 
         info "nvidia-dkms installed successfully."
     else
         info "nvidia-dkms already installed."
@@ -187,7 +187,7 @@ if [ "$current_shell" != "/usr/bin/fish" ] && [ "$current_shell" != "/bin/fish" 
         if chsh -s /bin/fish "$USER"; then
             info "Default shell changed to fish."
             if gum confirm "Install some rust utils? (Recommended)"; then
-                if process "Installing rust utilities" yay -S --needed --noconfirm eza sudo-rs bat ripgrep; then
+                if process "Installing rust utilities" paru -S --needed --noconfirm eza sudo-rs bat ripgrep; then
                     info "Successfully installed rust utils." 
                 else
                     error "Failed to install rust utilities."

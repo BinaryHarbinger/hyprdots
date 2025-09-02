@@ -210,7 +210,7 @@ maintain_menu() {
          	find ~/.cache -mindepth 1 -maxdepth 1 \
          	  ! -name "spotify" \
          	  ! -name "cliphist" \
-         	  ! -name "yay" \
+         	  ! -name "paru" \
          	  ! -name "mcpelauncher-webview"\
          	  ! -name "pip" \
          	  ! -name "rofi-entry-history.txt" \

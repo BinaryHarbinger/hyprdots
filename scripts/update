@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script to update pacman packages via yay and Flatpak packages
+# Script to update pacman packages via paru and Flatpak packages
 
 # Colors for output
 GREEN="\e[32m"
@@ -15,11 +15,11 @@ echo -e "\n\n${RESET}░█▀▀░█░█░█▀▀░▀█▀░█▀�
 # Prompt the user for confirmation
 gum confirm "" || exit 1
 
-# Update pacman packages via yay
+# Update pacman packages via paru
 echo -e "${BLUE}\n░█▀▀░█░█░█▀▀░▀█▀░█▀▀░█▄█░░░█▀█░█▀█░█▀▀░█░█░█▀█░█▀▀░█▀▀░█▀▀
 ░▀▀█░░█░░▀▀█░░█░░█▀▀░█░█░░░█▀▀░█▀█░█░░░█▀▄░█▀█░█░█░█▀▀░▀▀█
 ░▀▀▀░░▀░░▀▀▀░░▀░░▀▀▀░▀░▀░░░▀░░░▀░▀░▀▀▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀▀▀\n${RESET}"
-if yay -Syu --noconfirm; then
+if paru -Syu --noconfirm; then
 	echo
     echo -e "${BLUE}░█▀▀░█░░░█▀█░▀█▀░█▀█░█▀█░█░█░░░█▀█░█▀█░█▀▀░█░█░█▀▀
 ░█▀▀░█░░░█▀█░░█░░█▀▀░█▀█░█▀▄░░░█▀▀░█▀█░█░░░█▀▄░▀▀█
