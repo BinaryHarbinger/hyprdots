@@ -37,3 +37,17 @@ function grep
         command grep $argv
     end
 end
+
+function hclear
+    echo yes | history clear >/dev/null 2>&1
+    clear
+    fastfetch
+end
+
+function snvim
+    sudo HOME=/home/$USER nvim -u /home/$USER/.config/nvim/init.lua $argv
+end
+
+function neofetch
+    fastfetch $argv
+end
