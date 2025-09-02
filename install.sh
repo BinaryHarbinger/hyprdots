@@ -186,6 +186,13 @@ if [ "$current_shell" != "/usr/bin/fish" ] && [ "$current_shell" != "/bin/fish" 
     if gum confirm "Change default shell to fish?"; then
         if chsh -s /bin/fish "$USER"; then
             info "Default shell changed to fish."
+            if gum confirm "Install some rust utils? (Recommended)"; then
+                if process "Installing rust utilities" yay -S --needed --noconfirm eza sudo-rs bat ripgrep; then
+                    info "Successfully installed rust utils." 
+                else
+                    error "Failed to install rust utilities."
+                fi
+            fi
         else
             error "Failed to change shell."
         fi
