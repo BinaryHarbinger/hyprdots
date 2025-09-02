@@ -1,0 +1,24 @@
+@define-color border-main #2d2f49;
+@define-color border-alt @border-main;
+
+@define-color bg-main #1A1B29;
+@define-color bg-alt #333556;
+@define-color bg-hover #2E2F44;
+@define-color bg-hover-alt #25263B;
+@define-color bg-tooltip #1A1B29;
+@define-color bg-second #272a3a;
+@define-color bg-third #8F96D1;
+@define-color sway-bg #1A1B29;
+
+@define-color fg-main #C6CBF7;
+@define-color fg-unactive #575D8A;
+@define-color content-act #CDD4FF;
+
+@define-color ply-main #25253B;
+@define-color ply-hover #3A3B5A;
+@define-color ply-act #5A5B87;
+@define-color msc-act #4A4C76;
+
+@define-color wlogout-hover rgba(37, 37, 68, 0.45);
+@define-color wlogout-bg rgba(26, 27, 41, 0.6);
+@define-color wlogout-button rgba(26, 27, 41, 0.78);

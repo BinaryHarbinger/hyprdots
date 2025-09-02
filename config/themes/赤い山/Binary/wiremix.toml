@@ -1,0 +1,65 @@
+mouse = true
+
+peaks = "auto"
+
+theme = "default"
+
+char_set= "default"
+
+tab = "playback"
+
+max_volume_percent = 150.0
+
+enforce_max_volume = true
+
+[themes.default]
+# The symbol marking the default device on the Input/Output Devices tabs
+default_device = { }
+# The symbol marking the default endpoint on the Playback/Recording tabs
+default_stream = { }
+# The selection indicator in a tab
+selector = { fg = "#B4BEFE" }
+# The name of a tab in the tab menu
+tab = { }
+# The name of the selected tab in the tab menu
+tab_selected = { fg = "#B4BEFE" }
+# The symbols surrounding the selected tab in the tab menu
+tab_marker = { fg = "#B4BEFE" }
+# The symbol at the top/bottom of a tab indicating that there are more items
+list_more = { fg = "DarkGray" }
+# The name of a PipeWire node
+node_title = { }
+# The name of the selected target for a node
+node_target = { }
+# The volume percentage label
+volume = { }
+# Volume bar
+volume_empty = { fg = "DarkGray" }
+volume_filled = { fg = "#B4BEFE" }
+# Peak meter. Inactive = unlit, active = lit, overload = greater than 0.0 dB
+meter_inactive = { fg = "DarkGray" }
+meter_active = { fg = "LightGreen" }
+meter_overload = { fg = "Red" }
+# The "live" indicator in the center of the meter
+meter_center_inactive = { fg = "DarkGray" }
+meter_center_active = { fg = "LightGreen" }
+# The name of a device in the Configuration tab
+config_device = { }
+# The name of the selected profile in the Configuration tab
+config_profile = { }
+# Dropdown marker next to the profiles in the Conifguration tab
+dropdown_icon = { }
+# Border around dropdowns
+dropdown_border = { }
+# The name of an item in a dropdown
+dropdown_item = { }
+# The name of the currently-selected item in a dropdown
+dropdown_selected = { fg = "#B4BEFE", add_modifier = "REVERSED" }
+# The symbol at the top/bottom of a dropdown indicating that there are more items
+dropdown_more = { fg = "DarkGray" }
+# Border around help menu
+help_border = { }
+# The name of an item in a the help menu
+help_item = { }
+# The symbol at the top/bottom of the help menu indicating that there are more items
+help_more = { fg = "DarkGray" }

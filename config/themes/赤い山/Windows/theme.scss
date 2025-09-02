@@ -1,0 +1,29 @@
+// Base border color
+$border-main: transparent;
+$border-alt:  #01AFFF;
+
+// Background Colors
+$bg-main:      #101010;
+$bg-alt:       #1A1A2A;  
+$bg-hover:     #1F1F38; 
+$bg-hover-alt: #181827;
+$bg-tooltip:   $bg-main;
+$bg-second:    #222233;
+$bg-third:     #2A2A44;
+$sway-bg:      $bg-main;
+
+// Text color for entries, views and content in general
+$fg-main:      #ffffff;
+$fg-unactive:  #2D2D40;
+$content-act:  #6FBFFF;
+
+// Player colors
+$ply-main:   #151522;
+$ply-hover:  #1C1C33;
+$ply-act:    #2A2A44;
+$msc-act:    #3A3A5C;
+
+// Wlogout
+$wlogout-hover:  rgba(30, 30, 55, 0.5);
+$wlogout-bg:     rgba(16, 16, 16, 0.45);
+$wlogout-button: rgba(18, 18, 30, 0.78);

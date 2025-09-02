@@ -1,9 +1,3 @@
-
-if status is-interactive
-    # Commands to run in interactive sessions can go here
-    fastfetch
-end
-
 function sudo
     if type -q sudo-rs
         command sudo-rs $argv
@@ -43,9 +37,3 @@ function grep
         command grep $argv
     end
 end
-
-set -Ux fish_user_paths $fish_user_paths ~/.config/scripts
-
-# Created by `pipx` on 2025-02-20 15:01:21
-set PATH $PATH ~/.local/bin
-
