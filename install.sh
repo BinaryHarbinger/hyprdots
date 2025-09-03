@@ -2,13 +2,11 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-SCRIPT_PATH="$SCRIPT_DIR/install.sh"
-
-if [ ! -f "$SCRIPT_PATH" ]; then
-    curl -fsSL -o "$SCRIPT_PATH" https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/install.sh
-    chmod +x "$SCRIPT_PATH"
-    exec "$SCRIPT_PATH" "$@"
+if [ ! -t 0 ]; then
+    # Pipe ile çalıştırılıyor
+    curl -fsSL -o /tmp/install.sh https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/install.sh
+    chmod +x /tmp/install.sh
+    exec /tmp/install.sh "$@"
 fi
 
 # --- Colors ---
