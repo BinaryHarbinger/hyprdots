@@ -1,0 +1,66 @@
+mouse = true
+
+peaks = "auto"
+
+theme = "default"
+
+char_set= "default"
+
+tab = "playback"
+
+max_volume_percent = 150.0
+
+enforce_max_volume = true
+
+[themes.default]
+# The symbol marking the default device on the Input/Output Devices tabs
+default_device = { fg = "#D28CF0" }
+# The symbol marking the default endpoint on the Playback/Recording tabs
+default_stream = { fg = "#D28CF0" }
+# The selection indicator in a tab
+selector = { fg = "#D28CF0" }
+# The name of a tab in the tab menu
+tab = { fg = "#7E839A" }
+# The name of the selected tab in the tab menu
+tab_selected = { fg = "#D28CF0" }
+# The symbols surrounding the selected tab in the tab menu
+tab_marker = { fg = "#D28CF0" }
+# The symbol at the top/bottom of a tab indicating that there are more items
+list_more = { fg = "#9DA2B9" }
+# The name of a PipeWire node
+node_title = { fg = "#7E839A" }
+# The name of the selected target for a node
+node_target = { fg = "#D28CF0" }
+# The volume percentage label
+volume = { fg = "#D28CF0" }
+# Volume bar
+volume_empty = { fg = "#9DA2B9" }
+volume_filled = { fg = "#D28CF0" }
+# Peak meter. Inactive = unlit, active = lit, overload = greater than 0.0 dB
+meter_inactive = { fg = "#9DA2B9" }
+meter_active = { fg = "#B275CC" }
+meter_overload = { fg = "#F25CC1" }
+# The "live" indicator in the center of the meter
+meter_center_inactive = { fg = "#9DA2B9" }
+meter_center_active = { fg = "#B275CC" }
+# The name of a device in the Configuration tab
+config_device = { fg = "#7E839A" }
+# The name of the selected profile in the Configuration tab
+config_profile = { fg = "#D28CF0" }
+# Dropdown marker next to the profiles in the Configuration tab
+dropdown_icon = { fg = "#D28CF0" }
+# Border around dropdowns
+dropdown_border = { fg = "#D28CF0" }
+# The name of an item in a dropdown
+dropdown_item = { fg = "#7E839A" }
+# The name of the currently-selected item in a dropdown
+dropdown_selected = { fg = "#D28CF0", add_modifier = "REVERSED" }
+# The symbol at the top/bottom of a dropdown indicating that there are more items
+dropdown_more = { fg = "#9DA2B9" }
+# Border around help menu
+help_border = { fg = "#D28CF0" }
+# The name of an item in the help menu
+help_item = { fg = "#7E839A" }
+# The symbol at the top/bottom of the help menu indicating that there are more items
+help_more = { fg = "#9DA2B9" }
+
