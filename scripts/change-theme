@@ -12,18 +12,23 @@ Options:
   -h, --help             Show this help message
 "
 change_theme () {
+    
+    # Files
+    ln -sf "$THEME_PATH/theme.scss" ~/.config/eww/theme.scss
+    ln -sf "$THEME_PATH/theme.css" ~/.config/waybar/theme.css
+    ln -sf "$THEME_PATH/theme.css" ~/.config/wlogout/theme.css
+    ln -sf "$THEME_PATH/theme.css" ~/.config/swaync/theme.css
+    ln -sf "$THEME_PATH/theme.rasi" ~/.config/rofi/theme.rasi
+    ln -sf "$THEME_PATH/hypr.conf" ~/.config/hypr/theme.conf
+    ln -sf "$THEME_PATH/wiremix.toml" ~/.config/wiremix/wiremix.toml
+    ln -sf "$THEME_PATH/foot.ini" ~/.config/foot/foot.ini
+    ln -sf "$THEME_PATH/theme.toml" ~/.config/yazi/theme.toml
 
-    cp -r "$THEME_PATH/theme.scss" ~/.config/eww/
-    cp -r "$THEME_PATH/theme.css" ~/.config/waybar/
-    cp -r "$THEME_PATH/theme.css" ~/.config/wlogout/
-    cp -r "$THEME_PATH/theme.css" ~/.config/swaync/
-    cp -r "$THEME_PATH/theme.rasi" ~/.config/rofi/
-    cp -r "$THEME_PATH/hypr.conf" ~/.config/hypr/theme.conf
-    cp -r "$THEME_PATH/wiremix.toml" ~/.config/wiremix/
-    cp -r "$THEME_PATH/foot.ini" ~/.config/foot/
-    cp -r "$THEME_PATH/theme.toml" ~/.config/yazi/theme.toml
-    cp -r "$THEME_PATH/fish/"* ~/.config/fish/
-    cp -r "$THEME_PATH/mpv/"* ~/.config/mpv/
+    # Folders
+    ln -sf "$THEME_PATH/fish/"* ~/.config/fish/
+    ln -sf "$THEME_PATH/mpv/"* ~/.config/mpv/
+    
+    # Scripts
     bash "$THEME_PATH/theme.sh"
 
     pkill waybar >/dev/null 2>&1
