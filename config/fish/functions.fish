@@ -41,7 +41,7 @@ end
 function hclear
     echo yes | history clear >/dev/null 2>&1
     clear
-    fastfetch
+    neofetch
 end
 
 function snvim
@@ -49,5 +49,18 @@ function snvim
 end
 
 function neofetch
-    fastfetch $argv
+    if type -q fastfetch
+        fastfetch
+    else
+        /usr/sbin/neofetch
+    end
 end
+
+function man
+    if type -q bat
+        command man $argv | col -bx | bat -l man
+    else
+        man $argv
+    end
+end
+

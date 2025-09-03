@@ -23,7 +23,7 @@
 marker_copied = { fg = "#98bb6c", bg = "#98bb6c" }
 marker_cut = { fg = "#e46876", bg = "#e46876" }
 marker_marked = { fg = "#957fb8", bg = "#957fb8" }
-marker_selected = { fg = "#11111B", bg = "#B4BEFE" }
+marker_selected = { fg = "#3C3836", bg = "#EBDBB2" }
 
 cwd = { fg = "#e6c384" }
 hovered = { reversed = true }
@@ -37,19 +37,19 @@ count_cut = { fg = "#1f1f28", bg = "#e46876" }
 count_selected = { fg = "#1f1f28", bg = "#ffa066" }
 
 border_symbol = "│"
-border_style = { fg = "#B4BEFE" }
+border_style = { fg = "#EBDBB2" }
 
 [tabs]
-active = { fg = "#11111B", bg = "#B4BEFE" }
-inactive = { fg = "#B4BEFE", bg = "#2a2a37" }
+active = { fg = "#3C3836", bg = "#EBDBB2" }
+inactive = { fg = "#EBDBB2", bg = "#2a2a37" }
 
 sep_inner = { open = "", close = "" }
 sep_outer = { open = "", close = "" }
 
 
 [mode]
-normal_main = { fg = "#11111B", bg = "#B4BEFE" }
-normal_alt = { fg = "#B4BEFE", bg = "#11111B" }
+normal_main = { fg = "#3C3836", bg = "#EBDBB2" }
+normal_alt = { fg = "#EBDBB2", bg = "#3C3836" }
 select_main = { fg = "#1f1f28", bg = "#957fb8" }
 select_alt = { fg = "#957fb8", bg = "#2a2a37" }
 unset_main = { fg = "#1f1f28", bg = "#e6c384" }
@@ -59,9 +59,9 @@ unset_alt = { fg = "#e6c384", bg = "#2a2a37" }
 [status]
 sep_left = { open = "", close = "" }
 sep_right = { open = "", close = "" }
-overall = { fg = "#ffffff", bg = "#484872" }
+overall = { fg = "#ffffff", bg = "#504945" }
 
-progress_label = { fg = "#B4BEFE", bold = true }
+progress_label = { fg = "#EBDBB2", bold = true }
 progress_normal = { fg = "#2a2a37", bg = "#1f1f28" }
 progress_error = { fg = "#2a2a37", bg = "#1f1f28" }
 
@@ -78,7 +78,7 @@ active = { fg = "#957fb8", bold = true }
 inactive = {}
 
 [input]
-border = { fg = "#B4BEFE" }
+border = { fg = "#7fb4ca" }
 title = {}
 value = {}
 selected = { reversed = true }
@@ -99,7 +99,7 @@ separator = " - "
 separator_style = { fg = "#727169" }
 mask = { bg = "#16161d" }
 rest = { fg = "#727169" }
-cand = { fg = "#B4BEFE" }
+cand = { fg = "#EBDBB2" }
 desc = { fg = "#54546d" }
 
 [help]
@@ -140,5 +140,5 @@ rules = [
 
     # fallback
     { name = "*", fg = "#dcd7ba" },
-    { name = "*/", fg = "#B4BEFE" },
+    { name = "*/", fg = "#EBDBB2" },
 ]

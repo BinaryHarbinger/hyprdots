@@ -44,4 +44,4 @@ SETUVAR fish_pager_color_selected_background:\x2d\x2dbackground\x3d44475a
 SETUVAR fish_pager_color_selected_completion:f8f8f2
 SETUVAR fish_pager_color_selected_description:6272a4
 SETUVAR fish_pager_color_selected_prefix:8be9fd
-SETUVAR --export fish_user_paths:/home/efe/\x2espicetify\x1e/home/efe/scripts\x1e/home/efe/\x2escripts
+SETUVAR --export fish_user_paths:/home/efe/\x2espicetify\x1e/home/efe/scripts\x1e/home/efe/\x2escripts\x1e/home/efe/\x2econfig/scripts

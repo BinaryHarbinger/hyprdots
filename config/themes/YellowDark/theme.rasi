@@ -1,0 +1,31 @@
+* {
+    border-color:     #fabd2f;
+    selected-normal-foreground: #282828;
+    normal-foreground: #ebdbb2;
+    selected-normal-background: #504945;
+    normal-background: #3c3836;
+    bg-selected:      #504945;
+    input-bar-bg:     #665c54;
+    background-color: #3c3836;
+    lightred:         #fb4934;
+    font:             "JetbrainsMono 14";
+    dark:             #1d2021;
+    transparent:      transparent;
+    lightblue:        #83a598;
+    background-alt:   #665c54;
+    selected:         #504945;
+    active:           #b8bb26; /* green */
+    urgent:           #fb4934; /* red */
+    background:       #3c3836;
+    foreground:       #ebdbb2;
+    foreground-alt:   #ebdbb2;
+    border-radius:    4px;
+    border-radius-win: 10px;
+    border-selected: var(foreground);
+    location-var:     center;
+    anchor-var:       center;
+    width-var:        500px;
+    list-font:        inherit;
+    lines-var:        10;
+}
+
