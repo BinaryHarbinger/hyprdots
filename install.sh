@@ -2,8 +2,19 @@
 
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-# Colors
+# Script'in tam yolu
+SCRIPT_PATH="$SCRIPT_DIR/install.sh"
+
+if [![ -f "$SCRIPT_PATH" ]]; then
+    curl -sSL -o install.sh https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/refs/heads/main/install.sh >/dev/null 2>&1
+    chmod +x install.sh >/dev/null 2>&1
+    ./install.sh 
+    exit 0
+fi
+
+# --- Colors ---
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 BLUE=$(tput setaf 4)
@@ -14,7 +25,7 @@ echo "Enter your sudo password:"
 sudo echo
 echo -e "${GREEN}➤ Succses. ${RESET}"
 
-# Dependency check
+# --- Dependency check --
 check_dep() {
     if ! command -v "$1" >/dev/null 2>&1; then
         echo -e "${RED}✖'$1' is not installed.${RESET}"
@@ -23,11 +34,11 @@ check_dep() {
 }
 
 
-# Gum check & install
+# --- Gum check & install ---
 if ! check_dep gum; then
     echo -e "${BLUE}Installing gum...${RESET}"
     if ! sudo pacman -S --noconfirm gum; then
-        echo -e "${RED}✖Failed to install gum. Please install it manually. ${RESET}"
+        echo -e "${RED}✖ Failed to install gum. Please install it manually. ${RESET}"
         exit 1
     fi
 fi
@@ -187,7 +198,7 @@ if [ "$current_shell" != "/usr/bin/fish" ] && [ "$current_shell" != "/bin/fish" 
         if chsh -s /bin/fish "$USER"; then
             info "Default shell changed to fish."
             if gum confirm "Install some rust utils? (Recommended)"; then
-                if process "Installing rust utilities" paru -S --needed --noconfirm eza sudo-rs bat ripgrep; then
+                if process "Installing rust utilities" paru -S --needed --noconfirm eza sudo-rs bat ripgrep sd fd ; then
                     info "Successfully installed rust utils." 
                 else
                     error "Failed to install rust utilities."
