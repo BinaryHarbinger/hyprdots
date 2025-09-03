@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 # Script'in tam yolu
 SCRIPT_PATH="$SCRIPT_DIR/install.sh"
 
-if [![ -f "$SCRIPT_PATH" ]]; then
+if [[ ! -f "$SCRIPT_PATH" ]]; then
     curl -sSL -o install.sh https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/refs/heads/main/install.sh >/dev/null 2>&1
     chmod +x install.sh >/dev/null 2>&1
     ./install.sh 

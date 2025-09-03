@@ -88,10 +88,7 @@ I highly recommend using [Chaotic AUR](https://aur.chaotic.cx/docs)
 
 Run this command to install:
 ```
-
 curl -fsSL https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/refs/heads/main/install.sh | bash
-
-
 
 ```
 
