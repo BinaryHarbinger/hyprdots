@@ -2,11 +2,10 @@
 
 set -euo pipefail
 
-if [ ! -t 0 ]; then
-    SCRIPT_DIR="$HOME/.cache/hyprdots"
-    mkdir -p "$SCRIPT_DIR"
-    SCRIPT_PATH="$SCRIPT_DIR/install.sh"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_PATH="$SCRIPT_DIR/install.sh"
 
+if [ ! -f "$SCRIPT_PATH" ]; then
     curl -fsSL -o "$SCRIPT_PATH" https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/install.sh
     chmod +x "$SCRIPT_PATH"
     exec "$SCRIPT_PATH" "$@"
