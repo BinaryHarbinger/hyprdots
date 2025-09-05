@@ -17,6 +17,9 @@ vim.opt.clipboard = "unnamedplus"
 -- Add config directory to runtimepath for colorscheme loading
 vim.opt.rtp:append("~/.config/nvim")
 
+-- Default colorscheme
+vim.cmd("colorscheme binaryharbinger")
+
 -- Ensure lazy.nvim is installed
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -157,6 +160,24 @@ require("lazy").setup({
     end,
   },
 
+{
+  "akinsho/bufferline.nvim",
+  version = "*",
+  dependencies = {
+    "nvim-tree/nvim-web-devicons" 
+  },
+  config = function()
+    require("bufferline").setup {
+      options = {
+        diagnostics = "nvim_lsp",
+        show_buffer_close_icons = false,
+        show_close_icon = false,
+        separator_style = "thin",
+                }
+    }
+  end
+},
+
   {
     "nvim-lualine/lualine.nvim",
     event = "VimEnter",
@@ -195,18 +216,26 @@ require("lazy").setup({
 -- Load telescope file browser extension
 require("telescope").load_extension("file_browser")
 
--- Telescope key mappings
-vim.keymap.set("n", "<leader>ff", function()
-  require("telescope.builtin").find_files({ hidden = true, no_ignore = true, file_ignore_patterns = { ".git/" } })
+-- Telescope commands
+vim.api.nvim_create_user_command("FindFile", function()
+  require("telescope.builtin").find_files({
+    hidden = true,
+    no_ignore = true,
+    file_ignore_patterns = { ".git/" },
+  })
 end, { desc = "Find Files (includes hidden)" })
 
-vim.keymap.set("n", "<leader>fg", function()
-  require("telescope.builtin").live_grep({ additional_args = function() return { "--hidden", "--no-ignore" } end })
+vim.api.nvim_create_user_command("LiveGrep", function()
+  require("telescope.builtin").live_grep({
+    additional_args = function()
+      return { "--hidden", "--no-ignore" }
+    end,
+  })
 end, { desc = "Live Grep (includes hidden)" })
 
-vim.keymap.set("n", "<leader>fb", function()
-  require("telescope").extensions.file_browser.file_browser({ hidden = true })
+vim.api.nvim_create_user_command("Browse", function()
+  require("telescope").extensions.file_browser.file_browser({
+    hidden = true,
+  })
 end, { desc = "Telescope File Browser (includes hidden)" })
 
--- Default colorscheme
-vim.cmd("colorscheme binaryharbinger")

@@ -102,7 +102,8 @@ PACKAGES=(
     hyprland hyprlock hypridle hyprpolkitagent hyprsunset hyprpicker
     wlogout
     power-profiles-daemon udiskie network-manager-applet brightnessctl
-    cliphist stow git fish unzip fastfetch pamixer swaync mpv foot swww
+    cliphist stow git fish unzip fastfetch pamixer swaync foot swww
+    mpv mpd mpd-mpris rmpc
     base-devel
     waybar eww
     rofi-wayland rofimoji
@@ -122,16 +123,6 @@ if lspci | grep -qi 'NVIDIA'; then
     else
         info "nvidia-dkms already installed."
     fi
-fi
-
-
-# --- Polkit agent ---
-process "Setting up polkit agent..." systemctl --user enable --now hyprpolkitagent.service
-
-if [ $? -eq 0 ]; then
-    info "Polkit agent set up successfully."
-else
-    error "Failed to enable polkit agent."
 fi
 
 # --- Clone dotfiles ---
@@ -167,6 +158,8 @@ process "Moving scripts and configs..." bash -c '
     mv ~/.config/rofi/ ~/dots.old/ > /dev/null 2>&1
     mv ~/.config/waybar/ ~/dots.old/ > /dev/null 2>&1
     mv ~/.config/foot/ ~/dots.old/ > /dev/null 2>&1
+    mv ~/.config/mpd/ ~/dots.old/ > /dev/null 2>&1
+    mv ~/.config/rmpc/ ~/dots.old/ > /dev/null 2>&1
     cp -rf ./scripts ~/.config/ > /dev/null 2>&1
     chmod +x ~/.config/scripts/* || true
     cp -rf ./config/* ~/.config/ > /dev/null 2>&1
@@ -174,7 +167,47 @@ process "Moving scripts and configs..." bash -c '
 
 info 'Moved scripts and config files.'
 
+# --- Polkit agent ---
+process "Setting up polkit agent..." systemctl --user enable --now hyprpolkitagent.service
+
+if [ $? -eq 0 ]; then
+    info "Polkit agent set up successfully."
+else
+    error "Failed to enable polkit agent."
+fi
+
+# --- MPD services ---
+
+if gum confirm "Set up MPD? (Not Recommended for new users)"; then
+    process "Setting Up MPD" bash -c '
+
+    systemctl --user enable mpd 
+    systemctl --user enable mpd-mpris
+    
+    systemctl --user start mpd-mpris
+    systemctl --user start mpd
+    '
+
+    if [ $? -eq 0 ]; then
+        info "MPD setup succeeded"
+    else
+        error "MPD setup failed"
+    fi
+else
+    rm -rf ~/.config/rmpc/ 
+    rm -rf ~/.config/mpd/ 
+    if [ -d "$HOME/dots.old/rmpc" ]; then
+        cp -r "$HOME/dots.old/rmpc" "$HOME/.config/" > /dev/null 2>&1
+    fi
+    if [ -d "$HOME/dots.old/mpd" ]; then
+        cp -r "$HOME/dots.old/mpd" "$HOME/.config/" > /dev/null 2>&1
+    fi
+
+
+fi
+
 # --- Layout update ---
+
 LAYOUT=$(localectl status | awk -F': ' '/X11 Layout/{print $2}')
 
 if [[ -z $LAYOUT ]]; then
@@ -183,9 +216,8 @@ else
     sed -i "s/kb_layout = tr/kb_layout = ${LAYOUT}/g" ./config/hypr/hyprland.conf
 fi
 
-ln -sf "$HOME/.config/hypr/wallpapers/lines.jpg" "$HOME/.config/hypr/wallppr.png"
-
 # Change shell
+
 current_shell=$(getent passwd "$USER" | cut -d: -f7)
 
 if [ "$current_shell" != "/usr/bin/fish" ] && [ "$current_shell" != "/bin/fish" ]; then
@@ -206,6 +238,8 @@ if [ "$current_shell" != "/usr/bin/fish" ] && [ "$current_shell" != "/bin/fish" 
 fi
 
 # --- Post installation ---
+
+ln -sf "$HOME/.config/hypr/wallpapers/lines.jpg" "$HOME/.config/hypr/wallppr.png"
 
 python ~/.config/hypr/scripts/wallpapers.py changeWallpaper Lines >/dev/null 2>&1 & disown
 
