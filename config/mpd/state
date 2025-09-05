@@ -1,0 +1,139 @@
+sw_volume: 100
+audio_device_state:1:ALSA Output
+audio_device_state:1:my_fifo
+state: play
+current: 61
+time: 235.07500000000002
+random: 1
+repeat: 1
+single: 0
+consume: 0
+crossfade: 0
+mixrampdb: 0
+mixrampdelay: -1
+lastloadedplaylist: 
+playlist_begin
+0:Ado/Ado - 【Ado】RuLe/Ado - 【Ado】RuLe.m4a
+1:Ongaku/【MV】プロポーズ⧸.m4a
+2:Ongaku/Son Feci Bisiklet - Rahatsız Vals ⧸ #akustikhane #sesiniaç.m4a
+3:NA/GESAFFELSTEIN - ALEPH.m4a
+4:NA/『 Shadow Shadow 』 歌ってみた ／ Dear：.opus
+5:NA/Notion.m4a
+6:NA/TryHardNinja - Follow Me (Metal Cover) FNAF Song.m4a
+7:Sorewachotohendesu/My Love Mine All Mine - Mitski (cover).m4a
+8:Tanrılar ne sandılar？/Torna.m4a
+9:Son Feci Bisiklet/Vesaire/Son Feci Bisiklet - Gece (Vesaire).m4a
+10:NA/マインドブランド (feat. 宵崎奏 & 朝比奈まふゆ & 東雲絵名 & 暁山瑞希 &....m4a
+11:Album - Doll - Puppet/そらまで.m4a
+12:Duman/Album - Belki Alışman Lazım/Manası Yok.m4a
+13:NA/Flare.m4a
+14:NA/Aishite Aishite Aishite - Kikuo ｜ Cover by Myun.m4a
+15:NA/TryHardNinja - Follow Me (Metal Cover) FNAF Song.m4a
+16:NA/【Ado】アタシは問題作.opus
+17:Mix - Son Feci Bisiklet/Son Feci Bisiklet - Elektrot (Vesaire).m4a
+18:Tanrılar ne sandılar？/Fare.m4a
+19:Mix - Son Feci Bisiklet/Gitme (feat. Sedef Sebüktekin).m4a
+20:NA/02.Makka feat. 夏色花梨 「SICK -やんでるEP-」 [ゆよゆっぺYuyoyuppe].m4a
+21:Watashi no nihongo no tabi/テトリス ⧸ 重音テトSV.m4a
+22:NA/Usseewa - Turkish Cover.m4a
+23:Mix - Son Feci Bisiklet/Dursun Zaman ft. Göksel.m4a
+24:Duman/Album - Duman 1/Bu Aşk Beni Yorar.m4a
+25:Mix - Son Feci Bisiklet/Son Feci Bisiklet - Ütopya (Vesaire).m4a
+26:Ongaku/【MV】プロポーズ⧸.m4a
+27:Duman/Album - Darmaduman/Bal.m4a
+28:Sorewachotohendesu/Washing Machine Heart-Glitch Version Speed Up.m4a
+29:Duman/Album - Duman 2/Kumbela.m4a
+30:NA/God Only Knows (feat. Kasane Teto).m4a
+31:Duman/Album - Belki Alışman Lazım/Oje.m4a
+32:Duman/Album - Darmaduman/Eyvallah.m4a
+33:Tanrılar ne sandılar？/Düşman.m4a
+34:NA/チェンソーマン (Chainsaw Man) - ' KICK BACK ⧸ 米津玄師 '  COVER by ココル原人 ｜ Cocolu Genjin.m4a
+35:NA/SO TIRED.m4a
+36:NA/Freaks.m4a
+37:Mix - Son Feci Bisiklet/Dünyanın En Güzel Kızı.m4a
+38:Duman/Album - Belki Alışman Lazım/Haberin Yok Ölüyorum.m4a
+39:Duman/Album - Seni Kendime Sakladım/Rüyanda Görsen İnanma.m4a
+40:NA/KICK BACK ⧸ 米津玄師 (𝗰𝗼𝘃𝗲𝗿) ｜ yoei..m4a
+41:NA/アイナ・ジ・エンド ⧸ 革命道中 - On The Way × TVアニメ『ダンダダン』 [Collaboration Music Video].opus
+42:Funk/SPOOKY - fennecxx & DJ ALEX (Best Part Looped) TIKTOK VERSION ｜ Burnice ZZZ Edit.m4a
+43:Duman/Album - Duman 2/Tövbe.m4a
+44:NA/【Ado】Overdose 歌いました.m4a
+45:NA/Bad Apple!! feat.SEKAI.m4a
+46:Duman/Album - Duman 2/Of.m4a
+47:Album - Eski Köprünün Altında/Dağlar Bağlar.m4a
+48:Dibine Kadar/Beni Benimle Bırak - maNga.m4a
+49:NA/ONE PIECE FILM RED- '逆光⧸Ado(BACK LIGHT)' COVER by ココル原人 ｜ Cocolu Genjin.m4a
+50:Futakuchi Mana/SICK/【COVER】SICK (ゆよゆっぺ)【Futakuchi Mana 二口魔菜】.m4a
+51:NA/Spiegel im Spiegel, for Violin & Piano.m4a
+52:NA/Flare.m4a
+53:Duman/Album - Seni Kendime Sakladım/Sadece Koklayacaktım.m4a
+54:NA/9Lana - プロポーズ⧸ Propose (Ado AI Cover).m4a
+55:Funk/VXRPACH - moans!.m4a
+56:NA/ロミオとシンデレラ⧸cover.m4a
+57:NA/プロポーズ⧸cover.m4a
+58:Mix - Son Feci Bisiklet/Son Feci Bisiklet - Beteri Var.m4a
+59:Duman/Album - Kufi/Teessüf Ederim.m4a
+60:NA/GESAFFELSTEIN - ALEPH.m4a
+61:Duman/Album - Belki Alışman Lazım/Ah.m4a
+62:Duman/Album - Belki Alışman Lazım/Manası Yok.m4a
+63:NA/A beautiful classical violin playlist.m4a
+64:Duman/Album - Darmaduman/Akıbet.m4a
+65:Duman/Album - Duman 1/Yağmurun Sabahında.m4a
+66:Duman/Album - Belki Alışman Lazım/Kırmış Kalbini (Uzun Versiyon).m4a
+67:Album - Eski Köprünün Altında/İstanbul.m4a
+68:Duman/Album - Belki Alışman Lazım/Bu Akşam.m4a
+69:Album - Doll - Puppet/ねこの厭世観.m4a
+70:Tanrılar ne sandılar？/Varoluşum Yokuşu.m4a
+71:NA/マインドブランド (feat. 宵崎奏 & 朝比奈まふゆ & 東雲絵名 & 暁山瑞希 &....m4a
+72:Duman/Album - Darmaduman/Deli.m4a
+73:Duman/Album - Belki Alışman Lazım/Belki Alışman Lazım.m4a
+74:Tanrılar ne sandılar？/Çikolata.m4a
+75:Sorewachottohendesu/ Wabadaba.m4a
+76:Duman/Album - Darmaduman/Köpekler.m4a
+77:Duman/Album - Seni Kendime Sakladım/En Güzel Günüm Gecem.m4a
+78:Duman/Album - Belki Alışman Lazım/Bu Akşam (Akustik).m4a
+79:Dibine Kadar/Doldum - Adamlar.m4a
+80:NA/CHAINSAW MAN #8 ED  - First Death cover (TK from ling tosite sigure).opus
+81:Duman/Album - Kufi/İçimde Aşk Var.m4a
+82:NA/【Cover】Aishite Aishite Aishite ⧸ 愛して愛して愛して 【Lalabell Lullaby ｜ #idolES】 🎀.m4a
+83:NA/テトリス ⧸covered by しぐれうい.m4a
+84:Duman/Album - Seni Kendime Sakladım/Melek.m4a
+85:Duman/Album - Kufi/Anılar, O Geceler.m4a
+86:Tanrılar ne sandılar？/Chainsaw Man OP - KICK BACK (Turkish Cover) ｜ Minachu.m4a
+87:Dibine Kadar/Aslında Bir Konu Var.m4a
+88:NA/Army Dreamers.m4a
+89:Mix - Son Feci Bisiklet/Yaşlı Amca - Yıldızlara Bak (Yaşlı Amca).m4a
+90:NA/マインドブランド.m4a
+91:NA/Seni Kendime Sakladım.m4a
+92:Mix - Son Feci Bisiklet/Sıcak Şarap.m4a
+93:Tanrılar ne sandılar？/Bu Kız ⧸ @akustikhane.m4a
+94:NA/✻H+3+ЯД✻7luCJIo0T6... (second drop).m4a
+95:Funk/SPOOKY.m4a
+96:Duman/Album - Seni Kendime Sakladım/Geçmiş Olsun.m4a
+97:Duman/Album - Kufi/Hele Hele Gur Gur.m4a
+98:Duman/Album - Duman 1/Dibine Kadar.m4a
+99:NA/what if i sang phony in one take？.m4a
+100:Duman/Album - Seni Kendime Sakladım/Aman Aman.m4a
+101:Duman/Album - Kufi/Nerde Benim Kafam.m4a
+102:x0o0x_/______.m4a
+103:Album - Eski Köprünün Altında/Bebek.m4a
+104:Album - Eski Köprünün Altında/Senin Gibi.m4a
+105:Duman/Album - Kufi/Zelzele.m4a
+106:Dibine Kadar/Aklımda Biri Var.m4a
+107:Funk/SCROLX.m4a
+108:Futakuchi Mana/SICK/【COVER】Datte (ゆよゆっぺ) 【Futakuchi Mana 二口魔菜】.m4a
+109:My Mix/Aishite Aishite Aishite -Rock Arrange- (English Cover) 「愛して愛して愛して」【Will Stetson x ReeK】.m4a
+110:Chill/emotions.m4a
+111:Duman/Album - Duman 2/Elleri Ellerime.m4a
+112:NA/Aishite Aishite Aishite ⧸ 愛して愛して愛して - Kikuo 「 Cover by Michi Mochievee 」.m4a
+113:NA/Shoka.m4a
+114:NA/Regius General of Darkness (Shikkoku no Shogun Regius).m4a
+115:Futakuchi Mana/【METAL COVER】 KING 【Futakuchi Mana 二口魔菜】.m4a
+116:Mix - Son Feci Bisiklet/Tavuk Korkusu.m4a
+117:NA/Glass Animals - Take A Slice.opus
+118:Duman/Album - Belki Alışman Lazım/Masal.m4a
+119:Duman/Album - Darmaduman/Sınana Sınana.m4a
+120:x0o0x_/points/points.m4a
+121:Mix - Son Feci Bisiklet/Son Feci Bisiklet - Pazar ve Ertesi (Vesaire).m4a
+122:Sorewachotohendesu/My Love Mine All Mine - Mitski (cover).m4a
+playlist_end
