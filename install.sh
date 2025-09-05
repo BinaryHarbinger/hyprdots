@@ -3,7 +3,6 @@
 set -euo pipefail
 
 if [ ! -t 0 ]; then
-    # Pipe ile çalıştırılıyor
     curl -fsSL -o /tmp/install.sh https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/install.sh
     chmod +x /tmp/install.sh
     exec /tmp/install.sh "$@"
@@ -182,9 +181,7 @@ if gum confirm "Set up MPD? (Not Recommended for new users)"; then
     process "Setting Up MPD" bash -c '
 
     systemctl --user enable mpd 
-    systemctl --user enable mpd-mpris
     
-    systemctl --user start mpd-mpris
     systemctl --user start mpd
     '
 
@@ -216,7 +213,7 @@ else
     sed -i "s/kb_layout = tr/kb_layout = ${LAYOUT}/g" ./config/hypr/hyprland.conf
 fi
 
-# Change shell
+# --- Change shell ---
 
 current_shell=$(getent passwd "$USER" | cut -d: -f7)
 
