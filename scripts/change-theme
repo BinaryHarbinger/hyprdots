@@ -23,10 +23,10 @@ change_theme () {
     ln -sf "$THEME_PATH/wiremix.toml" ~/.config/wiremix/wiremix.toml
     ln -sf "$THEME_PATH/foot.ini" ~/.config/foot/foot.ini
     ln -sf "$THEME_PATH/theme.toml" ~/.config/yazi/theme.toml
+    ln -sf "$THEME_PATH/mpv/script-opts/uosc.conf" ~/.config/mpv/script-opts
 
-    # Folders
+    # Fish
     ln -sf "$THEME_PATH/fish/"* ~/.config/fish/
-    ln -sf "$THEME_PATH/mpv/"* ~/.config/mpv/
     
     # Scripts
     bash "$THEME_PATH/theme.sh"
