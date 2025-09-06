@@ -14,53 +14,52 @@ enforce_max_volume = true
 
 [themes.default]
 # The symbol marking the default device on the Input/Output Devices tabs
-default_device = { fg = "#D28CF0" }
+default_device = { }
 # The symbol marking the default endpoint on the Playback/Recording tabs
-default_stream = { fg = "#D28CF0" }
+default_stream = { }
 # The selection indicator in a tab
-selector = { fg = "#D28CF0" }
+selector = { fg = "#EBDBB2" }
 # The name of a tab in the tab menu
-tab = { fg = "#7E839A" }
+tab = { }
 # The name of the selected tab in the tab menu
-tab_selected = { fg = "#D28CF0" }
+tab_selected = { fg = "#EBDBB2" }
 # The symbols surrounding the selected tab in the tab menu
-tab_marker = { fg = "#D28CF0" }
+tab_marker = { fg = "#EBDBB2" }
 # The symbol at the top/bottom of a tab indicating that there are more items
-list_more = { fg = "#9DA2B9" }
+list_more = { fg = "DarkGray" }
 # The name of a PipeWire node
-node_title = { fg = "#7E839A" }
+node_title = { }
 # The name of the selected target for a node
-node_target = { fg = "#D28CF0" }
+node_target = { }
 # The volume percentage label
-volume = { fg = "#D28CF0" }
+volume = { }
 # Volume bar
-volume_empty = { fg = "#9DA2B9" }
-volume_filled = { fg = "#D28CF0" }
+volume_empty = { fg = "DarkGray" }
+volume_filled = { fg = "#EBDBB2" }
 # Peak meter. Inactive = unlit, active = lit, overload = greater than 0.0 dB
-meter_inactive = { fg = "#9DA2B9" }
-meter_active = { fg = "#B275CC" }
-meter_overload = { fg = "#F25CC1" }
+meter_inactive = { fg = "DarkGray" }
+meter_active = { fg = "LightGreen" }
+meter_overload = { fg = "Red" }
 # The "live" indicator in the center of the meter
-meter_center_inactive = { fg = "#9DA2B9" }
-meter_center_active = { fg = "#B275CC" }
+meter_center_inactive = { fg = "DarkGray" }
+meter_center_active = { fg = "LightGreen" }
 # The name of a device in the Configuration tab
-config_device = { fg = "#7E839A" }
+config_device = { }
 # The name of the selected profile in the Configuration tab
-config_profile = { fg = "#D28CF0" }
-# Dropdown marker next to the profiles in the Configuration tab
-dropdown_icon = { fg = "#D28CF0" }
+config_profile = { }
+# Dropdown marker next to the profiles in the Conifguration tab
+dropdown_icon = { }
 # Border around dropdowns
-dropdown_border = { fg = "#D28CF0" }
+dropdown_border = { }
 # The name of an item in a dropdown
-dropdown_item = { fg = "#7E839A" }
+dropdown_item = { }
 # The name of the currently-selected item in a dropdown
-dropdown_selected = { fg = "#D28CF0", add_modifier = "REVERSED" }
+dropdown_selected = { fg = "#EBDBB2", add_modifier = "REVERSED" }
 # The symbol at the top/bottom of a dropdown indicating that there are more items
-dropdown_more = { fg = "#9DA2B9" }
+dropdown_more = { fg = "DarkGray" }
 # Border around help menu
-help_border = { fg = "#D28CF0" }
-# The name of an item in the help menu
-help_item = { fg = "#7E839A" }
+help_border = { }
+# The name of an item in a the help menu
+help_item = { }
 # The symbol at the top/bottom of the help menu indicating that there are more items
-help_more = { fg = "#9DA2B9" }
-
+help_more = { fg = "DarkGray" }
