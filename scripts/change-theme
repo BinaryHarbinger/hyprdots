@@ -20,6 +20,7 @@ change_theme () {
     ln -sf "$THEME_PATH/theme.css" ~/.config/swaync/theme.css
     ln -sf "$THEME_PATH/theme.rasi" ~/.config/rofi/theme.rasi
     ln -sf "$THEME_PATH/hypr.conf" ~/.config/hypr/theme.conf
+    ln -sf "$THEME_PATH/theme.py" ~/.config/qutebrowser/theme.py
     ln -sf "$THEME_PATH/wiremix.toml" ~/.config/wiremix/wiremix.toml
     ln -sf "$THEME_PATH/foot.ini" ~/.config/foot/foot.ini
     ln -sf "$THEME_PATH/theme.toml" ~/.config/yazi/theme.toml
@@ -30,6 +31,11 @@ change_theme () {
     
     # Scripts
     bash "$THEME_PATH/theme.sh"
+    
+    
+    if command -v qutebrowser &> /dev/null; then
+        qutebrowser ":config-source" 
+    fi
 
     pkill waybar >/dev/null 2>&1
     waybar >/dev/null 2>&1 & disown

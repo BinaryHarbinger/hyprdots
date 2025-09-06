@@ -4,7 +4,7 @@
 @define-color border-alt @fg-main;
 
 /* Background Colors */
-@define-color bg-main #11111B;
+@define-color bg-main #1A1B29;
 @define-color bg-alt #939CDA;
 @define-color bg-hover #484872;
 @define-color bg-hover-alt #30304D;

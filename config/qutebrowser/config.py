@@ -2,6 +2,8 @@
 
 config.load_autoconfig(False)
 
+import os, sys
+sys.path.append(os.path.join(os.path.expanduser('~'), ".config/qutebrowser/"))
 # Colors
 bg_main = "#11111b"
 bg_hover = "#30304d"
@@ -13,6 +15,8 @@ content_hover = "#b4befe"
 content_alt = "#484872"
 content_act = "#cdd4ff"
 content_inactive = "#b4befe"
+
+from theme import *
 
 # Tabs
 c.tabs.position = "left"
