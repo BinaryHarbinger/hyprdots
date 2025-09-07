@@ -18,7 +18,7 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.rtp:append("~/.config/nvim")
 
 -- Default colorscheme
-vim.cmd("colorscheme binaryharbinger")
+vim.cmd("colorscheme gruvbox")
 
 -- Ensure lazy.nvim is installed
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -52,12 +52,16 @@ require("lazy").setup({
     end,
   },
 
-  -- sudo.nvim
-  {
-    "denialofsandwich/sudo.nvim",
-    dependencies = { "MunifTanjim/nui.nvim" },
-    config = true,
-  },
+-- Markdown
+    {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' }, -- if you use the mini.nvim suite
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' }, -- if you use standalone mini plugins
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {},
+},
 
   -- Treesitter
   {
@@ -146,7 +150,7 @@ require("lazy").setup({
             { icon = "  ", desc = "New file", action = "enew" },
             { icon = "  ", desc = "Find file", action = "Telescope find_files" },
             { icon = "  ", desc = "File browser", action = "Telescope file_browser" },
-            { icon = "  ", desc = "Quit", action = "qa" },
+            { icon = "󰩈  ", desc = "Quit", action = "qa" },
           },
           footer = { "Binaryharbinger's Dotfiles" },
         },
