@@ -97,15 +97,15 @@ fi
 PACKAGES=(
     breeze nwg-look qt6ct papirus-icon-theme bibata-cursor-theme catppuccin-gtk-theme-mocha
     ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-fira-code ttf-firacode-nerd otf-fira-code-symbol ttf-material-design-iconic-font
-    yazi wiremix
+    yazi wiremix neovim fzf
     hyprland hyprlock hypridle hyprpolkitagent hyprsunset hyprpicker
     wlogout
     power-profiles-daemon udiskie network-manager-applet brightnessctl
     cliphist stow git fish unzip fastfetch pamixer swaync foot swww
-    mpv mpd mpd-mpris rmpc
+    mpv mpd mpdris2-rs rmpc
     base-devel
     waybar eww
-    rofi-wayland rofimoji
+    rofi rofimoji
 )
 
 if ! process "Installing packages..." paru -S --noconfirm --needed "${PACKAGES[@]}"; then
