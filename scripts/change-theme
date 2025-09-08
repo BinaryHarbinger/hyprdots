@@ -33,7 +33,7 @@ change_theme () {
     bash "$THEME_PATH/theme.sh"
     
     
-    if command -v qutebrowser &> /dev/null; then
+    if pgrep -x "qutebrowser" > /dev/null; then
         qutebrowser ":config-source" 
     fi
 
