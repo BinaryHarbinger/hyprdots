@@ -82,7 +82,7 @@ if ! check_dep paru; then
 fi
 
 if process "Updating system..." bash -c '
-    if ! paru -Syu --noconfirm --repo >/dev/null 2>&1; then
+    if ! paru -Syu --repo >/dev/null 2>&1; then
         error "System update failed. Try to update manually."
         exit 1
     fi
@@ -108,7 +108,7 @@ PACKAGES=(
     rofi rofimoji
 )
 
-if ! process "Installing packages..." paru -S --noconfirm --needed "${PACKAGES[@]}"; then
+if ! process "Installing packages..." bash -c "yes y | paru -S --needed ${PACKAGES[*]}"; then
     error "Package installation failed."
     exit 1
 fi
