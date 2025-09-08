@@ -156,6 +156,8 @@ process "Moving scripts and configs..." bash -c '
     mv ~/.config/nvim/ ~/dots.old/ > /dev/null 2>&1
     mv ~/.config/rofi/ ~/dots.old/ > /dev/null 2>&1
     mv ~/.config/waybar/ ~/dots.old/ > /dev/null 2>&1
+    mv ~/.config/wlogout/ ~/dots.old/ > /dev/null 2>&1
+    mv ~/.config/swaync/ ~/dots.old/ > /dev/null 2>&1
     mv ~/.config/foot/ ~/dots.old/ > /dev/null 2>&1
     mv ~/.config/mpd/ ~/dots.old/ > /dev/null 2>&1
     mv ~/.config/rmpc/ ~/dots.old/ > /dev/null 2>&1
