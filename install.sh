@@ -148,26 +148,27 @@ info "Cloned Repository."
 # --- Move scripts/configs ---
 
 process "Moving scripts and configs..." bash -c '
-    mkdir ~/dots.old
-    mv ~/.config/scripts/ ~/dots.old/ > /dev/null 2>&1
-    mv ~/.config/hypr/ ~/dots.old/ > /dev/null 2>&1
-    mv ~/.config/eww/ ~/dots.old/ > /dev/null 2>&1
-    mv ~/.config/fastfetch/ ~/dots.old/ > /dev/null 2>&1
-    mv ~/.config/nvim/ ~/dots.old/ > /dev/null 2>&1
-    mv ~/.config/rofi/ ~/dots.old/ > /dev/null 2>&1
-    mv ~/.config/waybar/ ~/dots.old/ > /dev/null 2>&1
-    mv ~/.config/wlogout/ ~/dots.old/ > /dev/null 2>&1
-    mv ~/.config/swaync/ ~/dots.old/ > /dev/null 2>&1
-    mv ~/.config/foot/ ~/dots.old/ > /dev/null 2>&1
-    mv ~/.config/mpd/ ~/dots.old/ > /dev/null 2>&1
-    mv ~/.config/rmpc/ ~/dots.old/ > /dev/null 2>&1
-    cp -rf ./scripts ~/.config/ > /dev/null 2>&1
-    chmod +x ~/.config/scripts/* || true
-    cp -rf ./config/* ~/.config/ > /dev/null 2>&1
-    chmod +x ~/.config/hypr/scripts/* ~/.config/eww/scripts/* || true' 
+mkdir -p ~/dots.old
 
-info 'Moved scripts and config files.'
+for dir in scripts hypr eww fastfetch nvim rofi waybar wlogout yazi swaync foot mpd rmpc; do
+    src="$HOME/.config/$dir"
+    dst="$HOME/dots.old/$dir"
 
+    if [ -L "$src" ] || [ -d "$src" ]; then
+        # Symlink veya normal dizin farketmez, mv kendisini taşır
+        mv "$src" "$dst" 2>/dev/null || true
+    fi
+done
+
+# Yeni konfigları kopyala
+cp -r ./scripts ~/.config/
+chmod +x ~/.config/scripts/* || true
+
+cp -r ./config/* ~/.config/
+chmod +x ~/.config/hypr/scripts/* ~/.config/eww/scripts/* || true
+'
+
+info "Moved scripts and config files."
 # --- Polkit agent ---
 process "Setting up polkit agent..." systemctl --user enable --now hyprpolkitagent.service
 
