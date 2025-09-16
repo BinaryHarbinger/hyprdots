@@ -72,12 +72,12 @@
     "format": "{status_icon}",
     
     "player-icons": {
-      "default": "▶  Playing"},
+      "default": "  Playing"},
 
     "status-icons": {
       "paused": "  Paused",
       "playing": "  Playing",
-      "stopped": " Stopped",
+      "stopped": " Stopped",
     },
 
     "tooltip": false

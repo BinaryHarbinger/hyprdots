@@ -83,7 +83,7 @@ tooltip label {
     color: @warning_color;
 }
 #workspaces button:hover {
-    background: @fg-main;
+    background: @bg-hover;
     color: @bg-main;
 }
 

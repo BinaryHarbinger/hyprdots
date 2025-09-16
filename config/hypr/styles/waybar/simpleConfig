@@ -73,6 +73,7 @@
 "mpris": {
     
     "format": "  {status_icon}  {title} - {artist} ",
+    "format-stopped": "No Player", 
     "title-len": 30,
     "player-icons": {
       "default": ""},
@@ -80,7 +81,7 @@
     "status-icons": {
       "paused": "",   
       "playing": "",
-      "stopped": "",
+      "stopped": "",
     },                       
   
     "tooltip": false
