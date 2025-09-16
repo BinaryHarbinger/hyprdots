@@ -7,7 +7,7 @@ set background=dark
 let g:colors_name = "gruvbox"
 
 " Temel renkler
-hi Normal       guifg=#EBDBB2 guibg=#3C3836
+hi Normal       guifg=#EBDBB2 guibg=#282828
 hi Comment      guifg=#5f875f gui=italic
 hi Constant     guifg=#d7875f
 hi Identifier   guifg=#87afd7

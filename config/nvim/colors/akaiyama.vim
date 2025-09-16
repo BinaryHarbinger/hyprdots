@@ -7,7 +7,7 @@ endif
 set background=dark
 let g:colors_name = "akaiyama"
 
-hi Normal       guifg=#FFCACA guibg=#515659
+hi Normal       guifg=#FFCACA guibg=#414447
 hi Comment      guifg=#5f875f gui=italic
 hi Constant     guifg=#d7875f
 hi Identifier   guifg=#87afd7
