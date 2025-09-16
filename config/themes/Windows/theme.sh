@@ -1,7 +1,7 @@
 #!/bin/bash                                                                      
 
-cp -r ~/.config/hypr/styles/waybar/windows.css ~/.config/waybar/style.css
-cp -r ~/.config/hypr/styles/waybar/windowsConfig ~/.config/waybar/config
+ln -sf ~/.config/hypr/styles/waybar/windows.css ~/.config/waybar/style.css
+ln -sf ~/.config/hypr/styles/waybar/windowsConfig ~/.config/waybar/config
 
 bash ~/.config/scripts/wallpaper -s ~/.config/hypr/wallpapers/Windows.jpg
 
