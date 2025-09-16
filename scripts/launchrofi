@@ -119,24 +119,24 @@ waybar_settings() {
     # Execute the corresponding command based on the selected option
     case $chosen in
         " Single Bar")
-            cp -r ~/.config/hypr/styles/waybar/bar.css ~/.config/waybar/style.css >/dev/null 2>&1 & disown
-            cp -r ~/.config/hypr/styles/waybar/barConfig ~/.config/waybar/config
+            ln -sf ~/.config/hypr/styles/waybar/bar.css ~/.config/waybar/style.css >/dev/null 2>&1 & disown
+            ln -sf ~/.config/hypr/styles/waybar/barConfig ~/.config/waybar/config
             ;;
         " Binary Bar")
-            cp -r ~/.config/hypr/styles/waybar/default.css ~/.config/waybar/style.css >/dev/null 2>&1 & disown
-            cp -r ~/.config/hypr/styles/waybar/defaultConfig ~/.config/waybar/config
+            ln -sf ~/.config/hypr/styles/waybar/default.css ~/.config/waybar/style.css >/dev/null 2>&1 & disown
+            ln -sf ~/.config/hypr/styles/waybar/defaultConfig ~/.config/waybar/config
             ;;
         " Floating Bar")
-            cp -r ~/.config/hypr/styles/waybar/floating.css ~/.config/waybar/style.css >/dev/null 2>&1 & disown
-            cp -r ~/.config/hypr/styles/waybar/floatConfig ~/.config/waybar/config
+            ln -sf ~/.config/hypr/styles/waybar/floating.css ~/.config/waybar/style.css >/dev/null 2>&1 & disown
+            ln -sf ~/.config/hypr/styles/waybar/floatConfig ~/.config/waybar/config
             ;;
         " Simple Bar")
-            cp -r ~/.config/hypr/styles/waybar/simple.css ~/.config/waybar/style.css >/dev/null 2>&1 & disown
-            cp -r ~/.config/hypr/styles/waybar/simpleConfig ~/.config/waybar/config
+            ln -sf ~/.config/hypr/styles/waybar/simple.css ~/.config/waybar/style.css >/dev/null 2>&1 & disown
+            ln -sf ~/.config/hypr/styles/waybar/simpleConfig ~/.config/waybar/config
             ;;
         " Windows")
-            cp -r ~/.config/hypr/styles/waybar/windows.css ~/.config/waybar/style.css >/dev/null 2>&1 & disown
-            cp -r ~/.config/hypr/styles/waybar/windowsConfig ~/.config/waybar/config
+            ln -sf ~/.config/hypr/styles/waybar/windows.css ~/.config/waybar/style.css >/dev/null 2>&1 & disown
+            ln -sf ~/.config/hypr/styles/waybar/windowsConfig ~/.config/waybar/config
             ;;
         " Reload Bar")
         pkill waybar

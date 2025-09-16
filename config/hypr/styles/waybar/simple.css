@@ -17,7 +17,7 @@
 	all: unset; /*Remove the useless GTK theme rules*/
     font-family: "JetBrainsMono Nerd Font","Fira Mono";
     font-weight: 900;
-    font-size: 12.5px;
+    font-size: 12px;
 }
 
 window#waybar {
@@ -52,6 +52,7 @@ tooltip label {
 
 /* Workspaces styling */
 #workspaces {
+    font-size: 13px;
     color: transparent;
     margin-right: 1.5px;
     margin-left: 1.5px;
@@ -61,8 +62,8 @@ tooltip label {
 }
 #workspaces button {
     color: @fg-main;
-    padding: 2px 5px;
-    margin: 3px 4px;
+    padding: 0px 5px;
+    margin: 1px 4px;
     background-color: @bg-main;
     border-color: @bg-main;
 }
@@ -150,7 +151,7 @@ tooltip label {
 /* Bluetooth widget styling */
 #bluetooth {
     padding: 0px 10px;
-    font-size: 14px;
+    font-size: 12px;
     font-family: "Fira Code";
 }
 
@@ -164,7 +165,7 @@ tooltip label {
 
 /* Sway notification custom widget and other widgets */
 #custom-swaync {
-    font-size: 20px;
+    font-size: 18px;
     padding: 0px 8px;
 }
 
@@ -179,7 +180,7 @@ tooltip label {
     color: @fg-main;
     padding: 0px 5px;
     padding-left: 10px;
-    font-size: 14px;
+    font-size: 13px;
     margin: 2px 6px;
 }
 
@@ -188,7 +189,7 @@ tooltip label {
     font-family: "Symbols Nerd Font", "JetbrainsMono Nerd Font";
     background-color: @bg-main;
     font-weight: bold;
-    padding: 0px 10px;
+    padding: 0px 9px;
     border: 0px solid @border-main;
 }
 
@@ -245,7 +246,7 @@ tooltip label {
 }
 
 #clock {
-    font-size: 14px;
+    font-size: 13px;
     padding: 0px 6px;
     margin: 0px 4px;
 }
@@ -264,5 +265,5 @@ tooltip label {
 
 #network, #pulseaudio, #battery, #backlight {
     padding: 0px 6px;
-    font-size: 15px;
+    font-size: 13px;
 }

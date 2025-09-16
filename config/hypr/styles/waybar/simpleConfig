@@ -19,7 +19,7 @@
     "gtk-layer-shell": true,
     "height": 0,
 
-    "modules-left": ["group/customs","mpris"],
+    "modules-left": ["group/customs","custom/seperator","mpris"],
     "modules-center": ["hyprland/workspaces"],
     "modules-right": ["tray", "group/controlCenter", "power-profiles-daemon", "clock", "custom/swaync"],
     
@@ -57,6 +57,11 @@
     "on-click": "~/.config/scripts/launchrofi --menu",
 },
 
+"custom/seperator": {
+    "format": " | ",
+    "tooltip": false,
+    "interval": "once",
+},
 
 // =============================================================
 
@@ -67,15 +72,15 @@
  
 "mpris": {
     
-    "format": "{status_icon}",
-    
+    "format": "  {status_icon}  {title} - {artist} ",
+    "title-len": 30,
     "player-icons": {
-      "default": "▶  Playing"},
+      "default": ""},
  
     "status-icons": {
-      "paused": "  Paused",   
-      "playing": "  Playing",
-      "stopped": " Stopped",
+      "paused": "",   
+      "playing": "",
+      "stopped": "",
     },                       
   
     "tooltip": false

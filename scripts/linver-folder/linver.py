@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 """
 Forked from linver 1.0.0 - made by @techguy16 
 Probably the best recreation of Winver for Linux
