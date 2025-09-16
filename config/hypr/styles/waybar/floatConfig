@@ -22,7 +22,7 @@
     "passthrough": false,
     "height": 0,
 
-    "modules-left": ["group/customs", "mpris", "group/hardware"],
+    "modules-left": ["group/customs", "mpris"],
     "modules-center": ["hyprland/workspaces"],
     "modules-right": ["tray", "group/controlCenter", "power-profiles-daemon", "clock", "custom/swaync"],
     
@@ -72,15 +72,16 @@
 
   "mpris": {
 
-    "format": "{status_icon}",
+    "format": "   {status_icon}  {title} - {artist} ",
     
+    "title-len": 22,
     "player-icons": {
-        "default": "  Playing",
+        "default": "",
     },
     "status-icons": {
-      "paused": "  Paused",
-      "playing": "  Playing",
-      "stopped": " Stopped",
+      "paused": "",
+      "playing": "",
+      "stopped": "",
     },
 
     "tooltip": false
