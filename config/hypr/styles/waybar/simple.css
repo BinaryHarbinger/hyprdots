@@ -254,13 +254,13 @@ tooltip label {
 /* Control Center*/
 
 #controlCenter {
-    background-color: @bg-second;
+    background-color: @bg-main;
     padding: 0px 8px;
     margin: 0px 10px;
 }
 
 #controlCenter:hover {
-    background-color: @fg-unactive;
+    background-color: @bg-hover;
 }
 
 #network, #pulseaudio, #battery, #backlight {

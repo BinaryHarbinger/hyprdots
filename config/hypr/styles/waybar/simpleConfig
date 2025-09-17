@@ -72,7 +72,7 @@
  
 "mpris": {
     
-    "format": "  {status_icon}  {title} - {artist} ",
+    "format": "  {status_icon}   {title} - {artist} ",
     "format-stopped": "No Player", 
     "title-len": 30,
     "player-icons": {

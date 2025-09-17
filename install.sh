@@ -114,6 +114,7 @@ if ! process "Installing packages..." bash -c "yes y | paru -S --needed ${PACKAG
 fi
 
 # --- NVIDIA detection & driver installation ---
+NVIDIGPU="yes"
 if lspci | grep -qi 'NVIDIA'; then
     info "NVIDIA GPU detected."
     if ! pacman -Qi nvidia-dkms >/dev/null 2>&1; then
@@ -122,6 +123,8 @@ if lspci | grep -qi 'NVIDIA'; then
     else
         info "nvidia-dkms already installed."
     fi
+else
+NVIDIGPU="no"
 fi
 
 # --- Clone dotfiles ---
@@ -150,25 +153,30 @@ info "Cloned Repository."
 process "Moving scripts and configs..." bash -c '
 mkdir -p ~/dots.old
 
-for dir in scripts hypr eww fastfetch nvim rofi waybar wlogout yazi swaync foot mpd rmpc; do
+for dir in scripts hypr eww fastfetch nvim rofi waybar wlogout yazi swaync foot mpd rmpc themes; do
     src="$HOME/.config/$dir"
     dst="$HOME/dots.old/$dir"
 
     if [ -L "$src" ] || [ -d "$src" ]; then
-        # Symlink veya normal dizin farketmez, mv kendisini taşır
         mv "$src" "$dst" 2>/dev/null || true
     fi
 done
 
-# Yeni konfigları kopyala
 cp -r ./scripts ~/.config/
 chmod +x ~/.config/scripts/* || true
 
 cp -r ./config/* ~/.config/
 chmod +x ~/.config/hypr/scripts/* ~/.config/eww/scripts/* || true
 '
+if [ "$NVIDIGPU" != 'yes' ]; then
+  if gum confirm "Is your main monitor external?"; then
+    sed -i 's/^env = AQ_DRM_DEVICES,\/dev\/dri\/card0:\/dev\/dri\/card1/#&/' ~/.config/hypr/hyprland.conf
+  fi
+fi
+
 
 info "Moved scripts and config files."
+
 # --- Polkit agent ---
 process "Setting up polkit agent..." systemctl --user enable --now hyprpolkitagent.service
 
@@ -264,7 +272,8 @@ if pgrep Hyprland >/dev/null; then
         eww open-many stats desktopmusic >/dev/null 2>&1
     fi
     nohup waybar >/dev/null 2>&1 & disown
-    setsid swww-daemon >/dev/null 2>&1 &'
+    setsid swww-daemon >/dev/null 2>&1 &
+    hyprctl reload'
 
     info "Reloaded Components."
 fi
