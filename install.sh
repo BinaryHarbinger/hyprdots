@@ -101,7 +101,7 @@ PACKAGES=(
     hyprland hyprlock hypridle hyprpolkitagent hyprsunset hyprpicker
     wlogout
     power-profiles-daemon udiskie network-manager-applet brightnessctl
-    cliphist stow git fish unzip fastfetch pamixer swaync foot swww
+    cliphist stow git zsh unzip fastfetch pamixer swaync foot swww
     mpv mpd mpdris2-rs rmpc
     base-devel
     waybar eww
@@ -161,6 +161,8 @@ for dir in scripts hypr eww fastfetch nvim rofi waybar wlogout yazi swaync foot 
         mv "$src" "$dst" 2>/dev/null || true
     fi
 done
+
+cp -r ./home/* ~/
 
 cp -r ./scripts ~/.config/
 chmod +x ~/.config/scripts/* || true
@@ -228,10 +230,31 @@ fi
 
 current_shell=$(getent passwd "$USER" | cut -d: -f7)
 
-if [ "$current_shell" != "/usr/bin/fish" ] && [ "$current_shell" != "/bin/fish" ]; then
-    if gum confirm "Change default shell to fish?"; then
-        if chsh -s /bin/fish "$USER"; then
-            info "Default shell changed to fish."
+if [ "$current_shell" != "/usr/bin/zsh" ] && [ "$current_shell" != "/bin/zsh" ]; then
+    if gum confirm "Change default shell to zsh?"; then
+        if chsh -s /bin/zsh "$USER"; then
+            info "Default shell changed to zsh."
+
+            process "Configuring ZSH..." bash -c '
+            sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+            CUSTOM_PLUGIN_DIR="$HOME/.oh-my-zsh/custom/plugins"
+            mkdir -p "$CUSTOM_PLUGIN_DIR"
+            declare -A plugins
+            plugins=(
+            [zsh-autosuggestions]="https://github.com/zsh-users/zsh-autosuggestions.git"
+            [zsh-syntax-highlighting]="https://github.com/zsh-users/zsh-syntax-highlighting.git"
+            [rust]="https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/rust.git"
+            )
+
+            # Clone each plugin silently
+            for plugin in "${!plugins[@]}"; do
+            PLUGIN_DIR="$CUSTOM_PLUGIN_DIR/$plugin"
+                if [ ! -d "$PLUGIN_DIR" ]; then
+                    git clone -q "${plugins[$plugin]}" "$PLUGIN_DIR" > /dev/null 2>&1
+                fi
+            done
+            '
+            info "Configured ZSH."
             if gum confirm "Install some rust utils? (Recommended)"; then
                 if process "Installing rust utilities" paru -S --needed --noconfirm eza sudo-rs bat ripgrep sd fd ; then
                     info "Successfully installed rust utils." 

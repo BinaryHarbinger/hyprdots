@@ -27,7 +27,7 @@ change_theme () {
     ln -sf "$THEME_PATH/mpv/script-opts/uosc.conf" ~/.config/mpv/script-opts
 
     # Fish
-    ln -sf "$THEME_PATH/fish/"* ~/.config/fish/
+#    ln -sf "$THEME_PATH/fish/"* ~/.config/fish/
     
     # Scripts
     bash "$THEME_PATH/theme.sh"
