@@ -1,67 +1,44 @@
 unalias -m '*'
 
-sudo() {
-    if command -v sudo-rs >/dev/null 2>&1; then
-        command sudo-rs "$@"
-    else
-        command sudo "$@"
-    fi
-}
 
-su() {
-    if command -v su-rs >/dev/null 2>&1; then
-        command su-rs "$@"
-    else
-        command su "$@"
-    fi
-}
+if command -v sudo-rs >/dev/null 2>&1; then
+    alias sudo=sudo-rs
+fi
 
-ls() {
-    if command -v eza >/dev/null 2>&1; then
-        command eza --icons "$@"
-    else
-        command ls "$@"
-    fi
-}
+if command -v su-rs >/dev/null 2>&1; then
+    alias su=su-rs
+fi
 
-cat() {
-    if command -v bat >/dev/null 2>&1; then
-        command bat "$@"
-    else
-        command cat "$@"
-    fi
-}
+if command -v eza >/dev/null 2>&1; then
+    alias ls='eza --icons'
+fi
 
-grep() {
-    if command -v rg >/dev/null 2>&1; then
-        command rg --color=always --line-number "$@"
-    else
-        command grep "$@"
-    fi
-}
+if command -v bat >/dev/null 2>&1; then
+    alias cat=bat
+fi
 
-hclear() {
-    history -p
-    clear
-    neofetch
-}
+if command -v rg >/dev/null 2>&1; then
+    alias grep='rg --color=always --line-number "$@"'
+fi
 
 snvim() {
     sudo HOME="/home/$USER" nvim -u "/home/$USER/.config/nvim/init.lua" "$@"
 }
 
-neofetch() {
-    if command -v fastfetch >/dev/null 2>&1; then
-        fastfetch
-    else
-        /usr/sbin/neofetch
-    fi
-}
+if command -v fastfetch >/dev/null 2>&1; then
+    alias neofetch=fastfetch
+fi
 
 man() {
     if command -v bat >/dev/null 2>&1; then
         command man "$@" | col -bx | bat -l man
     else
-        command man "$@"
-    fi
+        command man
+fi
+ }
+
+hclear() {
+    history -p
+    clear
+    neofetch
 }

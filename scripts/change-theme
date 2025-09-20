@@ -25,13 +25,17 @@ change_theme () {
     ln -sf "$THEME_PATH/foot.ini" ~/.config/foot/foot.ini
     ln -sf "$THEME_PATH/theme.toml" ~/.config/yazi/theme.toml
     ln -sf "$THEME_PATH/mpv/script-opts/uosc.conf" ~/.config/mpv/script-opts
+    
+    source "$THEME_PATH/theme.sh" # Export theme variables
 
-    # Fish
-#    ln -sf "$THEME_PATH/fish/"* ~/.config/fish/
-    
-    # Scripts
-    bash "$THEME_PATH/theme.sh"
-    
+    bash ~/.config/scripts/wallpaper -s "$wallpaper" 
+
+    sed -i "s/^THEME_VAR=\"[^\"]*\"/THEME_VAR=\"$scheme\"/" ~/.zshrc
+
+    sed -i "s/vim\.cmd(\"colorscheme .*\")/vim.cmd(\"colorscheme $scheme\")/" ~/.config/nvim/init.lua
+
+    sed -i "s/theme: \".*\",/theme: \"$scheme\",/" ~/.config/rmpc/config.ron
+
     
     if pgrep -x "qutebrowser" > /dev/null; then
         qutebrowser ":config-source" 

@@ -78,11 +78,12 @@ export PATH="$HOME/.config/scripts:$PATH"
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
+# === Custom Options ===
+setopt dot_glob
+setopt extended_glob
+# ======================
+
 # === Custom Prompt ===
-
-
-# Enable prompt substitution
-setopt PROMPT_SUBST
 
 # Define the prompt
 PROMPT='%{$fg_bold[blue]%}$(git_prompt_status)%{$reset_color%}$(git_prompt_info)%{$fg[$user_color]%}%(?.%{$fg_bold[green]%}%~%{$reset_color%}.%{$fg_bold[red]%}%~%{$reset_color%})%(!.#.➤) '
@@ -98,9 +99,21 @@ PROMPT='%{$fg_bold[blue]%}$(git_prompt_status)%{$reset_color%}$(git_prompt_info)
    export EDITOR='nvim'
  fi
 
+
+THEME_VAR="binaryharbinger"
+
+# Only run in interactive shells
 if [[ $- == *i* ]]; then
-    neofetch
+    if [[ $THEME_VAR == "windoes" ]]; then
+        distro=$(grep '^NAME=' /etc/os-release | cut -d '=' -f2 | tr -d '"')
+        echo "$distro [Version 10.0.19045.4529]"
+        echo "(c) GNU/Linux Corporation. All freedom preserved"
+        echo ""
+    else
+        neofetch
+    fi
 fi
+
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
