@@ -1,3 +1,27 @@
-* {
-	border-radius: 10px;
+/* === QMenuBar === */
+QMenuBar {
+    color: palette(highlight);          /* accent */
+    background-color: palette(window);  /* background */
+}
+
+QMenuBar::item {
+    color: palette(highlight);
+    background: transparent;
+}
+
+QMenuBar::item:hover,
+QMenuBar::item:selected {
+    color: palette(highlight);
+    background: palette(midlight);      /* hover color */
+}
+
+/* === QMenu === */
+QMenu {
+    color: palette(highlight);          /* accent */
+    background-color: palette(window);  /* background */
+}
+
+QMenu::item:selected {
+    background-color: palette(midlight); /* hover */
+    color: palette(highlight);
 }
