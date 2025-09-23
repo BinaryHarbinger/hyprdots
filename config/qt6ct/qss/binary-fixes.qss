@@ -1,27 +1,31 @@
 /* === QMenuBar === */
 QMenuBar {
-    color: palette(highlight);          /* accent */
+    color: palette(accent);          /* accent */
     background-color: palette(window);  /* background */
 }
 
 QMenuBar::item {
-    color: palette(highlight);
+    color: palette(accent);
     background: transparent;
 }
 
 QMenuBar::item:hover,
 QMenuBar::item:selected {
-    color: palette(highlight);
+    color: palette(dark);
     background: palette(midlight);      /* hover color */
 }
 
-/* === QMenu === */
+/* === QMenu === 
 QMenu {
-    color: palette(highlight);          /* accent */
+    color: palette(accent);          /* accent */
     background-color: palette(window);  /* background */
 }
 
-QMenu::item:selected {
-    background-color: palette(midlight); /* hover */
-    color: palette(highlight);
-}
+/* QMenu::item:selected
+QMenu::item:hover 
+{
+    background-color: palette(dark); /* hover */
+    color: palette(dark);
+}*/
+
+
