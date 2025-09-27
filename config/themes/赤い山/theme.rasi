@@ -8,7 +8,7 @@
     input-bar-bg:               #515659;
     background-color:           #464A4C;
     lightred:                   rgba ( 204, 85, 51, 100 % );
-    font:                       "JetbrainsMono Nerd Font 14";
+    font:                       "CaskaydiaMono Nerd Font 15";
     dark:                       rgba ( 28, 28, 28, 100 % );
     transparent:                transparent;
     selected:                   #2B2B42;
@@ -20,7 +20,7 @@
     border-selected:            var(foreground);
     location-var:               center;
     anchor-var:                 center;
-    width-var:                  500px;
+    width-var:                  440px;
     list-font:                  inherit;
     lines-var:                  10;
 }

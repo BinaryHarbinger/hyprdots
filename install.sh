@@ -96,7 +96,7 @@ fi
 # --- Packages ---
 PACKAGES=(
     breeze nwg-look qt6ct papirus-icon-theme bibata-cursor-theme catppuccin-gtk-theme-mocha
-    ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-fira-code ttf-firacode-nerd otf-fira-code-symbol ttf-material-design-iconic-font
+    ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-fira-code ttf-firacode-nerd otf-fira-code-symbol ttf-material-design-iconic-font ttf-cascadia-mono-nerd
     yazi wiremix neovim fzf
     hyprland hyprlock hypridle hyprpolkitagent hyprsunset hyprpicker
     wlogout

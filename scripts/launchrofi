@@ -17,6 +17,7 @@ usage() {
 drun_launcher() {
     rofi \
         -show drun \
+        -case-smart\
         -theme ~/.config/rofi/launcher.rasi
 }
 
@@ -51,7 +52,7 @@ custom_menu() {
             thunar
             ;;
         "")
-            wlogout
+            session_options
             ;;
         "")
             foot
@@ -60,13 +61,45 @@ custom_menu() {
             bash ~/.config/hypr/scripts/openBrowser.sh
             ;;
         "")
-            ~/.config/hypr/scripts/help
+        manual_func
             ;;
         *)
             echo "No option selected"
             ;;
     esac
 }
+
+session_options() {
+    # Menu options displayed in rofi
+    options="  Shutdown\n  Reboot\n  Lock\n󰍃  Logout"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 4;}' -theme-str 'window {width: 285px;}' -p "Select an option:")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "󰌍")
+            system_menu
+            ;;
+        "  Shutdown")
+            notify-send 'Shutting down...' & systemctl poweroff
+            ;;
+        "  Reboot")
+            systemctl reboot
+            ;;
+
+        "  Lock")
+            hyprlock & disown
+            ;;
+        "󰍃  Logout")
+            notify-send 'Logging out...'&hyprctl dispatch exit 0
+            ;;
+        *)
+            echo "No option selected"
+            ;;
+    esac
+}
+
 
 widget_settings() {
     # Menu options displayed in rofi
@@ -109,53 +142,9 @@ widget_settings() {
     esac
 }
 
-waybar_settings() {
-    # Menu options displayed in rofi
-    options=" Single Bar\n Windows\n Simple Bar\n Binary Bar\n Floating Bar\n Reload Bar"
-
-    # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "Select an option:")
-
-    # Execute the corresponding command based on the selected option
-    case $chosen in
-        " Single Bar")
-            ln -sf ~/.config/hypr/styles/waybar/bar.css ~/.config/waybar/style.css >/dev/null 2>&1 & disown
-            ln -sf ~/.config/hypr/styles/waybar/barConfig ~/.config/waybar/config
-            ;;
-        " Binary Bar")
-            ln -sf ~/.config/hypr/styles/waybar/default.css ~/.config/waybar/style.css >/dev/null 2>&1 & disown
-            ln -sf ~/.config/hypr/styles/waybar/defaultConfig ~/.config/waybar/config
-            ;;
-        " Floating Bar")
-            ln -sf ~/.config/hypr/styles/waybar/floating.css ~/.config/waybar/style.css >/dev/null 2>&1 & disown
-            ln -sf ~/.config/hypr/styles/waybar/floatConfig ~/.config/waybar/config
-            ;;
-        " Simple Bar")
-            ln -sf ~/.config/hypr/styles/waybar/simple.css ~/.config/waybar/style.css >/dev/null 2>&1 & disown
-            ln -sf ~/.config/hypr/styles/waybar/simpleConfig ~/.config/waybar/config
-            ;;
-        " Windows")
-            ln -sf ~/.config/hypr/styles/waybar/windows.css ~/.config/waybar/style.css >/dev/null 2>&1 & disown
-            ln -sf ~/.config/hypr/styles/waybar/windowsConfig ~/.config/waybar/config
-            ;;
-        " Reload Bar")
-        pkill waybar
-        waybar& disown
-            ;;
-        *)
-            echo "No option selected"
-            ;;
-        esac
-
-        if [[ -n "$chosen" ]]; then
-            pkill waybar
-            waybar & disown
-        fi
-}
-
 rice_settings() {
     # Menu options displayed in rofi
-    options="󰌍\n Widgets\n Waybar Themes\n Wallpaper\n Themes"
+    options="󰌍\n  Toggle Widgets\n  Wallpaper\n󰌁  Themes"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "Select an option:")
@@ -165,17 +154,13 @@ rice_settings() {
         "󰌍")
             system_menu
             ;;
-        " Widgets")
+        "  Toggle Widgets")
             widget_settings
             ;;
-        " Waybar Themes")
-            waybar_settings
-            ;;
-
-        " Themes")
+        "󰌁  Themes")
             theme_menu
             ;;
-        " Wallpaper")
+        "  Wallpaper")
             set_wallpaper
             ;;
         *)
@@ -187,7 +172,7 @@ rice_settings() {
 set_wallpaper() {
 
     # Prompt user to choose an option
-    chosen=$(python ~/.config/hypr/scripts/wallpapers.py echoImageNames | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "Select an option:")
+    chosen=$(python ~/.config/hypr/scripts/wallpapers.py echoImageNames | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "" -case-smart)
     # Execute the corresponding command based on the selected option
     echo $chosen
     python ~/.config/hypr/scripts/wallpapers.py changeWallpaper $chosen
@@ -195,10 +180,10 @@ set_wallpaper() {
 
 maintain_menu() {
     # Menu options displayed in rofi
-    options="󰌍\nClear Cache\nClear Clipboard\nUpdate Rice\nUpdate System"
+    options="󰌍\n󰃢  Clear Cache\n󱘡  Clear Clipboard\n󰚰  Update Rice"
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "Select an option:")
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 6;}' -p "Select an option:")
 
     # Execute the corresponding command based on the selected option
     case $chosen in
@@ -206,7 +191,7 @@ maintain_menu() {
             system_menu
             ;;
 
-        "Clear Cache")
+        "󰃢  Clear Cache")
          	find ~/.cache -mindepth 1 -maxdepth 1 \
          	  ! -name "spotify" \
          	  ! -name "cliphist" \
@@ -220,14 +205,11 @@ maintain_menu() {
          	  -exec rm -rf {} + >/dev/null 2>&1 & disown
             maintain_menu
             ;;
-        "Clear Clipboard")
+        "󱘡  Clear Clipboard")
             rm -rf ~/.cache/cliphist >/dev/null 2>&1 & disown
             maintain_menu
             ;;
-        "Update System")
-            foot --override=colors.alpha=1 --app-id=Update -e bash ~/.config/scripts/update
-            ;;
-        "Update Rice")
+        "󰚰  Update Rice")
             curl -sSL https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/refs/heads/main/install.sh -o install.sh
             foot --override=colors.alpha=1 --app-id=Update -e bash ./install.sh
             rm -rf ./install.sh
@@ -238,30 +220,83 @@ maintain_menu() {
     esac
 }
 
-
-system_menu() {
+manual_func() {
     # Menu options displayed in rofi
-    options="󰃢 Maintaining\n󰅇 Clipboard\n Session Options\n Rice Settings\n Update System"
+    options="󰌍\n  Keybinds"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "Select an option:")
 
     # Execute the corresponding command based on the selected option
     case $chosen in
-        "󰃢 Maintaining")
+        "󰌍")
+            system_menu
+            ;;
+        "  Keybinds")
+            rofi -dmenu -theme-str 'window {width: 52%;}' -dmenu -theme-str 'listview {lines: 14;}' -i -p ' ' < ~/.config/hypr/scripts/help.txt
+            ;;
+        *)
+            echo "No option selected"
+            ;;
+    esac
+}
+
+screenshot_func() {
+    # Menu options displayed in rofi
+    options="󰌍\n  Fullscreen\n  Selection"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 6;}' -p "Select an option:")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "󰌍")
+            system_menu
+            ;;
+        "  Fullscreen")
+            hyprshot -m output -o ~/Pictures/Screenshots && notify-send -i camera "Hyprshot" "Saved to ~/Pictures/Screenshots"
+            ;;
+        "  Selection")
+            hyprshot -m region -o ~/Pictures/Screenshots && notify-send -i camera "Hyprshot" "Saved to ~/Pictures/Screenshots"
+            ;;
+        *)
+            echo "No option selected"
+            ;;
+    esac
+}
+
+system_menu() {
+    # Menu options displayed in rofi
+    options="  Apps\n󰃢  Maintaining\n󰅇  Clipboard\n󰄀  Screenshot\n  Session Options\n  Manual\n  Settings\n  Update System"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 8;}' -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "" -case-smart)
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "  Apps")
+            drun_launcher
+            ;;
+        "󰃢  Maintaining")
             maintain_menu
             ;;
-        "󰅇 Clipboard")
-            rofi -modi Clipboard:~/.config/hypr/scripts/clipboard.sh -show Clipboard -show-icons
+        "󰅇  Clipboard")
+            rofi -modi Clipboard:~/.config/hypr/scripts/clipboard.sh -show Clipboard -theme-str 'element { children: [element-text]; }' 
             ;;
-        " Session Options")
-            wlogout
+        "󰄀  Screenshot")
+            screenshot_func 
             ;;
-        " Update System")
+        "  Session Options")
+            session_options
+            ;;
+        "  Update System")
             foot --override=colors.alpha=1 --app-id=Update -e bash ~/.config/scripts/update
             ;;
-        " Rice Settings")
+        "  Settings")
             rice_settings
+                    ;;
+        "  Manual")
+            manual_func
                     ;;
         *)
             echo "No option selected"
@@ -276,7 +311,7 @@ theme_menu() {
     THEMES=$(find "$THEME_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n')
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$THEMES" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "Themes")
+    chosen=$(echo -e "$THEMES" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "" -case-smart)
     
     if [[ -z "$chosen" ]]; then 
         exit 1 

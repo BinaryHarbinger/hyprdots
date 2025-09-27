@@ -1,44 +1,73 @@
 General Management:
-- SUPER + M: Exit Hyprland
-- SUPER + V: Toggle floating mode for the active window
-- SUPER + C: Close (kill) the active window
-- ALT + F4: Close (kill) the active window (alternative)
-- SUPER + P: Toggle pseudo-tile layout (Dwindle mode)
-- SUPER + J: Toggle split mode (Dwindle mode)
-- SUPER + F: Toggle fullscreen mode for the active window
+- SUPER + V           Toggle floating mode for the active window
+- SUPER + C           Close (kill) the active window
+- SUPER + M           Toggle pseudo-tile layout (Dwindle mode)
+- SUPER + H           Swap split orientation (Dwindle mode)
+- SUPER + J           Toggle split layout (Dwindle mode)
+- SUPER + F           Toggle fullscreen
 
-Application Shortcuts:
-- SUPER + N: Launch swaync-client in system tray mode
-- SUPER + T: Open terminal (Alacritty)
-- SUPER + Q: Open application menu (rofi submenu)
-- SUPER + E: Open file manager (thunar)
-- SUPER + B: Open web browser with a blank page (xdg-open)
-- SUPER + L: Session options (Wlogout)
-- SUPER + O: Color Picker (alternative with wlogout)
-- SUPER + W: Launch or close waybar
-- SUPER + H: Launch help menu
-- SUPER + PRINT: Take a screenshot (hyprshot-gui)
-- SUPER + S: Open application menu (rofi dmenu)
-- SUPER + R: Open application menu (rofi run)
-- SUPER + Q: Open quick menu (rofi)
-- SUPER + X: Open clipboard (rofi)
-- SUPER + L: Open system menu (rofi)
-- SUPER + L: Launch Emoji Picker (rofimoji)
-- SUPER + TAB: Switch between applications (Hyprswitch)
+Moving Focus:
+- SUPER + ←           Move focus left
+- SUPER + →           Move focus right
+- SUPER + ↑           Move focus up
+- SUPER + ↓           Move focus down
 
-Media and Brightness Controls:
-- The function keys on keyboard will work =)
+Workspace Switching:
+- SUPER + 1..0        Switch to workspace 1–10
+- SUPER + Scroll↓     Next workspace
+- SUPER + Scroll↑     Previous workspace
 
-Window Focus and Movement:
-- SUPER + LEFT/RIGHT/UP/DOWN: Move window focus in the specified direction
-- SUPER + SHIFT + 1-0: Move the active window to the corresponding workspace (1-10)
-- SUPER + TAB: Switch to the next workspace
+Move Active Window to Workspaces:
+- SUPER + SHIFT + 1..0      Move active window to workspace 1–10
+- ALT + TAB                 Switch to next workspace
 
-Workspace Management:
-- SUPER + 1-9, 0: Switch to the corresponding workspace (1-10)
-- SUPER + MOUSE_UP: Scroll up through existing workspaces
-- SUPER + MOUSE_DOWN: Scroll down through existing workspaces
+Move/Resize Windows:
+- SUPER + Left Click        Move window
+- SUPER + Right Click       Resize window
+- SUPER + SHIFT + ↑         Resize active window (shrink vertically)
+- SUPER + SHIFT + →         Resize active window (grow horizontally)
+- SUPER + SHIFT + ↓         Resize active window (grow vertically)
+- SUPER + SHIFT + ←         Resize active window (shrink horizontally)
 
-Window Move/Resize:
-- SUPER + LEFT_MOUSE_BUTTON: Move window
-- SUPER + RIGHT_MOUSE_BUTTON: Resize window
+Volume and Media Control:
+- XF86AudioRaiseVolume      Increase volume (+10)
+- XF86AudioLowerVolume      Decrease volume (-10)
+- XF86AudioMicMute          Toggle microphone mute
+- XF86AudioMute             Toggle audio mute
+- XF86AudioPlay             Play/Pause media
+- XF86AudioStop             Stop media
+- XF86AudioPause            Play/Pause media
+- XF86AudioNext             Next track
+- XF86AudioPrev             Previous track
+- XF86MonBrightnessUp       Increase screen brightness (+10%)
+- XF86MonBrightnessDown     Decrease screen brightness (-10%)
+- XF86KbdBrightnessUp       Increase keyboard backlight
+- XF86KbdBrightnessDown     Decrease keyboard backlight
+- XF86KbdLightOnOff         Toggle keyboard backlight
+
+Applications:
+- SUPER + I           Reload Waybar, Eww, and SwayNC
+- SUPER + N           Launch editor ($editor)
+- SUPER + T           Launch terminal ($terminal)
+- SUPER + E           Launch file manager ($fileManager)
+- File Explorer       Launch file manager ($fileManager)
+- SUPER + B           Launch browser ($browser)
+- SUPER + P           Launch music player ($musicPlayer)
+
+Rofi Menus:
+- SUPER + TAB         Open window switcher (Rofi)
+- SUPER + Q           Open menu (Rofi)
+- SUPER + S           Open $menu
+- SUPER + R           Open $rmenu
+- SUPER + X           Open clipboard menu
+
+Utilities:
+- SUPER + O                    Launch picker script
+- SUPER + L                    Launch logout menu
+- SUPER + Print                Screenshot full screen (hyprshot)
+- SUPER + SHIFT + Print        Screenshot region (hyprshot)
+- SUPER + K                    Launch scrcpy
+- SUPER + U                    Open system menu (Rofi)
+- XF86Tools                    Open system menu (Rofi)
+- SUPER + =                    Open rofimoji
+- Escape                       Close action center, widgets, and Rofi

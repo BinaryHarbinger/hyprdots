@@ -13,15 +13,15 @@ mainbox {
 }
 
 element {
-    padding: 15px 0px;
+    padding: 10px 0px;
 }
 
 element-text {
-    font: "JetBrainsMono Nerd Font 16";
+    font: "CaskaydiaMono Nerd Font 14";
 }
 
 listview {
-    lines: 5;
+    lines: 7;
 }
 
 scrollbar {

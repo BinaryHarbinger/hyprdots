@@ -15,7 +15,7 @@
 
 * {
 	all: unset; /*Remove the useless GTK theme rules*/
-    font-family: "JetBrainsMono Nerd Font","Fira Mono";
+    font-family: "CaskaydiaMono Nerd Font, JetBrainsMono Nerd Font","Fira Mono";
     font-weight: 700;
     font-size: 12.5px;
     transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -206,7 +206,7 @@ tooltip label {
 
 /* Styling for memory, search, os button, etc. */
 #cpu, #memory, #custom-search, #custom-os_button, #custom-runner, #mpris, #custom-cafein, #cava, #clock {
-    font-family: "Symbols Nerd Font", "JetbrainsMono Nerd Font";
+    font-family: "Symbols Nerd Font", "CaskaydiaMono Nerd Font";
     background-color: @bg-main;
     font-weight: bold;
     border-radius: 16px;
@@ -269,6 +269,7 @@ tooltip label {
 }
 
 #clock {
+    font-family: "JetBrainsMono Nerd Font";
     font-size: 14px;
     padding: 0px 6px;
     margin: 0px 4px;

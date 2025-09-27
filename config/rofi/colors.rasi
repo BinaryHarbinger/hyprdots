@@ -57,7 +57,7 @@ message {
     padding:          5;
     background-color: var(background);
     border-color:     var(foreground);
-    font:             "JetbrainsMono 8";
+    font:             "CaskaydiaMono Nerd Font 8";
     border:           0px ;
     text-color:       var(foreground-alt);
 }
@@ -66,7 +66,7 @@ inputbar {
     margin:           10px 3px;
     background-color: var(input-bar-bg);
     text-color:       var(foreground);
-    font:             "JetbrainsMono 18";
+    font:             "CaskaydiaMono Nerd Font 18";
     border-color:     var(transparent);
     border:           0px ;
     border-radius:    var(border-radius);
@@ -79,7 +79,7 @@ entry {
     hide-cursor-on-empty: true;
 }
 prompt {
-    font: "JetbrainsMono Nerd Font 14";
+    font: "CaskaydiaMono Nerd Font 14";
     text-font:  inherit;
     padding:     0px 4px 0px 10px;
     border-radius: 10px;
@@ -126,6 +126,7 @@ element alternate {
     text-color:       var(foreground-alt);
 
 }
+
 element selected.normal {
     background-color: var(bg-selected);
     border-color: var(border-selected);
@@ -178,7 +179,7 @@ dummy1 {
 }
 mode-switcher {
     orientation: horizontal;
-    font: "JetbrainsMono 2";
+    font: "CaskaydiaMono Nerd Font 2";
     expand:      false;
     spacing:     0px ;
     border:      0px ;

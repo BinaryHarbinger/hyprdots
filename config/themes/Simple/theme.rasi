@@ -8,7 +8,7 @@
     input-bar-bg:               #26263f;
     background-color:           #11111b;
     lightred:                   rgba ( 204, 85, 51, 100 % );
-    font:                       "JetbrainsMono Nerd Font 14";
+    font:                       "JetbrainsMono Nerd Font 15";
     dark:                       rgba ( 28, 28, 28, 100 % );
     transparent:                transparent;
     background-alt:             #26263d;
@@ -21,7 +21,7 @@
     border-selected:            var(foreground);
     location-var:               center;
     anchor-var:                 center;
-    width-var:                  500px;
+    width-var:                  440px;
     list-font:                  inherit;
     lines-var:                  10;
 }
