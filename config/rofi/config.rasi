@@ -42,7 +42,7 @@ drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</
 /*	sort: false;*/
 /*	sorting-method: "normal";*/
 /*	case-sensitive: false;*/
-/*	case-smart: false;*/
+case-smart: true;
 /*	cycle: true;*/
 sidebar-mode: true;
 /*	hover-select: false;*/

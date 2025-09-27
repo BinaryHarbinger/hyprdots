@@ -1,7 +1,5 @@
 @import "config.rasi"
 
-
-
 window {
     location:         center;
     anchor:           center;
@@ -9,7 +7,7 @@ window {
 }
 
 mainbox {
-    children: ["listview" ];
+    children: ["inputbar","listview" ];
 }
 
 element {

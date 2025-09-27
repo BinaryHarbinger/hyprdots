@@ -7,7 +7,8 @@ arguments = sys.argv[1:]
 data = defaultData = {
     "stats": 1,
     "desktopmusic": 1,
-    "deskclockwin": 1
+    "deskclockwin": 1,
+    "activatelinux": 1,
 }
 
 defaultDataJson = json.dumps(defaultData, indent=3)
@@ -28,17 +29,12 @@ def writeFile(dataFile=defaultData):
         file.write(jsonData)
 
 def openWidgets(dataF=data):
-    if dataF.get("stats"):
-        command = ["/usr/bin/eww", "open", "stats"]
-        runCommand(command)
-    if dataF.get("deskclockwin"):
-        command = ["/usr/bin/eww", "open", "deskclockwin"]
-        runCommand(command)
-    if dataF.get("desktopmusic"):
-        command = ["/usr/bin/eww", "open", "desktopmusic"]
-        runCommand(command)
-
-changeArguments = {"one","two","three"}
+    for x in ["stats", "desktopmusic", "deskclockwin", "activatelinux"]:
+        if dataF.get(x):
+            command = ["/usr/bin/eww", "open", x]
+            runCommand(command)
+    
+changeArguments = {"one", "two", "three", "four"}
 
 try:
     data = loadFile()
@@ -59,6 +55,11 @@ for argument in arguments:
             print("Three detected")
             currentState = not data.get("deskclockwin")
             data.update(deskclockwin = int(currentState))
+        elif argument == "four":
+            print("Four detected")
+            currentState = not data.get("activatelinux")
+            data.update(activatelinux = int(currentState))
+
         print(data)
         writeFile(data)
     else:

@@ -1,5 +1,7 @@
 {
    "stats": 1,
    "desktopmusic": 1,
-   "deskclockwin": 0
+   "deskclockwin": 0,
+   "activate-linux": 1,
+   "activatelinux": 1
 }

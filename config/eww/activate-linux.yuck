@@ -7,9 +7,9 @@
       (label :xalign 0 :markup "<span font_size=\"large\">Activate Linux</span>")
       (label :xalign 0 :text "Go to Settings to activate Linux")))
   
-  (defwindow activate-linux
+  (defwindow activatelinux
     :monitor 0
-    :wm-ignore true
-    :stacking "overlay"
+    :stacking 'bg'
+    :exclusive: false
     :geometry (geometry :x "8px" :y "32px" :width "285px" :anchor "bottom right")
     (activate-linux))
