@@ -8,7 +8,7 @@
 ## Features
 
 - Rofi-based system menu (SUPER + U)
-- Multiple themes and preview images
+- Multiple system wide themes (Including QT themes.)
 - EWW/Widget integrations
 - Auto-install script (designed for Arch-based distros)
 - Minimal, opinionated defaults but easy to customize
@@ -19,7 +19,7 @@
 🔍 Rofi
 </summary></p>
 
-![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/rofi.GIF)
+![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/rofi.png)
 
 <p></details>
 
@@ -27,7 +27,7 @@
 ⚙️ Rofi Menu
 </summary></p>
 
-![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/rofiMenu.GIF)
+![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/rofiMenu.png)
 
 <p></details>
 
@@ -35,7 +35,7 @@
 ⚙️ Action Center
 </summary></p>
 
-![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/center.GIF)
+![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/center.png)
 
 <p></details>
 
@@ -43,7 +43,7 @@
 🔔 SwayNC
 </summary></p>
 
-![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/swaync.GIF)
+![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/swaync.png)
 
 <p></details>
 
@@ -51,7 +51,7 @@
 ⌨️ Terminal Applications
 </summary></p>
 
-![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/terminal.GIF)
+![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/terminal.png)
 
 <p></details>
 
@@ -59,18 +59,9 @@
 💻 Desktop Widgets
 </summary></p>
 
-![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/desktop.GIF)
+![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/desktop.png)
 
 <p></details>
-
-<details><summary>
-🚪 Session Options
-</summary></p>
-
-![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/wlogout.GIF)
-
-<p></details>
-
 ----------------------------------------------------------------------------------------
 
 ## Requirements
