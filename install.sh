@@ -109,7 +109,7 @@ PACKAGES=(
 )
 
 # Run the package installation and capture output
-output=$(bash -c "yes y | paru -S --needed ${PACKAGES[*]}" 2>&1)
+output=$(bash -c "yes y | paru -S --needed ${PACKAGES[*]}")
 status=$?
 
 # Use your process function for progress
@@ -138,7 +138,7 @@ fi
 
 # --- Clone dotfiles ---
 
-if [ -d "./config" ]; then
+if [ ! -d "./config" ]; then
     rm -rf ./hyprdots
 
     REPO_URL="https://github.com/BinaryHarbinger/hyprdots.git"
