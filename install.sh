@@ -108,7 +108,8 @@ PACKAGES=(
     rofi rofimoji
 )
 
-if ! process "Installing packages..." bash -c "yes y | paru -S --needed ${PACKAGES[*]}"; then
+if ! process "Installing packages..." output=$(bash -c "yes y | paru -S --needed ${PACKAGES[*]}" 2>&1); then
+    echo "$output" >&2
     error "Package installation failed."
     exit 1
 fi
