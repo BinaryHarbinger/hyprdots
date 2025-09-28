@@ -236,7 +236,7 @@ LAYOUT=$(localectl status | awk -F': ' '/X11 Layout/{print $2}')
 if [[ -z $LAYOUT ]]; then
     error "Could not detect keyboard layout."
 else
-    sed -i "s/kb_layout = tr/kb_layout = ${LAYOUT}/g" ./config/hypr/hyprland.conf
+    sed -i "s/kb_layout = tr/kb_layout = ${LAYOUT}/g" "$HOME/.config/hypr/hyprland.conf"
 fi
 
 # --- Change shell ---
