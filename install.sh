@@ -108,7 +108,15 @@ PACKAGES=(
     rofi rofimoji
 )
 
-if ! process "Installing packages..." output=$(bash -c "yes y | paru -S --needed ${PACKAGES[*]}" 2>&1); then
+# Run the package installation and capture output
+output=$(bash -c "yes y | paru -S --needed ${PACKAGES[*]}" 2>&1)
+status=$?
+
+# Use your process function for progress
+process "Installing packages..." true  # true is just a placeholder if process expects a command
+
+# Check status and handle error
+if [ $status -ne 0 ]; then
     echo "$output" >&2
     error "Package installation failed."
     exit 1
@@ -130,31 +138,35 @@ fi
 
 # --- Clone dotfiles ---
 
-rm -rf ./hyprdots
+if [ -d "./config" ]; then
+    rm -rf ./hyprdots
 
-REPO_URL="https://github.com/BinaryHarbinger/hyprdots.git"
-PROXY_URL="https://gh-proxy.com/$REPO_URL"
+    REPO_URL="https://github.com/BinaryHarbinger/hyprdots.git"
+    PROXY_URL="https://gh-proxy.com/$REPO_URL"
 
-process "Cloning hyprdots repository..." git clone "$PROXY_URL"
-if [ $? -ne 0 ]; then
-    echo "Proxy failed, trying direct GitHub clone..."
-    process "Cloning hyprdots repository (direct)..." git clone "$REPO_URL" || { 
-        error "Failed to clone repository."
-        exit 1
-    }
+    process "Cloning hyprdots repository..." git clone "$PROXY_URL"
+    if [ $? -ne 0 ]; then
+        echo "Proxy failed, trying direct GitHub clone..."
+        process "Cloning hyprdots repository (direct)..." git clone "$REPO_URL" || { 
+            error "Failed to clone repository."
+            exit 1
+        }
+    fi
+
+    cd hyprdots || { error "Cannot enter dotfiles directory"; exit 1; }
+
+    info "Cloned Repository."
+
+else
+    info "Files already installed."
 fi
-
-cd hyprdots || { error "Cannot enter dotfiles directory"; exit 1; }
-
-info "Cloned Repository."
-
 
 # --- Move scripts/configs ---
 
 process "Moving scripts and configs..." bash -c '
 mkdir -p ~/dots.old
 
-for dir in scripts hypr eww fastfetch nvim rofi waybar wlogout yazi swaync foot mpd rmpc themes; do
+for dir in scripts hypr eww qutebrowser wiremix fastfetch nvim rofi waybar wlogout yazi swaync foot mpd mpv rmpc themes; do
     src="$HOME/.config/$dir"
     dst="$HOME/dots.old/$dir"
 

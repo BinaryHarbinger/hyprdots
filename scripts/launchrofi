@@ -158,6 +158,12 @@ rice_settings() {
             bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
             rice_settings
             ;;
+        "󰚰  Check for Updates")
+            cd ~/.config/hypr/scripts/
+            python check_updates.py
+            cd ~
+            rice_settings
+            ;;
         "  Toggle Widgets")
             widget_settings
             ;;
