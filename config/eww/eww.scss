@@ -4,7 +4,7 @@
 * {
   all: unset; //Unsets everything so you can style everything from scratch
   font-weight: 600;
-  font-family: "JetbrainsMono Nerd Font";
+  font-family: "CaskaydiaMono Nerd Font";
 }
 
 //Global Styles
@@ -85,9 +85,9 @@
   margin-right: 5px;
 }
 .scalecenter label,.scalestat label{
-  font-size: 16px;
+  font-size: 18px;
   color: c.$fg-main;
-  margin: 0px 20px 0px 0px;
+  margin: 2px 20px 2px 3px;
 }
 
 .scalecenter scale trough,.scalestat scale trough {
@@ -189,9 +189,9 @@
 }
 
 .musictitle{
-  font-family: "JetBrainsMono Nerd Font","Fira Code";
+  font-family: "CaskaydiaMono Nerd Font","Fira Code";
   margin-top: 5px;
-  font-size:12px;
+  font-size:13px;
   font-weight: 800;
 }
 .musicscale scale trough highlight {
@@ -211,8 +211,8 @@
   margin: 0px 10px;
 }
 .musicscale label{
-  font-size: 10px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 600;
   padding: 0px;
 }
 .musicart{
@@ -308,7 +308,7 @@
 }
 
 .activate-linux {
-  color: rgba(250, 250, 250, 0.5);
+  color: rgba(250, 250, 250, 0.8);
 
   &.background {
     background: none;
@@ -326,6 +326,7 @@
 }
 
 .clock-text {
+
   font-size: 130px;
   color: c.$fg-main;
   padding: 0px 3px;

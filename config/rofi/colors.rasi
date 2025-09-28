@@ -72,11 +72,13 @@ inputbar {
     border-radius:    var(border-radius);
         children:                    [ "prompt", "entry"];
 }
+
 entry {
     cursor: text;
-    text-color: var(background);
-    margin: 0px 3px;
-    hide-cursor-on-empty: true;
+    text-color:                 var(foreground);
+    margin:                     0px 3px;
+    entry-placeholder:          var(selected);
+    hide-cursor-on-empty:       true;
 }
 prompt {
     font: "CaskaydiaMono Nerd Font 14";
@@ -135,7 +137,7 @@ element selected.normal {
 }
 element selected.active {
     foreground:       var(dark);
-    background-color: var(lightblue);
+    background-color: var(active);
 }
 element selected.urgent {
     foreground:       var(dark);

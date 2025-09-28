@@ -1,14 +1,10 @@
 @import "config.rasi"
 
-window {
-    anchor:           northeast;
-    location:         northeast;
-    x-offset:         -40px;
-    y-offset:         3px;
-    width:            380px;
+element {
+    font:                       "CaskaydiaMono Nerd Font 15";
+    margin : 0px 0px;
 }
 
-element {
-    padding: 1px 0px;
-    font: "JetbrainsMono Nerd Font 10";
+entry {
+    placeholder: "|";
 }

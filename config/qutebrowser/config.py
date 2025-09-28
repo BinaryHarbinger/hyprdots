@@ -64,8 +64,8 @@ c.colors.completion.item.selected.border.bottom = bg_active
 c.colors.completion.match.fg = content_hover
 
 # Font
-c.fonts.tabs.selected = "10pt FiraCode Nerd Font"
-c.fonts.tabs.unselected = "10pt FiraCode Nerd Font"
+c.fonts.tabs.selected = "10pt CaskaydiaMono Nerd Font"
+c.fonts.tabs.unselected = "10pt CaskaydiaMono Nerd Font"
 
 # New Tab
 c.url.start_pages = ["https://web.tabliss.io/"]
@@ -94,7 +94,7 @@ config.bind('M', "spawn --detach mpv --ytdl-format='bestvideo+bestaudio' {url}")
 # Dark Mode
 c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.preferred_color_scheme = "dark"
-c.colors.webpage.darkmode.policy.images = "smart"
+c.colors.webpage.darkmode.policy.images = "never"
 c.colors.webpage.darkmode.policy.page = "smart"
 
 # Adblock

@@ -4,7 +4,7 @@
   :windowtype "normal"
   :stacking "overlay"
   :geometry (geometry :x "61"
-                      :y "370"
+                      :y "378"
                       :width "320px"
                       :height "120px"
                       :anchor "right top")

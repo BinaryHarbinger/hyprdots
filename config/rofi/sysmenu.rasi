@@ -1,5 +1,9 @@
 @import "config.rasi"
 
+entry {
+    placeholder: "Go...";
+}
+
 window {
     location:         center;
     anchor:           center;

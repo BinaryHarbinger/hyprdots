@@ -9,7 +9,8 @@ usage() {
       --run      : Launches the command runner (run). \n
       --menu     : Displays a custom menu with multiple options. \n
       --window   : Displays a open windows.\n 
-      --sys_menu : Displays system menu. \n"
+      --sys_menu : Displays system menu. \n
+      --screenshot_menu : Displays system menu. \n"
     exit 1
 }
 
@@ -23,7 +24,7 @@ drun_launcher() {
 run_launcher() {
     rofi \
         -show run \
-        -theme ~/.config/rofi/launcher.rasi
+        -theme-str 'entry {placeholder: "Run...";}'
 }
 
 # Function: CONFIRMATION Launcher
@@ -142,7 +143,7 @@ widget_settings() {
 
 rice_settings() {
     # Menu options displayed in rofi
-    options="󰌍\n  Activate Linux\n  Toggle Widgets\n  Wallpaper\n󰌁  Themes"
+    options="󰌍\n  Activate Linux\n󰚰  Check for Updates\n  Toggle Widgets\n  Wallpaper\n󰌁  Themes"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
@@ -295,12 +296,38 @@ connections_func() {
     esac
 }
 
-system_menu() {
+misc_func() {
     # Menu options displayed in rofi
-    options="  Apps\n  Connections\n󰃢  Maintaining\n󰅇  Clipboard\n󰄀  Screenshot\n  Session Options\n  Manual\n  Settings\n  Update System"
+    options="󰌍\n  Toggle Cafein\n󰈈  Toggle Eye Saver"
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 9;}' -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "")
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 6;}' -p "")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "󰌍")
+            system_menu
+            ;;
+        "  Toggle Cafein")
+            bash $HOME/.config/hypr/scripts/cafein toggle -n
+            misc_func
+            ;;
+        "󰈈  Toggle Eye Saver")
+            bash $HOME/.config/eww/scripts/sunset.sh
+            misc_func
+            ;;
+        *)
+            echo "No option selected"
+            ;;
+    esac
+}
+
+system_menu() {
+    # Menu options displayed in rofi
+    options="  Apps\n  Connections\n󰃢  Maintaining\n󰅇  Clipboard\n󰄀  Screenshot\n󰐱  Miscellaneous\n  Session Options\n  Manual\n  Settings\n  Update System"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 10;}' -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "")
 
     # Execute the corresponding command based on the selected option
     case $chosen in
@@ -318,6 +345,9 @@ system_menu() {
             ;;
         "󰄀  Screenshot")
             screenshot_func 
+            ;;
+        "󰐱  Miscellaneous")
+            misc_func 
             ;;
         "  Session Options")
             session_options
@@ -363,29 +393,32 @@ fi
 
 # Execute the appropriate function based on the provided flag
 case "$1" in
-    --drun)
+    --drun|-d)
         drun_launcher
         ;;
-    --window)
+    --window|-w)
         rofi \
         -show window \
         -theme ~/.config/rofi/window.rasi
         ;;
 
-    --run)
+    --run|-r)
         run_launcher
         ;;
-    --menu)
+    --menu|-m)
         custom_menu
         ;;
-    --widget_settings)
+    --widget_settings|-ws)
     	widget_settings
     	;;
-     --rice_settings)
+     --rice_settings|-rs)
      	rice_settings
      	;;
-     --system_menu|--sys_menu)
+     --system_menu|--sys_menu|-sm)
      	system_menu
+     	;;
+    --screenshot_menu|--ss_menu|-ss)
+     	screenshot_func
      	;;
     *)
         usage

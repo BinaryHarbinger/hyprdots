@@ -42,6 +42,7 @@ change_theme () {
     if pgrep -x "qutebrowser" > /dev/null; then
         qutebrowser ":config-source" 
     fi
+    hyprctl reload & disown
 
     pkill waybar >/dev/null 2>&1
     waybar >/dev/null 2>&1 & disown

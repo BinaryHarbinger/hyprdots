@@ -15,7 +15,7 @@
 
 * {
 	all: unset; /*Remove the useless GTK theme rules*/
-    font-family: "JetBrainsMono Nerd Font","Fira Mono";
+    font-family: "CaskaydiaMono Nerd Font", "JetBrainsMono Nerd Font","Fira Mono";
     font-weight: 900;
     font-size: 12.5px;
     transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -42,7 +42,6 @@ tooltip label {
 
 /* Custom widget for sway notifications */
 #custom-swaync {
-    font-family: "JetBrainsMono Nerd Font";
 	color: @fg-main;
     background-color: @bg-second;
     min-width: 25px;
@@ -135,7 +134,6 @@ tooltip label {
 
 #tray menu, menu {
     color: @fg-main;
-	font-family: "JetBrainsMono Nerd Font";
     border: 2px solid @border-main;
     border-radius: 10px;
     transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -163,29 +161,6 @@ tooltip label {
 	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-/* Network and Battery widget styling
-#network, #battery {
-    background-color: @bg-main;
-    padding-left: 3px;
-    padding-right: 3px;
-    border: 2px solid @border-main;
-    border-left:0px;border-right:0px;
-    border-radius: 0px;
-    transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-}*/
-
-/* Pulseaudio widget styling
-#pulseaudio {
-    font-family: "JetBrainsMono Nerd Font";
-    padding-left: 10px;
-    padding-right: 3px;
-	border: 2px solid @border-main;
-    border-left:0px;border-right:0px;
-    border-radius: 0px;
-    transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-    background-color: rgba(17, 17, 27, 1);
-}*/
-
 /* Language widget styling */
 #language {
     background-color: @bg-main;
@@ -199,7 +174,8 @@ tooltip label {
 }
 
 /* Clock widget styling */
-#clock { 
+#clock {
+    font-family: "JetBrainsMono Nerd Font";
     padding: 0px 6px;
     margin: 2px 8px;
     border-radius: 8px;
@@ -210,18 +186,10 @@ tooltip label {
     background-color: @bg-second;
 }
 
-/* Battery widget hover effect
-#battery {
-    background-color: @bg-main;
-    padding-left: 8px;
-    padding-right: 8px;
-}*/
-
 /* Bluetooth widget styling */
 #bluetooth {
     padding: 0px 10px;
     font-size: 14px;
-    font-family: "Fira Code";
 }
 
 /* Bluetooth widget status colors */
@@ -263,7 +231,7 @@ tooltip label {
 
 /* Styling for memory, search, os button, etc. */
 #controlCenter, #hardware, #customs, #mpris, #custom-cafein, #cava {
-    font-family: "Symbols Nerd Font", "JetbrainsMono Nerd Font";
+    font-family: "Symbols Nerd Font", "CaskaydiaMono Nerd Font";
     background-color: @bg-second;
     font-weight: bold;
     border-radius: 16px;

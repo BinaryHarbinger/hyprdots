@@ -67,11 +67,11 @@
       (box :spacing 10
         (button 
         :class "button" 
-        :onclick "eww open actioncenter --toggle && hyprshot-gui &" "󰹑 ")
+        :onclick " bash ~/.config/hypr/scripts/actioncenter.sh && ~/.config/scripts/launchrofi -ss &" "󰹑 ")
     
         (button 
         :class "button" 
-        :onclick "thunar ~ & eww open actioncenter --toggle &" " ")
+        :onclick "thunar ~ & bash ~/.config/hypr/scripts/actioncenter.sh &" " ")
         (button 
         :class { cafein != 'false' ? "button-active" : "button"} 
         :onclick {cafein != false ? "bash $HOME/.config/hypr/scripts/cafein toggle & eww update cafein='false'" : "$HOME/.config/hypr/scripts/cafein toggle & eww update cafein='true'"} 

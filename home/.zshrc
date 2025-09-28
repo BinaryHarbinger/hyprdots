@@ -2,6 +2,7 @@
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your Oh My Zsh installation.
+ZSH_DISABLE_COMPFIX='true' 
 export ZSH="$HOME/.oh-my-zsh"
 
 # ZSH theme
@@ -113,6 +114,20 @@ if [[ $- == *i* ]]; then
         neofetch
     fi
 fi
+
+if [[ $THEME_VAR == "windoes" ]]; then
+    rofi() {
+    if [[ "$1" == "-show" && "$2" == "drun" ]]; then
+        shift 2
+        command rofi -show drun -theme-str "mainbox {children: [listview, inputbar];}" "$@"
+    else
+        command rofi "$@"
+    fi
+}
+
+fi
+
+
 
 
 # Example aliases

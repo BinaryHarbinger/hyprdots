@@ -125,13 +125,11 @@ tooltip label {
 
 #tray menu > *, menu > * {
     color: @fg-main;
-    padding: 0px 8px; /* Alt öğeler arasında boşluk */
+    padding: 2px 6px; 
 }
 
 #tray menu > *:hover, menu > *:hover {
-    background-color: @bg-third2; /* Alt öğe hover arka plan rengi */
-    border: 2px solid transparent;
-    border-bottom: 2px solid @fg-main;
+    background-color: @bg-third; 
 }
 
 #tray menu > *:active, menu > *:active {
@@ -186,7 +184,7 @@ tooltip label {
 
 /* Styling for memory, search, os button, etc. */
 #cpu, #memory, #custom-search, #custom-os_button, #custom-runner, #mpris, #custom-cafein, #cava, #clock {
-    font-family: "Symbols Nerd Font", "JetbrainsMono Nerd Font";
+    font-family: "Symbols Nerd Font", "CaskaydiaMono Nerd Font";
     background-color: @bg-main;
     font-weight: bold;
     padding: 0px 9px;
@@ -246,6 +244,7 @@ tooltip label {
 }
 
 #clock {
+    font-family: "JetBrainsMono Nerd Font";
     font-size: 13px;
     padding: 0px 6px;
     margin: 0px 4px;

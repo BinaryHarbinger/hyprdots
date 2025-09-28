@@ -1,7 +1,7 @@
 @import "theme.css";
 
 * {
-    font-family: "JetBrainsMono Nerd Font";
+    font-family: "CaskaydiaMono Nerd Font";
     transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 

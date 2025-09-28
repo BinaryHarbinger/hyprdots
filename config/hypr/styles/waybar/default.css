@@ -39,7 +39,6 @@ tooltip label {
 
 /* Custom widget for sway notifications */
 #custom-swaync {
-    font-family: "JetBrainsMono Nerd Font";
     font-size: 1px;
     color: @fg-main;
     background-color: @bg-main;
@@ -125,7 +124,6 @@ tooltip label {
 }
 
 #tray menu, menu {
-	font-family: "JetBrainsMono Nerd Font";
     border: 2px solid @border-main;
     border-radius: 10px;
     transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);

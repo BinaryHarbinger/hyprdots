@@ -3,10 +3,8 @@
 entry {
     enabled:                     true;
     background-color:            inherit;
-    text-color:                  inherit;
     cursor:                      text;
     placeholder:                 "Search...";
-    placeholder-color:           inherit;
 }
 
 configuration {

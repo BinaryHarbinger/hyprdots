@@ -2,3 +2,6 @@
 
 cd ~/.config/scripts/linver-folder/ 
 python linver.py >/dev/null 2>&1
+
+rm -rf username.txt
+rm -rf version.txt
