@@ -106,11 +106,11 @@ elif [ "$1" == "-music" ]; then
 			thirty="$ten$ten$ten"
 			len=${#artist}
 			end="   "
-			if ((len>10)); then
-				len=10
+			if ((len>13)); then
+				len=13
 				end="..."
 			fi
-			artist="${artist:0:10}${thirty:0:$((10 - len))}"
+			artist="${artist:0:13}${thirty:0:$((13 - len))}"
 			echo "${artist}${end}"
 			# echo "${artist:0:30}" # Limit the output to 50 characters
 		fi
@@ -127,11 +127,11 @@ elif [ "$1" == "-music" ]; then
 	--status)
 		status=$(playerctl status 2>/dev/null)
 		if [[ $status == "Playing" ]]; then
-			echo "󰎆"
+			echo ""
 		elif [[ $status == "Paused" ]]; then
-			echo "󱑽"
+			echo ""
 		else
-			echo ""
+			echo ""
 		fi
 		;;
 	--album)
