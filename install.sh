@@ -104,12 +104,13 @@ PACKAGES=(
     cliphist stow git zsh unzip fastfetch pamixer swaync foot swww
     mpv mpd mpdris2-rs rmpc
     base-devel
-    waybar eww
+    python-flask
+    pcmanfm-qt waybar eww
     rofi rofimoji
 )
 
 # Run the package installation and capture output
-output=$(bash -c "yes y | paru -S --needed ${PACKAGES[*]}" 2>&1)
+output=$(bash -c "yes | paru -S --needed ${PACKAGES[*]}")
 status=$?
 
 # Use your process function for progress
@@ -138,7 +139,7 @@ fi
 
 # --- Clone dotfiles ---
 
-if [ -d "./config" ]; then
+if [ ! -d "./config" ]; then
     rm -rf ./hyprdots
 
     REPO_URL="https://github.com/BinaryHarbinger/hyprdots.git"
@@ -236,7 +237,7 @@ LAYOUT=$(localectl status | awk -F': ' '/X11 Layout/{print $2}')
 if [[ -z $LAYOUT ]]; then
     error "Could not detect keyboard layout."
 else
-    sed -i "s/kb_layout = tr/kb_layout = ${LAYOUT}/g" ./config/hypr/hyprland.conf
+    sed -i "s/kb_layout = tr/kb_layout = ${LAYOUT}/g" "$HOME/.config/hypr/hyprland.conf"
 fi
 
 # --- Change shell ---

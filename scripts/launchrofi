@@ -48,7 +48,7 @@ custom_menu() {
             rofi -show drun
             ;;
         "")
-            thunar
+            pcmanfm-qt
             ;;
         "")
             session_options

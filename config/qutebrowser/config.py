@@ -107,3 +107,24 @@ c.content.headers.do_not_track = True
 # Privacy
 
 c.content.cookies.accept = "no-3rdparty"
+
+# Custom start page
+
+import subprocess
+import atexit
+import os
+
+# Expand tilde to full path
+project_path = os.path.expanduser("~/.config/qutebrowser/newtab")
+app_file = os.path.join(project_path, "main.py")  # your Flask app
+
+# Start Flask server
+flask_proc = subprocess.Popen(["python3", app_file])
+
+# Ensure Flask stops when qutebrowser closes
+atexit.register(lambda: flask_proc.terminate())
+
+# Set startpage to localhost
+c.url.start_pages = "http://localhost:5000"
+c.url.default_page = "http://localhost:5000"
+

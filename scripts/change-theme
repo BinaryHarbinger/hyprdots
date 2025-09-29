@@ -21,6 +21,7 @@ change_theme () {
     ln -sf "$THEME_PATH/theme.rasi" ~/.config/rofi/theme.rasi
     ln -sf "$THEME_PATH/hypr.conf" ~/.config/hypr/theme.conf
     ln -sf "$THEME_PATH/theme.py" ~/.config/qutebrowser/theme.py
+    ln -sf "$THEME_PATH/theme.css" ~/.config/qutebrowser/newtab/static/theme.css
     ln -sf "$THEME_PATH/wiremix.toml" ~/.config/wiremix/wiremix.toml
     ln -sf "$THEME_PATH/foot.ini" ~/.config/foot/foot.ini
     ln -sf "$THEME_PATH/theme.toml" ~/.config/yazi/theme.toml
@@ -38,9 +39,46 @@ change_theme () {
 
     sed -i "s/theme: \".*\",/theme: \"$scheme\",/" ~/.config/rmpc/config.ron
 
-    
-    if pgrep -x "qutebrowser" > /dev/null; then
-        qutebrowser ":config-source" 
+    if command -v qutebrowser >/dev/null 2>&1; then 
+        # --- Qutebrowser update ---
+        export QUTE_STATIC_DIR="$HOME/.config/qutebrowser/newtab/static"
+
+        # Run Python conversion of theme.css → theme_web.css
+        python3 - <<END_PYTHON
+import re, os
+
+gtk_path = os.path.join(os.environ['QUTE_STATIC_DIR'], "theme.css")
+web_path = os.path.join(os.environ['QUTE_STATIC_DIR'], "theme_web.css")
+
+props = []
+pattern = re.compile(r"@define-color\s+([\w-]+)\s+(.+?);")
+
+try:
+    with open(gtk_path, "r") as gtk_file:
+        for line in gtk_file:
+            line = line.strip()
+            match = pattern.match(line)
+            if match:
+                var_name = match.group(1)
+                var_value = match.group(2).strip()
+                props.append(f"  --{var_name}: {var_value};")
+except FileNotFoundError:
+    print(f"GTK file not found: {gtk_path}")
+    exit(1)
+
+if props:
+    with open(web_path, "w") as web_file:
+        web_file.write(":root {\n")
+        web_file.write("\n".join(props))
+        web_file.write("\n}\n")
+    print(f"Converted {len(props)} variables to {web_path}")
+else:
+    print("No GTK variables found in the file.")
+END_PYTHON
+ 
+        if pgrep -x "qutebrowser" > /dev/null; then
+            qutebrowser ":config-source" 
+        fi
     fi
     hyprctl reload & disown
 

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='theme_web.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      margin: 0;
+      font-family: "CaskaydiaMono Nerd Font", monospace;
+      background-color: var(--bg-main);
+      color: var(--fg-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Header: bookmarks centered, clock top right */
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: center; /* bookmarks centered */
+      align-items: center;
+      position: relative;
+      padding: 10px 0;
+      background-color: var(--bg-second);
+      border-bottom: 2px solid var(--border-main);
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    nav a {
+      color: var(--fg-main);
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    nav a:hover {
+      background-color: var(--bg-hover);
+      color: var(--bg-main);
+    }
+
+    /* Clock on top right */
+    #clock {
+      position: absolute;
+      right: 20px;
+      font-family: "JetBrainsMono Nerd Font", monospace;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    /* Search wrapper */
+    .search-wrapper {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 120px;
+    }
+
+    .search-bar {
+      display: flex;
+      width: 600px;
+      background-color: var(--bg-second);
+      border-radius: 8px;
+      overflow: hidden;
+      align-items: center;
+    }
+
+    /* Form inline: button left, input right */
+    .search-bar form {
+      display: flex;
+      width: 100%;
+    }
+
+    .search-bar input[type="submit"] {
+      padding: 0 20px;
+      font-size: 16px;
+      border: var(border-main);
+      background-color: var(--fg-main);
+      color: var(--bg-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .search-bar input[type="submit"]:hover {
+      background-color: var(--bg-hover);
+      color: var(--fg-main);
+    }
+
+    .search-bar input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      background-color: var(--bg-alt-hover);
+      color: var(--fg-main);
+      text-align: center; /* input text centered */
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="https://youtube.com">YouTube</a>
+      <a href="https://github.com">GitHub</a>
+      <a href="https://mail.proton.me/u/">Proton Mail</a>
+      <a href="https://evrimagaci.org/u/">Evrim Ağacı</a>
+      <a href="https://openani.me">OpenAnime</a>
+      <a href="https://one.dash.cloudflare.com/">Tunnels</a>
+    </nav>
+    <div id="clock"></div>
+  </header>
+
+  <div class="search-wrapper">
+    <div class="search-bar">
+      <form action="https://www.duckduckgo.com/search" method="get">
+        <input type="text" name="q" placeholder="Search..." autofocus>
+        <input type="submit" value="Search">
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString();
+      document.getElementById("clock").textContent = time;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>
+
