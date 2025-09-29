@@ -93,8 +93,9 @@
 "network": {
 
     "format-wifi": "{icon}",
-    "format-ethernet": " ",
-    "format-disconnected": "󰌙 ",
+    "format-ethernet": " ",
+    "format-disconnected": " ",
+    "format-disabled": "󰤮 ",
     "tooltip-format": "{icon} {essid}",
     "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤢 ", "󰤨 "],
 
@@ -278,7 +279,7 @@
 },
 
 "clock": {
-    "format": " {:%R}",
+    "format": " {:%R}",
     "tooltip-format": " {:%d %B %Y}",
     "on-click": "eww open calendar --toggle --no-daemonize & eww close actioncenter musiccenter",
   },
