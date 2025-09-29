@@ -109,7 +109,7 @@ PACKAGES=(
 )
 
 # Run the package installation and capture output
-output=$(bash -c "yes y | paru -S --needed ${PACKAGES[*]}")
+output=$(bash -c "yes | paru -S --needed ${PACKAGES[*]}")
 status=$?
 
 # Use your process function for progress
