@@ -8,7 +8,6 @@ show_osd() {
     eww update volume="$1"
 
     if ! eww active-windows | grep -q "$widget"; then
-        eww update volume="$currentState"
         eww open "$widget"
     fi
 
@@ -33,3 +32,4 @@ while true; do
     fi
     sleep 0.2
 done
+

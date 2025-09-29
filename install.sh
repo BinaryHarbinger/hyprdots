@@ -109,7 +109,7 @@ PACKAGES=(
 )
 
 # Run the package installation and capture output
-output=$(bash -c "yes | paru -S --needed ${PACKAGES[*]}")
+output=$(bash -c "yes y | paru -S --needed ${PACKAGES[*]}" 2>&1)
 status=$?
 
 # Use your process function for progress
@@ -138,7 +138,7 @@ fi
 
 # --- Clone dotfiles ---
 
-if [ ! -d "./config" ]; then
+if [ -d "./config" ]; then
     rm -rf ./hyprdots
 
     REPO_URL="https://github.com/BinaryHarbinger/hyprdots.git"
@@ -236,7 +236,7 @@ LAYOUT=$(localectl status | awk -F': ' '/X11 Layout/{print $2}')
 if [[ -z $LAYOUT ]]; then
     error "Could not detect keyboard layout."
 else
-    sed -i "s/kb_layout = tr/kb_layout = ${LAYOUT}/g" "$HOME/.config/hypr/hyprland.conf"
+    sed -i "s/kb_layout = tr/kb_layout = ${LAYOUT}/g" ./config/hypr/hyprland.conf
 fi
 
 # --- Change shell ---

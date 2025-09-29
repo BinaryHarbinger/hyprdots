@@ -6,7 +6,6 @@ timer_pid=""
 
 show_osd() {
     
-    eww update bright="$1"
     eww update brightness=$currentState
 
     if ! eww active-windows | grep -q "$widget"; then

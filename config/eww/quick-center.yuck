@@ -71,7 +71,7 @@
     
         (button 
         :class "button" 
-        :onclick "thunar ~ & bash ~/.config/hypr/scripts/actioncenter.sh &" " ")
+        :onclick "pcmanfm-qt ~ & bash ~/.config/hypr/scripts/actioncenter.sh &" " ")
         (button 
         :class { cafein != 'false' ? "button-active" : "button"} 
         :onclick {cafein != false ? "bash $HOME/.config/hypr/scripts/cafein toggle & eww update cafein='false'" : "$HOME/.config/hypr/scripts/cafein toggle & eww update cafein='true'"} 

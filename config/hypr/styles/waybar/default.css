@@ -141,7 +141,7 @@ tooltip label {
 
 #tray menu > *:hover, menu > *:hover {
 	border: 2px solid @border-main;
-    background-color: @bg-third2; /* Alt öğe hover arka plan rengi */
+    background-color: @bg-hover; /* Alt öğe hover arka plan rengi */
     border: 2px solid transparent;
 	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
     border-bottom: 2px solid @fg-main;
