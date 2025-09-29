@@ -10,7 +10,8 @@ if command -v su-rs >/dev/null 2>&1; then
 fi
 
 if command -v eza >/dev/null 2>&1; then
-    alias ls='eza --icons'
+    export EZA_ICONS=true
+    alias ls='eza --icons --long --group-directories-first --git'
 fi
 
 if command -v bat >/dev/null 2>&1; then
