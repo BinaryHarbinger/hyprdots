@@ -52,7 +52,9 @@ elif [ "$1" == "-music" ]; then
 		elif [[ "$trackid" == *"spotify"* ]]; then
 			echo -e "Spotify "
 		elif [[ "$trackid" == *"chromium"* ]]; then
-			echo -e "Chrome "
+			echo -e "Chromium "
+		elif [[ "$trackid" == *"musicpd"* ]]; then
+			echo -e "MPD 󰎆"
 		else
 			echo "Source    "
 		fi
