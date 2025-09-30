@@ -24,7 +24,7 @@
 
     "modules-left": ["group/leftSide"],
     "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["tray", "group/rightSide", "custom/swaync"],
+    "modules-right": ["tray", "group/rightSide", "custom/mako"],
   
     "hyprland/language": {
         "format": "{}",
@@ -193,7 +193,7 @@
 
 
 // ====================== Notification ======================
-
+/*
 "custom/swaync": {
     "tooltip": false,
     
@@ -216,7 +216,23 @@
     "on-click": "swaync-client -t -sw & eww close actioncenter calendar musiccenter",
     "on-click-right": "swaync-client -d -sw",
     "escape": true
+},*/
+
+"custom/mako": {
+    "format": "{icon}",
+    "format-icons": {
+        "notification": "<span foreground='#7b82c6'><sup></sup></span>",
+        "none": "",
+        "dnd-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-none": ""
+    },
+    "return-type": "json",
+    "exec": "bash ~/.config/mako/waybar.sh ",
+    "interval": 1,
+    "on-click": "bash ~/.config/mako/rofi.sh",
+    "on-click-right": "bash ~/.config/mako/waybar.sh -d",
 },
+
 
 // ==========================================================
 

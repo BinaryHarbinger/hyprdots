@@ -1,0 +1,17 @@
+@import "config.rasi"
+
+window {
+    width: 700px;
+}
+
+entry {
+placeholder: "...";
+}
+
+element {
+    padding: 10px;
+}
+
+element-text {
+font: "CaskaydiaMono Nerd Font Bold 16px";
+}

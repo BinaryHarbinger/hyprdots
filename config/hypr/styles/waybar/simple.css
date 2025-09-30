@@ -37,7 +37,7 @@ tooltip label {
 }
 
 /* Custom widget for sway notifications */
-#custom-swaync {
+#custom-swaync, #custom-mako {
     font-family: "JetBrainsMono Nerd Font";
     font-size: 1px;
     color: @fg-main;
@@ -162,15 +162,11 @@ tooltip label {
 }
 
 /* Sway notification custom widget and other widgets */
-#custom-swaync {
+#custom-swaync, #custom-mako {
     font-size: 18px;
     padding: 0px 8px;
-}
-
-#custom-swaync {
     padding-right: 13px; 
 }
-
 
 /* Power profile daemon widget styling */
 #power-profiles-daemon {
@@ -202,7 +198,7 @@ tooltip label {
 }
 
 /* Hover effect for bar elements */
-#custom-swaync:hover,#tray > widget:hover,#custom-search:hover, #custom-os_button:hover, #custom-runner:hover, #mpris:hover, #custom-cafein:hover, #clock:hover, #power-profiles-daemon:hover{
+#custom-swaync:hover, #custom-mako:hover, #tray > widget:hover,#custom-search:hover, #custom-os_button:hover, #custom-runner:hover, #mpris:hover, #custom-cafein:hover, #clock:hover, #power-profiles-daemon:hover{
     background-color: @bg-hover;
 }
 

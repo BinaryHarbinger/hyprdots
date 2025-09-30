@@ -41,7 +41,7 @@ tooltip label {
 }
 
 /* Custom widget for sway notifications */
-#custom-swaync {
+#custom-swaync, #custom-mako {
 	color: @fg-main;
     background-color: @bg-second;
     min-width: 25px;
@@ -201,7 +201,7 @@ tooltip label {
 }
 
 /* Sway notification custom widget and other widgets */
-#custom-swaync, #network, #pulseaudio {
+#custom-swaync, #custom-mako, #network, #pulseaudio {
     font-size: 20px;
     padding: 0px 8px;
 }
@@ -211,7 +211,7 @@ tooltip label {
     padding-right: 15px;
 }
 
-#custom-swaync {
+#custom-swaync, #custom-mako {
     padding-right: 13px; 
 }
 
@@ -258,7 +258,7 @@ tooltip label {
 }
 
 /* Hover effect for bar elements */
-#power-profiles-daemon:hover, #custom-swaync:hover,#tray > widget:hover,#custom-search:hover, #custom-os_button:hover, #custom-runner:hover, #mpris:hover, #custom-cafein:hover, #memory:hover, #cpu:hover {
+#power-profiles-daemon:hover, #custom-swaync:hover, #custom-mako:hover, #tray > widget:hover,#custom-search:hover, #custom-os_button:hover, #custom-runner:hover, #mpris:hover, #custom-cafein:hover, #memory:hover, #cpu:hover {
     background-color: @fg-unactive;
 }
 
