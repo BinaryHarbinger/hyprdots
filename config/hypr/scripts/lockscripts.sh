@@ -108,11 +108,11 @@ elif [ "$1" == "-music" ]; then
 			thirty="$ten$ten$ten"
 			len=${#artist}
 			end="   "
-			if ((len>13)); then
-				len=13
+			if ((len>12)); then
+				len=12
 				end="..."
 			fi
-			artist="${artist:0:13}${thirty:0:$((13 - len))}"
+			artist="${artist:0:12}${thirty:0:$((12 - len))}"
 			echo "${artist}${end}"
 			# echo "${artist:0:30}" # Limit the output to 50 characters
 		fi

@@ -1,5 +1,6 @@
 
 ----------------------------------------------------------------------------------------
+
 <div style="text-align: center;">
 <pre>
 ██████╗ ██╗███╗   ██╗ █████╗ ██████╗ ██╗   ██╗██████╗  ██████╗ ████████╗███████╗
@@ -27,7 +28,7 @@
 🔍 Rofi
 </summary></p>
 
-![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/rofi.png)
+![image](https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/preview/rofi.png)
 
 <p></details>
 
@@ -35,7 +36,7 @@
 ⚙️ Rofi Menu
 </summary></p>
 
-![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/rofiMenu.png)
+![image](https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/preview/rofiMenu.png)
 
 <p></details>
 
@@ -43,7 +44,7 @@
 ⚙️ Action Center
 </summary></p>
 
-![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/center.png)
+![image](https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/preview/center.png)
 
 <p></details>
 
@@ -51,7 +52,7 @@
 🔔 MakoGUI
 </summary></p>
 
-![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/makogui.png)
+![image](https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/preview/makogui.png)
 
 <p></details>
 
@@ -59,7 +60,7 @@
 🌐 qutebrowser
 </summary></p>
 
-![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/qute.png)
+![image](https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/preview/qute.png)
 
 <p></details>
 
@@ -67,7 +68,7 @@
 ⌨️ Terminal Applications
 </summary></p>
 
-![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/terminal.png)
+![image](https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/preview/terminal.png)
 
 <p></details>
 
@@ -75,7 +76,7 @@
 💻 Desktop Widgets
 </summary></p>
 
-![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/desktop.png)
+![image](https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/preview/desktop.png)
 
 <p></details>
 ----------------------------------------------------------------------------------------
@@ -95,7 +96,7 @@ I highly recommend using [Chaotic AUR](https://aur.chaotic.cx/docs)
 
 Run this command to install:
 ```
-curl -fsSL -o install.sh https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/install.sh && chmod +x install.sh && ./install.sh
+curl -fsSL -o install.sh https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/install.sh && chmod +x install.sh && ./install.sh
 ```
 
 # Installing manualy (For non-Arch based distros)

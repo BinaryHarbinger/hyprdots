@@ -3,7 +3,7 @@
 set -euo pipefail
 
 if [ ! -t 0 ]; then
-    curl -fsSL -o /tmp/install.sh https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/install.sh
+    curl -fsSL -o /tmp/install.sh https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/install.sh
     chmod +x /tmp/install.sh
     exec /tmp/install.sh "$@"
 fi
@@ -48,9 +48,12 @@ process() {
 error() { gum style --foreground "#FF5555" -- <<< "✖ $1"; }
 
 echo -e "${BLUE}
-░█▀▄░▀█▀░█▀█░█▀█░█▀▄░█░█░░░█▀▄░█▀█░▀█▀░█▀▀
-░█▀▄░░█░░█░█░█▀█░█▀▄░░█░░░░█░█░█░█░░█░░▀▀█
-░▀▀░░▀▀▀░▀░▀░▀░▀░▀░▀░░▀░░░░▀▀░░▀▀▀░░▀░░▀▀▀ \n${RESET}"
+██████╗ ██╗███╗   ██╗ █████╗ ██████╗ ██╗   ██╗██████╗  ██████╗ ████████╗███████╗
+██╔══██╗██║████╗  ██║██╔══██╗██╔══██╗╚██╗ ██╔╝██╔══██╗██╔═══██╗╚══██╔══╝██╔════╝
+██████╔╝██║██╔██╗ ██║███████║██████╔╝ ╚████╔╝ ██║  ██║██║   ██║   ██║   ███████╗
+██╔══██╗██║██║╚██╗██║██╔══██║██╔══██╗  ╚██╔╝  ██║  ██║██║   ██║   ██║   ╚════██║
+██████╔╝██║██║ ╚████║██║  ██║██║  ██║   ██║   ██████╔╝╚██████╔╝   ██║   ███████║
+╚═════╝ ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═════╝  ╚═════╝    ╚═╝   ╚══════╝ \n${RESET}"
 
 # Root check for necessary commands
 if [[ $EUID -eq 0 ]]; then
@@ -108,7 +111,7 @@ PACKAGES=(
     cliphist stow git zsh unzip fastfetch pamixer mako foot swww
     mpv mpd mpdris2-rs rmpc
     base-devel
-    python-flask
+    python-flask python-requests
     pcmanfm-qt waybar eww
     rofi rofimoji
 )
@@ -146,21 +149,21 @@ fi
 # --- Clone dotfiles ---
 
 if [ ! -d "./config" ]; then
-    rm -rf ./hyprdots
+    rm -rf ./binarydots
 
-    REPO_URL="https://github.com/BinaryHarbinger/hyprdots.git"
+    REPO_URL="https://github.com/BinaryHarbinger/binarydots.git"
     PROXY_URL="https://gh-proxy.com/$REPO_URL"
 
-    process "Cloning hyprdots repository..." git clone "$PROXY_URL"
+    process "Cloning binarydots repository..." git clone "$PROXY_URL"
     if [ $? -ne 0 ]; then
         echo "Proxy failed, trying direct GitHub clone..."
-        process "Cloning hyprdots repository (direct)..." git clone "$REPO_URL" || { 
+        process "Cloning binarydots repository (direct)..." git clone "$REPO_URL" || { 
             error "Failed to clone repository."
             exit 1
         }
     fi
 
-    cd hyprdots || { error "Cannot enter dotfiles directory"; exit 1; }
+    cd binarydots || { error "Cannot enter dotfiles directory"; exit 1; }
 
     info "Cloned Repository."
 
@@ -325,7 +328,7 @@ fi
 
 # --- Cleanup ---
 cd ..
-process "Cleaning up..." rm -rf hyprdots
+process "Cleaning up..." rm -rf binarydots
 info "Cleaned."
 
 bash $HOME/.config/scripts/change-theme -p

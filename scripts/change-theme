@@ -81,6 +81,8 @@ END_PYTHON
         fi
     fi
     hyprctl reload & disown
+    
+    makoctl reload
 
     pkill waybar >/dev/null 2>&1
     waybar >/dev/null 2>&1 & disown

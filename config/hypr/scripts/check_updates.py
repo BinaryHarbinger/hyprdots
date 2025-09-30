@@ -14,7 +14,7 @@ CACHE_DIR = HOME+".cache/"
 # Repository information
 # -----------------------------
 owner = "binaryharbinger"
-repo = "hyprdots"
+repo = "binarydots"
 api_base = f"https://api.github.com/repos/{owner}/{repo}"
 
 # Default data structure

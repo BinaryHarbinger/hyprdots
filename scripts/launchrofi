@@ -157,13 +157,7 @@ rice_settings() {
             bash ~/.config/hypr/scripts/widgets.sh four
             bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
             rice_settings
-            ;;
-        "󰚰  Check for Updates")
-            cd ~/.config/hypr/scripts/
-            python check_updates.py
-            cd ~
-            rice_settings
-            ;;
+            ;; 
         "  Toggle Widgets")
             widget_settings
             ;;
@@ -190,7 +184,7 @@ set_wallpaper() {
 
 maintain_menu() {
     # Menu options displayed in rofi
-    options="󰌍\n󰃢  Clear Cache\n󱘡  Clear Clipboard\n󰚰  Update Rice"
+    options="󰌍\n󰃢  Clear Cache\n󱘡  Clear Clipboard\n󰚰  Update Binarydots"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 6;}' -p "")
@@ -219,11 +213,12 @@ maintain_menu() {
             rm -rf ~/.cache/cliphist >/dev/null 2>&1 & disown
             maintain_menu
             ;;
-        "󰚰  Update Rice")
-            curl -sSL https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/refs/heads/main/install.sh -o install.sh
-            foot --override=colors.alpha=1 --app-id=Update -e bash ./install.sh
-            rm -rf ./install.sh
-                    ;;
+        "󰚰  Update Binarydots")
+            cd ~/.config/hypr/scripts/
+            python check_updates.py
+            cd ~
+            rice_settings
+            ;;
         *)
             echo "No option selected"
             ;;
@@ -333,10 +328,10 @@ misc_func() {
 
 system_menu() {
     # Menu options displayed in rofi
-    options="  Apps\n  Connections\n󰃢  Maintaining\n󰅇  Clipboard\n󰄀  Screenshot\n󰐱  Miscellaneous\n  Session Options\n  Manual\n  Settings\n  Update System"
+    options="  Apps\n  Connections\n󰃢  Maintaining\n󰅇  Clipboard\n󰄀  Screenshot\n󰐱  Miscellaneous\n  Notifications\n  Session Options\n  Manual\n  Settings\n  Update System"
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 10;}' -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "")
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 11;}' -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "")
 
     # Execute the corresponding command based on the selected option
     case $chosen in
@@ -357,6 +352,9 @@ system_menu() {
             ;;
         "󰐱  Miscellaneous")
             misc_func 
+            ;;
+        "  Notifications")
+            bash ~/.config/mako/rofi.sh
             ;;
         "  Session Options")
             session_options
@@ -381,12 +379,13 @@ theme_menu() {
 
     # Menu options displayed in rofi
     THEMES=$(find "$THEME_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n')
-
     # Prompt user to choose an option
-    chosen=$(echo -e "$THEMES" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "")
+    chosen=$(echo -e "󰌍\n$THEMES" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
     
     if [[ -z "$chosen" ]]; then 
-        exit 1 
+        exit 1
+    elif [[ "$chosen" = "󰌍" ]];then
+        rice_settings
     fi
 
    $HOME/.config/scripts/change-theme -c $chosen 
