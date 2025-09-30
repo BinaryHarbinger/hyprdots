@@ -122,7 +122,7 @@ else
 fi
 
 if gum confirm "Install qutebrowser? (Not Recommended) A keyboard-driven, vim-like browser based on Python and Qt"; then
-    if procces paru -S qutebrowser; then
+    if process paru -S qutebrowser; then
         info "Installed qutebrowser."
     else
         error "Failed to install qutebrowser"
