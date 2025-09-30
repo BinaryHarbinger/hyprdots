@@ -264,6 +264,8 @@ if [ "$current_shell" != "/usr/bin/zsh" ] && [ "$current_shell" != "/bin/zsh" ];
                     git clone -q "${plugins[$plugin]}" "$PLUGIN_DIR" > /dev/null 2>&1
                 fi
             done
+
+            cp -a ./home/.zshrc $HOME/
             '
             info "Configured ZSH."
             if gum confirm "Install some rust utils? (Recommended)"; then
