@@ -86,8 +86,6 @@ fi
     fi
 fi
 
-cd ..
-
 if process "Updating system..." bash -c '
     if ! paru -Syu --repo >/dev/null 2>&1; then
         error "System update failed. Try to update manually."
