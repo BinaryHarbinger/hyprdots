@@ -40,10 +40,18 @@
 <p></details>
 
 <details><summary>
-🔔 SwayNC
+🔔 MakoGUI
 </summary></p>
 
 ![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/makogui.png)
+
+<p></details>
+
+<details><summary>
+🌐 qutebrowser
+</summary></p>
+
+![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/qute.png)
 
 <p></details>
 

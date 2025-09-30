@@ -114,10 +114,19 @@ PACKAGES=(
 )
 
 # --- Install packages ---
-process "Installing packages..."
-if ! paru -S --needed "${PACKAGES[@]}"; then
+if ! process "Installing packages..." paru -S --needed "${PACKAGES[@]}"; then
     error "Package installation failed."
     exit 1
+else
+    info "Installed packages."    
+fi
+
+if gum confirm "Install qutebrowser? (Not Recommended) A keyboard-driven, vim-like browser based on Python and Qt"; then
+    if procces paru -S qutebrowser; then
+        info "Installed qutebrowser."
+    else
+        error "Failed to install qutebrowser"
+    fi
 fi
 
 # --- NVIDIA detection & driver installation ---
