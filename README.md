@@ -43,7 +43,7 @@
 🔔 SwayNC
 </summary></p>
 
-![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/swaync.png)
+![image](https://raw.githubusercontent.com/BinaryHarbinger/hyprdots/main/preview/makogui.png)
 
 <p></details>
 
