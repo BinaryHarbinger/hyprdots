@@ -228,10 +228,10 @@
 "custom/mako": {
     "format": "{icon}",
     "format-icons": {
-        "notification": "<span foreground='#7b82c6'><sup></sup></span>",
-        "none": "",
-        "dnd-notification": "<span foreground='red'><sup></sup></span>",
-        "dnd-none": ""
+        "notification": "󱅫",
+        "none": "󰂚",
+        "dnd-notification": "<span foreground='gray'><sup></sup></span>",
+        "dnd-none": "<span foreground='red'><sup> </sup></span>"
     },
     "return-type": "json",
     "exec": "bash ~/.config/mako/waybar.sh ",
