@@ -1,0 +1,17 @@
+# Position
+anchor=top-right
+margin=10,20,0
+
+# Appearance
+background-color=#1A1B29
+text-color=#C6CBF7
+border-color=#C6CBF7
+border-size=2
+border-radius=10
+default-timeout=5000
+font=CaskaydiaMono Nerd Font 12
+padding=8
+max-visible=5
+
+[mode=dnd]
+invisible=1

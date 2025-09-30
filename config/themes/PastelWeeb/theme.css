@@ -14,7 +14,7 @@
 @define-color sway-bg @bg-main;
 
 /*text color for entries, views and content in general */
-@define-color fg-main #B4BEFE;
+@define-color fg-main #C6CBF7;
 @define-color fg-unactive @bg-hover;
 @define-color content-act #CDD4FF;
 

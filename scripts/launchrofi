@@ -304,7 +304,7 @@ connections_func() {
 
 misc_func() {
     # Menu options displayed in rofi
-    options="󰌍\n  Toggle Cafein\n󰈈  Toggle Eye Saver"
+    options="󰌍\n  Toggle DND\n  Toggle Cafein\n󰈈  Toggle Eye Saver"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 6;}' -p "")
@@ -313,6 +313,9 @@ misc_func() {
     case $chosen in
         "󰌍")
             system_menu
+            ;;
+        "  Toggle DND")
+            makoctl mode -t dnd 
             ;;
         "  Toggle Cafein")
             bash $HOME/.config/hypr/scripts/cafein toggle -n

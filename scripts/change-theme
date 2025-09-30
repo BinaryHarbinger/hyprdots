@@ -17,8 +17,8 @@ change_theme () {
     ln -sf "$THEME_PATH/theme.scss" ~/.config/eww/theme.scss
     ln -sf "$THEME_PATH/theme.css" ~/.config/waybar/theme.css
     ln -sf "$THEME_PATH/theme.css" ~/.config/wlogout/theme.css
-    ln -sf "$THEME_PATH/theme.css" ~/.config/swaync/theme.css
-    ln -sf "$THEME_PATH/theme.rasi" ~/.config/rofi/theme.rasi
+    ln -sf "$THEME_PATH/theme.rasi" ~/.config/rofi/theme.rasi 
+    ln -sf "$THEME_PATH/makoConfig" ~/.config/mako/config
     ln -sf "$THEME_PATH/hypr.conf" ~/.config/hypr/theme.conf
     ln -sf "$THEME_PATH/theme.py" ~/.config/qutebrowser/theme.py
     ln -sf "$THEME_PATH/theme.css" ~/.config/qutebrowser/newtab/static/theme.css
@@ -44,7 +44,7 @@ change_theme () {
         export QUTE_STATIC_DIR="$HOME/.config/qutebrowser/newtab/static"
 
         # Run Python conversion of theme.css → theme_web.css
-        python3 - <<END_PYTHON
+        python3 >/dev/null 2>&1 - <<END_PYTHON
 import re, os
 
 gtk_path = os.path.join(os.environ['QUTE_STATIC_DIR'], "theme.css")
@@ -77,14 +77,13 @@ else:
 END_PYTHON
  
         if pgrep -x "qutebrowser" > /dev/null; then
-            qutebrowser ":config-source" 
+            qutebrowser ":config-source" >/dev/null 2>&1 & disown 
         fi
     fi
     hyprctl reload & disown
 
     pkill waybar >/dev/null 2>&1
     waybar >/dev/null 2>&1 & disown
-    swaync-client --reload-css >/dev/null 2>&1 || swaync-client --reload-css >/dev/null 2>&1
 
     notify-send -u normal "🎨 Theme Changed" -i preferences-desktop-theme >/dev/null 2>&1 & disown
     echo -e "Theme changed to $chosen"

@@ -3,9 +3,9 @@ anchor=top-right
 margin=10,20,0
 
 # Appearance
-background-color=#1e1e2e
-text-color=#cdd6f4
-border-color=#89b4fa
+background-color=#3C3836
+text-color=#EBDBB2
+border-color=#BDAE93
 border-size=2
 default-timeout=5000
 font=CaskaydiaMono Nerd Font 12
