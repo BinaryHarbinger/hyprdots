@@ -66,8 +66,10 @@ if ! check_dep paru; then
     
     if gum confirm "Install paru?"; then
         info "Installing dependecies..."
-        sudo pacman -S --needed base-devel git
-        process "Cloning paru repository..." git clone https://aur.archlinux.org/paru.git 
+        sudo pacman -S --needed base-devel git rust
+        if [ ! -d "paru" ]; then
+        process "Cloning paru repository..." git clone https://aur.archlinux.org/paru.git || error "Failed to clone paru"
+fi
         info "Building package..."
         cd paru
         makepkg -si
@@ -80,6 +82,8 @@ if ! check_dep paru; then
         exit 1
     fi
 fi
+
+cd ..
 
 if process "Updating system..." bash -c '
     if ! paru -Syu --repo >/dev/null 2>&1; then
@@ -101,7 +105,7 @@ PACKAGES=(
     hyprland hyprlock hypridle hyprpolkitagent hyprsunset hyprpicker
     wlogout
     power-profiles-daemon udiskie network-manager-applet brightnessctl
-    cliphist stow git zsh unzip fastfetch pamixer swaync foot swww
+    cliphist stow git zsh unzip fastfetch pamixer mako foot swww
     mpv mpd mpdris2-rs rmpc
     base-devel
     python-flask
@@ -109,16 +113,9 @@ PACKAGES=(
     rofi rofimoji
 )
 
-# Run the package installation and capture output
-output=$(bash -c "yes | paru -S --needed ${PACKAGES[*]}")
-status=$?
-
-# Use your process function for progress
-process "Installing packages..." true  # true is just a placeholder if process expects a command
-
-# Check status and handle error
-if [ $status -ne 0 ]; then
-    echo "$output" >&2
+# --- Install packages ---
+process "Installing packages..."
+if ! paru -S --needed "${PACKAGES[@]}"; then
     error "Package installation failed."
     exit 1
 fi
