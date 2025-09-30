@@ -117,7 +117,7 @@ PACKAGES=(
 )
 
 # --- Install packages ---
-if ! process "Installing packages..." paru -S --needed "${PACKAGES[@]}"; then
+if ! paru -S --needed "${PACKAGES[@]}"; then
     error "Package installation failed."
     exit 1
 else
