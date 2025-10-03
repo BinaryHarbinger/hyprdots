@@ -18,13 +18,13 @@ default_device = { }
 # The symbol marking the default endpoint on the Playback/Recording tabs
 default_stream = { }
 # The selection indicator in a tab
-selector = { fg = "#B4BEFE" }
+selector = { fg = "#EBDBB2" }
 # The name of a tab in the tab menu
 tab = { }
 # The name of the selected tab in the tab menu
-tab_selected = { fg = "#B4BEFE" }
+tab_selected = { fg = "#EBDBB2" }
 # The symbols surrounding the selected tab in the tab menu
-tab_marker = { fg = "#B4BEFE" }
+tab_marker = { fg = "#EBDBB2" }
 # The symbol at the top/bottom of a tab indicating that there are more items
 list_more = { fg = "DarkGray" }
 # The name of a PipeWire node
@@ -35,7 +35,7 @@ node_target = { }
 volume = { }
 # Volume bar
 volume_empty = { fg = "DarkGray" }
-volume_filled = { fg = "#B4BEFE" }
+volume_filled = { fg = "#EBDBB2" }
 # Peak meter. Inactive = unlit, active = lit, overload = greater than 0.0 dB
 meter_inactive = { fg = "DarkGray" }
 meter_active = { fg = "LightGreen" }
@@ -54,7 +54,7 @@ dropdown_border = { }
 # The name of an item in a dropdown
 dropdown_item = { }
 # The name of the currently-selected item in a dropdown
-dropdown_selected = { fg = "#B4BEFE", add_modifier = "REVERSED" }
+dropdown_selected = { fg = "#EBDBB2", add_modifier = "REVERSED" }
 # The symbol at the top/bottom of a dropdown indicating that there are more items
 dropdown_more = { fg = "DarkGray" }
 # Border around help menu
