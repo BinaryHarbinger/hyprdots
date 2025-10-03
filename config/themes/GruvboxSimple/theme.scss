@@ -1,6 +1,7 @@
 // Theme (Gruvbox)
 
 $fg-main: #ebdbb2;
+$fg-unactive: #928374;
 
 $border-main: #BDAE93;
 $border-alt: #BDAE93;
@@ -15,10 +16,14 @@ $bg-third: #7c6f64;
 
 $ply-main: #665c54;
 $ply-hover: #83A598;
-$ply-act: #AA9D85;
+$ply-act: #3C3836;
 $msc-act: #b8bb26;
 
 $wlogout-hover: rgba(60, 56, 54, 0.54);
 $wlogout-bg: rgba(60, 56, 54, 0.45);
 $wlogout-button: rgba(60, 56, 54, 0.78);
 
+$border-rad:  0px; // Main border radius
+$border-rad2: 0px; // Second
+$border-radb: 4px; // Button
+$border-rads: 2px; // Scale

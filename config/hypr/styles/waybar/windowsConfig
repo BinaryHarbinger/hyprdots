@@ -260,7 +260,7 @@
 		//"3": "三",
         //"4": "四",
         //"5": "五",
-        "urgent": " ",
+        "urgent": "",
         //"active": " ",
         //"default": "󰧞",
         "sort-by-number": true

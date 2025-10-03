@@ -6,7 +6,7 @@ $border-alt: $border-main;
 $bg-main: #1A1B29;
 $bg-alt: #2C2E47;
 $bg-hover: #333556;
-$bg-hover-alt: #25263B;
+$bg-hover-alt: #3f4163;
 $bg-tooltip: #1A1B29;
 $bg-second: #272a3a;
 $bg-third: #8F96D1;
@@ -24,3 +24,8 @@ $msc-act: #4A4C76;
 $wlogout-hover: rgba(37, 37, 68, 0.45);
 $wlogout-bg: rgba(26, 27, 41, 0.6);
 $wlogout-button: rgba(26, 27, 41, 0.78);
+
+$border-rad:  10px; // Main border radius
+$border-rad2: 20px; // Second
+$border-radb: 10px; // Button
+$border-rads: 5px; // Scale

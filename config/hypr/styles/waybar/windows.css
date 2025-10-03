@@ -78,8 +78,7 @@ tooltip label {
  }
  #workspaces button:hover {
      background: @content-act;
-     color: @bg-main;
- }
+}
 
 /* Styling for system info panels like CPU, Disk, Memory */
 #cpu, #disk, #memory {
