@@ -81,7 +81,7 @@ session_options() {
             system_menu
             ;;
         "  Shutdown")
-            notify-send 'Shutting down...' & systemctl poweroff
+            systemctl poweroff
             ;;
         "  Reboot")
             systemctl reboot
@@ -91,7 +91,7 @@ session_options() {
             hyprlock & disown
             ;;
         "󰍃  Logout")
-            notify-send 'Logging out...'&hyprctl dispatch exit 0
+            hyprctl dispatch exit 0
             ;;
         *)
             echo "No option selected"
@@ -110,7 +110,7 @@ widget_settings() {
     # Execute the corresponding command based on the selected option
     case $chosen in
         "󰌍")
-            rice_settings
+            customize_func
             ;;
         "  Desk Clock")
             bash ~/.config/hypr/scripts/widgets.sh three
@@ -141,9 +141,9 @@ widget_settings() {
     esac
 }
 
-rice_settings() {
+settings_func() {
     # Menu options displayed in rofi
-    options="󰌍\n  Activate Linux\n󰚰  Check for Updates\n  Toggle Widgets\n  Wallpaper\n󰌁  Themes"
+    options="󰌍\n  Activate Linux\n  Widgets Settings\n󰚰  Update Binarydots"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
@@ -156,9 +156,37 @@ rice_settings() {
         "  Activate Linux")
             bash ~/.config/hypr/scripts/widgets.sh four
             bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
-            rice_settings
+            settings_func
             ;; 
-        "  Toggle Widgets")
+        "  Widgets Settings")
+            widget_settings
+            ;;
+        "󰚰  Update Binarydots")
+            cd ~/.config/hypr/scripts/
+            python check_updates.py
+            cd ~
+            settings_func
+            ;;
+        *)
+            echo "No option selected"
+            ;;
+    esac
+}
+
+
+customize_func() {
+    # Menu options displayed in rofi
+    options="󰌍\n  Widgets Settings\n  Wallpaper\n󰌁  Themes"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "󰌍")
+            system_menu
+            ;;
+        "  Widgets Settings")
             widget_settings
             ;;
         "󰌁  Themes")
@@ -184,7 +212,7 @@ set_wallpaper() {
 
 maintain_menu() {
     # Menu options displayed in rofi
-    options="󰌍\n󰃢  Clear Cache\n󱘡  Clear Clipboard\n󰚰  Update Binarydots"
+    options="󰌍\n󰃢  Clear Cache\n󱘡  Clear Clipboard"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 6;}' -p "")
@@ -194,7 +222,6 @@ maintain_menu() {
         "󰌍")
             system_menu
             ;;
-
         "󰃢  Clear Cache")
          	find ~/.cache -mindepth 1 -maxdepth 1 \
          	  ! -name "spotify" \
@@ -212,13 +239,7 @@ maintain_menu() {
         "󱘡  Clear Clipboard")
             rm -rf ~/.cache/cliphist >/dev/null 2>&1 & disown
             maintain_menu
-            ;;
-        "󰚰  Update Binarydots")
-            cd ~/.config/hypr/scripts/
-            python check_updates.py
-            cd ~
-            rice_settings
-            ;;
+            ;; 
         *)
             echo "No option selected"
             ;;
@@ -328,10 +349,10 @@ misc_func() {
 
 system_menu() {
     # Menu options displayed in rofi
-    options="  Apps\n  Connections\n󰃢  Maintaining\n󰅇  Clipboard\n󰄀  Screenshot\n󰐱  Miscellaneous\n  Notifications\n  Session Options\n  Manual\n  Settings\n  Update System"
+    options="  Apps\n  Connections\n󰃢  Maintaining\n󰅇  Clipboard\n󰄀  Screenshot\n󰐱  Miscellaneous\n  Notifications\n  Session Options\n  Manual\n  Customize\n  Settings\n  Update System"
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 11;}' -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "")
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 12;}' -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "")
 
     # Execute the corresponding command based on the selected option
     case $chosen in
@@ -362,9 +383,12 @@ system_menu() {
         "  Update System")
             foot --override=colors.alpha=1 --app-id=Update -e bash ~/.config/scripts/update
             ;;
+        "  Customize")
+            customize_func
+            ;;
         "  Settings")
-            rice_settings
-                    ;;
+            settings_func
+            ;;
         "  Manual")
             manual_func
                     ;;
@@ -385,7 +409,7 @@ theme_menu() {
     if [[ -z "$chosen" ]]; then 
         exit 1
     elif [[ "$chosen" = "󰌍" ]];then
-        rice_settings
+        customize_func
     fi
 
    $HOME/.config/scripts/change-theme -c $chosen 
@@ -420,7 +444,7 @@ case "$1" in
     	widget_settings
     	;;
      --rice_settings|-rs)
-     	rice_settings
+     	settings_func
      	;;
      --system_menu|--sys_menu|-sm)
      	system_menu
