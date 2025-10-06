@@ -14,7 +14,7 @@ Options:
 change_theme () {
     
     # Files
-    ln -sf "$THEME_PATH/theme.scss" ~/.config/eww/theme.scss
+    ln -sf "$THEME_PATH/theme.scss" ~/.config/ewwii/theme.scss
     ln -sf "$THEME_PATH/theme.css" ~/.config/waybar/theme.css
     ln -sf "$THEME_PATH/theme.css" ~/.config/wlogout/theme.css
     ln -sf "$THEME_PATH/theme.rasi" ~/.config/rofi/theme.rasi 

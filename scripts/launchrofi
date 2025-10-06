@@ -331,7 +331,8 @@ misc_func() {
             system_menu
             ;;
         "  Toggle DND")
-            makoctl mode -t dnd 
+            makoctl mode -t dnd
+            misc_func
             ;;
         "  Toggle Cafein")
             bash $HOME/.config/hypr/scripts/cafein toggle -n

@@ -1,7 +1,6 @@
 {
-   "stats": 1,
+   "status": 1,
    "desktopmusic": 1,
-   "deskclockwin": 1,
-   "activate-linux": 1,
+   "deskclockwin": 0,
    "activatelinux": 1
 }

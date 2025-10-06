@@ -104,7 +104,7 @@
     "tooltip-format": "{icon} {essid}",
     "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤢 ", "󰤨 "],
 
-    "on-click": "bash ~/.config/hypr/scripts/actioncenter.sh &  eww close calendar",
+    "on-click": "bash ~/.config/hypr/scripts/actioncenter.sh &  ewwii close calendar",
     "on-click-right": "bash .config/hypr/scripts/rofiwifi.sh"
 },
 
@@ -146,7 +146,7 @@
 
 "battery": {
     
-    "on-click": "bash ~/.config/hypr/scripts/actioncenter.sh &  eww close calendar",
+    "on-click": "bash ~/.config/hypr/scripts/actioncenter.sh &  ewwii close calendar",
     
     "states": {"good": 95, "warning": 30, "critical": 20},
     
@@ -173,7 +173,7 @@
       "default": [" ", " "]
     },
 
-    "on-click": "bash ~/.config/hypr/scripts/actioncenter.sh &  eww close calendar",
+    "on-click": "bash ~/.config/hypr/scripts/actioncenter.sh &  ewwii close calendar",
     "menu": "on-click-right",
     "menu-file": "~/.config/waybar/volume_menu.xml",
 	"menu-actions": {
@@ -191,7 +191,7 @@
     "tooltip-format": "{icon} {percent}%",
     "format-icons": [" ", " ", " ", " ", " ", " ", " ", " ", " "],
 
-    "on-click": "bash ~/.config/hypr/scripts/actioncenter.sh &  eww close calendar",
+    "on-click": "bash ~/.config/hypr/scripts/actioncenter.sh &  ewwii close calendar",
 },
 
 // ====================================================
@@ -221,7 +221,7 @@
     "exec-if": "which swaync-client",
     "exec": "swaync-client -swb",
     
-    "on-click": "swaync-client -t -sw & eww close actioncenter calendar musiccenter",
+    "on-click": "swaync-client -t -sw & ewwii close actioncenter calendar musiccenter",
     "on-click-right": "swaync-client -d -sw",
     "escape": true
 }, */
@@ -310,7 +310,7 @@
     "format": " {:%R}",
     "tooltip-format": " {:%d %B %Y}",
     
-    "on-click": "eww open calendar --toggle --no-daemonize & eww close actioncenter musiccenter",
+    "on-click": "ewwii open calendar --toggle --no-daemonize & ewwii close actioncenter musiccenter",
     
 },
 

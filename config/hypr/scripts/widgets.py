@@ -5,7 +5,7 @@ import sys
 arguments = sys.argv[1:]
 
 data = defaultData = {
-    "stats": 1,
+    "status": 1,
     "desktopmusic": 1,
     "deskclockwin": 1,
     "activatelinux": 1,
@@ -29,9 +29,9 @@ def writeFile(dataFile=defaultData):
         file.write(jsonData)
 
 def openWidgets(dataF=data):
-    for x in ["stats", "desktopmusic", "deskclockwin", "activatelinux"]:
+    for x in ["status", "desktopmusic", "deskclockwin", "activatelinux"]:
         if dataF.get(x):
-            command = ["/usr/bin/eww", "open", x]
+            command = ["/usr/bin/ewwii", "open", x]
             runCommand(command)
     
 changeArguments = {"one", "two", "three", "four"}
@@ -45,8 +45,8 @@ for argument in arguments:
     if argument in changeArguments:
         if argument == "one":
             print("One detected")
-            currentState = not data.get("stats")
-            data.update(stats = int(currentState))
+            currentState = not data.get("status")
+            data.update(status = int(currentState))
         elif argument == "two":
             print("Two detected")
             currentState = not data.get("desktopmusic")
@@ -63,20 +63,22 @@ for argument in arguments:
         print(data)
         writeFile(data)
     else:
-        command = ["/usr/bin/eww", "r"]
+        command = ["/usr/bin/ewwii", "r"]
         if argument == "s":
-            command = ["/usr/bin/eww", "r"]
+            command = ["/usr/bin/ewwii", "r"]
             runCommand(command)
             openWidgets(data)
         elif argument == "r":
-            command = ["eww","close-all"]
+            command = ["ewwii","close-all"]
             runCommand(command)
-            command = ["kill","-9","eww"]
+            command = ["kill","-9","ewwii"]
             runCommand(command)
-            command = ["eww", "d"]
+            command = ["ewwii","kill"]
+            runCommand(command)
+            command = ["ewwii", "d"]
             runCommand(command)
             openWidgets(data)
-            command = ["eww", "r"]
+            command = ["ewwii", "r"]
             print(data)
 
 exit()

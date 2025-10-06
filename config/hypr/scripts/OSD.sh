@@ -6,6 +6,7 @@ timer_pid=""
 
 show_osd() {
     eww update volume="$1"
+    ewwii update volume="$1"
 
     if ! eww active-windows | grep -q "$widget"; then
         eww open "$widget"

@@ -18,7 +18,7 @@
 
 - Rofi-based system menu (SUPER + U)
 - Multiple system wide themes (Including QT themes.)
-- EWW/Widget integrations
+- EWWII/Widget integrations
 - Auto-install script (designed for Arch-based distros)
 - Minimal, opinionated defaults but easy to customize
 

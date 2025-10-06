@@ -1,27 +1,26 @@
 #!/bin/bash
+STATE_FILE="/tmp/actioncenter_state"
 
-is_open=$(eww active-windows | grep -c "actioncenter")
-
-if [ "$is_open" -eq 0 ]; then
-  # Pencere kapalıysa reveal kapalı yap
-  eww update actioncenter_reveal=false
+# Dosya yoksa oluştur ve default false
+if [ ! -f "$STATE_FILE" ]; then
+    echo "false" > "$STATE_FILE"
 fi
 
-current=$(eww get actioncenter_reveal)
+# Mevcut durumu oku
+current_value=$(cat "$STATE_FILE")
 
-if [ "$current" = "true" ]; then
-  # Kapatma işlemi
-  eww close musiccenter
-  sleep 0.3
-  eww update actioncenter_reveal=false
-  sleep 0.2
-  eww close actioncenter
+if [ "$current_value" = "true" ]; then
+    new_value="false"
+    echo "Closed"
 else
-  # Açma işlemi
-  eww close musiccenter
-  eww open actioncenter
-  eww update actioncenter_reveal=true
-  sleep 0.3
-  eww open musiccenter --toggle --no-daemonize
+    new_value="true"
+    echo "Opened"
 fi
 
+ewwii open --toggle actioncenter
+
+# Dosyayı güncelle ve stdout’a yaz
+echo "$new_value" | tee "$STATE_FILE" > /dev/null
+
+# Küçük gecikme
+sleep 0.1
