@@ -7,7 +7,7 @@ arguments = sys.argv[1:]
 data = defaultData = {
     "status": 1,
     "desktopmusic": 1,
-    "deskclockwin": 1,
+    "deskclock": 1,
     "activatelinux": 1,
 }
 
@@ -29,7 +29,7 @@ def writeFile(dataFile=defaultData):
         file.write(jsonData)
 
 def openWidgets(dataF=data):
-    for x in ["status", "desktopmusic", "deskclockwin", "activatelinux"]:
+    for x in ["status", "desktopmusic", "deskclock", "activatelinux"]:
         if dataF.get(x):
             command = ["/usr/bin/ewwii", "open", x]
             runCommand(command)
@@ -53,8 +53,8 @@ for argument in arguments:
             data.update(desktopmusic = int(currentState))
         elif argument == "three":
             print("Three detected")
-            currentState = not data.get("deskclockwin")
-            data.update(deskclockwin = int(currentState))
+            currentState = not data.get("deskclock")
+            data.update(deskclock = int(currentState))
         elif argument == "four":
             print("Four detected")
             currentState = not data.get("activatelinux")
