@@ -385,11 +385,11 @@
 }
 
 .deskclock  {
-  font-size: 130px;
+  font-size: 170px;
   color: c.$fg-main;
-  background-color: rgba($color: #000000, $alpha: 0.1);
+  font-family: "AlfaSlabOne";
   padding: 0px 4px;
-  text-shadow: 5px 3px 1px c.$ply-act ;
+  text-shadow: 5px 3px 1px c.$bg-main ;
   border: 0px solid c.$border-main;
 }
 

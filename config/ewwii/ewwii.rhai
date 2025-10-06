@@ -3,16 +3,12 @@ import "desktop_widgets.rhai" as desktop_widgets;
 
 import "std::command" as cmd;
 
-fn volume_osd () {
-    return 0;
-}
-
 fn mini_player(musicartlink, music_title, music_position,music_position_percentage, music_loop, music_shuffle, music_lenght, playing_paused){
     return box(#{
     orientation: "horizontal",
     space_evenly: true,
     halign: "center",
-    valign: "center",
+    valign: "fill",
     class: "musiccenter",
   }, [
     box(#{
@@ -113,7 +109,7 @@ fn quick_center_content(up_time, volume, brightness, mic_percent, network_status
                 box(#{ class: "random" }, [
                 button(#{ label: " ", class: if network_status != "no-network" { "button-active" } else { "button" }, onclick: "rfkill toggle wifi & ewwii update networkstatus=''"}),
                 button(#{ label: "󰂯", class: if bluetooth_status != "no" { "button-active" } else { "button" }, onclick: "rfkill toggle bluetooth"}),
-                button(#{ label: " ", class: if sunset_status != "no-process" { "button-active" } else { "button" } })
+                button(#{ label: " ", class: if sunset_status != "no-process" { "button-active" } else { "button" }, onclick: "bash -c `~/.config/eww/scripts/sunset.sh`" })
                 ]),
             box(#{ class: "random" }, [
                 button(#{ label: " ", class: if cafein_status == "no-process" { "button-active" } else { "button" }, onclick: "bash -c `$HOME/.config/hypr/scripts/cafein toggle`" }),
@@ -286,6 +282,18 @@ enter([
       cmd: `uptime -p | cut -c3-`, // command to execute"
   }),
 
+  poll("hours", #{
+      initial: "00",
+      interval: "1s",
+      cmd: `date +"%H"`, // command to execute"
+  }),
+
+  poll("minutes", #{
+      initial: "00",
+      interval: "1s",
+      cmd: `date +"%M"`, // command to execute"
+  }),
+
     poll("brightness", #{
       initial: "50",
       interval: "5",
@@ -439,6 +447,33 @@ defwindow(
       },
     },
     status_scales(volume, brightness)  ),
+    defwindow(
+    "deskclock",
+    #{
+        monitor: 0,
+        windowtype: "normal",
+        stacking: "bg",
+        geometry: #{
+        x: "0%",
+        y: "12%",
+        width: "0%",
+        height: "0%",
+        anchor: "top center",
+      },
+    },
+        box(#{
+            halign: "center",
+            valign: "center",
+            space_evenly: false,
+            spacing: 0,
+            orientation: "vertical",
+
+       }, [       
+       label(#{ text: hours }),
+       label(#{ text: minutes }),
+] ),
+  ),
+
    defwindow(
     "activatelinux",
     #{
