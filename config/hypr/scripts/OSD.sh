@@ -5,7 +5,7 @@ prevState=""
 timer_pid=""
 
 show_osd() {
-    if ! ewwii active-windows | grep "$widget"; then
+    if ! ewwii active-windows | grep -q '^volOSD:'; then
         ewwii open "$widget"
     fi
 
