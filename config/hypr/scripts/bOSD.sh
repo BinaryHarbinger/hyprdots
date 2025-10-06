@@ -6,11 +6,8 @@ timer_pid=""
 
 show_osd() {
     
-    eww update brightness=$currentState
-
-    if ! eww active-windows | grep -q "$widget"; then
-        eww update brightness=$currentState
-        eww open "$widget"
+    if ! ewwii active-windows | grep "$widget"; then
+        ewwii open "$widget"
     fi
 
     # Kill old timer
@@ -21,7 +18,7 @@ show_osd() {
     # Start new timer
     (
         sleep 2
-        eww close "$widget"
+        ewwii close "$widget"
     ) &
     timer_pid=$!
 }

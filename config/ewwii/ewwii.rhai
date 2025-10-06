@@ -214,7 +214,7 @@ fn status_scales(volume, brightness) {
    slider(#{ class: "statusscale", 
                 space_evenly: false,
                 valign: "center",
-                timeout: 800,
+                timeout: 4000,
                 orientation: "horizontal", 
                 min:0, max:101, 
                 value: volume,
@@ -232,7 +232,7 @@ fn status_scales(volume, brightness) {
    slider(#{ class: "statusscale", 
                 space_evenly: false,
                 valign: "center",
-                timeout: 500,
+                timeout: 4000,
                 orientation: "horizontal", 
                 min:0, max:101, 
                 value: brightness,
@@ -245,10 +245,7 @@ fn status_scales(volume, brightness) {
 }
 
 enter([
-    listen("actioncenter_state", #{
-        initial: "false",
-        cmd: "inotifywait -q -m -e modify /tmp/actioncenter_state --format '%w' | while read -r _; do cat /tmp/actioncenter_state; done",
-    }),
+    
     
     poll("network_status", #{
       initial: "yes",
@@ -295,11 +292,9 @@ enter([
       cmd: `scripts/brightness.sh`, // command to execute"
   }),
 
-  poll("volume", #{
-      initial: "No Media",
-      interval: "30",
-      cmd: `scripts/getVol.sh speaker`, // command to execute"
-  }),
+  listen("volume", #{
+        initial: "0",
+        cmd: "scripts/getVol.sh speaker listen"}),
 
   poll("mic_percent", #{
       initial: "No Media",
@@ -470,6 +465,40 @@ defwindow(
        label(#{  xalign: 0, markup: "<span font_size=\"large\">Activate Linux</span>" }),
        label(#{  xalign: 0, text: "Go to Settings to activate Linux" }),
 ] ),
+  ),
+  defwindow(
+    "volOSD",
+    #{
+      monitor: 0,
+      class: "random",
+      windowtype: "normal",
+      stacking: "overlay",
+       geometry: #{
+        x: "0%",
+        y: "2%",
+        width: "16%",
+        height: "0%",
+        anchor: "top center",
+      },
+    },
+       box(#{
+            orientation: "horizontal",
+            halign: "center",
+            space_evenly: false,
+            class: "OSD",
+            }, [
+                label(#{  class: "statuslabel" , text: "" } ),
+                slider(#{ class: "statusscale", 
+                    space_evenly: false,
+                    valign: "center",
+                    timeout: 4000,
+                    orientation: "horizontal", 
+                    min:0, max:101, 
+                    value: volume,
+                    onchange: "pamixer --set-volume {}"
+                } ), 
+        ]),
+
   ),
   defwindow(
     "calendar",

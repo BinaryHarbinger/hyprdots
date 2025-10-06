@@ -5,11 +5,8 @@ prevState=""
 timer_pid=""
 
 show_osd() {
-    eww update volume="$1"
-    ewwii update volume="$1"
-
-    if ! eww active-windows | grep -q "$widget"; then
-        eww open "$widget"
+    if ! ewwii active-windows | grep "$widget"; then
+        ewwii open "$widget"
     fi
 
     # Kill old timer
@@ -20,7 +17,7 @@ show_osd() {
     # Start new timer
     (
         sleep 2
-        eww close "$widget"
+        ewwii close "$widget"
     ) &
     timer_pid=$!
 }
