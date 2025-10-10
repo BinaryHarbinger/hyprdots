@@ -15,14 +15,17 @@
 
 * {
 	all: unset; /*Remove the useless GTK theme rules*/
-    font-family: "CaskaydiaMono Nerd Font, JetBrainsMono Nerd Font","Fira Mono";
+    font-family: "Ubuntu Nerd Font";
     font-weight: 900;
-    font-size: 12px;
+    font-size: 13px;
+    border-radius: 12px;
+    transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 window#waybar {
     background: @bg-main;
     color: @fg-main;
+    border-radius: 0px;
 }
 
 tooltip {
@@ -38,13 +41,13 @@ tooltip label {
 
 /* Custom widget for sway notifications */
 #custom-swaync, #custom-mako {
-    font-family: "JetBrainsMono Nerd Font";
-    font-size: 1px;
+    font-family: "Ubuntu Nerd Font";
+    font-size: 0px;
     color: @fg-main;
     background-color: @bg-main;
     min-width: 20px;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 10px;
+    padding-right: 10px;
     margin-left: 10px;
     margin-right: 5px;
     border: 2px solid @bg-main;
@@ -52,39 +55,32 @@ tooltip label {
 
 /* Workspaces styling */
 #workspaces {
-    font-size: 13px;
+    font-size: 0px;
     color: transparent;
     margin-right: 1.5px;
     margin-left: 1.5px;
-    border: 2px solid @bg-main ;
-    background-color: @bg-main;
-    padding: 0px 20px;
+    border: 0px solid transparent ;
+    background-color: transparent;
+    padding: 3px 20px;
 }
+
 #workspaces button {
-    color: @fg-main;
-    padding: 0px 5px;
-    margin: 1px 4px;
-    background-color: @bg-main;
-    border-color: @bg-main;
+    color: transparent;
+    padding: 0px 10px;
+    margin: 6px 8px;
+    border-radius: 60px;
+    background-color: @fg-unactive;
+    border-color: transparent;
 }
 
 #workspaces button.active {
-    color: @fg-main;
-    background: @bg-main;
-    padding: 0px 7px;
-    border-bottom: 3px solid @fg-main;
+    background-color: @fg-main;
+    padding: 0px 18px;
 }
-#workspaces button.focused {
-    color: @bg-second;
-}
-#workspaces button.urgent {
-    background: rgba(255, 200, 0, 0.35);
-    border-bottom: 0px dashed @warning_color;
-    color: @warning_color;
-}
+
 #workspaces button:hover {
     background: @bg-hover;
-    color: @bg-main;
+    color: transparent;
 }
 
 /* Styling for system info panels like CPU, Disk, Memory */
@@ -106,7 +102,7 @@ tooltip label {
     border: 2px solid @bg-main;
     padding: 0px 10px;
     margin-right: 20px;
-    background-color: @bg-second;
+    background-color: @bg-main;
 }
 #tray > .passive {
     border-bottom: none;
@@ -129,7 +125,7 @@ tooltip label {
 }
 
 #tray menu > *:hover, menu > *:hover {
-    background-color: @bg-second; 
+    background-color: @bg-third; 
 }
 
 #tray menu > *:active, menu > *:active {
@@ -180,9 +176,8 @@ tooltip label {
 
 /* Styling for memory, search, os button, etc. */
 #cpu, #memory, #custom-search, #custom-os_button, #custom-runner, #mpris, #custom-cafein, #cava, #clock {
-    font-family: "Symbols Nerd Font", "CaskaydiaMono Nerd Font";
     background-color: @bg-main;
-    font-weight: bold;
+    font-weight: lighter;
     padding: 0px 9px;
     border: 0px solid @border-main;
 }
@@ -200,19 +195,6 @@ tooltip label {
 /* Hover effect for bar elements */
 #custom-swaync:hover, #custom-mako:hover, #tray > widget:hover,#custom-search:hover, #custom-os_button:hover, #custom-runner:hover, #mpris:hover, #custom-cafein:hover, #clock:hover, #power-profiles-daemon:hover{
     background-color: @bg-hover;
-}
-
-/* Hardware widget styling */
-#hardware {
-    background-color: @bg-second;
-    font-weight: bold;
-    padding: 0px 10px;
-    margin: 2px 5px;
-    border-radius: 10px;
-}
-
-#cpu, #memory {
-    background-color: unset;
 }
 
 /* Bluetooth, network, pulseaudio icon size adjustment */
@@ -240,11 +222,9 @@ tooltip label {
 }
 
 #clock {
-    font-family: "JetBrainsMono Nerd Font";
     font-size: 13px;
-    font-weight: 900;
     padding: 0px 6px;
-    margin: 0px 4px;
+    margin: 0px 0px;
 }
 
 /* Control Center*/

@@ -265,6 +265,7 @@ tooltip label {
 #clock {
     font-family: "JetBrainsMono Nerd Font";
     font-size: 14px;
+    font-weight: 900;
     padding: 0px 6px;
     margin: 0px 4px;
 }

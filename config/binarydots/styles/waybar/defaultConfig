@@ -331,7 +331,6 @@
 			"pulseaudio",
 			"network",
 			"battery",
-            "backlight"
 		]
 },
     
@@ -348,7 +347,7 @@
 
 "group/rightSide": {
 	"orientation": "horizontal",
-	"modules": ["group/controlCenter","power-profiles-daemon", "clock"]
+	"modules": ["group/controlCenter", "clock"]
 	},
 }
 

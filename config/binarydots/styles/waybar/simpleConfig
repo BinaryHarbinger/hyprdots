@@ -21,7 +21,7 @@
 
     "modules-left": ["group/customs","custom/seperator","mpris"],
     "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["tray", "group/controlCenter", "power-profiles-daemon", "clock", "custom/mako"],
+    "modules-right": ["tray", "group/controlCenter", "clock", "custom/mako"],
     
     "hyprland/language": {
         "format": "{}",
@@ -75,6 +75,7 @@
     "format": "  {status_icon}   {title} - {artist} ",
     "format-stopped": "No Player", 
     "title-len": 30,
+    "artist-len": 18,
     "player-icons": {
       "default": ""},
  
@@ -316,7 +317,6 @@
 		"pulseaudio",
 		"network",
 		"battery",
-        "backlight"
 	]
 },
 

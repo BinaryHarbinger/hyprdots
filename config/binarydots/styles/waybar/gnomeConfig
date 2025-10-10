@@ -17,14 +17,11 @@
     "mod": "dock",
     "exclusive": true,
     "gtk-layer-shell": true,
-    "margin-top": 6, "margin-bottom": 0,
-    "margin-left": 5, "margin-right": 5,
-    "passthrough": false,
     "height": 0,
 
-    "modules-left": ["group/customs", "mpris"],
-    "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["tray", "group/controlCenter", "clock", "custom/mako"],
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["custom/mako", "clock"],
+    "modules-right": ["tray", "group/controlCenter"],
     
     "hyprland/language": {
         "format": "{}",
@@ -33,7 +30,6 @@
     },
 
 // ====================================================
-
 
 
 
@@ -61,35 +57,37 @@
     "on-click": "~/.config/scripts/launchrofi --menu",
 },
 
+"custom/seperator": {
+    "format": " | ",
+    "tooltip": false,
+    "interval": "once",
+},
 
 // =============================================================
 
 
 
 
-
-// ====================== Media ======================
-
-  "mpris": {
-
-    "format": "   {status_icon}  {title} - {artist} ",
+// ====================== Media ====================== 
+ 
+"mpris": {
     
-    "title-len": 22,
-    "artist-len": 18,
+    "format": "  {status_icon}   {title} - {artist} ",
+    "format-stopped": "No Player", 
+    "title-len": 30,
     "player-icons": {
-        "default": "",
-    },
+      "default": ""},
+ 
     "status-icons": {
-      "paused": "",
+      "paused": "",   
       "playing": "",
       "stopped": "",
-    },
-
+    },                       
+  
     "tooltip": false
 },
-
+ 
 // ===================================================
-
 
 
 
@@ -225,7 +223,7 @@
     "on-click": "swaync-client -t -sw & ewwii close actioncenter calendar musiccenter",
     "on-click-right": "swaync-client -d -sw",
     "escape": true
-}, */
+},*/
 
 "custom/mako": {
     "format": "{icon}",
@@ -254,47 +252,20 @@
 
     "format":"{icon}",
     "icon-size": 32,
-    "spacing": 16,
+    "spacing": 0,
     
     "on-scroll-up": "hyprctl dispatch workspace r+1",
     "on-scroll-down": "hyprctl dispatch workspace r-1",
     
-    "persistent-workspaces": { "*": 4 },
+    "persistent-workspaces": { "*": 2 },
     "format-icons": {
-        //"1": "一",
-        //"2": "二",
-		//"3": "三",
-        //"4": "四",
-        //"5": "五",
-        "urgent": "",
-        //"active": "",
-        //"default": "󰧞",
+        "active": "000",
+        "default": "",
         "sort-by-number": true
         },
 },
 
 // ========================================================
-
-
-
-
-
-// ====================== Taskbar ====================== 
-/*
-"wlr/taskbar": {
-    "format": "{icon} {title:.18}",
-    "icon-size": 18,
-    "spacing": 3,
-    
-    "on-click-middle": "close",
-    "tooltip-format": "{title}",
-    "ignore-list": [],
-    
-    "on-click": "activate"
-},
-*/
-// ======================================================
-
 
 
 
@@ -308,24 +279,12 @@
 },
 
 "clock": {
-    "format": " {:%R}",
+    "format": "{:%b %d  %R}",
     "tooltip-format": " {:%d %B %Y}",
     
     "on-click": "ewwii open calendar --toggle --no-daemonize & ewwii close actioncenter musiccenter",
     
 },
-
-  "memory": {
-    "format": "󰍛 {}%",
-    "format-alt": "󰍛 {used}/{total} GiB",
-    "interval": 5
-  },
-
-  "cpu": {
-    "format": "󰻠 {usage}%",
-    "format-alt": "󰻠 {avg_frequency} GHz",
-    "interval": 5
-  },
 
 // =======================================================
 
@@ -335,14 +294,6 @@
 
 // ====================== Groups ======================
 
-"group/hardware": {
-		"orientation": "horizontal",
-		"modules": [
-			"memory",
-			"cpu"		
-            ]
-},
-
 "group/customs": {
 	"orientation": "horizontal",
 	"modules": ["custom/search", "custom/runner", "custom/os_button"]
@@ -351,8 +302,8 @@
 "group/controlCenter": {
 	"orientation": "horizontal",
 	"modules": [
-		"pulseaudio",
 		"network",
+		"pulseaudio",
 		"battery",
 	]
 },
