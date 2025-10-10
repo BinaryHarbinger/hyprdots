@@ -9,9 +9,11 @@ chosen=$(echo -e "$options" | rofi -dmenu -i -p "  Notifications" -config ~/.
 
 if [ "$chosen" = "󰃢  Clear All" ]; then
     rm -rf $logfile
+    bash ~/.config/mako/rofi.sh & disown
     exit 0
 elif [ "$chosen" = "󰔡  Toggle DND" ]; then
-    makoctl mode -t dnd 
+    makoctl mode -t dnd
+    bash ~/.config/mako/rofi.sh & disown
     exit 0
 fi
 
