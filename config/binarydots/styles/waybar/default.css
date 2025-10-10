@@ -105,14 +105,12 @@ tooltip label {
 
 /* Tray panel styling */
 #tray {
-    margin-left: 5px;
-    margin-right: 5px;
-    border: 2px solid @border-main;
+    margin: 0px 12px;
+    margin-right: 20px;
     border-radius: 10px;
     padding: 0px 10px;
-    margin-right: 20px;
-    background-color: @bg-main;
 }
+
 #tray > .passive {
     border-bottom: none;
 }
@@ -120,7 +118,7 @@ tooltip label {
 #tray > widget {
     transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
     border-radius: 8px;
-    padding: 0px 3px;
+    padding: 0px 6px;
 }
 
 #tray menu, menu {
@@ -268,6 +266,7 @@ tooltip label {
     font-weight: 900;
     padding: 0px 6px;
     margin: 0px 4px;
+    margin-left: 14px;
 }
 
 /* Control Center*/

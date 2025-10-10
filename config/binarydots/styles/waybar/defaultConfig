@@ -24,7 +24,7 @@
 
     "modules-left": ["group/leftSide"],
     "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["tray", "group/rightSide", "custom/mako"],
+    "modules-right": ["group/rightSide", "custom/mako"],
   
     "hyprland/language": {
         "format": "{}",
@@ -347,7 +347,7 @@
 
 "group/rightSide": {
 	"orientation": "horizontal",
-	"modules": ["group/controlCenter", "clock"]
+	"modules": ["tray", "group/controlCenter", "clock"]
 	},
 }
 
