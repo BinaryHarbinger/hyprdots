@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-THEME_DIR="$HOME/.config/themes"
+STYLE_PATH="$HOME/.config/binarydots/styles"
+THEME_DIR="$HOME/.config/binarydots/themes/"
 THEMES=$(find "$THEME_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n')
 
 USAGE="\nUsage: $0 [OPTION] [ARGUMENT]
@@ -28,16 +29,20 @@ change_theme () {
     ln -sf "$THEME_PATH/mpv/script-opts/uosc.conf" ~/.config/mpv/script-opts
     
     source "$THEME_PATH/theme.sh" # Export theme variables
-
-    bash ~/.config/scripts/wallpaper -s "$wallpaper" 
-
-    sed -i "s/^THEME_VAR=\"[^\"]*\"/THEME_VAR=\"$scheme\"/" ~/.zshrc
-
-    sed -i "s/vim\.cmd(\"colorscheme .*\")/vim.cmd(\"colorscheme $scheme\")/" ~/.config/nvim/init.lua
     
-    sed -i "s|\(color_scheme_path=.*/\).*|\1$scheme.conf|" ~/.config/qt6ct/qt6ct.conf
+    # Waybar Styles
+    ln -sf "$HOME/.config/binarydots/styles/waybar/${WAYBAR_STYLE}Config" "$HOME/.config/waybar/config"
+    ln -sf "$HOME/.config/binarydots/styles/waybar/${WAYBAR_STYLE}.css" "$HOME/.config/waybar/style.css"
 
-    sed -i "s/theme: \".*\",/theme: \"$scheme\",/" ~/.config/rmpc/config.ron
+    bash ~/.config/scripts/wallpaper -s "$WALLPAPER" 
+
+    sed -i "s/^THEME_VAR=\"[^\"]*\"/THEME_VAR=\"$SCHEME\"/" ~/.zshrc
+
+    sed -i "s/vim\.cmd(\"colorscheme .*\")/vim.cmd(\"colorscheme $SCHEME\")/" ~/.config/nvim/init.lua
+    
+    sed -i "s|\(color_scheme_path=.*/\).*|\1$SCHEME.conf|" ~/.config/qt6ct/qt6ct.conf
+
+    sed -i "s/theme: \".*\",/theme: \"$SCHEME\",/" ~/.config/rmpc/config.ron
 
     if command -v qutebrowser >/dev/null 2>&1; then 
         # --- Qutebrowser update ---
@@ -117,7 +122,18 @@ case $1 in
 
     --prompt|-p)
         chosen=$(gum choose --header 'Select a Theme' $THEMES)
+
+        if [[ -z "$chosen" ]]; then
+            echo "No theme selected."
+            exit 1
+        fi
+
         THEME_PATH="$THEME_DIR/$chosen"
+        if [[ ! -d "$THEME_PATH" ]]; then
+            echo "Error: No such theme '$chosen'"
+            echo -e "Available themes:\n$THEMES"
+            exit 1
+        fi
         change_theme 
         ;;
 

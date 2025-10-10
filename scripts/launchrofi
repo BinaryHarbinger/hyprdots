@@ -400,7 +400,7 @@ system_menu() {
 }
 
 theme_menu() {
-   THEME_DIR="$HOME/.config/themes"
+   THEME_DIR="$HOME/.config/binarydots/themes"
 
     # Menu options displayed in rofi
     THEMES=$(find "$THEME_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n')
