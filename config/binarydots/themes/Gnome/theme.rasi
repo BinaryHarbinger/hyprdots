@@ -1,0 +1,31 @@
+* {
+    border-color:     #101010;
+    selected-normal-foreground: #101010;
+    normal-foreground: #ebdbb2;
+    selected-normal-background: #504945;
+    normal-background:#504945;
+    bg-selected:      #383838;
+    input-bar-bg:     #383838;
+    background-color: #101010;
+    lightred:         #fb4934;
+    font:             "CaskaydiaMono Nerd Font 15";
+    dark:             #1d2021;
+    transparent:      transparent;
+    lightblue:        #83a598;
+    background-alt:   #3C3836;
+    selected:         #504945;
+    active:           #b8bb26; /* green */
+    urgent:           #fb4934; /* red */
+    background:       #262626;
+    foreground:       #F7F3F7;
+    foreground-alt:   #F7F3F7;
+    border-radius:    12px;
+    border-radius-win: 12px;
+    border-selected: var(foreground);
+    location-var:     center;
+    anchor-var:       center;
+    width-var:        440px;
+    list-font:        inherit;
+    lines-var:        10;
+}
+

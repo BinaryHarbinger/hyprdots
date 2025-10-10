@@ -2,7 +2,7 @@
 
 WAYBAR_STYLE="floating"
 
-WALLPAPER="$HOME/.config/hypr/wallpapers/Arch-chan.png"
+WALLPAPER="$HOME/.config/binarydots/wallpapers/Arch-chan.png"
 
 SCHEME="pastelweeb"
 

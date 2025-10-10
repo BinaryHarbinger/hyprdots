@@ -13,7 +13,7 @@ window {
 button {
     border-radius: 0px;
     color: @fg-main;
-    border-color: @border-main;
+    border-color: @fg-main;
     background-color: @wlogout-button;
     outline-style: none;
     border-style: solid;
@@ -66,17 +66,17 @@ button:active {
 }
 
 #lock, #suspend,#hibernate {
-    border-bottom: @border-main solid 1px;
+    border-bottom: @fg-main solid 1px;
 }
 
 #logout,#shutdown,#reboot {
-    border-top: @border-main solid 1px;
+    border-top: @fg-main solid 1px;
 }
 
 #logout,#lock,#suspend,#shutdown{
-    border-right: @border-main solid 1px;
+    border-right: @fg-main solid 1px;
 }
 
 #suspend,#shutdown,#hibernate,#reboot{
-    border-left: @border-main solid 1px;
+    border-left: @fg-main solid 1px;
 }

@@ -42,7 +42,7 @@ change_theme () {
     
     sed -i "s|\(color_scheme_path=.*/\).*|\1$SCHEME.conf|" ~/.config/qt6ct/qt6ct.conf
 
-    sed -i "s/theme: \".*\",/theme: \"$SCHEME\",/" ~/.config/rmpc/config.ron
+    sed -i "s/theme: \".*\",/theme: \"$SCHEME\",/" ~/.config/rmpc/config.ron || echo
 
     if command -v qutebrowser >/dev/null 2>&1; then 
         # --- Qutebrowser update ---

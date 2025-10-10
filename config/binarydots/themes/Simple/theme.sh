@@ -2,6 +2,6 @@
 
 WAYBAR_STYLE="simple"
 
-WALLPAPER="$HOME/.config/hypr/wallpapers/Lines.png"
+WALLPAPER="$HOME/.config/binarydots/wallpapers/Lines.png"
 
 SCHEME="binaryharbinger"

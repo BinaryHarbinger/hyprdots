@@ -2,7 +2,7 @@ import os
 import sys
 from subprocess import run as runCommand
 
-path = "/home/"+os.getlogin()+'/.config/hypr/wallpapers/'
+path = "/home/"+os.getlogin()+'/.config/binarydots/wallpapers/'
 
 image_dict = {}
 
