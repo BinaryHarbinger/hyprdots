@@ -143,7 +143,7 @@ widget_settings() {
 
 settings_func() {
     # Menu options displayed in rofi
-    options="󰌍\n  Activate Linux\n  Widgets Settings\n󰚰  Update Binarydots"
+    options="󰌍\n  Activate Linux\n󰌁  Customize Rice\n󰚰  Update Binarydots"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
@@ -158,8 +158,8 @@ settings_func() {
             bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
             settings_func
             ;; 
-        "  Widgets Settings")
-            widget_settings
+        "󰌁  Customize Rice")
+            customize_func
             ;;
         "󰚰  Update Binarydots")
             cd ~/.config/hypr/scripts/
@@ -176,7 +176,7 @@ settings_func() {
 
 customize_func() {
     # Menu options displayed in rofi
-    options="󰌍\n  Widgets Settings\n  Wallpaper\n󰌁  Themes"
+    options="󰌍\n  Widgets Settings\n  Wallpapers\n󰌁  Themes"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
@@ -184,7 +184,7 @@ customize_func() {
     # Execute the corresponding command based on the selected option
     case $chosen in
         "󰌍")
-            system_menu
+            settings_func
             ;;
         "  Widgets Settings")
             widget_settings
@@ -192,7 +192,7 @@ customize_func() {
         "󰌁  Themes")
             theme_menu
             ;;
-        "  Wallpaper")
+        "  Wallpapers")
             set_wallpaper
             ;;
         *)
@@ -350,7 +350,7 @@ misc_func() {
 
 system_menu() {
     # Menu options displayed in rofi
-    options="  Apps\n  Connections\n󰃢  Maintaining\n󰅇  Clipboard\n󰄀  Screenshot\n󰐱  Miscellaneous\n  Notifications\n  Session Options\n  Manual\n  Customize\n  Settings\n  Update System"
+    options="  Apps\n  Connections\n󰃢  Maintaining\n󰅇  Clipboard\n󰄀  Screenshot\n󰐱  Miscellaneous\n  Notifications\n  Session Options\n  Manual\n󰌁  Themes\n  Settings\n  Update System"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 12;}' -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "")
@@ -384,8 +384,8 @@ system_menu() {
         "  Update System")
             foot --override=colors.alpha=1 --app-id=Update -e bash ~/.config/scripts/update
             ;;
-        "  Customize")
-            customize_func
+        "󰌁  Themes")
+            theme_menu
             ;;
         "  Settings")
             settings_func
@@ -410,7 +410,7 @@ theme_menu() {
     if [[ -z "$chosen" ]]; then 
         exit 1
     elif [[ "$chosen" = "󰌍" ]];then
-        customize_func
+        system_menu
     fi
 
    $HOME/.config/scripts/change-theme -c $chosen 
