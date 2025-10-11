@@ -152,8 +152,8 @@
     "states": {"good": 95, "warning": 30, "critical": 20},
     
     "format": "{icon}",
-    "format-charging": " ",
-    "format-plugged": " ",
+    "format-charging": "󰠠 ",
+    "format-plugged": "󰠠 ",
     "format-alt": "{time} {icon}",
 
     "format-alt-icons": [

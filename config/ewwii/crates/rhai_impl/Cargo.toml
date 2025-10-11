@@ -1,0 +1,26 @@
+[package]
+name = "rhai_impl"
+version = "0.1.0"
+authors = ["byson94 <byson94wastaken@gmail.com>"]
+edition = "2021"
+license = "GPL-3.0-or-later"
+description = "The rhai embedded language implementation of ewwii"
+repository = "https://github.com/byson94/ewwii"
+homepage = "https://github.com/byson94/ewwii"
+
+[dependencies]
+shared_utils.workspace = true
+
+rhai = { workspace = true, features = ["internals"] }
+anyhow.workspace = true
+tokio = { workspace = true, features = ["full"] }
+log.workspace = true
+once_cell.workspace = true
+serde = { workspace = true, features = ["derive"] }
+ahash.workspace = true
+nix = { workspace = true, features = ["process", "fs", "signal"] }
+libc.workspace = true
+# error handling
+rhai_trace = "0.3.0"
+codespan-reporting.workspace = true
+regex.workspace = true

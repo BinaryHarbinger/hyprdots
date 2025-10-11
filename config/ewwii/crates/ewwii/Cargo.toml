@@ -1,0 +1,57 @@
+[package]
+name = "ewwii"
+version = "0.3.0"
+authors = ["byson94 <byson94wastaken@gmail.com>"]
+description = "Widgets for everyone made better!"
+license = "GPL-3.0-or-later"
+repository = "https://github.com/byson94/ewwii"
+homepage = "https://github.com/byson94/ewwii"
+edition = "2021"
+
+
+[features]
+default = ["x11", "wayland"]
+x11 = ["gdk4-x11", "x11rb"]
+wayland = ["gtk4-layer-shell"]
+
+[dependencies]
+shared_utils.workspace = true
+rhai_impl.workspace = true
+ewwii_plugin_api = { workspace = true }
+
+gtk4-layer-shell = { version = "0.6.3", optional = true }
+gdk4-x11 = { version = "0.10.1", optional = true }
+x11rb = { version = "0.13.1", features = ["randr"], optional = true }
+
+grass.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+bincode.workspace = true
+static_assertions.workspace = true
+clap = { workspace = true, features = ["derive"] }
+clap_complete.workspace = true
+codespan-reporting.workspace = true
+derive_more.workspace = true
+extend.workspace = true
+futures.workspace = true
+smart-default.workspace = true
+gtk4.workspace = true
+itertools.workspace = true
+log.workspace = true
+nix = { workspace = true, features = ["process", "fs", "signal"] }
+notify.workspace = true
+once_cell.workspace = true
+pretty_env_logger.workspace = true
+regex.workspace = true
+serde_json.workspace = true
+serde = { workspace = true, features = ["derive"] }
+simple-signal.workspace = true
+tokio = { workspace = true, features = ["full"] }
+unescape.workspace = true
+wait-timeout.workspace = true
+rhai.workspace = true
+# Plugin loading
+libloading = "0.8.9"
+
+[dev-dependencies]
+pretty_assertions.workspace = true

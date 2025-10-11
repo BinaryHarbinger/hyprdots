@@ -1,0 +1,14 @@
+[package]
+name = "shared_utils"
+version = "0.1.0"
+authors = ["byson94 <byson94wastaken@gmail.com>"]
+edition = "2021"
+license = "GPL-3.0-or-later"
+description = "Utility crate used in ewwii"
+repository = "https://github.com/ewwii-sh/ewwii"
+homepage = "https://github.com/ewwii-sh/ewwii"
+
+[dependencies]
+serde.workspace = true
+rhai.workspace = true
+anyhow.workspace = true

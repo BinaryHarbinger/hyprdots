@@ -1,3 +1,5 @@
+source $HOME/.config/zsh/ewwiicomp.zsh
+
 unalias -m '*'
 
 
@@ -40,6 +42,7 @@ fi
 
 hclear() {
     history -p
+    rm -rf ~/.zsh_history
     clear
     neofetch
 }

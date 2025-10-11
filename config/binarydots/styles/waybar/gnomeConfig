@@ -150,8 +150,8 @@
     "states": {"good": 95, "warning": 30, "critical": 20},
     
     "format": "{icon}",
-    "format-charging": " ",
-    "format-plugged": " ",
+    "format-charging": "󰠠 ",
+    "format-plugged": "󰠠 ",
     "format-alt": "{time} {icon}",
 
     "format-alt-icons": [
@@ -230,7 +230,7 @@
     "format-icons": {
         "notification": "󱅫",
         "none": "󰂚",
-        "dnd-notification": "<span foreground='gray'><sup></sup></span>",
+        "dnd-notification": "<span foreground='white'><sup></sup></span>",
         "dnd-none": "<span foreground='red'><sup> </sup></span>"
     },
     "return-type": "json",

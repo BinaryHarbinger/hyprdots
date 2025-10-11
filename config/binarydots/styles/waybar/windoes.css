@@ -11,6 +11,7 @@
 */
 
 /*Import the theme.css file */
+
 @import "theme.css";
 
 * {
@@ -271,6 +272,7 @@ tooltip label {
 
 #pulseaudio, #network, #battery, #backlight {
     padding: 0px 5px;
+    font-size: 15px;
 }
 
 #controlCenter:hover {

@@ -41,7 +41,7 @@ tooltip label {
 
 /* Custom widget for sway notifications */
 #custom-swaync, #custom-mako {
-    font-family: "Ubuntu Nerd Font";
+    font-family: "CaskaydiaMono Nerd Font";
     font-size: 0px;
     color: @fg-main;
     background-color: @bg-main;
@@ -241,5 +241,5 @@ tooltip label {
 
 #network, #pulseaudio, #battery, #backlight {
     padding: 0px 6px;
-    font-size: 13px;
+    font-size: 15px;
 }
