@@ -174,7 +174,8 @@ fi
 # --- Link scripts/configs ---
 
 process "Moving scripts and configs..." bash -c '
-mkdir -p ~/dots.old
+
+mkdir -p "$HOME/dots.old"
 
 folders=(
     "binarydots" "cava" "ewwii" "fastfetch" "foot" "gtk-3.0" "gtk-4.0"
@@ -184,10 +185,18 @@ folders=(
 )
 
 for item in "${folders[@]}"; do
-    if [ -d "$HOME/.config/$item" ]; then
-        mv "$HOME/.config/$item" "$HOME/dots.old/" 2>/dev/null || true 
+    src="$HOME/Dotfiles/config/$item"
+    dest="$HOME/.config/$item"
+
+    if [ -d "$dest" ] && [ ! -L "$dest" ]; then
+        mv "$dest" "$HOME/dots.old/" 2>/dev/null || true
+    elif [ -L "$dest" ]; then
+        rm "$dest" 2>/dev/null || true
     fi
-        ln -sf "$HOME/Dotfiles/config/$item" "$HOME/.config/$item" 2>/dev/null || true
+
+    if [ -e "$src" ]; then
+        ln -s "$src" "$dest"
+    fi
 done
 
 chmod +x \
