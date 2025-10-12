@@ -21,7 +21,7 @@ case $1 in
             filepath="$2"
         fi
         ln -sf "$filepath" ~/.config/hypr/wallppr.png
-		swww img "$filepath" --transition-fps 60 --transition-step 255 --transition-type wipe > /dev/null 2>&1 & disown
+		swww img "$filepath" --transition-fps 60 --transition-step 255 --transition-type wipe --transition-angle 30 > /dev/null 2>&1 & disown
 		sleep 1
         info "Wallpaper set to $filepath."
         ;;
