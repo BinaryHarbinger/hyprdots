@@ -1,0 +1,15 @@
+config/qutebrowser/newtab/static/theme_web.css
+config/ewwii/style.rhai
+config/ewwii/theme.scss
+config/hypr/theme.conf
+config/hypr/wallppr.png
+config/mako/config
+config/qutebrowser/__pycache__/
+config/qutebrowser/newtab/static/theme.css
+config/qutebrowser/theme.py
+config/rofi/theme.rasi
+config/waybar/config
+config/waybar/style.css
+config/waybar/theme.css
+config/wlogout/theme.css
+config/yazi/theme.toml

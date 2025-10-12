@@ -1,7 +1,7 @@
 :root {
   --border-main: @fg-main;
   --border-alt: @fg-main;
-  --bg-main: #1A1B29;
+  --bg-main: #11111B;
   --bg-alt: #939CDA;
   --bg-hover: #484872;
   --bg-hover-alt: #30304D;
