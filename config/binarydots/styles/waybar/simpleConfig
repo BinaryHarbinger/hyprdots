@@ -40,21 +40,21 @@
     "format": " ",
     "tooltip": false,
     
-    "on-click": "~/.config/scripts/launchrofi --drun",
+    "on-click": "~/Dotfiles/bin/launchrofi --drun",
 },
 
 "custom/runner": {
     "format": " ",
     "tooltip": false,
     
-    "on-click": "~/.config/scripts/launchrofi --system_menu",
+    "on-click": "~/Dotfiles/bin/launchrofi --system_menu",
 },
 
 "custom/os_button": {
     "format": " ",
     "tooltip": false,
     
-    "on-click": "~/.config/scripts/launchrofi --menu",
+    "on-click": "~/Dotfiles/bin/launchrofi --menu",
 },
 
 "custom/seperator": {
@@ -314,8 +314,8 @@
 "group/controlCenter": {
 	"orientation": "horizontal",
 	"modules": [
-		"pulseaudio",
 		"network",
+		"pulseaudio",
 		"battery",
 	]
 },

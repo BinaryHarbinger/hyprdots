@@ -42,21 +42,21 @@
     "format": " ",
     "tooltip": false,
     
-    "on-click": "~/.config/scripts/rofilaunch.sh --drun",
+    "on-click": "~/Dotfiles/bin/rofilaunch.sh --drun",
 },
 
 "custom/runner": {
     "format": " ",
     "tooltip": false,
     
-    "on-click": "~/.config/scripts/rofilaunch.sh --system_menu",
+    "on-click": "~/Dotfiles/bin/rofilaunch.sh --system_menu",
 },
 
 "custom/os_button": {
     "format": "",
     "tooltip": false,
     
-    "on-click": "~/.config/scripts/rofilaunch.sh --drun",
+    "on-click": "~/Dotfiles/bin/rofilaunch.sh --drun",
 },
 
 
