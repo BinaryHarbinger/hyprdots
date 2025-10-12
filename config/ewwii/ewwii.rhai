@@ -366,8 +366,8 @@ enter([
 
   poll("musicartlink", #{
       initial: "No Media",
-      interval: "1",
-      cmd: `scripts/coverart.sh`, // command to execute"
+      interval: "3",
+      cmd: `bash scripts/coverart.sh`, // command to execute"
   }),
 
 ]);
