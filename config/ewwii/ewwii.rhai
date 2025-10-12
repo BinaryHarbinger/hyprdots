@@ -314,12 +314,12 @@ enter([
 
   listen("volume", #{
         initial: "0",
-        cmd: "bash scripts/getVol.sh speaker listen"}),
+        cmd: "scripts/getVol.sh speaker listen"}),
 
   poll("mic_percent", #{
       initial: "No Media",
       interval: "10",
-      cmd: `bash scripts/getVol.sh mic`, // command to execute"
+      cmd: `scripts/getVol.sh mic`, // command to execute"
   }),
 
   poll("music_title", #{
@@ -367,7 +367,7 @@ enter([
   poll("musicartlink", #{
       initial: "No Media",
       interval: "3",
-      cmd: `bash scripts/coverart.sh`, // command to execute"
+      cmd: `scripts/coverart.sh`, // command to execute"
   }),
 
 ]);
