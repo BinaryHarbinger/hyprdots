@@ -143,7 +143,7 @@ widget_settings() {
 
 settings_func() {
     # Menu options displayed in rofi
-    options="󰌍\n  Activate Linux\n󰌁  Customize Rice\n󰚰  Update Binarydots"
+    options="󰌍\n  Activate Linux\n  Reload Shell\n󰌁  Customize Rice\n󰚰  Update Binarydots"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
@@ -157,7 +157,14 @@ settings_func() {
             bash ~/.config/hypr/scripts/widgets.sh four
             bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
             settings_func
-            ;; 
+            ;;
+        "  Reload Shell")
+            pkill waybar 
+            waybar >/dev/null 2>&1 & disown
+            bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            makoctl reload   
+            settings_func
+            ;;
         "󰌁  Customize Rice")
             customize_func
             ;;
