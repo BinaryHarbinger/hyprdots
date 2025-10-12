@@ -23,7 +23,7 @@ fn mini_player(musicartlink, music_title, music_position,music_position_percenta
             space_evenly: false,
             halign: "center",
         }, [
-            label(#{ class: "label" , text: music_position } ),
+            label(#{ class: "label" , style: "font-size: 13px", text: music_position } ),
             slider(#{ class: "musicscale", 
                 space_evenly: false,
                 halign: "center", 
@@ -32,7 +32,7 @@ fn mini_player(musicartlink, music_title, music_position,music_position_percenta
                 value: music_position_percentage,
                 onchange: ""
             } ),            
-            label(#{  class: "label" , text: music_lenght } ),
+            label(#{  class: "label" , style: "font-size: 13px", text: music_lenght } ),
 
         ]), 
 
@@ -412,7 +412,7 @@ enter([
             space_evenly: false,
             halign: "center",
         }, [
-            label(#{ class: "label" , text: music_position } ),
+            label(#{ class: "label" , style: "font-size: 13px", text: music_position } ),
             slider(#{ class: "musicscale", 
                 space_evenly: false,
                 halign: "center", 
@@ -421,7 +421,7 @@ enter([
                 value: music_position_percentage,
                 onchange: ""
             } ),            
-            label(#{  class: "label" , text: music_lenght } ),
+            label(#{  class: "label", style: "font-size: 13px", text: music_lenght } ),
 
         ]), 
 
