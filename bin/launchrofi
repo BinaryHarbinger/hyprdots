@@ -389,7 +389,7 @@ system_menu() {
             session_options
             ;;
         "  Update System")
-            foot --override=colors.alpha=1 --app-id=Update -e bash ~/.config/scripts/update
+            foot --override=colors.alpha=1 --app-id=Update -e bash ~/Dotfiles/bin/update
             ;;
         "󰌁  Themes")
             theme_menu
@@ -420,7 +420,7 @@ theme_menu() {
         system_menu
     fi
 
-   $HOME/.config/scripts/change-theme -c $chosen 
+   $HOME/Dotfiles/bin/change-theme -c $chosen 
 
 }
 
