@@ -1,4 +1,7 @@
-config/qutebrowser/newtab/static/theme_web.css
+config/mpv/script-opts/uosc.conf
+config/pcmanfm-qt/default/recent-files.conf
+config/foot/foot.ini
+config/wiremix/wiremix.toml
 config/ewwii/style.rhai
 config/ewwii/theme.scss
 config/hypr/theme.conf

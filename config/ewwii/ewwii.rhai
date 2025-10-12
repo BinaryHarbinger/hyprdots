@@ -314,12 +314,12 @@ enter([
 
   listen("volume", #{
         initial: "0",
-        cmd: "scripts/getVol.sh speaker listen"}),
+        cmd: "bash scripts/getVol.sh speaker listen"}),
 
   poll("mic_percent", #{
       initial: "No Media",
       interval: "10",
-      cmd: `scripts/getVol.sh mic`, // command to execute"
+      cmd: `bash scripts/getVol.sh mic`, // command to execute"
   }),
 
   poll("music_title", #{
