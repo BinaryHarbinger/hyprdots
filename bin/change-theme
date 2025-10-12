@@ -44,7 +44,7 @@ change_theme () {
     fi
 
 
-    bash ~/.config/scripts/wallpaper -s "$WALLPAPER" 
+    bash ~/Dotfiles/bin/wallpaper -s "$WALLPAPER" 
 
     sed -i "s/^THEME_VAR=\"[^\"]*\"/THEME_VAR=\"$SCHEME\"/" ~/.zshrc
 

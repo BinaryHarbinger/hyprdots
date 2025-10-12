@@ -27,14 +27,11 @@ dbus-monitor "interface='org.freedesktop.Notifications'" | while read -r line; d
             echo "DEBUG: count=$count, content='$content'"
         fi
 
-        # Notify bloğu bitişi
         if [[ "$line" == "int32 "* ]] || [[ "$line" == "]" ]]; then
             date_now=$(date '+%H:%M')
 
-            # Title'ı ayarla
-            # DBus strings sırası: 0=app, 1=title param, 2+ = body parçaları
             title_param="${strings[1]}"
-            body_parts=("${strings[@]:2}")  # count>=3 stringleri
+            body_parts=("${strings[@]:2}")
 
             # Trim spaces
             title_trimmed=$(echo -n "$title_param" | tr -d '[:space:]')

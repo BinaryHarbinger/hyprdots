@@ -144,15 +144,17 @@ else
 NVIDIGPU="no"
 fi
 
+info "Cloning"
+
 # --- Clone dotfiles ---
 
 if [ ! -d "./config" ]; then
-    rm -rf ./binarydots
-
+    mv ~/Dotfiles ~/Dotfiles.old|| true
+    
     REPO_URL="https://github.com/BinaryHarbinger/binarydots.git"
     PROXY_URL="https://gh-proxy.com/$REPO_URL"
 
-    process "Cloning binarydots repository..." git clone "$PROXY_URL"
+    process "Cloning binarydots repository..." git clone "$PROXY_URL" ~/Dotfiles
     if [ $? -ne 0 ]; then
         echo "Proxy failed, trying direct GitHub clone..."
         process "Cloning binarydots repository (direct)..." git clone "$REPO_URL" || { 
@@ -169,28 +171,34 @@ else
     info "Files already installed."
 fi
 
-# --- Move scripts/configs ---
+# --- Link scripts/configs ---
 
 process "Moving scripts and configs..." bash -c '
 mkdir -p ~/dots.old
 
-for dir in scripts hypr eww qutebrowser wiremix fastfetch nvim rofi waybar wlogout yazi swaync foot mpd mpv rmpc themes; do
-    src="$HOME/.config/$dir"
-    dst="$HOME/dots.old/$dir"
+folders=(
+    "binarydots" "cava" "ewwii" "fastfetch" "foot" "gtk-3.0" "gtk-4.0"
+    "hypr" "mako" "mpd" "mpv" "nvim" "pcmanfm-qt" "nwg-look" "qt6ct" 
+    "qutebrowser" "rmpc" "rofi" "waybar" "wiremix" "wlogout" "yazi"
+    "zsh"
+)
 
-    if [ -L "$src" ] || [ -d "$src" ]; then
-        mv "$src" "$dst" 2>/dev/null || true
+for item in "${folders[@]}"; do
+    if [ -d "$HOME/.config/$item" ]; then
+        mv "$HOME/.config/$item" "$HOME/dots.old/" 2>/dev/null || true 
     fi
+        ln -sf "$HOME/Dotfiles/config/$item" "$HOME/.config/$item" 2>/dev/null || true
 done
 
-cp -r ./home/* ~/
-
-cp -r ./scripts ~/.config/
-chmod +x ~/.config/scripts/* || true
-
-cp -r ./config/* ~/.config/
-chmod +x ~/.config/hypr/scripts/* ~/.config/eww/scripts/* || true
+chmod +x \
+    "$HOME/Dotfiles/scripts/"* \
+    "$HOME/Dotfiles/config/hypr/scripts/"* \
+    "$HOME/Dotfiles/config/ewwii/scripts/"* \
+    "$HOME/Dotfiles/config/mako/scripts/"* || true
 '
+
+info "Linked scripts and config files."
+
 if [ "$NVIDIGPU" != 'yes' ]; then
   if gum confirm "Is your main monitor external?"; then
     sed -i 's/^env = AQ_DRM_DEVICES,\/dev\/dri\/card0:\/dev\/dri\/card1/#&/' ~/.config/hypr/hyprland.conf
@@ -198,7 +206,6 @@ if [ "$NVIDIGPU" != 'yes' ]; then
 fi
 
 
-info "Moved scripts and config files."
 
 # --- Polkit agent ---
 process "Setting up polkit agent..." systemctl --user enable --now hyprpolkitagent.service
@@ -233,8 +240,6 @@ else
     if [ -d "$HOME/dots.old/mpd" ]; then
         cp -r "$HOME/dots.old/mpd" "$HOME/.config/" > /dev/null 2>&1
     fi
-
-
 fi
 
 # --- Layout update ---
@@ -256,8 +261,9 @@ if [ "$current_shell" != "/usr/bin/zsh" ] && [ "$current_shell" != "/bin/zsh" ];
         if chsh -s /bin/zsh "$USER"; then
             info "Default shell changed to zsh."
 
-            process "Configuring ZSH..." bash -c '
-            sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+            if [ ! -d "$HOME/.oh-my-zsh" ]; then
+                sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+            fi            
             CUSTOM_PLUGIN_DIR="$HOME/.oh-my-zsh/custom/plugins"
             mkdir -p "$CUSTOM_PLUGIN_DIR"
             declare -A plugins
@@ -276,7 +282,7 @@ if [ "$current_shell" != "/usr/bin/zsh" ] && [ "$current_shell" != "/bin/zsh" ];
             done
 
             cp -a ./home/.zshrc $HOME/
-            '
+
             info "Configured ZSH."
             if gum confirm "Install some rust utils? (Recommended)"; then
                 if process "Installing rust utilities" paru -S --needed --noconfirm eza sudo-rs bat ripgrep sd fd ; then
@@ -329,5 +335,5 @@ cd ..
 process "Cleaning up..." rm -rf binarydots
 info "Cleaned."
 
-bash $HOME/.config/scripts/change-theme -p
+bash $HOME/Dotfiles/bin/change-theme -p
 echo -e  "${GREEN}✅ Installation complete!"

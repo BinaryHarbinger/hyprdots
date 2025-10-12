@@ -17,7 +17,7 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.rtp:append("~/.config/nvim")
 
 -- Default colorscheme
-vim.cmd("colorscheme binaryharbinger")
+vim.cmd("colorscheme gruvbox")
 
 -- Ensure lazy.nvim is installed
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
