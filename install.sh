@@ -163,7 +163,6 @@ if [ ! -d "./config" ]; then
         }
     fi
 
-    cd binarydots || { error "Cannot enter dotfiles directory"; exit 1; }
 
     info "Cloned Repository."
 
