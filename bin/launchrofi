@@ -383,7 +383,7 @@ system_menu() {
             misc_func 
             ;;
         "  Notifications")
-            bash ~/.config/mako/rofi.sh
+            bash ~/.config/mako/scripts/rofi.sh
             ;;
         "  Session Options")
             session_options
