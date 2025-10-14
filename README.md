@@ -41,7 +41,7 @@
 <p></details>
 
 <details><summary>
-⚙️ Action Center
+⚙️ Action Center (Powered by <a href="https://github.com/Ewwii-sh/ewwii/tree/main">ewwii</a>) 
 </summary></p>
 
 ![image](https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/preview/center.png)
@@ -73,7 +73,7 @@
 <p></details>
 
 <details><summary>
-💻 Desktop Widgets
+💻 Desktop Widgets (Powered by <a href="https://github.com/Ewwii-sh/ewwii/tree/main">ewwii</a>) 
 </summary></p>
 
 ![image](https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/preview/desktop.png)
