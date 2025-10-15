@@ -8,6 +8,11 @@ RED="\e[31m"
 BLUE="\e[34m"
 RESET="\e[0m"
 
+wait_for_input () {
+    echo -e ""
+    echo -n "➤ Press Enter to continue…"; stty -echo; read; stty echo
+}
+
 echo -e "\n\n${RESET}░█▀▀░█░█░█▀▀░▀█▀░█▀▀░█▄█░░░█░█░█▀█░█▀▄░█▀█░▀█▀░█▀▀
 ░▀▀█░░█░░▀▀█░░█░░█▀▀░█░█░░░█░█░█▀▀░█░█░█▀█░░█░░█▀▀
 ░▀▀▀░░▀░░▀▀▀░░▀░░▀▀▀░▀░▀░░░▀▀▀░▀░░░▀▀░░▀░▀░░▀░░▀▀▀${RESET}"
@@ -44,6 +49,4 @@ echo -e "${GREEN}░█▀▀░█▀█░█▄█░█▀█░█░░░
 ░█░░░█░█░█░█░█▀▀░█░░░█▀▀░░█░░█▀▀░█░█
 ░▀▀▀░▀▀▀░▀░▀░▀░░░▀▀▀░▀▀▀░░▀░░▀▀▀░▀▀░${RESET}"
 
-echo -e "\nPress enter key to close"
-
-read -r
+wait_for_input

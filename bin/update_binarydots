@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Script to sync Binarydots with git version
+
+# Colors for output
+GREEN="\e[32m"
+RED="\e[31m"
+BLUE="\e[34m"
+RESET="\e[0m"
+
+info() { gum style --foreground "#49A22C" -- <<< "➤ $1"; }
+
+process() {
+    local title="$1"
+    shift
+    gum spin --spinner dot --title "$title" -- "$@" 
+}
+
+error() { gum style --foreground "#FF5555" -- <<< "✖ $1"; }
+
+wait_for_input () {
+    echo -e ""
+    echo -n "➤ Press Enter to continue…"; stty -echo; read; stty echo
+}
+
+echo -e "\n\n${RESET}░█▀▄░▀█▀░█▀█░█▀█░█▀▄░█░█░█▀▄░█▀█░▀█▀░█▀▀
+░█▀▄░░█░░█░█░█▀█░█▀▄░░█░░█░█░█░█░░█░░▀▀█
+░▀▀░░▀▀▀░▀░▀░▀░▀░▀░▀░░▀░░▀▀░░▀▀▀░░▀░░▀▀▀${RESET}"
+
+echo -e "${GREEN}       ░█░█░█▀█░█▀▄░█▀█░▀█▀░█▀▀
+       ░█░█░█▀▀░█░█░█▀█░░█░░█▀▀
+       ░▀▀▀░▀░░░▀▀░░▀░▀░░▀░░▀▀▀${RESET}"
+
+cd ~/Dotfiles/
+
+echo 
+
+if [ "$(git rev-list HEAD..@{u} --count 2>/dev/null)" -gt 0 ]; then
+    process "New commits detected pulling..." git stash push --include-untracked -m temp && git pull -X ours && git stash pop || error "Git commands failed to update!" && wait_for_input && exit 1
+    info "Updated succesfully."
+    wait_for_input
+    exit 0
+else
+    info "BinaryDots are up to date!"
+    wait_for_input 
+    exit 0
+fi
