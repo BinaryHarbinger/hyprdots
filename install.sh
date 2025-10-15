@@ -101,7 +101,7 @@ fi
 # --- Packages ---
 PACKAGES=(
     breeze nwg-look qt6ct papirus-icon-theme bibata-cursor-theme catppuccin-gtk-theme-mocha
-    ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-fira-code ttf-firacode-nerd otf-fira-code-symbol ttf-material-design-iconic-font ttf-cascadia-mono-nerd
+    ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-fira-code ttf-firacode-nerd otf-fira-code-symbol ttf-material-design-iconic-font ttf-cascadia-mono-nerd noto-fonts-cjk
     yazi wiremix neovim fzf
     hyprland hyprlock hypridle hyprpolkitagent hyprsunset hyprpicker
     wlogout
@@ -144,12 +144,11 @@ else
 NVIDIGPU="no"
 fi
 
-info "Cloning"
-
 # --- Clone dotfiles ---
 
 if [ ! -d "./config" ]; then
-    mv ~/Dotfiles ~/Dotfiles.old|| true
+    [ -d "$HOME/Dotfiles.old" ] && rm -rf "$HOME/Dotfiles.old" || true
+    [ -d "$HOME/dots.old" ] && mv ~/Dotfiles ~/Dotfiles.old || true
     
     REPO_URL="https://github.com/BinaryHarbinger/binarydots.git"
     PROXY_URL="https://gh-proxy.com/$REPO_URL"
@@ -174,6 +173,8 @@ fi
 
 process "Moving scripts and configs..." bash -c '
 
+[ -d "$HOME/dots.old" ] && rm -rf "$HOME/dots.old"
+
 mkdir -p "$HOME/dots.old"
 
 folders=(
@@ -188,6 +189,7 @@ for item in "${folders[@]}"; do
     dest="$HOME/.config/$item"
 
     if [ -d "$dest" ] && [ ! -L "$dest" ]; then
+        [ -e "$HOME/dots.old/$item" ] && rm -rf "$HOME/dots.old/$item"
         mv "$dest" "$HOME/dots.old/" 2>/dev/null || true
     elif [ -L "$dest" ]; then
         rm "$dest" 2>/dev/null || true
@@ -324,14 +326,15 @@ if pgrep Hyprland >/dev/null; then
         sleep 0.5
     fi 
 
-    # eww restart
-    if pgrep eww >/dev/null; then
-        killall eww
-        eww daemon >/dev/null 2>&1 &
-        disown
-        eww open-many stats desktopmusic >/dev/null 2>&1
+    # ewwii restart
+    if pgrep ewwii >/dev/null; then
+        killall ewwii
+        ewwii daemon >/dev/null 2>&1 & disown
+        for widget in "status" "desktopmusic" ; do
+            ewwii open "$widget" >/dev/null 2>&1 &
+        done
+
     fi
-    nohup waybar >/dev/null 2>&1 & disown
     setsid swww-daemon >/dev/null 2>&1 &
     hyprctl reload'
 
