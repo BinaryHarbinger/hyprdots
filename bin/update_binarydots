@@ -31,22 +31,41 @@ echo -e "${GREEN}       ░█░█░█▀█░█▀▄░█▀█░▀�
        ░█░█░█▀▀░█░█░█▀█░░█░░█▀▀
        ░▀▀▀░▀░░░▀▀░░▀░▀░░▀░░▀▀▀${RESET}"
 
+echo 
 cd ~/Dotfiles/ || { error "Dotfiles directory not found!"; wait_for_input; exit 1; }
 
-# Check for new commits
-if [ "$(git rev-list HEAD..@{u} --count 2>/dev/null)" -gt 0 ]; then
+git fetch origin
+
+if ! git diff --quiet HEAD origin/$(git rev-parse --abbrev-ref HEAD); then
 
     # Read old packages
-    process "Reading current packages..." bash -c 'OLD_PACKAGES=($(cat PACKAGES))' && info "Read current packages." || { error "Failed to read current packages!"; wait_for_input; exit 1; }
+    OLD_PACKAGES=($(cat PACKAGES)) || true
 
-    # Git update
-    process "Saving local changes..." git stash push --include-untracked -m temp || { error "Git stash failed!"; wait_for_input; exit 1; }
-    process "Pulling new commits..." git pull -X ours || { error "Git pull failed!"; wait_for_input; exit 1; }
-    process "Restoring local changes..." git stash pop || { error "Git stash pop failed!"; wait_for_input; exit 1; }
+    # === Git update ===
+    
+    # Save local changes (if any)
+    process "Saving local changes..." bash -c '
+        git diff --quiet && git diff --cached --quiet && echo "No local changes to stash." || git stash push --include-untracked -m temp || true
+'
+
+    # Pull new commits with rebase as default
+    process "Pulling new commits (rebase)..." bash -c '
+        git config pull.rebase true
+        git pull --rebase -X ours || true
+'
+
+    # Restore local changes (if any)
+    process "Restoring local changes..." bash -c '
+    git stash list | grep -q "temp" && git stash pop || echo "No stash to pop."
+'
+
     info "Git update completed."
-
-    # Read new packages
-    process "Reading new packages..." bash -c 'PACKAGES=($(cat PACKAGES))' && info "Read new packages." || { error "Failed to read new packages!"; wait_for_input; exit 1; }
+    
+    if [ -f PACKAGES ]; then
+        PACKAGES=($(cat PACKAGES)) || { error "Failed to read new packages!"; wait_for_input; exit 1; }
+    else
+        PACKAGES=()
+    fi
 
     # Compare old and new packages
     only_in_OLD=()
@@ -77,18 +96,23 @@ if [ "$(git rev-list HEAD..@{u} --count 2>/dev/null)" -gt 0 ]; then
             only_in_NEW+=("$b")
         fi
     done
-
+    
     # Remove old packages
     if [ "${#only_in_OLD[@]}" -gt 0 ]; then
-        process "Removing old packages..." paru -Rns --noconfirm "${only_in_OLD[@]}"
+        if [ "${#only_in_OLD[@]}" -gt 0 ]; then
+            process "Removing old packages..." paru -Rns --noconfirm "${only_in_OLD[@]}"
+        fi
     fi
 
     # Install new packages
     if [ "${#only_in_NEW[@]}" -gt 0 ]; then
-        process "Installing new packages..." paru -Syu --needed --noconfirm "${only_in_NEW[@]}"
+        if [ "${#only_in_NEW[@]}" -gt 0 ]; then
+            paru -Syu --needed --noconfirm "${only_in_NEW[@]}"
+        fi
     fi
 
     info "Updated successfully."
+    hyprctl update
     wait_for_input
     exit 0
 
