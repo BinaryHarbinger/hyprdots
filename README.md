@@ -16,11 +16,11 @@
 
 ## Features
 
-- Rofi-based system menu (SUPER + U)
-- Multiple system wide themes (Including QT themes.)
-- EWWII/Widget integrations
+- Powerfull system menu (SUPER + U)
+- System wide themes
+- Aesthetic widgets powered by <a href="https://github.com/Ewwii-sh/ewwii/tree/main">ewwii</a>
 - Auto-install script (designed for Arch-based distros)
-- Minimal, opinionated defaults but easy to customize
+- Git based update system
 
 ## *Example Photos*
 
@@ -33,7 +33,7 @@
 <p></details>
 
 <details><summary>
-⚙️ Rofi Menu
+⚙️ System Menu
 </summary></p>
 
 ![image](https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/preview/rofiMenu.png)
@@ -41,7 +41,7 @@
 <p></details>
 
 <details><summary>
-⚙️ Action Center (Powered by <a href="https://github.com/Ewwii-sh/ewwii/tree/main">ewwii</a>) 
+🚀 Quick Center (Powered by <a href="https://github.com/Ewwii-sh/ewwii/tree/main">ewwii</a>) 
 </summary></p>
 
 ![image](https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/preview/center.png)
