@@ -36,7 +36,47 @@ cd ~/Dotfiles/
 echo 
 
 if [ "$(git rev-list HEAD..@{u} --count 2>/dev/null)" -gt 0 ]; then
+    
+    process "Reading current packages..." OLD_PACKAGES=($(cat PACKAGES)) && info "Read current packages." || error "Failed to read current packages!" && exit 1
+
     process "New commits detected pulling..." git stash push --include-untracked -m temp && git pull -X ours && git stash pop || error "Git commands failed to update!" && wait_for_input && exit 1
+
+    process "Reading new packages..." PACKAGES=($(cat PACKAGES)) && "Read new packages." || error "Failed to read new packages!" && exit 1
+
+    
+    only_in_OLD=()
+    only_in_NEW=()
+
+    for a in "${OLD_PACKAGES[@]}"; do
+        found=false
+        for b in "${PACKAGES[@]}"; do
+            if [ "$a" = "$b" ]; then
+                found=true
+                break
+            fi
+        done
+        $found || only_in_OLD+=("$a")
+    done
+
+    for b in "${PACKAGES[@]}"; do
+        found=false
+        for a in "${OLD_PACKAGES[@]}"; do
+            if [ "$b" = "$a" ]; then
+                found=true
+                break
+            fi
+        done
+        $found || only_in_NEW+=("$b")
+    done
+
+    if [ "${#only_in_OLD[@]}" -gt 0 ]; then
+        paru -Rns --noconfirm "${only_in_OLD[@]}"
+    fi
+
+    if [ "${#only_in_NEW[@]}" -gt 0 ]; then
+        paru -Syu --needed --noconfirm "${only_in_NEW[@]}"
+    fi
+
     info "Updated succesfully."
     wait_for_input
     exit 0
