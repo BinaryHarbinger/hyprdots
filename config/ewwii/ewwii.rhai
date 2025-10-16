@@ -24,7 +24,7 @@ fn mini_player(musicartlink, music_title, music_position,music_position_percenta
             halign: "center",
         }, [
             label(#{ class: "label" , style: "font-size: 13px", text: music_position } ),
-            slider(#{ class: "musicscale", 
+            scale(#{ class: "musicscale", 
                 space_evenly: false,
                 halign: "center", 
                 orientation: "horizontal", 
@@ -56,9 +56,7 @@ fn mini_player(musicartlink, music_title, music_position,music_position_percenta
 }
 
 fn quick_center_content(up_time, volume, brightness, mic_percent, network_status, bluetooth_status, dnd_status, sunset_status, cafein_status, power_mode) {
-    let styleStr = cmd::run_and_read(
-    "realpath ~/.face | xargs -I{} echo \"margin-right: 5px; background-image: url('{}'); \""
-);
+    let pfp_path = cmd::run_and_read(`[ -f "$HOME/.face" ] && printf "%s" "$(realpath "$HOME/.face")" || printf "%s" "$HOME/placeholder.png"`);
     let username = cmd::run_and_read("whoami");
     let user_host = cmd::run_and_read(`echo "$(id -un)@$(uname -n)"`);
     return box(#{
@@ -74,18 +72,8 @@ fn quick_center_content(up_time, volume, brightness, mic_percent, network_status
             valign: "start", 
             spacing: 3, 
             space_evenly: false,
-            }, [
-                box(#{ 
-                    class: "pfp", 
-                    orientation: "horizontal", 
-                    halign: "center", 
-                    valign: "start",
-                    spacing: 0, 
-                    space_evenly: false,
-                    style: styleStr}, [
-                        label(#{ text: "" }),
-                    ],
-                ),
+            }, [ 
+                image(#{class: "pfp", path: pfp_path}),
                 box(#{ 
                     class: "random", 
                     orientation: "vertical", 
@@ -118,7 +106,7 @@ fn quick_center_content(up_time, volume, brightness, mic_percent, network_status
                 ]),
             box(#{ class: "random", space_evenly: false }, 
             [
-                box(#{class: "button", space_evenly: false}, [
+                box(#{class: "button-box", style:"", space_evenly: false}, [
                     button(#{class:if power_mode == "Performance" { "button-active" } else { "button " }, label: if power_mode == "Performance" { "" } else { " " }, onclick: `[[ "$(powerprofilesctl get 2>/dev/null)" == "balanced" ]] && powerprofilesctl set performance || powerprofilesctl set balanced
 `}), 
                     label(#{text: "  "+power_mode+" ", style: "font-size: 16px; min-width: 130px;"}) 
@@ -146,7 +134,7 @@ fn quick_center_scales(volume, mic_percent, brightness) {
             class: "random",
             }, [
                 label(#{  class: "statuslabel" , text: "" } ),
-                slider(#{ class: "statusscale", 
+                scale(#{ class: "statusscale", 
                     space_evenly: false,
                     valign: "center",
                     timeout: 800,
@@ -164,7 +152,7 @@ fn quick_center_scales(volume, mic_percent, brightness) {
             class: "random",
         }, [
                 label(#{  class: "statuslabel" , text: "" } ),
-                slider(#{ class: "statusscale", 
+                scale(#{ class: "statusscale", 
                     space_evenly: false,
                     valign: "center",
                     timeout: 800,
@@ -183,7 +171,7 @@ fn quick_center_scales(volume, mic_percent, brightness) {
             class: "random",
         }, [
             label(#{  class: "statuslabel" , text: "" } ),
-            slider(#{ class: "statusscale", 
+            scale(#{ class: "statusscale", 
                 space_evenly: false,
                 valign: "center",
                 timeout: 500,
@@ -216,7 +204,7 @@ fn status_scales(volume, brightness) {
     class: "random",
    }, [
     label(#{  class: "statuslabel" , text: "" } ),
-   slider(#{ class: "statusscale", 
+   scale(#{ class: "statusscale", 
                 space_evenly: false,
                 valign: "center",
                 timeout: 4000,
@@ -234,7 +222,7 @@ fn status_scales(volume, brightness) {
     class: "random",
    }, [
     label(#{  class: "statuslabel" , text: "" } ),
-   slider(#{ class: "statusscale", 
+   scale(#{ class: "statusscale", 
                 space_evenly: false,
                 valign: "center",
                 timeout: 4000,
@@ -317,7 +305,7 @@ enter([
         cmd: "scripts/getVol.sh speaker listen"}),
 
   poll("mic_percent", #{
-      initial: "No Media",
+      initial: "0",
       interval: "10",
       cmd: `scripts/getVol.sh mic`, // command to execute"
   }),
@@ -325,7 +313,7 @@ enter([
   poll("music_title", #{
       initial: "No Media",
       interval: "2",
-      cmd: `playerctl metadata --format '{{ title }}'`, // command to execute"
+      cmd: `playerctl metadata --format '{{ title }}' 2>/dev/null || echo "No Media"`, // command to execute"
   }),
 
   poll("playing_paused", #{
@@ -347,27 +335,27 @@ enter([
   }),
 
   poll("music_position", #{
-      initial: "0",
+      initial: "0:00",
       interval: "1",
-      cmd: `playerctl metadata --format "{{ duration(position) }}"`, // command to execute"
+      cmd: `playerctl metadata --format "{{ duration(position) }}" 2>/dev/null || echo "0:00"`, // command to execute"
   }),
 
   poll("music_position_percentage", #{
       initial: "0",
       interval: "1",
-      cmd: `playerctl metadata --format "{{ position / (mpris:length / 100)  }}"`, // command to execute"
+      cmd: `playerctl metadata --format "{{ position / (mpris:length / 100)  }}" 2>/dev/null || echo "0"`, // command to execute"
   }),
 
   poll("music_lenght", #{
-      initial: "0",
+      initial: "0:00",
       interval: "5",
-      cmd: `playerctl metadata --format "{{ duration(mpris:length)}}"`, // command to execute"
+      cmd: `playerctl metadata --format '{{ duration(mpris:length) }}' 2>/dev/null || echo "0:00"`, // command to execute"
   }),
 
   poll("musicartlink", #{
-      initial: "No Media",
+      initial: "placeholder.png",
       interval: "3",
-      cmd: `scripts/coverart.sh`, // command to execute"
+      cmd: `scripts/coverart.sh 2>/dev/null || echo "placeholder.png"`, // command to execute"
   }),
 
 ]);
@@ -378,8 +366,7 @@ enter([
     "desktopmusic",
     #{
       monitor: 0,
-        class: "random",
-        style: "all: unset;",
+        class: "desktopmusic",
         windowtype: "normal",
         stacking: "bg",
         wm_ignore: true,
@@ -396,10 +383,10 @@ enter([
     orientation: "vertical",
     space_evenly: false,
     halign: "center",
-    class: "random",
-    style: "all: unset; margin: 20px 0px;",
+    class: "desktopmusic",
   }, [
-      box(#{class: "musicartdesk", style: if musicartlink != "" { "background-image: url(\"" + musicartlink + "\"); min-height:260px; min-width:260px" } else { "min-height:260px" }, }, [ label(#{ text: "" })]),
+        box(#{class: "musicartdesk", style: if musicartlink != "" { "background-image: url(\"" + musicartlink + "\"); min-height:260px; min-width:260px" } else { "min-height:260px" }, }, [ label(#{ text: "" })]),
+        // image(#{class: "musicartdesk", path: musicartlink, reserve_aspect_ratio: false }),
     box(#{
         orientation: "vertical",
         space_evenly: false,
@@ -413,7 +400,7 @@ enter([
             halign: "center",
         }, [
             label(#{ class: "label" , style: "font-size: 13px", text: music_position } ),
-            slider(#{ class: "musicscale", 
+            scale(#{ class: "musicscale", 
                 space_evenly: false,
                 halign: "center", 
                 orientation: "horizontal", 
@@ -458,7 +445,8 @@ defwindow(
         anchor: "bottom left",
       },
     },
-    status_scales(volume, brightness)  ),
+    box(#{class: "status"}, [status_scales(volume, brightness)]),
+    ),
     defwindow(
     "deskclock",
     #{
@@ -535,7 +523,7 @@ defwindow(
             class: "OSD",
             }, [
                 label(#{  class: "statuslabel" , text: "" } ),
-                slider(#{ class: "statusscale", 
+                scale(#{ class: "statusscale", 
                     space_evenly: false,
                     valign: "center",
                     timeout: 4000,
@@ -564,7 +552,7 @@ defwindow(
     },
        calendar(#{}) 
   ),
-
+ 
   defwindow(
     "actioncenter",
     #{

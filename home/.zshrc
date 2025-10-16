@@ -63,16 +63,20 @@ plugins=(git
 source $ZSH/oh-my-zsh.sh
 # ===============
 
+
+
 # === Variables ===
 ZSH_CONFIG="$HOME/.config/zsh/"
 # =================
+
+
 
 # === Sources ===
 source $ZSH_CONFIG/functions.zsh
 
 
 # === Custom Paths ===
-export PATH="$HOME/.config/scripts:$PATH"
+export PATH="$HOME/Dotfiles/bin:$PATH"
 
 # User configuration
 
@@ -84,14 +88,15 @@ setopt dot_glob
 setopt extended_glob
 # ======================
 
+
+
 # === Custom Prompt ===
 
 # Define the prompt
 PROMPT='%{$fg_bold[blue]%}$(git_prompt_status)%{$reset_color%}$(git_prompt_info)%{$fg[$user_color]%}%(?.%{$fg_bold[green]%}%~%{$reset_color%}.%{$fg_bold[red]%}%~%{$reset_color%})%(!.#.➤) '
-
-
-
 # =====================
+
+
 
 # Preferred editor for local and remote sessions
  if [[ -n $SSH_CONNECTION ]]; then
@@ -99,7 +104,6 @@ PROMPT='%{$fg_bold[blue]%}$(git_prompt_status)%{$reset_color%}$(git_prompt_info)
  else
    export EDITOR='nvim'
  fi
-
 
 THEME_VAR="binaryharbinger"
 
@@ -127,8 +131,7 @@ if [[ $THEME_VAR == "windoes" ]]; then
 
 fi
 
-
-
+# export PATH="$HOME/.eiipm/bin:$PATH"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"

@@ -4,6 +4,14 @@ CONFIG_DIR="$HOME/.config/eww"
 COVER_ART_FILE="$CONFIG_DIR/coverart.png"
 INFO_FILE="$CONFIG_DIR/info.txt"
 
+status=$(playerctl status 2>/dev/null)
+
+if [ "$status" = "Playing" ] || [ "$status" = "Paused" ]; then
+    :
+else
+    exit 1
+fi
+
 current_title=$(playerctl metadata --format "{{ title }}" 2>/dev/null)
 url=$(playerctl metadata --format "{{ mpris:artUrl }}" 2>/dev/null | sed 's/b273/1e02/')
 

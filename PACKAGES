@@ -8,6 +8,6 @@
     mpv mpd mpdris2-rs rmpc
     base-devel
     python-flask python-requests
-    pcmanfm-qt waybar ewwii-bin
+    pcmanfm-qt waybar ewwii-git
     rofi rofimoji
 

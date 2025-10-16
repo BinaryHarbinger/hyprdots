@@ -50,7 +50,7 @@ enter([
             class: "musicartdesk"
         }, [
             label(#{ class: "musictitle" , text: cmd::run_and_read(`playerctl metadata --format "{{ duration(position) }}"`) } ),
-            slider(#{ class: "musicscale", space_evenly: false, halign: "center", orientation: "vertical", min:0, max:101, value: cmd::run_and_read(`echo 20`) } ),
+            scale(#{ class: "musicscale", space_evenly: false, halign: "center", orientation: "vertical", min:0, max:101, value: cmd::run_and_read(`echo 20`) } ),
             label(#{  class: "musictitle" , text: cmd::run_and_read(`playerctl metadata --format "{{ duration(mpris:length)}}"`) } ),
 
         ]), 

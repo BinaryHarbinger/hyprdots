@@ -9,6 +9,7 @@ BLUE="\e[34m"
 RESET="\e[0m"
 
 info() { gum style --foreground "#49A22C" -- <<< "➤ $1"; }
+error() { gum style --foreground "#FF5555" -- <<< "✖ $1"; }
 
 process() {
     local title="$1"
@@ -16,13 +17,12 @@ process() {
     gum spin --spinner dot --title "$title" -- "$@" 
 }
 
-error() { gum style --foreground "#FF5555" -- <<< "✖ $1"; }
-
 wait_for_input () {
     echo -e ""
     echo -n "➤ Press Enter to continue…"; stty -echo; read; stty echo
 }
 
+# ASCII banner
 echo -e "\n\n${RESET}░█▀▄░▀█▀░█▀█░█▀█░█▀▄░█░█░█▀▄░█▀█░▀█▀░█▀▀
 ░█▀▄░░█░░█░█░█▀█░█▀▄░░█░░█░█░█░█░░█░░▀▀█
 ░▀▀░░▀▀▀░▀░▀░▀░▀░▀░▀░░▀░░▀▀░░▀▀▀░░▀░░▀▀▀${RESET}"
@@ -31,19 +31,24 @@ echo -e "${GREEN}       ░█░█░█▀█░█▀▄░█▀█░▀�
        ░█░█░█▀▀░█░█░█▀█░░█░░█▀▀
        ░▀▀▀░▀░░░▀▀░░▀░▀░░▀░░▀▀▀${RESET}"
 
-cd ~/Dotfiles/
+cd ~/Dotfiles/ || { error "Dotfiles directory not found!"; wait_for_input; exit 1; }
 
-echo 
-
+# Check for new commits
 if [ "$(git rev-list HEAD..@{u} --count 2>/dev/null)" -gt 0 ]; then
-    
-    process "Reading current packages..." OLD_PACKAGES=($(cat PACKAGES)) && info "Read current packages." || error "Failed to read current packages!" && exit 1
 
-    process "New commits detected pulling..." git stash push --include-untracked -m temp && git pull -X ours && git stash pop || error "Git commands failed to update!" && wait_for_input && exit 1
+    # Read old packages
+    process "Reading current packages..." bash -c 'OLD_PACKAGES=($(cat PACKAGES))' && info "Read current packages." || { error "Failed to read current packages!"; wait_for_input; exit 1; }
 
-    process "Reading new packages..." PACKAGES=($(cat PACKAGES)) && "Read new packages." || error "Failed to read new packages!" && exit 1
+    # Git update
+    process "Saving local changes..." git stash push --include-untracked -m temp || { error "Git stash failed!"; wait_for_input; exit 1; }
+    process "Pulling new commits..." git pull -X ours || { error "Git pull failed!"; wait_for_input; exit 1; }
+    process "Restoring local changes..." git stash pop || { error "Git stash pop failed!"; wait_for_input; exit 1; }
+    info "Git update completed."
 
-    
+    # Read new packages
+    process "Reading new packages..." bash -c 'PACKAGES=($(cat PACKAGES))' && info "Read new packages." || { error "Failed to read new packages!"; wait_for_input; exit 1; }
+
+    # Compare old and new packages
     only_in_OLD=()
     only_in_NEW=()
 
@@ -55,7 +60,9 @@ if [ "$(git rev-list HEAD..@{u} --count 2>/dev/null)" -gt 0 ]; then
                 break
             fi
         done
-        $found || only_in_OLD+=("$a")
+        if [ "$found" = false ]; then
+            only_in_OLD+=("$a")
+        fi
     done
 
     for b in "${PACKAGES[@]}"; do
@@ -66,22 +73,28 @@ if [ "$(git rev-list HEAD..@{u} --count 2>/dev/null)" -gt 0 ]; then
                 break
             fi
         done
-        $found || only_in_NEW+=("$b")
+        if [ "$found" = false ]; then
+            only_in_NEW+=("$b")
+        fi
     done
 
+    # Remove old packages
     if [ "${#only_in_OLD[@]}" -gt 0 ]; then
-        paru -Rns --noconfirm "${only_in_OLD[@]}"
+        process "Removing old packages..." paru -Rns --noconfirm "${only_in_OLD[@]}"
     fi
 
+    # Install new packages
     if [ "${#only_in_NEW[@]}" -gt 0 ]; then
-        paru -Syu --needed --noconfirm "${only_in_NEW[@]}"
+        process "Installing new packages..." paru -Syu --needed --noconfirm "${only_in_NEW[@]}"
     fi
 
-    info "Updated succesfully."
+    info "Updated successfully."
     wait_for_input
     exit 0
+
 else
     info "BinaryDots are up to date!"
-    wait_for_input 
+    wait_for_input
     exit 0
 fi
+
