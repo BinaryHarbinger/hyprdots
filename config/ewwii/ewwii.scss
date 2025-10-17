@@ -5,7 +5,7 @@
   all: unset; //Unsets everything so you can style everything from scratch
   font-weight: 600;
   font-family: "CaskaydiaMono Nerd Font";
-  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .random {
@@ -190,16 +190,13 @@
 .button:hover, .button-active:hover {
   transition: all 0.1s cubic-bezier(0.165, 0.84, 0.44, 0.1);
   background-color: c.$bg-hover-alt;
+  color: c.$fg-main;
   color: c.$bg-main;
 }
 
 .button-active{
   background-color: c.$fg-main;
   color: c.$bg-main;
-}
-
-.button-active:hover {
-  color: c.$fg-main;
 }
 
 .statbutton, .statbuttondis{
@@ -244,7 +241,7 @@
   margin-bottom: 10px;
   font-size: 21px;
   padding: 2px 10px;
-  border-radius: c.$border-radb;
+  border-radius: calc(c.$border-rad /1);
   transition: all 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
@@ -269,7 +266,7 @@
 }
 
 .musicbutton2, .musicbutton2dis {
-  padding-right: 5px;
+  padding-right: 3px;
 }
 
 .musicbutton2dis {
@@ -346,47 +343,6 @@
   font-weight: 700;
 }
 
-.calendar {
-  background: c.$bg-alt;
-  font-size: 15px;
-  padding: 2px 5px;
-  border:2px solid c.$border-main ;
-  border-radius: c.$border-rad;
-
-  &.view {
-    background-color: c.$bg-main;
-  }
-
-  &.button {
-    background: transparent;
-    border-radius: 20px;
-    color: c.$fg-main;
-
-    &:disabled {
-      color: c.$fg-main;
-    }
-  }
-
-  &.header {
-    border: 0px;
-    background-color: c.$bg-alt;
-    border-radius: 5px;
-  }
-
-  &.highlight {
-    color: c.$bg-alt;
-    padding: 5px;
-  }
-
-  &:selected {
-    color: c.$bg-main;
-    background: c.$fg-main;
-    border-radius: 5px;
-  }
-
-  &:indeterminate {
-    color: c.$fg-main;
-  }}
 
 .status {
   background-color: c.$bg-main;
@@ -428,6 +384,102 @@
   border: 2px solid c.$border-main;
   background-color: c.$bg-alt;
   border-radius: c.$border-rad;
+}
+
+calendar {
+  background: c.$bg-alt;
+  font-size: 15px;
+  padding: 2px 5px;
+  border: 2px solid c.$border-main;
+  border-radius: c.$border-rad;
+
+  &.view {
+  }
+
+  header {
+    border: 0;
+    margin: 2px;
+    margin-top: 5px;
+    padding: 3px;
+    background-color: c.$bg-main;
+    border-radius: calc(c.$border-radb / 2);
+
+    label.year {
+      color: c.$fg-main;
+      font-weight: bold;
+    }
+
+    .stack.month {
+      label {
+        color: c.$fg-main;
+        font-weight: bold;
+      }
+    }
+
+    button {
+      background-color: mix(c.$bg-main, c.$bg-hover, 90%);
+      color: c.$fg-main;
+      border-radius: calc(c.$border-radb / 2);
+
+      &:hover {
+        color: mix(c.$fg-main, c.$bg-main, 10%);
+        background-color: c.$bg-hover;
+      }
+
+      &:disabled {
+        color: c.$fg-main;
+      }
+    }
+  }
+
+  grid {
+    background: c.$bg-main;
+    border-radius: 5px;
+    margin: 2px;
+    margin-bottom: 5px;
+    padding: 3px;
+
+    label.day-name {
+      color: c.$fg-main;
+      font-weight: 600;
+    }
+
+    label.day-number {
+      color: c.$fg-main;
+      border-radius: calc(c.$border-rad/2);
+      padding: 0px 3px;
+      margin: 3px 3px; 
+      transition: background 100ms ease;
+
+      &:hover {
+        background: c.$bg-hover-alt;
+        color: c.$bg-main;
+      }
+
+      &.today {
+        border: 1px solid c.$fg-main;
+        font-weight: bold;
+      }
+
+      &.other-month {
+        color: mix(c.$fg-main, c.$bg-main, 40%);
+      }
+
+      &:selected {
+        color: c.$bg-main;
+        background: c.$fg-main;
+      }
+
+      &:indeterminate {
+        color: c.$fg-main;
+      }
+    }
+
+    label.week-number {
+      color: c.$fg-main;
+      opacity: 0.7;
+    }
+  }
 }
 
 
