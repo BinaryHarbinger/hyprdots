@@ -19,7 +19,7 @@ process() {
 
 wait_for_input () {
     echo -e ""
-    echo -n "➤ Press Enter to continue…"; stty -echo; read; stty echo
+    gum style --foreground "#CCCCFF" -- <<< "➤ Press Enter to continue…"; stty -echo; read; stty echo
 }
 
 # ASCII banner
@@ -112,7 +112,7 @@ if ! git diff --quiet HEAD origin/$(git rev-parse --abbrev-ref HEAD); then
     fi
 
     info "Updated successfully."
-    hyprctl update
+    hyprctl reload
     wait_for_input
     exit 0
 

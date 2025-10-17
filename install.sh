@@ -37,14 +37,26 @@ if ! check_dep gum; then
     fi
 fi
 
+confirmation() {
+    local title="$1"
+    shift
+     gum confirm "$title" --selected.background="100" --prompt.foreground="1000"
+}
 
+confirmation_alt() {
+    local title="$1"
+    shift
+     gum confirm "$title" --selected.background="75" --prompt.foreground="1000"
+}
 
 info() { gum style --foreground "#49A22C" -- <<< "➤ $1"; }
+
 process() {
     local title="$1"
     shift
     gum spin --spinner dot --title "$title" -- "$@" 
 }
+
 error() { gum style --foreground "#FF5555" -- <<< "✖ $1"; }
 
 echo -e "${BLUE}
@@ -62,12 +74,12 @@ if [[ $EUID -eq 0 ]]; then
 fi
 
 echo -e "   Binary Harbinger's Hyprland dotfiles\n\n"
-gum confirm "Proceed with setup?" || exit 0
+confirmation "Proceed with setup?" || exit 0
 
 # --- Update system ---
 if ! check_dep paru; then
     
-    if gum confirm "Install paru?"; then
+    if confirmation "Install paru?"; then
         info "Installing dependecies..."
         sudo pacman -S --needed base-devel git rust
         if [ ! -d "paru" ]; then
@@ -110,9 +122,13 @@ PACKAGES=(
     mpv mpd mpdris2-rs rmpc
     base-devel
     python-flask python-requests
-    pcmanfm-qt waybar ewwii-bin
+    pcmanfm-qt waybar ewwii-git
     rofi rofimoji
 )
+
+PACKAGES_URL="https://raw.githubusercontent.com/BinaryHarbinger/binarydots/refs/heads/main/PACKAGES"
+
+PACKAGES=($(curl -s "$PACKAGES_URL")) || true
 
 # --- Install packages ---
 if ! paru -S --needed "${PACKAGES[@]}"; then
@@ -122,7 +138,7 @@ else
     info "Installed packages."    
 fi
 
-if gum confirm "Install qutebrowser? (Not Recommended) A keyboard-driven, vim-like browser based on Python and Qt"; then
+if confirmation_alt "Install qutebrowser? (Not Recommended) A keyboard-driven, vim-like browser based on Python and Qt"; then
     if paru -S qutebrowser; then
         info "Installed qutebrowser."
     else
@@ -210,7 +226,7 @@ chmod +x \
 info "Linked scripts and config files."
 
 if [ "$NVIDIGPU" != 'yes' ]; then
-  if gum confirm "Is your main monitor external?"; then
+  if confirmation_alt "Is your main monitor external?"; then
     sed -i 's/^env = AQ_DRM_DEVICES,\/dev\/dri\/card0:\/dev\/dri\/card1/#&/' ~/.config/hypr/hyprland.conf
   fi
 fi
@@ -228,7 +244,7 @@ fi
 
 # --- MPD services ---
 
-if gum confirm "Set up MPD? (Not Recommended for new users)"; then
+if confirmation_alt "Set up MPD? (Not Recommended for new users)"; then
     process "Setting Up MPD" bash -c '
 
     systemctl --user enable mpd 
@@ -267,7 +283,7 @@ fi
 current_shell=$(getent passwd "$USER" | cut -d: -f7)
 
 if [ "$current_shell" != "/usr/bin/zsh" ] && [ "$current_shell" != "/bin/zsh" ]; then
-    if gum confirm "Change default shell to zsh?"; then
+    if confirmation_alt "Change default shell to zsh?"; then
         if chsh -s /bin/zsh "$USER"; then
             info "Default shell changed to zsh."
 
@@ -296,7 +312,7 @@ if [ "$current_shell" != "/usr/bin/zsh" ] && [ "$current_shell" != "/bin/zsh" ];
             ln  -sf ~/Dotfiles/home/.profile $HOME/.profile
 
             info "Configured ZSH."
-            if gum confirm "Install some rust utils? (Recommended)"; then
+            if confirmation_alt "Install some rust utils? (Recommended)"; then
                 if process "Installing rust utilities" paru -S --needed --noconfirm eza sudo-rs bat ripgrep sd fd ; then
                     info "Successfully installed rust utils." 
                 else

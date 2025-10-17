@@ -8,9 +8,21 @@ RED="\e[31m"
 BLUE="\e[34m"
 RESET="\e[0m"
 
+confirmation() {
+    local title="$1"
+    shift
+    gum confirm "$title" --selected.background="100" --prompt.foreground="1000"
+}
+
+confirmation_alt() {
+    local title="$1"
+    shift
+     gum confirm "$title" --selected.background="75" --prompt.foreground="1000"
+}
+
 wait_for_input () {
     echo -e ""
-    echo -n "➤ Press Enter to continue…"; stty -echo; read; stty echo
+    gum style --foreground "#CCCCFF" -- <<< "➤ Press Enter to continue…"; stty -echo; read; stty echo
 }
 
 echo -e "\n\n${RESET}░█▀▀░█░█░█▀▀░▀█▀░█▀▀░█▄█░░░█░█░█▀█░█▀▄░█▀█░▀█▀░█▀▀
@@ -18,7 +30,7 @@ echo -e "\n\n${RESET}░█▀▀░█░█░█▀▀░▀█▀░█▀�
 ░▀▀▀░░▀░░▀▀▀░░▀░░▀▀▀░▀░▀░░░▀▀▀░▀░░░▀▀░░▀░▀░░▀░░▀▀▀${RESET}"
 
 # Prompt the user for confirmation
-gum confirm "" || exit 1
+confirmation "" || exit 1
 
 # Update pacman packages via paru
 echo -e "${BLUE}\n░█▀▀░█░█░█▀▀░▀█▀░█▀▀░█▄█░░░█▀█░█▀█░█▀▀░█░█░█▀█░█▀▀░█▀▀░█▀▀
@@ -41,7 +53,6 @@ if flatpak update -y; then
     echo -e ""
 else
     echo -e "${RED}Failed to update Flatpak packages.${RESET}"
-    echo -e "\n Press any key to close"
     exit 1
 fi
 echo
