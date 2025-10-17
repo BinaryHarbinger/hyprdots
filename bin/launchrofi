@@ -37,7 +37,7 @@ conf_launcher() {
 # Function: Custom Menu
 custom_menu() {
     # Menu options displayed in rofi
-    options="\n\n\n\n\n"
+    options=" \n \n \n \n\n"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/submenu.rasi -dmenu  -theme-str 'mainbox {children: ["listview" ];}' -p "")
@@ -141,9 +141,34 @@ widget_settings() {
     esac
 }
 
+default_apps_func() {
+    # Menu options displayed in rofi
+    options="󰌍\n  Browser\n󰠮  Editor"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "󰌍")
+            settings_func
+            ;;
+        "  Browser")
+            bash ~/Dotfiles/scripts/set-default-browser
+            default_apps_func
+            ;;
+        "󰠮  Editor")
+            bash ~/Dotfiles/scripts/set-default-editor
+            default_apps_func
+            ;;
+        *)
+            ;;
+    esac
+}
+
 settings_func() {
     # Menu options displayed in rofi
-    options="󰌍\n  Activate Linux\n  Reload Shell\n󰌁  Customize Rice\n󰚰  Update Binarydots"
+    options="󰌍\n  Activate Linux\n  Reload Shell\n  Set Default Apps\n󰌁  Customize Rice\n󰚰  Update Binarydots"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
@@ -164,6 +189,9 @@ settings_func() {
             bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
             makoctl reload   
             settings_func
+            ;;
+        "  Set Default Apps")
+           default_apps_func 
             ;;
         "󰌁  Customize Rice")
             customize_func

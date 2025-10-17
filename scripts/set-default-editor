@@ -1,0 +1,35 @@
+#!/bin/bash
+
+list_editors_for_dmenu() {
+    local editors=("nvim" "vim" "nano" "micro" "helix" "emacs" "kak" "vis")
+    local found_editors=()
+
+    for e in "${editors[@]}"; do
+        if which "$e" >/dev/null 2>&1; then
+            found_editors+=("$e")
+        fi
+    done
+
+    printf "%s\n" "${found_editors[@]}"
+}
+
+case $1 in 
+    "-p"|"--prompt")
+        chosen=$(list_editors_for_dmenu | gum choose --header="  Set default terminal editor")
+        [ -z "$chosen" ] && exit 1
+        ;;
+    *)
+        chosen=$(list_editors_for_dmenu | rofi -dmenu -i -p " ")
+        [ -z "$chosen" ] && exit 1
+        ;;
+esac
+
+ZSHRC="$HOME/.zshrc"
+
+# Replace only the editor name in quotes inside export lines
+# Matches any line starting with optional spaces, then export EDITOR='...'
+# Uses single or double quotes
+sed -i -E "s|^([[:space:]]*export[[:space:]]+EDITOR=)['\"][^'\"]+['\"]|\1'$chosen'|" "$ZSHRC"
+
+notify-send "Default terminal editor set to $chosen"
+

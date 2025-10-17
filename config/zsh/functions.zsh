@@ -20,10 +20,6 @@ if command -v bat >/dev/null 2>&1; then
     alias cat=bat
 fi
 
-if command -v rg >/dev/null 2>&1; then
-    alias grep='rg --color=always --line-number "$@"'
-fi
-
 snvim() {
     sudo HOME="/home/$USER" nvim -u "/home/$USER/.config/nvim/init.lua" "$@"
 }

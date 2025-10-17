@@ -1,0 +1,45 @@
+#!/bin/bash
+
+list_browsers_for_dmenu() {
+    local browsers=("qutebrowser" "librewolf" "firefox" "chromium" "google-chrome" "brave-browser" "vivaldi" "microsoft-edge")
+    local path_browsers=()
+    local flatpak_browsers=()
+    local snap_browsers=()
+
+    for b in "${browsers[@]}"; do
+        if command -v "$b" >/dev/null 2>&1; then
+            path_browsers+=("$b")
+        fi
+    done
+
+    if command -v flatpak >/dev/null 2>&1; then
+        while IFS= read -r line; do
+            flatpak_browsers+=("$line")
+        done < <(flatpak list --app 2>/dev/null | grep -iE "firefox|chromium|chrome|brave|vivaldi|edge|qutebrowser|librewolf" | awk '{print $1}')
+    fi
+
+    if command -v snap >/dev/null 2>&1; then
+        while IFS= read -r line; do
+            snap_browsers+=("$line")
+        done < <(snap list 2>/dev/null | grep -iE "firefox|chromium|chrome|brave|vivaldi|edge|qutebrowser|librewolf" | awk '{print $1}')
+    fi
+
+    local all_browsers=($(printf "%s\n" "${path_browsers[@]}" "${flatpak_browsers[@]}" "${snap_browsers[@]}" | sort -u))
+
+    printf "%s\n" "${all_browsers[@]}"
+}
+
+case $1 in 
+    "-p"|"--prompt")
+        chosen=$(list_browsers_for_dmenu | gum choose --header="  Set default browser" $chosen)
+        [ -z "$chosen" ] && exit 1
+        ;;
+    *)
+        chosen=$(list_browsers_for_dmenu | rofi -dmenu -i -p " ")
+        [ -z "$chosen" ] && exit 1
+        ;;
+esac
+
+xdg-settings set default-web-browser "$chosen.desktop" && notify-send "Default Browser set to $chosen"
+
+
