@@ -104,11 +104,15 @@ tooltip label {
 }
 
 /* Tray panel styling */
-#tray {
-    margin: 0px 12px;
-    margin-right: 20px;
+
+#tray-expander {
+    margin: 0px 10px;
     border-radius: 10px;
     padding: 0px 10px;
+}
+
+#tray {
+    padding: 0px 8px;
 }
 
 #tray > .passive {
@@ -197,7 +201,7 @@ tooltip label {
 }
 
 /* Styling for memory, search, os button, etc. */
-#cpu, #memory, #custom-search, #custom-os_button, #custom-runner, #mpris, #custom-cafein, #cava, #clock {
+#cpu, #memory, #custom-search, #custom-os_button, #custom-runner, #custom-expand-icon, #mpris, #custom-cafein, #cava, #clock {
     font-family: "Symbols Nerd Font", "CaskaydiaMono Nerd Font";
     background-color: @bg-main;
     font-weight: bold;

@@ -106,17 +106,19 @@ tooltip label {
     margin-right: 20px;
 }
 
-/* Tray panel styling */
-#tray {
-    margin-left: 5px;
-    margin-right: 5px;
-    border: 2px solid @border-main;
-    border-left:0px;border-right:0px;
+#tray-expander {
+    margin: 0px 15px;
+    margin-right: 20px;
     border-radius: 0px;
     padding: 0px 10px;
-    margin-right: 20px;
-    background-color: @bg-main;
+    border-top: 2px solid @border-main;
+    border-bottom: 2px solid @border-main;
 }
+
+#tray {
+    padding: 0px 8px;
+}
+
 #tray > .passive {
     border-bottom: none;
 }
@@ -230,7 +232,7 @@ tooltip label {
 }
 
 /* Styling for memory, search, os button, etc. */
-#controlCenter, #hardware, #customs, #mpris, #custom-cafein, #cava {
+#controlCenter, #hardware, #customs, #mpris, #custom-cafein, #cava, #custom-expand-icon {
     font-family: "Symbols Nerd Font", "CaskaydiaMono Nerd Font";
     background-color: @bg-second;
     font-weight: bold;

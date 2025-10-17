@@ -94,13 +94,17 @@ tooltip label {
 }
 
 /* Tray panel styling */
-#tray {
+
+#tray-expander {
     margin-left: 5px;
     margin-right: 5px;
     border-radius: 0px;
     padding: 0px 10px;
-    margin-right: 20px;
     background-color: @bg-main;
+}
+
+#tray {
+    margin: 0px 10px;
 }
 #tray > .passive {
     border-bottom: none;
@@ -238,7 +242,8 @@ tooltip label {
 }
 
 /* Styling for memory, search, os button, etc. */
-#controlCenter, #hardware, #mpris, #custom-cafein, #cava {
+#controlCenter, #hardware, #mpris, #custom-cafein, #cava, #custom-expand-icon {
+    font-size: 18px;
     font-weight: bold;
     padding: 0px 10px 0px 10px;
     border: 0px solid @border-main;

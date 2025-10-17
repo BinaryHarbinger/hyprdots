@@ -345,9 +345,22 @@
             ]
 },
 
+"group/tray-expander": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 600,
+      "children-class": "tray-group-item"
+    },
+    "modules": ["custom/expand-icon", "tray"]
+  },
+  "custom/expand-icon": {
+    "format": " ",
+    "tooltip": false
+  },
+
 "group/rightSide": {
 	"orientation": "horizontal",
-	"modules": ["tray", "group/controlCenter", "clock"]
+	"modules": ["group/tray-expander", "group/controlCenter", "clock"]
 	},
 }
 

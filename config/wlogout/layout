@@ -7,7 +7,7 @@
 
 {
     "label" : "logout",
-    "action" : "notify-send 'Logging out...'&hyprctl dispatch exit 0",
+    "action" : "hyprctl dispatch exit 0",
     "text" : "Logout",
     "keybind" : "e"
 }

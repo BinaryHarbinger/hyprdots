@@ -21,7 +21,7 @@
 
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["custom/mako", "clock"],
-    "modules-right": ["tray", "group/controlCenter"],
+    "modules-right": ["group/tray-expander", "group/controlCenter"],
     
     "hyprland/language": {
         "format": "{}",
@@ -293,6 +293,20 @@
 
 
 // ====================== Groups ======================
+
+
+"group/tray-expander": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 600,
+      "children-class": "tray-group-item"
+    },
+    "modules": ["custom/expand-icon", "tray"]
+  },
+  "custom/expand-icon": {
+    "format": " ",
+    "tooltip": false
+  },
 
 "group/customs": {
 	"orientation": "horizontal",

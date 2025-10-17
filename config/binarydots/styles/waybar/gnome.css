@@ -175,7 +175,7 @@ tooltip label {
 }
 
 /* Styling for memory, search, os button, etc. */
-#cpu, #memory, #custom-search, #custom-os_button, #custom-runner, #mpris, #custom-cafein, #cava, #clock {
+#cpu, #memory, #custom-search, #custom-os_button, #custom-runner, #custom-expand-icon, #mpris, #custom-cafein, #cava, #clock {
     background-color: @bg-main;
     font-weight: lighter;
     padding: 0px 9px;
