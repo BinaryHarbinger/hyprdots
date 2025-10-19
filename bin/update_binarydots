@@ -96,7 +96,15 @@ if ! git diff --quiet HEAD origin/$(git rev-parse --abbrev-ref HEAD); then
             only_in_NEW+=("$b")
         fi
     done
-    
+   
+
+    # Get sudo password
+    if [ "${#only_in_OLD[@]}" -gt 0 ] || [ "${#only_in_NEW[@]}" -gt 0 ]; then
+        echo "Installed packages will modify."
+        sudo -v || error 'Failed to get sudo password!'
+    fi
+
+
     # Remove old packages
     if [ "${#only_in_OLD[@]}" -gt 0 ]; then
         if [ "${#only_in_OLD[@]}" -gt 0 ]; then
