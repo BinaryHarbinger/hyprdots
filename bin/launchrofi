@@ -91,7 +91,7 @@ session_options() {
             hyprlock & disown
             ;;
         "󰍃  Logout")
-            hyprctl dispatch exit 0
+            hyprctl dispatch exit && sleep 1 && loginctl terminate-user "$USER"
             ;;
         *)
             echo "No option selected"
@@ -330,7 +330,7 @@ screenshot_func() {
 
 connections_func() {
     # Menu options displayed in rofi
-    options="󰌍\n󰤨  WiFi\n  Bluetooth (WIP)"
+    options="󰌍\n󰤨  WiFi\n  Bluetooth"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 6;}' -p "")
@@ -341,10 +341,10 @@ connections_func() {
             system_menu
             ;;
         "󰤨  WiFi") 
-            bash ~/.config/hypr/scripts/rofiwifi.sh
+            bash ~/Dotfiles/scripts/rofi-wifi
             ;;
-        " Bluetooth")
-            
+        "  Bluetooth")
+            bash ~/Dotfiles/scripts/rofi-bluetooth 
             ;;
         *)
             echo "No option selected"

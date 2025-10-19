@@ -6,5 +6,5 @@ element {
 }
 
 entry {
-    placeholder: "|";
+    placeholder: "...";
 }
