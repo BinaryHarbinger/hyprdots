@@ -40,14 +40,29 @@ fi
 confirmation() {
     local title="$1"
     shift
-     gum confirm "$title" --selected.background="100" --prompt.foreground="1000"
+
+    if [ -t 1 ]; then
+        # TTY var, renk seçenekleri olmadan çalıştır
+        gum confirm "$title"
+    else
+        # TTY yok, renkli seçeneklerle çalıştır
+        gum confirm "$title" --selected.background="100" --prompt.foreground="1000"
+    fi
 }
 
 confirmation_alt() {
     local title="$1"
     shift
-     gum confirm "$title" --selected.background="75" --prompt.foreground="1000"
+
+    if [ -t 1 ]; then
+        # TTY var, renk seçenekleri olmadan
+        gum confirm "$title"
+    else
+        # TTY yok, renkli seçeneklerle
+        gum confirm "$title" --selected.background="75" --prompt.foreground="1000"
+    fi
 }
+
 
 info() { gum style --foreground "#49A22C" -- <<< "➤ $1"; }
 
@@ -99,7 +114,7 @@ fi
 fi
 
 if process "Updating system..." bash -c '
-    if ! paru -Syu --repo >/dev/null 2>&1; then
+    if ! paru -Syu --repo --noconfirm >/dev/null 2>&1; then
         error "System update failed. Try to update manually."
         exit 1
     fi
@@ -163,7 +178,7 @@ fi
 
 if [ ! -d "./config" ]; then
     [ -d "$HOME/Dotfiles.old" ] && rm -rf "$HOME/Dotfiles.old" || true
-    [ -d "$HOME/dots.old" ] && mv ~/Dotfiles ~/Dotfiles.old || true
+    [ -d "$HOME/Dotfiles" ] && mv ~/Dotfiles ~/Dotfiles.old || true
     
     REPO_URL="https://github.com/BinaryHarbinger/binarydots.git"
     PROXY_URL="https://gh-proxy.com/$REPO_URL"
@@ -195,7 +210,7 @@ mkdir -p "$HOME/dots.old"
 folders=(
     "binarydots" "cava" "ewwii" "fastfetch" "foot" "gtk-3.0" "gtk-4.0"
     "hypr" "mako" "mpd" "mpv" "nvim" "pcmanfm-qt" "nwg-look" "qt6ct" 
-    "qutebrowser" "rmpc" "rofi" "waybar" "wiremix" "wlogout" "yazi"
+    "qutebrowser" "rmpc" "rofi" "waybar" "wiremix" "yazi"
     "zsh"
 )
 
