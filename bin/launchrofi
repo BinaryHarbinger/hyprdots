@@ -475,6 +475,9 @@ case "$1" in
     --menu|-m)
         custom_menu
         ;;
+    --power-menu|-pm)
+        session_options
+        ;;
     --widget_settings|-ws)
     	widget_settings
     	;;

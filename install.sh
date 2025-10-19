@@ -116,7 +116,6 @@ PACKAGES=(
     ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-fira-code ttf-firacode-nerd otf-fira-code-symbol ttf-material-design-iconic-font ttf-cascadia-mono-nerd noto-fonts-cjk
     yazi wiremix neovim fzf
     hyprland hyprlock hypridle hyprpolkitagent hyprsunset hyprpicker
-    wlogout
     power-profiles-daemon udiskie network-manager-applet brightnessctl
     cliphist stow git zsh unzip fastfetch pamixer mako foot swww
     mpv mpd mpdris2-rs rmpc
