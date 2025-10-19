@@ -17,7 +17,6 @@ change_theme () {
     # Files
     ln -sf "$THEME_PATH/theme.scss" ~/.config/ewwii/theme.scss
     ln -sf "$THEME_PATH/theme.css" ~/.config/waybar/theme.css
-    ln -sf "$THEME_PATH/theme.css" ~/.config/wlogout/theme.css
     ln -sf "$THEME_PATH/theme.rasi" ~/.config/rofi/theme.rasi 
     ln -sf "$THEME_PATH/makoConfig" ~/.config/mako/config
     ln -sf "$THEME_PATH/hypr.conf" ~/.config/hypr/theme.conf
@@ -95,14 +94,14 @@ END_PYTHON
             qutebrowser ":config-source" >/dev/null 2>&1 & disown 
         fi
     fi
-    hyprctl reload & disown
+    pgrep "Hyprland" > /dev/null && hyprctl reload & disown
     
-    makoctl reload
+    pgrep "mako" > /dev/null && makoctl reload
 
-    pkill waybar >/dev/null 2>&1
-    waybar >/dev/null 2>&1 & disown
+    pgrep "waybar" > /dev/null && pkill waybar >/dev/null 2>&1
+    pgrep "Hyprland" > /dev/null && waybar >/dev/null 2>&1 & disown
 
-    notify-send -u normal "🎨 Theme Changed" -i preferences-desktop-theme >/dev/null 2>&1 & disown
+    pgrep "Hyprland" > /dev/null && notify-send -u normal "🎨 Theme Changed" -i preferences-desktop-theme >/dev/null 2>&1 & disown
     echo -e "Theme changed to $chosen"
 }
 

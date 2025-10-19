@@ -378,5 +378,5 @@ cd ..
 process "Cleaning up..." rm -rf binarydots
 info "Cleaned."
 
-bash $HOME/Dotfiles/bin/change-theme -p
+$HOME/Dotfiles/bin/change-theme -c Binary >> /dev/null
 echo -e  "${GREEN}✅ Installation complete!"
