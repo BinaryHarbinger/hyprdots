@@ -506,6 +506,7 @@ defwindow(
     #{
       monitor: 0,
       class: "random",
+      namespace: style_file::bar_widget_namespace(),
       windowtype: "normal",
       stacking: "overlay",
        geometry: #{
@@ -540,6 +541,7 @@ defwindow(
     #{
       monitor: 0,
       class: "random",
+      namespace: style_file::bar_widget_namespace(),
       windowtype: "normal",
       stacking: "fg",
        geometry: #{
@@ -557,16 +559,17 @@ defwindow(
     "actioncenter",
     #{
       monitor: 0,
-      class: "random",
-      windowtype: "normal",
-      stacking: "fg",
-       geometry: #{
-        x: "3%",
-        y: "1%",
-        width: "3%",
-        height: "3%",
-        anchor: style_file::quick_center_anchor(),
-      },
+        class: "random",
+        namespace: style_file::bar_widget_namespace(),
+        windowtype: "normal",
+        stacking: "fg",
+        geometry: #{
+            x: "3%",
+            y: "1%",
+            width: "3%",
+            height: "3%",
+            anchor: style_file::quick_center_anchor(),
+        },
     },
        box(#{
        halign: "start",
