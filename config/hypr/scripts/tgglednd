@@ -1,9 +1,0 @@
-#!/bin/bash
-
-dnd_state=$(swaync-client -D | tr -d '[:space:]')  # Çıktıdaki boşlukları temizler
-
-if [ "$dnd_state" == "true" ]; then
-    swaync-client -df
-else
-    swaync-client -dn
-fi

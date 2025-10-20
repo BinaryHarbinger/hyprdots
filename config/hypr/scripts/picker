@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Hyprpicker çıktısını al, sadece '#' ile başlayan satırı seç ve satır başını kaldır
 COLOR=$(hyprpicker | grep '^#' | tr -d '\n')
 
 if [ -n "$COLOR" ]; then

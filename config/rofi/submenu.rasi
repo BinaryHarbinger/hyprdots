@@ -20,5 +20,5 @@ element-text {
 
 
 listview {
-    lines: 6;
+    lines: 7;
 }

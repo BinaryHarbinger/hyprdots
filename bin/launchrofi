@@ -37,30 +37,33 @@ conf_launcher() {
 # Function: Custom Menu
 custom_menu() {
     # Menu options displayed in rofi
-    options=" \n \n \n \n\n"
+    options=" \n \n \n \n\n\n"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/submenu.rasi -dmenu  -theme-str 'mainbox {children: ["listview" ];}' -p "")
 
     # Execute the corresponding command based on the selected option
     case $chosen in
-        "")
+        " ")
             rofi -show drun
             ;;
-        "")
+        " ")
             pcmanfm-qt
             ;;
         "")
             session_options
             ;;
-        "")
+        " ")
             foot
             ;;
-        "")
-            bash ~/.config/hypr/scripts/openBrowser.sh
+        " ")
+            bash ~/Dotfiles/scripts/open-browser
+            ;;
+        "")
+            bash ~/Dotfiles/bin/launchrofi -sm
             ;;
         "")
-        manual_func
+            manual_func
             ;;
         *)
             echo "No option selected"
@@ -369,7 +372,7 @@ misc_func() {
             misc_func
             ;;
         "  Toggle Cafein")
-            bash $HOME/.config/hypr/scripts/cafein toggle -n
+            bash $HOME/Dotfiles/scripts/cafein toggle -n
             misc_func
             ;;
         "󰈈  Toggle Eye Saver")

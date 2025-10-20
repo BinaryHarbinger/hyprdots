@@ -100,7 +100,7 @@ fn quick_center_content(up_time, volume, brightness, mic_percent, network_status
                 button(#{ label: " ", class: if sunset_status != "no-process" { "button-active" } else { "button" }, onclick: "~/.config/eww/scripts/sunset.sh" })
                 ]),
             box(#{ class: "random" }, [
-                button(#{ label: " ", class: if cafein_status == "no-process" { "button-active" } else { "button" }, onclick: "$HOME/.config/hypr/scripts/cafein toggle" }),
+                button(#{ label: " ", class: if cafein_status == "no-process" { "button-active" } else { "button" }, onclick: "$HOME/Dotfiles/scripts/cafein toggle" }),
                 button(#{ label: " ", class: if dnd_status == "on" { "button-active" } else { "button" }, onclick: "makoctl mode -t dnd" }),
                 button(#{ label: " ", class: "button", onclick: "~/.config/scripts/launchrofi --system_menu& ewwii close actioncenter"})
                 ]),
