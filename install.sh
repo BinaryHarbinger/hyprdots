@@ -231,6 +231,7 @@ for item in "${folders[@]}"; do
 done
 
 chmod +x \
+    "$HOME/Dotfiles/bin/"* \
     "$HOME/Dotfiles/scripts/"* \
     "$HOME/Dotfiles/config/hypr/scripts/"* \
     "$HOME/Dotfiles/config/ewwii/scripts/"* \

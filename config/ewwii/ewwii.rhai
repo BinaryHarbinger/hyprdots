@@ -95,14 +95,14 @@ fn quick_center_content(up_time, volume, brightness, mic_percent, network_status
             quick_center_scales(volume, mic_percent, brightness),
             box(#{ class: "bottom-center", orientation: "vertical" }, [
                 box(#{ class: "random" }, [
-                button(#{ label: " ", class: if network_status != "no-network" { "button-active" } else { "button" }, onclick: "rfkill toggle wifi & ewwii update networkstatus=''"}),
+                button(#{ label: " ", class: if network_status != "no-network" { "button-active" } else { "button" }, onclick: "rfkill toggle wifi &"}),
                 button(#{ label: "󰂯", class: if bluetooth_status != "no" { "button-active" } else { "button" }, onclick: "rfkill toggle bluetooth"}),
-                button(#{ label: " ", class: if sunset_status != "no-process" { "button-active" } else { "button" }, onclick: "~/.config/eww/scripts/sunset.sh" })
+                button(#{ label: " ", class: if sunset_status != "no-process" { "button-active" } else { "button" }, onclick: "bash ~/Dotfiles/scripts/toggle-sunset" })
                 ]),
             box(#{ class: "random" }, [
                 button(#{ label: " ", class: if cafein_status == "no-process" { "button-active" } else { "button" }, onclick: "$HOME/Dotfiles/scripts/cafein toggle" }),
                 button(#{ label: " ", class: if dnd_status == "on" { "button-active" } else { "button" }, onclick: "makoctl mode -t dnd" }),
-                button(#{ label: " ", class: "button", onclick: "~/.config/scripts/launchrofi --system_menu& ewwii close actioncenter"})
+                button(#{ label: " ", class: "button", onclick: "~/Dotfiles/bin/launchrofi --system_menu& ewwii close actioncenter"})
                 ]),
             box(#{ class: "random", space_evenly: false }, 
             [

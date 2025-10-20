@@ -376,7 +376,7 @@ misc_func() {
             misc_func
             ;;
         "󰈈  Toggle Eye Saver")
-            bash $HOME/.config/eww/scripts/sunset.sh
+            bash $HOME/Dotfiles/scripts/toggle-sunset
             misc_func
             ;;
         *)
