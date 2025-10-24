@@ -5,8 +5,12 @@ prevState=""
 timer_pid=""
 
 show_osd() {
+    
+    local state="$1"
+
     if ! ewwii active-windows | grep -q '^volOSD:'; then
         ewwii open "$widget"
+        ewwii update --inject "volume=$1"
     fi
 
     # Kill old timer
@@ -25,6 +29,7 @@ show_osd() {
 while true; do
     currentState=$(pamixer --get-volume)
     if [ "$currentState" != "$prevState" ]; then
+        ewwii update --inject $currentState
         show_osd "$currentState"
         prevState="$currentState"
     fi
