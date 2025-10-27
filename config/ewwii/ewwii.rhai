@@ -239,7 +239,15 @@ fn status_scales(volume, brightness) {
 
 enter([
     
-    
+    poll("musictitle", #{
+      // It is recommended to have initial property passed.
+      // If not provided, it will default to no value which may cause problems when used.
+      // You can pass something like "" if you want no initial value.
+      initial: "No Media",
+      interval: "2",
+      cmd: "playerctl metadata --format '{{ title }}' | cut -c1-30", // command to execute"
+  }),
+
     poll("network_status", #{
       initial: "yes",
       interval: "5",
