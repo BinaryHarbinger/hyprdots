@@ -136,7 +136,7 @@ PACKAGES=(
     mpv mpd mpdris2-rs rmpc
     base-devel
     python-flask python-requests
-    pcmanfm-qt waybar ewwii-git
+    pcmanfm-qt waybar ewwii-bin
     rofi rofimoji
 )
 
