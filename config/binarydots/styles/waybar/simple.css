@@ -265,6 +265,11 @@ tooltip label {
 }
 
 #network, #pulseaudio, #battery, #backlight {
-    padding: 0px 6px;
+    min-width: 26px;
+    padding: 0px 2px;
     font-size: 15px;
+}
+
+#pulseaudio {
+    padding-right: 7px;
 }

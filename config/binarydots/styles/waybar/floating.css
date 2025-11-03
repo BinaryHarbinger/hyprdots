@@ -203,17 +203,9 @@ tooltip label {
 }
 
 /* Sway notification custom widget and other widgets */
-#custom-swaync, #custom-mako, #network, #pulseaudio {
+#custom-swaync, #custom-mako {
     font-size: 20px;
     padding: 0px 8px;
-}
-
-#network, #pulseaudio {
-    padding: 0px 10px;
-    padding-right: 15px;
-}
-
-#custom-swaync, #custom-mako {
     padding-right: 13px; 
 }
 
@@ -264,14 +256,14 @@ tooltip label {
     background-color: @fg-unactive;
 }
 
-/* Bluetooth, network, pulseaudio icon size adjustment */
-#bluetooth, #network, #pulseaudio, #backlight {
-    font-size: 15px; /* Decrease icon size */
+#pulseaudio, #network, #battery, #backlight {
+    min-width: 26px;
+    padding: 0px 2px;
+    font-size: 15px;
 }
 
-#pulseaudio, #network, #battery, #backlight {
-    padding: 0px 5px;
-    font-size: 15px;
+#pulseaudio {
+    padding-right: 7px;
 }
 
 #controlCenter:hover {

@@ -43,7 +43,7 @@
     "format": " ",
     "tooltip": false,
     
-    "on-click": "~Dotfiles/bin/launchrofi --drun",
+    "on-click": "~/Dotfiles/bin/launchrofi --drun",
 },
 
   "custom/runner": {
@@ -51,12 +51,12 @@
     "format": " ",
     "tooltip": false,
     
-    "on-click": "~Dotfiles/bin/launchrofi --system_menu"
+    "on-click": "~/Dotfiles/bin/launchrofi --system_menu"
 },
 
 "custom/os_button": {
     "format": "",
-    "on-click": "~Dotfiles/bin/launchrofi --menu",
+    "on-click": "~/Dotfiles/bin/launchrofi --menu",
     "tooltip": false
   },
 
@@ -93,11 +93,11 @@
 "network": {
 
     "format-wifi": "{icon}",
-    "format-ethernet": " ",
-    "format-disconnected": " ",
-    "format-disabled": "󰤮 ",
+    "format-ethernet": "",
+    "format-disconnected": "",
+    "format-disabled": "󰤮",
     "tooltip-format": "{icon} {essid}",
-    "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤢 ", "󰤨 "],
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤢", "󰤨"],
 
     "on-click": "bash ~/.config/hypr/scripts/actioncenter.sh &  ewwii close calendar",
     "on-click-right": "bash .config/hypr/scripts/rofiwifi.sh"
@@ -144,8 +144,8 @@
     "states": {"good": 95, "warning": 30, "critical": 20},
     
     "format": "{icon}",
-    "format-charging": "󰠠 ",
-    "format-plugged": "󰠠 ",
+    "format-charging": "󰠠",
+    "format-plugged": "󰠠",
     "format-alt": "{time} {icon}",
 
     "format-alt-icons": [
@@ -161,9 +161,9 @@
     "tooltip-format": "{icon}  {volume}%",
     
     "format-icons": {
-    "headphone": " ",
-    "format-muted": " ",
-    "default": [" ", " "]
+    "headphone": "",
+    "format-muted": "",
+    "default": ["", ""]
     },
 
     "on-click": "bash ~/.config/hypr/scripts/actioncenter.sh &  ewwii close calendar",

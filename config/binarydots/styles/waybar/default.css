@@ -78,14 +78,17 @@ tooltip label {
     background: @fg-main;
     padding: 2px 20px;
 }
+
 #workspaces button.focused {
     color: @bg-second;
 }
+
 #workspaces button.urgent {
     background: rgba(255, 200, 0, 0.35);
     border-bottom: 0px dashed @warning_color;
     color: @warning_color;
 }
+
 #workspaces button:hover {
     background: @content-act;
     color: @bg-main;
@@ -287,6 +290,11 @@ tooltip label {
 }
 
 #network, #pulseaudio, #battery, #backlight {
-    padding: 0px 6px;
+    min-width: 26px;
+    padding: 0px 2px;
     font-size: 15px;
+}
+
+#pulseaudio {
+    padding-right: 7px;
 }
