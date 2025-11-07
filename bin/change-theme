@@ -33,6 +33,8 @@ change_theme () {
     ln -sf "$HOME/.config/binarydots/styles/waybar/${WAYBAR_STYLE}Config" "$HOME/.config/waybar/config"
     ln -sf "$HOME/.config/binarydots/styles/waybar/${WAYBAR_STYLE}.css" "$HOME/.config/waybar/style.css"
     
+    ewwii kill
+
     # Widget Styles
     if [[ "$SCHEME" == "gnome" ]]; then
         ln -sf "$HOME/.config/binarydots/styles/ewwii/gnome.rhai" "$HOME/.config/ewwii/style.rhai"
@@ -42,6 +44,7 @@ change_theme () {
         ln -sf "$HOME/.config/binarydots/styles/ewwii/default.rhai" "$HOME/.config/ewwii/style.rhai"
     fi
 
+    bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
 
     bash ~/Dotfiles/bin/wallpaper -s "$WALLPAPER" 
 
