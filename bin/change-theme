@@ -14,6 +14,19 @@ Options:
 "
 change_theme () {
     
+    if [ -f "$HOME/Dotfiles/scripts/style_lock.py" ]; then
+        cd ~/Dotfiles/scripts/
+        mapfile -t vals < <(python ~/Dotfiles/scripts/style_lock.py get_state)
+        cd ~
+        WAYBAR_LOCK="${vals[0]}"
+        WIDGETS_LOCK="${vals[1]}"
+        WALLPAPER_LOCK="${vals[2]}"
+    else
+        WAYBAR_LOCK="0"
+        WIDGETS_LOCK="0"
+        WALLPAPER_LOCK="0"
+    fi
+
     # Files
     ln -sf "$THEME_PATH/theme.scss" ~/.config/ewwii/theme.scss
     ln -sf "$THEME_PATH/theme.css" ~/.config/waybar/theme.css
@@ -30,23 +43,29 @@ change_theme () {
     source "$THEME_PATH/theme.sh" # Export theme variables
     
     # Waybar Styles
-    ln -sf "$HOME/.config/binarydots/styles/waybar/${WAYBAR_STYLE}Config" "$HOME/.config/waybar/config"
-    ln -sf "$HOME/.config/binarydots/styles/waybar/${WAYBAR_STYLE}.css" "$HOME/.config/waybar/style.css"
-    
+    echo $WAYBAR_LOCK
+    if [ "$WAYBAR_LOCK" = "0" ]; then
+        ln -sf "$HOME/.config/binarydots/styles/waybar/${WAYBAR_STYLE}Config" "$HOME/.config/waybar/config"
+        ln -sf "$HOME/.config/binarydots/styles/waybar/${WAYBAR_STYLE}.css" "$HOME/.config/waybar/style.css"
+    fi
     ewwii kill
 
     # Widget Styles
-    if [[ "$SCHEME" == "gnome" ]]; then
-        ln -sf "$HOME/.config/binarydots/styles/ewwii/gnome.rhai" "$HOME/.config/ewwii/style.rhai"
-    elif [[ "$SCHEME" == "windoes" ]]; then
-        ln -sf "$HOME/.config/binarydots/styles/ewwii/windoes.rhai" "$HOME/.config/ewwii/style.rhai"
-    else
-        ln -sf "$HOME/.config/binarydots/styles/ewwii/default.rhai" "$HOME/.config/ewwii/style.rhai"
+    if [ "$WIDGETS_LOCK" = "0" ]; then
+        if [[ "$SCHEME" == "gnome" ]]; then
+            ln -sf "$HOME/.config/binarydots/styles/ewwii/gnome.rhai" "$HOME/.config/ewwii/style.rhai"
+        elif [[ "$SCHEME" == "windoes" ]]; then
+            ln -sf "$HOME/.config/binarydots/styles/ewwii/windoes.rhai" "$HOME/.config/ewwii/style.rhai"
+        else
+            ln -sf "$HOME/.config/binarydots/styles/ewwii/default.rhai" "$HOME/.config/ewwii/style.rhai"
+        fi
     fi
 
     bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
-
-    bash ~/Dotfiles/bin/wallpaper -s "$WALLPAPER" 
+    
+    if [ "$WALLPAPER_LOCK" = "0" ]; then
+        bash ~/Dotfiles/bin/wallpaper -s "$WALLPAPER"
+    fi
 
     sed -i "s/^THEME_VAR=\"[^\"]*\"/THEME_VAR=\"$SCHEME\"/" ~/.zshrc
 

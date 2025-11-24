@@ -5,12 +5,13 @@ cd ~
 # Usage Information
 usage() {
     echo -e "\n Usage:
-      --drun     : Launches the application launcher (drun).\n
-      --run      : Launches the command runner (run). \n
-      --menu     : Displays a custom menu with multiple options. \n
-      --window   : Displays a open windows.\n 
-      --sys_menu : Displays system menu. \n
-      --screenshot_menu : Displays system menu. \n"
+      --drun                            : Launches the application launcher (drun).\n
+      --run                             : Launches the command runner (run). \n
+      --menu                            : Displays a custom menu with multiple options. \n
+      --window                          : Displays a open windows.\n 
+      --sys_menu                        : Displays system menu. \n
+      --screenshot_menu                 : Displays system menu. \n
+      --conf_launcher [title] [options] : Launches a confirmation dialog\n"
     exit 1
 }
 
@@ -29,9 +30,47 @@ run_launcher() {
 
 # Function: CONFIRMATION Launcher
 conf_launcher() {
-    rofi \
-    -show run \
-    -theme ~/.config/rofi/confirm.rasi
+    
+    local title
+    if [[ -n "$1" ]]; then
+        options="$1"
+    else
+        options="Confirm"
+    fi
+
+   local options
+    if [[ -n "$2" ]]; then
+        options="$2"
+    else
+        options="Yes\nNo"
+    fi
+
+    [[ -z "$1" ]] || local title="$1"
+    chosen=$( echo -e "$options" |rofi -dmenu -config ~/.config/rofi/confirm.rasi -i -p "$title"  )
+    echo "$chosen"
+}
+
+lock_menu() {
+    # Menu options displayed in rofi
+    cd ~/Dotfiles/scripts/
+    options=$(python ~/Dotfiles/scripts/style_lock.py dmenu)
+    # Prompt user to choose an option
+    chosen=$(echo -e "󰌍\n$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "" -theme-str 'listview {lines: 4;}')
+    cd ~
+    if [[ -z "$chosen" ]]; then 
+        exit 1
+    elif [[ "$chosen" = "󰌍" ]];then
+        customize_func
+    else
+        cd ~/Dotfiles/scripts/
+        argument="${chosen:3}"
+        python style_lock.py "$argument"
+        lock_menu
+    fi
+
+   $HOME/Dotfiles/bin/change-theme -c $chosen 
+
+
 }
 
 # Function: Custom Menu
@@ -213,7 +252,7 @@ settings_func() {
 
 customize_func() {
     # Menu options displayed in rofi
-    options="󰌍\n  Widgets Settings\n  Wallpapers\n󰌁  Themes"
+    options="󰌍\n  Set Style Locks\n  Widgets Settings\n  Wallpapers\n󰌁  Themes"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
@@ -222,6 +261,9 @@ customize_func() {
     case $chosen in
         "󰌍")
             settings_func
+            ;;
+        "  Set Style Locks")
+            lock_menu
             ;;
         "  Widgets Settings")
             widget_settings
@@ -458,7 +500,9 @@ theme_menu() {
 
 # Check for flags and validate input
 if [[ $# -ne 1 ]]; then
-    usage
+    if [[ "$1" != "--conf_launcher" ]]; then
+        usage 
+    fi
 fi
 
 # Execute the appropriate function based on the provided flag
@@ -493,6 +537,9 @@ case "$1" in
     --screenshot_menu|--ss_menu|-ss)
      	screenshot_func
      	;;
+    --conf_launcher|-cl)
+        conf_launcher "$2" "$3"
+        ;;
     *)
         usage
         ;;
