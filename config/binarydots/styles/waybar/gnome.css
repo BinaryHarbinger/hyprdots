@@ -78,7 +78,7 @@ tooltip label {
 }
 
 #workspaces button:hover {
-    background: @bg-hover;
+    background: @bg-alt;
     color: transparent;
 }
 
