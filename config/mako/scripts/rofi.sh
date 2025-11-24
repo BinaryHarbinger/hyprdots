@@ -3,7 +3,8 @@
 
 get_notification_num() {
     local target="$1"
-
+    
+    echo $target
     makoctl history \
         | grep "$target" \
         | sed -n 's/^Notification \([0-9]\+\):.*/\1/p'
@@ -19,13 +20,14 @@ chosen=$(echo -e "$options" | rofi -dmenu -i -p "  Notifications" -config ~/.
 if [ "$chosen" = "󰃢  Clear All" ]; then
     rm -rf $logfile
     bash ~/.config/mako/scripts/rofi.sh & disown
-    makoctl dismiss --all
+    makoctl dismiss --all -h
     exit 0
 elif [ "$chosen" = "󰔡  Toggle DND" ]; then
     makoctl mode -t dnd
     bash ~/.config/mako/scripts/rofi.sh & disown
     exit 0
 fi
+echo "$chosen"
 
 # Actions
 action=$(echo -e "󰌍\n  Resend\n  Delete\n  Copy" | rofi -dmenu -p "Action" -config ~/.config/rofi/sysmenu.rasi -theme-str 'entry {placeholder: "...";}')
@@ -38,7 +40,7 @@ case "$action" in
         bash ~/.config/mako/scripts/rofi.sh & disown
         ;;
     "  Resend")
-
+        echo "$title"
         num=$(get_notification_num "$title")
 
         makoctl restore "$num"

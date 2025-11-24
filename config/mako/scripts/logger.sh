@@ -1,6 +1,10 @@
 #!/bin/bash
 
 logfile="$HOME/.local/share/mako/notifications.log"
+
+if [ -f "$logfile" ]; then
+    rm -rf "$logfile"
+fi
 mkdir -p "$(dirname "$logfile")"
 touch "$logfile"
 
