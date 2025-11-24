@@ -1,5 +1,14 @@
 #!/bin/bash
 # ~/.config/mako/scripts/rofi.sh
+
+get_notification_num() {
+    local target="$1"
+
+    makoctl history \
+        | grep "$target" \
+        | sed -n 's/^Notification \([0-9]\+\):.*/\1/p'
+}
+
 logfile="$HOME/.local/share/mako/notifications.log"
 [ -f "$logfile" ] || touch "$logfile"
 
@@ -10,6 +19,7 @@ chosen=$(echo -e "$options" | rofi -dmenu -i -p "  Notifications" -config ~/.
 if [ "$chosen" = "󰃢  Clear All" ]; then
     rm -rf $logfile
     bash ~/.config/mako/scripts/rofi.sh & disown
+    makoctl dismiss --all
     exit 0
 elif [ "$chosen" = "󰔡  Toggle DND" ]; then
     makoctl mode -t dnd
@@ -28,7 +38,11 @@ case "$action" in
         bash ~/.config/mako/scripts/rofi.sh & disown
         ;;
     "  Resend")
-        notify-send "$title" "$body"
+
+        num=$(get_notification_num "$title")
+
+        makoctl restore "$num"
+        ( sleep 3 && makoctl dismiss "$num" ) & disown
         ;;
     "  Delete")
         grep -Fxv "$chosen" "$logfile" > "${logfile}.tmp" && mv "${logfile}.tmp" "$logfile"
