@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd ~/.config/hypr/scripts/
+cd ~/Dotfiles/scripts/
 
 python widgets.py $@

@@ -29,6 +29,7 @@ change_theme () {
 
     # Files
     ln -sf "$THEME_PATH/theme.scss" ~/.config/ewwii/theme.scss
+    ln -sf "$THEME_PATH/theme.scss" ~/.config/riftbar/theme.scss
     ln -sf "$THEME_PATH/theme.css" ~/.config/waybar/theme.css
     ln -sf "$THEME_PATH/theme.rasi" ~/.config/rofi/theme.rasi 
     ln -sf "$THEME_PATH/makoConfig" ~/.config/mako/config
@@ -45,10 +46,11 @@ change_theme () {
     # Waybar Styles
     echo $WAYBAR_LOCK
     if [ "$WAYBAR_LOCK" = "0" ]; then
+        ln -sf "$HOME/.config/binarydots/styles/riftbar/${WAYBAR_STYLE}Config.toml" "$HOME/.config/riftbar/config.toml"
+        ln -sf "$HOME/.config/binarydots/styles/riftbar/${WAYBAR_STYLE}.scss" "$HOME/.config/riftbar/style.scss"
         ln -sf "$HOME/.config/binarydots/styles/waybar/${WAYBAR_STYLE}Config" "$HOME/.config/waybar/config"
         ln -sf "$HOME/.config/binarydots/styles/waybar/${WAYBAR_STYLE}.css" "$HOME/.config/waybar/style.css"
     fi
-    ewwii kill
 
     # Widget Styles
     if [ "$WIDGETS_LOCK" = "0" ]; then
@@ -61,7 +63,7 @@ change_theme () {
         fi
     fi
 
-    bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
+    bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
     
     if [ "$WALLPAPER_LOCK" = "0" ]; then
         bash ~/Dotfiles/bin/wallpaper -s "$WALLPAPER"
@@ -116,14 +118,15 @@ END_PYTHON
             qutebrowser ":config-source" >/dev/null 2>&1 & disown 
         fi
     fi
-    pgrep "Hyprland" > /dev/null && hyprctl reload & disown
+    pgrep "Hyprland" > /dev/null || pgrep "hyprland" &> /dev/null && hyprctl reload & disown
     
     pgrep "mako" > /dev/null && makoctl reload
 
-    pgrep "waybar" > /dev/null && pkill waybar >/dev/null 2>&1
-    pgrep "Hyprland" > /dev/null && waybar >/dev/null 2>&1 & disown
+    pgrep "riftbar" > /dev/null && pkill riftbar >/dev/null 2>&1 & disown
+    pgrep "Hyprland" > /dev/null || pgrep "hyprland" &> /dev/null && riftbar >/dev/null 2>&1 & disown
 
-    pgrep "Hyprland" > /dev/null && notify-send -u normal "🎨 Theme Changed" -i preferences-desktop-theme >/dev/null 2>&1 & disown
+    ewwii kill &&bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
+    pgrep "Hyprland" > /dev/null || pgrep "hyprland" &> /dev/null && notify-send -u normal "🎨 Theme Changed" -i preferences-desktop-theme >/dev/null 2>&1 & disown
     echo -e "Theme changed to $chosen"
 }
 

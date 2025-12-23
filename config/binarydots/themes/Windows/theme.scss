@@ -1,34 +1,34 @@
 // Base border color
-$border-main: transparent;
-$border-alt:  #01AFFF;
+$border_main: transparent;
+$border_alt:  #01AFFF;
 
 // Background Colors
-$bg-main:      #101010;
-$bg-alt:       #1A1A2A;  
-$bg-hover:     #1F1F38; 
-$bg-hover-alt: #181827;
-$bg-tooltip:   $bg-main;
-$bg-second:    #222233;
-$bg-third:     #2A2A44;
-$sway-bg:      $bg-main;
+$bg_main:      #101010;
+$bg_alt:       #1A1A2A;  
+$bg_hover:     #1F1F38; 
+$bg_hover_alt: #181827;
+$bg_tooltip:   $bg_main;
+$bg_second:    #222233;
+$bg_third:     #2A2A44;
+$sway-bg:      $bg_main;
 
 // Text color for entries, views and content in general
-$fg-main:      #ffffff;
-$fg-unactive:  #2D2D40;
+$fg_main:      #ffffff;
+$fg_unactive:  #2D2D40;
 $content-act:  #6FBFFF;
 
 // Player colors
-$ply-main:   #151522;
-$ply-hover:  #1C1C33;
-$ply-act:    #2A2A44;
-$msc-act:    #3A3A5C;
+$ply_main:   #151522;
+$ply_hover:  #1C1C33;
+$ply_act:    #2A2A44;
+$msc_act:    #3A3A5C;
 
 // Wlogout
-$wlogout-hover:  rgba(30, 30, 55, 0.5);
-$wlogout-bg:     rgba(16, 16, 16, 0.45);
-$wlogout-button: rgba(18, 18, 30, 0.78);
+$wlogout_hover:  rgba(30, 30, 55, 0.5);
+$wlogout_bg:     rgba(16, 16, 16, 0.45);
+$wlogout_button: rgba(18, 18, 30, 0.78);
 
-$border-rad:  0px; // Main border radius
-$border-rad2: 0px; // Second
-$border-radb: 4px; // Button
-$border-rads: 2px; // Scale
+$border_rad:  0px; // Main border radius
+$border_rad2: 0px; // Second
+$border_radb: 4px; // Button
+$border_rads: 2px; // Scale

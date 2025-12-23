@@ -33,9 +33,9 @@ case $1 in
         info "Wallpaper Reloaded"
         ;;
     --prompt|-p)
-        WALLPAPERS=$(python ~/.config/hypr/scripts/wallpapers.py echoImageNames)
+        WALLPAPERS=$(python ~/Dotfiles/scripts/wallpapers.py echoImageNames)
         chosen=$(printf '%s\n' "$WALLPAPERS" | gum choose --header 'Select a Wallpaper')
-        python ~/.config/hypr/scripts/wallpapers.py changeWallpaper $chosen > /dev/null 2>&1
+        python ~/Dotfiles/scripts/wallpapers.py changeWallpaper $chosen > /dev/null 2>&1
         info "Wallpaper Reloaded"
         ;;
     *)

@@ -151,20 +151,6 @@ tooltip label {
     border-right: 0px;
 }
 
-/* Bluetooth widget styling */
-#bluetooth {
-    padding: 0px 10px;
-    font-size: 12px;
-    font-family: "Fira Code";
-}
-
-/* Bluetooth widget status colors */
-#bluetooth.disabled, #bluetooth.off {
-    color: #565858;
-}
-#bluetooth.on, #bluetooth.connected {
-    color: #6f7dd8;
-}
 
 /* Sway notification custom widget and other widgets */
 #custom-swaync, #custom-mako {
@@ -220,11 +206,6 @@ tooltip label {
     background-color: unset;
 }
 
-/* Bluetooth, network, pulseaudio icon size adjustment */
-#bluetooth {
-    font-size: 15px; /* Decrease icon size */
-}
-
 #leftSide {
     border: 2px solid @border-main;
     border-radius: 10px;
@@ -264,12 +245,14 @@ tooltip label {
     background-color: @bg-hover;
 }
 
-#network, #pulseaudio, #battery, #backlight {
+#network, #pulseaudio, #bluetooth, #backlight {
     min-width: 26px;
     padding: 0px 2px;
     font-size: 15px;
 }
 
 #pulseaudio {
+    padding-left: 0px;
+    margin-left: 0px;
     padding-right: 7px;
 }

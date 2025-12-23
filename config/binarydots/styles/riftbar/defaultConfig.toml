@@ -1,0 +1,153 @@
+# Riftbar Configuration
+
+# Module positions (MUST be at root level, BEFORE any [sections])
+modules_left = ["box/left"]
+modules_center = ["hyprland/workspaces"]
+modules_right = ["box/right","custom/mako"]
+
+[bar]
+height = 30
+position = "top"  # top, bottom
+layer = "top"     # background, bottom, top, overlay
+spacing = 10
+
+# Clock module configuration
+[clock]
+format = " %H:%M"
+interval = 1  # seconds
+tooltip = true
+tooltip_format = "%d %B %Y"
+action = "ewwii open calendar --toggle --no-daemonize & ewwii close actioncenter musiccenter"  # Optional: command to run on click
+
+# Available format placeholders (uses date command format):
+# %H _ Hour (00_23)
+# %M _ Minute (00_59)
+# %S _ Second (00_59)
+# %A _ Full weekday name
+# %a _ Abbreviated weekday name
+# %B _ Full month name
+# %b _ Abbreviated month name
+# %d _ Day of month (01_31)
+# %Y _ Year with century
+
+[workspaces]
+workspace_count=4
+
+# Network module configuration
+[network]
+action = "bash ~/.config/hypr/scripts/actioncenter.sh &  ewwii close calendar"
+format = "{icon}"
+format_disconnected = ""
+format_ethernet = " "
+interval = 5
+# interface = "wlan0"  # Optional: specify interface
+tooltip = true
+
+# Available format placeholders for network:
+# {icon} _ Dynamic icon based on signal strength
+# {essid} _ WiFi network name
+# {signalStrength} _ Signal strength (0_100)
+# {signalStrengthApp} _ Signal strength with % symbol
+# {ifname} _ Interface name
+# {ipaddr} _ IP address
+
+# Audio module configuration
+[audio]
+format = "{icon}"
+format_muted = "{icon}"
+interval = 100  # milliseconds
+tooltip = true
+# Custom actions (leave empty for default behavior)
+action = "bash ~/.config/hypr/scripts/actioncenter.sh &  ewwii close calendar" # Default: toggle mute
+on_scroll_up = ""  # Default: increase volume by scroll_step
+on_scroll_down = ""  # Default: decrease volume by scroll_step
+scroll_step = 5  # Volume change step (percentage)
+
+# Available format placeholders for audio:
+# {icon} _ Dynamic icon based on volume level
+# {volume} _ Volume percentage (0_100)
+
+# MPRIS (Media Player) configuration
+[mpris]
+format = "{icon} {artist} - {title}"
+format_paused = "{icon} {artist} - {title}"
+format_stopped = "{icon} Stopped"
+format_nothing = "No Media"
+lenght_lim = 22
+interval = 100  # milliseconds
+tooltip = true
+tooltip_format = "{artist}\n{album}\n{title}"
+
+# Available format placeholders for mpris:
+# {icon} _ Dynamic icon based on playback state
+# {artist} _ Artist name
+# {title} _ Song title
+# {album} _ Album name
+# {status} _ Playback status (Playing, Paused, Stopped)
+
+# Battery configuration
+[battery]
+format = "{icon}"
+format_charging = "{icon}"
+action = "bash ~/.config/hypr/scripts/actioncenter.sh &  ewwii close calendar"
+interval = 30
+# battery = "BAT0"  # Optional: specify battery (default: auto_detect)
+tooltip = true
+
+[tray]
+icon_size = 20
+spacing = 2
+
+# Available format placeholders for battery:
+# {icon} _ Dynamic icon based on capacity and status
+# {capacity} _ Battery percentage
+# {status} _ Battery status (Charging, Discharging, Full, etc.)
+# {time} _ Time remaining/until full
+[boxes.left]
+modules = ["custom/search", "custom/settings", "custom/arch", "mpris"]
+spacing = 2
+
+[boxes.right]
+modules = ["revealer/tray","box/quickcenter", "clock"]
+
+# Box widgets _ simple containers
+[boxes.quickcenter]
+modules = ["network", "audio", "battery"]
+action = "bash ~/.config/hypr/scripts/actioncenter.sh &  ewwii close calendar"
+spacing = 5
+orientation = "horizontal"  # horizontal or vertical (default: horizontal)
+
+# Revealer widgets _ containers that reveal on hover or click
+[revealers.tray]
+modules = ["tray"]
+spacing = 10
+trigger = " "  # Text/icon for the trigger button
+transition = "slide_left"  # slide_left, slide_right, slide_up, slide_down, crossfade
+transition_duration = 600  # milliseconds
+reveal_on_hover = false  # Reveal on hover instead of click
+# orientation = "horizontal"  # horizontal or vertical (default: horizontal)
+
+# Custom modules
+[custom_modules.search]
+action = "~/Dotfiles/bin/launchrofi --drun"
+exec = "echo ''"
+interval = 999999
+format = "{} "
+
+[custom_modules.settings]
+action = "~/Dotfiles/bin/launchrofi -sm"
+exec = "echo ''"
+interval = 999999
+format = "{} "
+
+[custom_modules.arch]
+action = "~/Dotfiles/bin/launchrofi --menu"
+exec = "echo ''"
+interval = 999999
+format = "{} "
+
+[custom_modules.mako]
+action = "~/Dotfiles/bin/launchrofi --menu"
+exec = "echo '󰂚'"
+interval = 999999
+format = "{}"

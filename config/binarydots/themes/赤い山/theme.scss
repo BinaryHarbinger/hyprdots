@@ -1,28 +1,30 @@
-$border-main: #C6083A;
-$border-alt: #8B1A2A;
+// Akaiyama Theme
 
-$bg-main: #515659;
-$bg-alt: #696f72;
-$bg-hover: #414447;
-$bg-hover-alt: #937777;
-$bg-tooltip: $bg-main;
-$bg-second: #464A4C;
-$bg-third: $bg-alt;
+$border_main: #C6083A;
+$border_alt: #8B1A2A;
 
-$fg-main: #FFCACA;
-$fg-unactive: $bg-hover;
+$bg_main: #515659;
+$bg_alt: #696f72;
+$bg_hover: #414447;
+$bg_hover_alt: #937777;
+$bg_tooltip: $bg_main;
+$bg_second: #474a4c;
+$bg_third: $bg_alt;
+
+$fg_main: #FFCACA;
+$fg_unactive: $bg_hover;
 $content-act: #C42750;
 
-$ply-main: #847a8a;
-$ply-hover: #3D4043;
-$ply-act: #606568;
-$msc-act: #4D5255;
+$ply_main: #847a8a;
+$ply_hover: #3D4043;
+$ply_act: #606568;
+$msc_act: #4D5255;
 
-$wlogout-hover: rgba(47, 50, 52, 0.541);
-$wlogout-bg: rgba(81, 86, 89, 0.45);
-$wlogout-button: rgba(65, 69, 71, 0.78);
+$wlogout_hover: rgba(47, 50, 52, 0.541);
+$wlogout_bg: rgba(81, 86, 89, 0.45);
+$wlogout_button: rgba(65, 69, 71, 0.78);
 
-$border-rad:  10px; // Main border radius
-$border-rad2: 20px; // Second
-$border-radb: 10px; // Button
-$border-rads: 5px; // Scale
+$border_rad:  10px; // Main border radius
+$border_rad2: 20px; // Second
+$border_radb: 10px; // Button
+$border_rads: 5px; // Scale

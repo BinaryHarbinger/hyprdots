@@ -31,7 +31,7 @@ def writeFile(dataFile=defaultData):
 def openWidgets(dataF=data):
     for x in ["status", "desktopmusic", "deskclock", "activatelinux"]:
         if dataF.get(x):
-            command = ["/usr/bin/ewwii", "open", x]
+            command = ["ewwii", "open", x]
             runCommand(command)
     
 changeArguments = {"one", "two", "three", "four"}
@@ -63,15 +63,15 @@ for argument in arguments:
         print(data)
         writeFile(data)
     else:
-        command = ["/usr/bin/ewwii", "r"]
+        command = ["ewwii", "r"]
         if argument == "s":
-            command = ["/usr/bin/ewwii", "r"]
+            command = ["ewwii", "r"]
             runCommand(command)
             openWidgets(data)
         elif argument == "r":
             command = ["ewwii","close-all"]
             runCommand(command)
-            command = ["kill","-9","ewwii"]
+            command = ["pkill","ewwii"]
             runCommand(command)
             command = ["ewwii","kill"]
             runCommand(command)

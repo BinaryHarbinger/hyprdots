@@ -133,7 +133,7 @@ session_options() {
             hyprlock & disown
             ;;
         "󰍃  Logout")
-            hyprctl dispatch exit && sleep 1 && loginctl terminate-user "$USER"
+            pkill -KILL -u $USER && sleep 1 && loginctl terminate-user "$USER"
             ;;
         *)
             echo "No option selected"
@@ -155,26 +155,26 @@ widget_settings() {
             customize_func
             ;;
         "  Desk Clock")
-            bash ~/.config/hypr/scripts/widgets.sh three
-            bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            bash ~/Dotfiles/scripts/widgets.sh three
+            bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
             widget_settings
             ;;
         "  Change Stats")
-            bash ~/.config/hypr/scripts/widgets.sh one
-            bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            bash ~/Dotfiles/scripts/widgets.sh one
+            bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
             widget_settings
             ;;
         "  Change Music")
-            bash ~/.config/hypr/scripts/widgets.sh two
-            bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            bash ~/Dotfiles/scripts/widgets.sh two
+            bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
             widget_settings
             ;;
         "  Reload Widgets")
-            bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
             widget_settings
             ;;
         "  Initalize Widgets")
-            bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
             widget_settings
             ;;
         *)
@@ -221,14 +221,13 @@ settings_func() {
             system_menu
             ;;
         "  Activate Linux")
-            bash ~/.config/hypr/scripts/widgets.sh four
-            bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            bash ~/Dotfiles/scripts/widgets.sh four
+            bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
             settings_func
             ;;
         "  Reload Shell")
-            pkill waybar 
-            waybar >/dev/null 2>&1 & disown
-            bash ~/.config/hypr/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            pkill riftbar >/dev/null 2>&1 && riftbar >/dev/null 2>&1 & disown 
+            ewwii kill >/dev/null 2>&1 && bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
             makoctl reload   
             settings_func
             ;;
@@ -283,10 +282,10 @@ customize_func() {
 set_wallpaper() {
 
     # Prompt user to choose an option
-    chosen=$(python ~/.config/hypr/scripts/wallpapers.py echoImageNames | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "")
+    chosen=$(python ~/Dotfiles/scripts/wallpapers.py echoImageNames | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "")
     # Execute the corresponding command based on the selected option
     echo $chosen
-    python ~/.config/hypr/scripts/wallpapers.py changeWallpaper $chosen
+    python ~/Dotfiles/scripts/wallpapers.py changeWallpaper $chosen
 }
 
 maintain_menu() {
