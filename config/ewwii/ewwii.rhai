@@ -83,9 +83,9 @@ fn quick_center_content(up_time, volume, brightness, mic_percent, network_status
                     spacing: 3, 
                     space_evenly: false,
                     }, [
-                        label(#{ xalign: 0, text: username, class: "Random" }),
-                        label(#{ xalign: 0, text: user_host }),
-                        label(#{ xalign: 0, text: up_time })
+                        label(#{ xalign: 0, limit_width: 12 , text: username, class: "Random" }),
+                        label(#{ xalign: 0, limit_width: 20, text: user_host }),
+                        label(#{ xalign: 0, limit_width: 20, text: up_time })
                     ],
                 ),
         
