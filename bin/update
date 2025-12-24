@@ -32,18 +32,18 @@ echo -e "\n\n${RESET}░█▀▀░█░█░█▀▀░▀█▀░█▀�
 # Prompt the user for confirmation
 confirmation "" || exit 1
 
-# Update pacman packages via paru
+# Update pacman packages
 echo -e "${BLUE}\n░█▀▀░█░█░█▀▀░▀█▀░█▀▀░█▄█░░░█▀█░█▀█░█▀▀░█░█░█▀█░█▀▀░█▀▀░█▀▀
 ░▀▀█░░█░░▀▀█░░█░░█▀▀░█░█░░░█▀▀░█▀█░█░░░█▀▄░█▀█░█░█░█▀▀░▀▀█
 ░▀▀▀░░▀░░▀▀▀░░▀░░▀▀▀░▀░▀░░░▀░░░▀░▀░▀▀▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀▀▀\n${RESET}"
-if paru -Syu --noconfirm; then
+if sudo paru; then
 	echo
     echo -e "${BLUE}░█▀▀░█░░░█▀█░▀█▀░█▀█░█▀█░█░█░░░█▀█░█▀█░█▀▀░█░█░█▀▀
 ░█▀▀░█░░░█▀█░░█░░█▀▀░█▀█░█▀▄░░░█▀▀░█▀█░█░░░█▀▄░▀▀█
 ░▀░░░▀▀▀░▀░▀░░▀░░▀░░░▀░▀░▀░▀░░░▀░░░▀░▀░▀▀▀░▀░▀░▀▀▀${RESET}"
 else
 	echo
-    echo -e "${RED}Failed to update pacman and AUR packages.${RESET}"
+    echo -e "${RED}Failed to update system (pacman and AUR) packages.${RESET}"
     exit 1
 fi
 
