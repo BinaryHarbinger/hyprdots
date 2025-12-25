@@ -9,7 +9,7 @@ elif [[ "$CONSTATE" =~ "disabled" ]]; then
 	TOGGLE="Toggle On"
 fi
 
-rofi -dmenu -config ~/.config/rofi/wifi.rasi -p "Scaning Networks..." -lines "" & disown
+walker -d -p "Scaning Networks..." -lines "" & disown
 
 # Starts a scan of available broadcasting SSIDs
 # nmcli dev wifi rescan
@@ -25,7 +25,7 @@ FONT="CaskaydiaMono Nerd Font 8"
 LIST=$(nmcli --fields "$FIELDS" device wifi list | sed '/^--/d')
 # For some reason rofi always approximates character width 2 short... hmmm
 RWIDTH=$(($(echo "$LIST" | head -n 1 | awk '{print length($0); }')+2))
-# Dynamically change the height of the rofi menu
+# Dynamically change the height of the walker menu
 LINENUM=$(echo "$LIST" | wc -l)
 # Gives a list of known connections so we can parse it later
 KNOWNCON=$(nmcli connection show)
@@ -44,7 +44,7 @@ elif [[ "$CONSTATE" =~ "disabled" ]]; then
 	LINENUM=1
 fi
 
-CHENTRY=$(echo -e "$TOGGLE\nManual\n$LIST" | uniq -u | rofi -dmenu -replace -config ~/.config/rofi/wifi.rasi -p "Wi-Fi SSID: " -lines "$LINENUM" -a "$HIGHLINE"  )
+CHENTRY=$(echo -e "$TOGGLE\nManual\n$LIST" | uniq -u | walker -d -p "Wi-Fi SSID: ")
 #echo "$CHENTRY"
 CHSSID=$(echo "$CHENTRY" | sed  's/\s\{2,\}/\|/g' | awk -F "|" '{print $1}')
 #echo "$CHSSID"
@@ -52,7 +52,7 @@ CHSSID=$(echo "$CHENTRY" | sed  's/\s\{2,\}/\|/g' | awk -F "|" '{print $1}')
 # If the user inputs "manual" as their SSID in the start window, it will bring them to this screen
 if [ "$CHENTRY" = "Manual" ] ; then
 	# Manual entry of the SSID and password (if appplicable)
-	MSSID=$(echo "enter the SSID of the network (SSID,password)" | rofi -dmenu -p "Manual Entry: " -font "$FONT" -lines 1)
+	MSSID=$(echo "enter the SSID of the network (SSID,password)" | walker -d -p "Manual Entry: " -font "$FONT")
 	# Separating the password from the entered string
 	MPASS=$(echo "$MSSID" | awk -F "," '{print $2}')
 
@@ -84,7 +84,7 @@ else
 		nmcli con up "$CHSSID"
 	else
 		if [[ "$CHENTRY" =~ "WPA2" ]] || [[ "$CHENTRY" =~ "WEP" ]]; then
-			WIFIPASS=$(echo "if connection is stored, hit enter" | rofi -dmenu -password -theme-str 'entry {placeholder: "Super Secret Password";}'  -p "Password: " -lines 1 -font "$FONT" )
+			WIFIPASS=$(echo "if connection is stored, hit enter" | walker -d -p "Super Secret Password" )
 		fi
 		nmcli dev wifi con "$CHSSID" password "$WIFIPASS"
 	fi

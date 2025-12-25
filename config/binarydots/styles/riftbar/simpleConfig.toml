@@ -147,7 +147,7 @@ interval = 999999
 format = "{} "
 
 [custom_modules.mako]
-action = "~/Dotfiles/bin/launchrofi --menu"
+action = "~/Dotfiles/config/mako/scripts/walker.sh"
 exec = "echo '󰂚'"
 interval = 999999
 format = "{}"

@@ -1,0 +1,13 @@
+@import "../binary_default/style"
+
+.box-wrapper {
+  margin-left: 5px;
+}
+
+.item-box {
+  display: flex;
+  align-items: center;     /* dikey */
+  justify-content: center; /* yatay */
+  font-size: 40px;
+  padding: 10px 15px;
+}

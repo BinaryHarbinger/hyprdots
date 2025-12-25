@@ -7,14 +7,14 @@
 #
 # Author: Nick Clyde (clydedroid)
 #
-# A script that generates a rofi menu that uses bluetoothctl to
+# A script that generates a walker menu that uses bluetoothctl to
 # connect to bluetooth devices and display status info.
 #
 # Inspired by networkmanager-dmenu (https://github.com/firecat53/networkmanager-dmenu)
 # Thanks to x70b1 (https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/system-bluetooth-bluetoothctl)
 #
 # Depends on:
-#   Arch repositories: rofi, bluez-utils (contains bluetoothctl), bc
+#   Arch repositories: walker, bluez-utils (contains bluetoothctl), bc
 
 # Constants
 divider="---------"
@@ -230,8 +230,8 @@ device_menu() {
     trusted=$(device_trusted "$mac")
     options="$connected\n$paired\n$trusted\n$divider\n$goback\nExit"
 
-    # Open rofi menu, read chosen option
-    chosen="$(echo -e "$options" | $rofi_command "$device_name")"
+    # Open walker menu, read chosen option
+    chosen="$(echo -e "$options" | $walker_command "$device_name")"
 
     # Match chosen option to command
     case "$chosen" in
@@ -253,7 +253,7 @@ device_menu() {
     esac
 }
 
-# Opens a rofi menu with current bluetooth status and options to connect
+# Opens a walker menu with current bluetooth status and options to connect
 show_menu() {
     # Get menu options
     if power_on; then
@@ -268,15 +268,15 @@ show_menu() {
         pairable=$(pairable_on)
         discoverable=$(discoverable_on)
 
-        # Options passed to rofi
+        # Options passed to walker
         options="$devices\n$divider\n$power\n$scan\n$pairable\n$discoverable\nExit"
     else
         power="Power: off"
         options="$power\nExit"
     fi
 
-    # Open rofi menu, read chosen option
-    chosen="$(echo -e "$options" | $rofi_command "Bluetooth")"
+    # Open walker menu, read chosen option
+    chosen="$(echo -e "$options" | $walker_command "Bluetooth")"
 
     # Match chosen option to command
     case "$chosen" in
@@ -296,7 +296,7 @@ show_menu() {
             toggle_pairable
             ;;
         "Exit")
-            bash ~/Dotfiles/bin/launchrofi -sm
+            bash ~/Dotfiles/bin/launchwalker -sm
             ;;
         *)
             device=$(bluetoothctl devices | grep "$chosen")
@@ -307,7 +307,7 @@ show_menu() {
 }
 
 # Rofi command to pipe into, can add any options here
-rofi_command="rofi -config ~/.config/rofi/wifi.rasi -dmenu $* -p "
+walker_command="walker -d $* "
 
 case "$1" in
     --status)

@@ -1,0 +1,208 @@
+@use "theme" as theme;
+
+// Color variables
+$window-bg-color: theme.$bg_main;
+$accent-bg-color: theme.$fg_main;
+$theme-fg-color: theme.$fg_main;
+$error-bg-color: #C34043;
+$error-fg-color: #DCD7BA;
+
+* {
+  all: unset;
+}
+
+popover {
+  background: $window-bg-color;
+  border: 2px solid darken($accent-bg-color, 10%);
+  border-radius: theme.$border_rad;
+  padding: 10px;
+}
+
+.normal-icons {
+  -gtk-icon-size: 16px;
+}
+
+.large-icons {
+  -gtk-icon-size: 25px;
+}
+
+scrollbar {
+  opacity: 0;
+}
+
+.box-wrapper {
+  box-shadow:
+    0 19px 38px rgba(0, 0, 0, 0.3),
+    0 15px 12px rgba(0, 0, 0, 0.22);
+
+  background: $window-bg-color;
+  padding: 14px;
+  border-radius: theme.$border_radb;
+  border: 2px solid theme.$border_main;
+}
+
+.preview-box,
+.elephant-hint,
+.placeholder {
+  color: $theme-fg-color;
+}
+
+.box {}
+
+.search-container {
+  border-radius: theme.$border_radb;
+}
+
+.input placeholder {
+  opacity: 0.8;
+}
+
+.input selection {
+  background: lighten($window-bg-color, 15%);
+}
+
+.input {
+  font-size: 18px;
+  caret-color: $theme-fg-color;
+  background: lighten($window-bg-color, 10%);
+  color: $theme-fg-color;
+  border-radius: calc(theme.$border_radb/3);
+  padding: 6px 10px;
+  margin: 5px 0px;
+}
+
+.input:focus,
+.input:active {}
+
+.content-container {
+      background: lighten($color: theme.$bg_main, $amount: 3.5);
+      border-radius: theme.$border-radb;
+}
+
+.placeholder {}
+
+.scroll {}
+
+.list {
+  color: $theme-fg-color;
+}
+
+child {}
+
+.item-box {
+  border-radius: calc(theme.$border_radb/2); 
+  padding: 2px 5px;
+  border: 2px solid transparent;
+  font-size: 20px;
+}
+
+.item-quick-activation {
+  background: rgba($accent-bg-color, 0.25);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+/* child:hover .item-box, */
+child:selected .item-box {
+  border: 2px solid theme.$border_main;
+  background: rgba($accent-bg-color, 0.25);
+}
+
+.item-text-box {}
+
+.item-subtext {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+.providerlist .item-subtext {
+  font-size: unset;
+  opacity: 0.75;
+}
+
+.item-image-text {
+  font-size: 28px;
+}
+
+.preview {
+  border: 1px solid rgba($accent-bg-color, 0.25);
+  border-radius: 10px;
+  color: $theme-fg-color;
+}
+
+.calc .item-text {
+  font-size: 24px;
+}
+
+.calc .item-subtext {}
+
+.symbols .item-image {
+  font-size: 24px;
+}
+
+.todo.done .item-text-box {
+  opacity: 0.25;
+}
+
+.todo.urgent {
+  font-size: 24px;
+}
+
+.todo.active {
+  font-weight: bold;
+}
+
+.bluetooth.disconnected {
+  opacity: 0.5;
+}
+
+.preview .large-icons {
+  -gtk-icon-size: 64px;
+}
+
+.keybinds {
+  padding-top: 10px;
+  border-top: 1px solid lighten($window-bg-color, 5%);
+  font-size: 12px;
+  color: $theme-fg-color;
+}
+
+.global-keybinds {}
+
+.item-keybinds {}
+
+.keybind {}
+
+.keybind-button {
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 0.75;
+    cursor: pointer;
+  }
+}
+
+.keybind-bind {
+  text-transform: lowercase;
+  opacity: 0.35;
+}
+
+.keybind-label {
+  padding: 2px 4px;
+  border-radius: 4px;
+  border: 1px solid $theme-fg-color;
+}
+
+.error {
+  padding: 10px;
+  background: $error-bg-color;
+  color: $error-fg-color;
+}
+
+:not(.calc).current {
+  font-style: italic;
+}
+
+.preview-content.archlinuxpkgs {
+  font-family: monospace;
+}

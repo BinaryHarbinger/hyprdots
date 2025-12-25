@@ -6,6 +6,7 @@ config/foot/foot.ini
 config/wiremix/wiremix.toml
 config/ewwii/style.rhai
 config/ewwii/theme.scss
+config/walker/themes/binary_default/theme.scss
 config/hypr/theme.conf
 config/hypr/wallppr.png
 config/mako/config

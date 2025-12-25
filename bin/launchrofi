@@ -17,15 +17,12 @@ usage() {
 
 # Function: DRUN Launcher
 drun_launcher() {
-    rofi \
-        -show drun
+    walker
 }
 
 # Function: RUN Launcher
 run_launcher() {
-    rofi \
-        -show run \
-        -theme-str 'entry {placeholder: "Run...";}'
+    walker -s run -p " Runner"
 }
 
 # Function: CONFIRMATION Launcher
@@ -46,16 +43,16 @@ conf_launcher() {
     fi
 
     [[ -z "$1" ]] || local title="$1"
-    chosen=$( echo -e "$options" |rofi -dmenu -config ~/.config/rofi/confirm.rasi -i -p "$title"  )
+    chosen=$( echo -e "$options" |walker -d)
     echo "$chosen"
 }
 
 lock_menu() {
-    # Menu options displayed in rofi
+    # Menu options displayed in Walker
     cd ~/Dotfiles/scripts/
     options=$(python ~/Dotfiles/scripts/style_lock.py dmenu)
     # Prompt user to choose an option
-    chosen=$(echo -e "󰌍\n$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "" -theme-str 'listview {lines: 4;}')
+    chosen=$(echo -e "󰌍\n$options" | walker -d -p "Go…" -t "system_menu")
     cd ~
     if [[ -z "$chosen" ]]; then 
         exit 1
@@ -74,34 +71,34 @@ lock_menu() {
 }
 
 # Function: Custom Menu
-custom_menu() {
-    # Menu options displayed in rofi
-    options=" \n \n \n \n\n\n"
+quick_menu() {
+    # Menu options displayed in Walker
+    options="\n\n \n \n󰍂\n\n"
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/submenu.rasi -dmenu  -theme-str 'mainbox {children: ["listview" ];}' -p "")
+    chosen=$(echo -e "$options" | walker -d -n -t "quick_menu")
 
     # Execute the corresponding command based on the selected option
     case $chosen in
-        " ")
-            rofi -show drun
+        "")
+            walker & disown
             ;;
-        " ")
+        "")
             pcmanfm-qt
             ;;
-        "")
+        "󰍂")
             session_options
             ;;
-        " ")
+        "")
             foot
             ;;
-        " ")
+        "")
             bash ~/Dotfiles/scripts/open-browser
             ;;
         "")
-            bash ~/Dotfiles/bin/launchrofi -sm
+            system_menu
             ;;
-        "")
+        "")
             manual_func
             ;;
         *)
@@ -111,11 +108,11 @@ custom_menu() {
 }
 
 session_options() {
-    # Menu options displayed in rofi
+    # Menu options displayed in Walker
     options="  Shutdown\n  Reboot\n  Lock\n󰍃  Logout"
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 4;}' -theme-str 'window {width: 285px;}' -theme-str 'mainbox {children: ["listview" ];}' -p "")
+    chosen=$(echo -e "$options" | walker -d -n -t "system_menu" --maxheight 500)
 
     # Execute the corresponding command based on the selected option
     case $chosen in
@@ -143,11 +140,11 @@ session_options() {
 
 
 widget_settings() {
-    # Menu options displayed in rofi
+    # Menu options displayed in Walker
     options="󰌍\n  Desk Clock\n  Change Stats\n  Change Music\n  Reload Widgets\n  Initalize"
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
+    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
     # Execute the corresponding command based on the selected option
     case $chosen in
@@ -184,11 +181,11 @@ widget_settings() {
 }
 
 default_apps_func() {
-    # Menu options displayed in rofi
+    # Menu options displayed in Walker
     options="󰌍\n  Browser\n󰠮  Editor"
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
+    chosen=$(echo -e "$options" | walker -d -p "Select" -t "system_menu")
 
     # Execute the corresponding command based on the selected option
     case $chosen in
@@ -209,11 +206,11 @@ default_apps_func() {
 }
 
 settings_func() {
-    # Menu options displayed in rofi
+    # Menu options displayed in Walker
     options="󰌍\n  Activate Linux\n  Reload Shell\n  Set Default Apps\n󰌁  Customize Rice\n󰚰  Update Binarydots"
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
+    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
     # Execute the corresponding command based on the selected option
     case $chosen in
@@ -227,7 +224,9 @@ settings_func() {
             ;;
         "  Reload Shell")
             pkill riftbar >/dev/null 2>&1 && riftbar >/dev/null 2>&1 & disown 
-            ewwii kill >/dev/null 2>&1 && bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            pkill ewwii>/dev/null 2>&1 && bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            pgrep "walker" > /dev/null && pkill walker >/dev/null 2>&1 & disown
+( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) &&GSK_RENDERER=cairo walker --gapplication-service >/dev/null 2>&1 & disown
             makoctl reload   
             settings_func
             ;;
@@ -250,11 +249,11 @@ settings_func() {
 
 
 customize_func() {
-    # Menu options displayed in rofi
+    # Menu options displayed in Walker
     options="󰌍\n  Set Style Locks\n  Widgets Settings\n  Wallpapers\n󰌁  Themes"
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
+    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
     # Execute the corresponding command based on the selected option
     case $chosen in
@@ -282,18 +281,18 @@ customize_func() {
 set_wallpaper() {
 
     # Prompt user to choose an option
-    chosen=$(python ~/Dotfiles/scripts/wallpapers.py echoImageNames | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "")
+    chosen=$(python ~/Dotfiles/scripts/wallpapers.py echoImageNames | walker -d -p "Go…" -t "system_menu")
     # Execute the corresponding command based on the selected option
     echo $chosen
     python ~/Dotfiles/scripts/wallpapers.py changeWallpaper $chosen
 }
 
 maintain_menu() {
-    # Menu options displayed in rofi
+    # Menu options displayed in Walker
     options="󰌍\n󰃢  Clear Cache\n󱘡  Clear Clipboard"
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 6;}' -p "")
+    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu" )
 
     # Execute the corresponding command based on the selected option
     case $chosen in
@@ -307,7 +306,6 @@ maintain_menu() {
          	  ! -name "paru" \
          	  ! -name "mcpelauncher-webview"\
          	  ! -name "pip" \
-         	  ! -name "rofi-entry-history.txt" \
          	  ! -name "Hyprland Polkit Agent" \
          	  ! -name "spotube" \
          	  ! -name "oss.krtirtho.spotube" \
@@ -325,11 +323,11 @@ maintain_menu() {
 }
 
 manual_func() {
-    # Menu options displayed in rofi
+    # Menu options displayed in Walker
     options="󰌍\n  Keybinds"
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "")
+    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
     # Execute the corresponding command based on the selected option
     case $chosen in
@@ -337,7 +335,7 @@ manual_func() {
             system_menu
             ;;
         "  Keybinds")
-            rofi -dmenu -theme-str 'window {width: 52%;}' -dmenu -theme-str 'listview {lines: 14;}' -i -p ' ' < ~/.config/hypr/scripts/help.txt
+            cat ~/.config/hypr/scripts/help.txt | walker -d
             ;;
         *)
             echo "No option selected"
@@ -346,11 +344,11 @@ manual_func() {
 }
 
 screenshot_func() {
-    # Menu options displayed in rofi
+    # Menu options displayed in Walker
     options="󰌍\n  Screenshots\n  Fullscreen\n  Selection"
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 6;}' -p "")
+    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
     # Execute the corresponding command based on the selected option
     case $chosen in
@@ -373,11 +371,11 @@ screenshot_func() {
 }
 
 connections_func() {
-    # Menu options displayed in rofi
+    # Menu options displayed in Walker
     options="󰌍\n󰤨  WiFi\n  Bluetooth"
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 6;}' -p "")
+    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
     # Execute the corresponding command based on the selected option
     case $chosen in
@@ -385,10 +383,10 @@ connections_func() {
             system_menu
             ;;
         "󰤨  WiFi") 
-            bash ~/Dotfiles/scripts/rofi-wifi
+            bash ~/Dotfiles/scripts/walker-wifi
             ;;
         "  Bluetooth")
-            bash ~/Dotfiles/scripts/rofi-bluetooth 
+            bash ~/Dotfiles/scripts/walker-bluetooth 
             ;;
         *)
             echo "No option selected"
@@ -397,11 +395,11 @@ connections_func() {
 }
 
 misc_func() {
-    # Menu options displayed in rofi
+    # Menu options displayed in Walker
     options="󰌍\n  Toggle DND\n  Toggle Cafein\n󰈈  Toggle Eye Saver"
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 6;}' -p "")
+    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
     # Execute the corresponding command based on the selected option
     case $chosen in
@@ -427,11 +425,11 @@ misc_func() {
 }
 
 system_menu() {
-    # Menu options displayed in rofi
-    options="  Apps\n  Connections\n󰃢  Maintaining\n󰅇  Clipboard\n󰄀  Screenshot\n󰐱  Miscellaneous\n  Notifications\n  Session Options\n  Manual\n󰌁  Themes\n  Settings\n  Update System"
+    # Menu options displayed in Walker
+    options="  Apps\n  Connections\n󰃢  Maintaining\n󰅇  Clipboard\n󰄀  Screenshot\n󰐱  Miscellaneous\n  Notifications\n󰍂  Session Options\n  Manual\n󰌁  Themes\n  Settings\n  Update System"
 
     # Prompt user to choose an option
-    chosen=$(echo -e "$options" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -theme-str 'listview {lines: 12;}' -theme-str 'mainbox {children: ["inputbar","listview" ];}'  -p "")
+    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
     # Execute the corresponding command based on the selected option
     case $chosen in
@@ -445,7 +443,7 @@ system_menu() {
             maintain_menu
             ;;
         "󰅇  Clipboard")
-            rofi -modi Clipboard:~/.config/hypr/scripts/clipboard.sh -show Clipboard -theme-str 'element { children: [element-text]; }' 
+            walker -s clippy -p "󰅇 Clipboard" 
             ;;
         "󰄀  Screenshot")
             screenshot_func 
@@ -454,9 +452,9 @@ system_menu() {
             misc_func 
             ;;
         "  Notifications")
-            bash ~/.config/mako/scripts/rofi.sh
+            bash ~/.config/mako/scripts/walker.sh
             ;;
-        "  Session Options")
+        "󰍂  Session Options")
             session_options
             ;;
         "  Update System")
@@ -480,10 +478,10 @@ system_menu() {
 theme_menu() {
    THEME_DIR="$HOME/.config/binarydots/themes"
 
-    # Menu options displayed in rofi
+    # Menu options displayed in Walker
     THEMES=$(find "$THEME_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n')
     # Prompt user to choose an option
-    chosen=$(echo -e "󰌍\n$THEMES" | rofi -config ~/.config/rofi/sysmenu.rasi -dmenu -p "" -theme-str 'listview {lines: 10;}')
+    chosen=$(echo -e "󰌍\n$THEMES" | walker -d -p "Go…" -t "system_menu")
     
     if [[ -z "$chosen" ]]; then 
         exit 1
@@ -510,16 +508,14 @@ case "$1" in
         drun_launcher
         ;;
     --window|-w)
-        rofi \
-        -show window \
-        -theme ~/.config/rofi/window.rasi
-        ;;
+        walker -s window -p "󰘔  Windows"
+        ;; 
 
     --run|-r)
         run_launcher
         ;;
-    --menu|-m)
-        custom_menu
+    --menu|-m|-qm)
+        quick_menu
         ;;
     --power-menu|-pm)
         session_options

@@ -1,0 +1,2 @@
+pgrep "walker" > /dev/null && pkill walker >/dev/null 2>&1 & disown
+( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) &&GSK_RENDERER=cairo walker --gapplication-service >/dev/null 2>&1 & disown
