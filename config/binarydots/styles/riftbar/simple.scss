@@ -104,24 +104,10 @@ tooltip {
 }
 
 /*  Custom Modules in Left side */
-.custom-arch, .custom-search, .custom-settings, .tray {
+.custom-arch, .custom-search, .custom-settings{
   margin: 0px 2px;
   padding: 0px 7px;
   padding-left: 9px; 
-}
-
-/* Tray Styling */
-.menu {
-  border: 2px solid theme.$border_main;
-  background-color: theme.$bg_main;
-  border-radius: theme.$border_rad;
-
-  > * {
-    border: 2px solid transparent;
-    border-radius: theme.$border_rad;
-    transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
-    padding: 1px 8px;
-  }
 }
 
 /* Clock */
@@ -178,13 +164,43 @@ tooltip {
 }
 
 /* Revealers */ 
-.revealer-tray {
-    border-radius: theme.$border_radb;
-	padding: 0px 10px;
-	margin: 0px 10px;
+.tray {
+  padding: 0px 10px;
+}
 
-  &:hover {
-    background-color: theme.$bg_second;
+.tray-menu {
+    background-color: transparent;
+    border: 0px solid transparent;
+    contents {
+      padding: 2px 3px;
+      background-color: theme.$bg_main;
+      border: 2px solid theme.$border_main;
+      border-radius: calc(theme.$border_radb/2);
+      box {
+      border-radius: calc(theme.$border_radb/2);
+      
+      modelbutton {
+        margin: 1px 0px;
+        padding: 1px 2px;
+        border-radius: calc(theme.$border_radb/2);
+        
+        &:hover {
+          background-color: lighten($color: theme.$bg_main, $amount: 14);
+        }
+
+        &:active {
+        }
+
+        &:disabled {
+        }
+      }
+
+      separator {
+      }
+    }
+  }
+
+  arrow {
   }
 }
 

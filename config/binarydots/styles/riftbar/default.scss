@@ -128,6 +128,8 @@ tooltip {
 }
 
 .tray-menu {
+    background-color: transparent;
+    border: 0px solid transparent;
     contents {
       padding: 2px 3px;
       background-color: theme.$bg_main;
@@ -142,7 +144,7 @@ tooltip {
         border-radius: calc(theme.$border_radb/2);
         
         &:hover {
-          background-color: theme.$bg_hover;
+          background-color: lighten($color: theme.$bg_main, $amount: 14);
         }
 
         &:active {

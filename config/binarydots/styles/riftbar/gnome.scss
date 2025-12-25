@@ -100,16 +100,23 @@ tooltip {
 }
 
 /*  Custom Modules in Left side */
-.custom-arch, .custom-search, .custom-settings, .tray {
+.custom-arch, .custom-search, .custom-settings {
   padding: 0px 7px;
   padding-left: 9px; 
 }
 
 /* Tray Styling */
-.tray-menu {
+.tray {
+  padding: 0px 10px;
+}
+
+.tray-menu { 
+    background-color: transparent;
+    border: 0px solid transparent;
     contents {
       padding: 2px 3px;
       background-color: theme.$bg_main;
+      border: 2px solid theme.$border_main;
       border-radius: calc(theme.$border_radb/2);
       box {
       border-radius: calc(theme.$border_radb/2);
@@ -120,7 +127,7 @@ tooltip {
         border-radius: calc(theme.$border_radb/2);
         
         &:hover {
-          background-color: theme.$bg_hover;
+          background-color: lighten($color: theme.$bg_main, $amount: 14);
         }
 
         &:active {

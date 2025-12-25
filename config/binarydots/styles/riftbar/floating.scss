@@ -132,6 +132,8 @@ tooltip {
 }
 
 .tray-menu {
+    background-color: transparent;
+    border: 0px solid transparent;
     contents {
       padding: 2px 3px;
       background-color: theme.$bg_main;

@@ -124,7 +124,7 @@ spacing = 10
 trigger = " "  # Text/icon for the trigger button
 transition = "slide_left"  # slide_left, slide_right, slide_up, slide_down, crossfade
 transition_duration = 600  # milliseconds
-reveal_on_hover = true  # Reveal on hover instead of click
+reveal_on_hover = false  # Reveal on hover instead of click
 # orientation = "horizontal"  # horizontal or vertical (default: horizontal)
 
 # Custom modules
