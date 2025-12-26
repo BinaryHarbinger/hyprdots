@@ -17,7 +17,7 @@
 /* Riftbar main container */
 .bar-container {
     margin-top: 6px;
-	padding-bottom: 4px;
+	padding-bottom: 3px;
     background: rgba(17, 17, 27, 0);
 	color: theme.$fg_main;
     min-height: 22px;
@@ -112,7 +112,7 @@ tooltip {
     border-radius: theme.$border_rad;
     
     label {
-      font-size: 20px;
+      font-size: 18px;
   }
 }
 

@@ -197,6 +197,9 @@
 .button-active{
   background-color: c.$fg-main;
   color: c.$bg-main;
+  &:hover {
+    background-color: rgba(c.$fg_main, 0.6);
+  }
 }
 
 .statbutton, .statbuttondis{

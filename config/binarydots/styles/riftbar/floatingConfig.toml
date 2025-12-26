@@ -147,7 +147,7 @@ interval = 999999
 format = "{} "
 
 [custom_modules.mako]
-action = "~/Dotfiles/bin/launchrofi --menu"
-exec = "echo '󰂚'"
-interval = 999999
+action = "~/Dotfiles/config/mako/scripts/walker.sh --menu"
+exec = "bash ~/Dotfiles/config/mako/scripts/riftbar.sh"
+interval = 1
 format = "{}"
