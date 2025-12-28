@@ -69,11 +69,9 @@ scroll_step = 5  # Volume change step (percentage)
 
 # MPRIS (Media Player) configuration
 [mpris]
-format = "{icon} {artist} - {title}"
-format_paused = "{icon} {artist} - {title}"
-format_stopped = "{icon} Stopped"
+format = "{icon}  {status}"
 format_nothing = "No Media"
-lenght_lim = 22
+lenght_lim = 0
 interval = 100  # milliseconds
 tooltip = true
 tooltip_format = "{artist}\n{album}\n{title}"
@@ -148,6 +146,6 @@ format = "{} "
 
 [custom_modules.mako]
 action = "bash ~/Dotfiles/config/mako/scripts/walker.sh"
-exec = "bash ~/Dotfiles/config/mako/scripts/riftbar.sh"
+exec = "dash ~/Dotfiles/config/mako/scripts/riftbar.sh"
 interval = 1
 format = "{}"

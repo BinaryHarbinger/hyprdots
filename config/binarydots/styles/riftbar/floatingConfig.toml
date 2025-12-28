@@ -69,11 +69,9 @@ scroll_step = 5  # Volume change step (percentage)
 
 # MPRIS (Media Player) configuration
 [mpris]
-format = "{icon} {artist} - {title}"
-format_paused = "{icon} {artist} - {title}"
-format_stopped = "{icon} Stopped"
+format = "{icon} {title} - {artist}"
 format_nothing = "No Media"
-lenght_lim = 22
+lenght_lim = 32
 interval = 100  # milliseconds
 tooltip = true
 tooltip_format = "{artist}\n{album}\n{title}"
