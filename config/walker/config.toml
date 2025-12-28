@@ -60,5 +60,5 @@ prefix = "$"
 provider = "clipboard"
 
 [[emergencies]]
-text = "Restart Walker"
-command = "pkill walker && walker --gapplication-service >/dev/null 2>&1 & disown"
+text = "Restart Elephant"
+command = "bash ~/Dotfiles/bin/restart-walker" 

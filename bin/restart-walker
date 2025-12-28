@@ -1,2 +1,17 @@
-pgrep "walker" > /dev/null && pkill walker >/dev/null 2>&1 & disown
-( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) &&GSK_RENDERER=cairo walker --gapplication-service >/dev/null 2>&1 & disown
+#!/bin/bash
+
+# Kill elephant if running
+if pidof -x elephant >/dev/null; then
+    pkill -x elephant
+fi
+elephant >/dev/null 2>&1 &
+disown
+
+# Kill walker if running
+if pidof -x walker >/dev/null; then
+    pkill -x walker
+fi
+GSK_RENDERER=cairo walker --gapplication-service >/dev/null 2>&1 &
+disown
+
+
