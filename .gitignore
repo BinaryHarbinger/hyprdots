@@ -14,6 +14,9 @@ config/qutebrowser/__pycache__/
 config/qutebrowser/newtab/static/theme.css
 config/qutebrowser/theme.py
 config/rofi/theme.rasi
+config/riftbar/config.toml
+config/riftbar/style.scss
+config/riftbar/theme.scss
 config/waybar/config
 config/waybar/style.css
 config/waybar/theme.css

@@ -17,7 +17,7 @@ format = "%H:%M"
 interval = 1  # seconds
 tooltip = true
 tooltip_format = "%A, %B %d, %Y"
-action = ""  # Optional: command to run on click
+on_click = ""  # Optional: command to run on click
 
 # Available format placeholders (uses date command format):
 # %H - Hour (00-23)
@@ -53,8 +53,8 @@ format = "{icon} {volume}%"
 format_muted = "{icon} Muted"
 interval = 100  # milliseconds
 tooltip = true
-# Custom actions (leave empty for default behavior)
-action = ""  # Default: toggle mute
+# Custom on_clicks (leave empty for default behavior)
+on_click = ""  # Default: toggle mute
 on_scroll_up = ""  # Default: increase volume by scroll_step
 on_scroll_down = ""  # Default: decrease volume by scroll_step
 scroll_step = 5  # Volume change step (percentage)
@@ -112,7 +112,7 @@ reveal_on_hover = true  # Reveal on hover instead of click
 
 # Custom modules
 [custom_modules.arch]
-action = ""
+on_click = ""
 exec = "echo ''"
 interval = 999999
 format = "{}"

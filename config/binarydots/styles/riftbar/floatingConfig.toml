@@ -17,7 +17,7 @@ format = " %H:%M"
 interval = 1  # seconds
 tooltip = true
 tooltip_format = "%d %B %Y"
-action = "ewwii open calendar --toggle --no-daemonize & ewwii close actioncenter musiccenter"  # Optional: command to run on click
+on_click = "ewwii open calendar --toggle --no-daemonize & ewwii close on_clickcenter musiccenter"  # Optional: command to run on click
 
 # Available format placeholders (uses date command format):
 # %H _ Hour (00_23)
@@ -35,7 +35,7 @@ workspace_count=4
 
 # Network module configuration
 [network]
-action = "bash ~/.config/hypr/scripts/actioncenter.sh &  ewwii close calendar"
+on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar"
 format = "{icon}"
 format_disconnected = ""
 format_ethernet = " "
@@ -57,8 +57,8 @@ format = "{icon}"
 format_muted = "{icon}"
 interval = 100  # milliseconds
 tooltip = true
-# Custom actions (leave empty for default behavior)
-action = "bash ~/.config/hypr/scripts/actioncenter.sh &  ewwii close calendar" # Default: toggle mute
+# Custom on_clicks (leave empty for default behavior)
+on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar" # Default: toggle mute
 on_scroll_up = ""  # Default: increase volume by scroll_step
 on_scroll_down = ""  # Default: decrease volume by scroll_step
 scroll_step = 5  # Volume change step (percentage)
@@ -87,7 +87,7 @@ tooltip_format = "{artist}\n{album}\n{title}"
 [battery]
 format = "{icon}"
 format_charging = "{icon}"
-action = "bash ~/.config/hypr/scripts/actioncenter.sh &  ewwii close calendar"
+on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar"
 interval = 30
 # battery = "BAT0"  # Optional: specify battery (default: auto_detect)
 tooltip = true
@@ -111,7 +111,7 @@ modules = ["revealer/tray","box/quickcenter", "clock"]
 # Box widgets _ simple containers
 [boxes.quickcenter]
 modules = ["network", "audio", "battery"]
-action = "bash ~/.config/hypr/scripts/actioncenter.sh &  ewwii close calendar"
+on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar"
 spacing = 5
 orientation = "horizontal"  # horizontal or vertical (default: horizontal)
 
@@ -127,25 +127,26 @@ reveal_on_hover = false  # Reveal on hover instead of click
 
 # Custom modules
 [custom_modules.search]
-action = "~/Dotfiles/bin/launchrofi --drun"
+on_click = "~/Dotfiles/bin/launchrofi --drun"
 exec = "echo ''"
 interval = 999999
 format = "{} "
 
 [custom_modules.settings]
-action = "~/Dotfiles/bin/launchrofi -sm"
+on_click = "~/Dotfiles/bin/launchrofi -sm"
 exec = "echo ''"
 interval = 999999
 format = "{} "
 
 [custom_modules.arch]
-action = "~/Dotfiles/bin/launchrofi --menu"
+on_click = "~/Dotfiles/bin/launchrofi --menu"
 exec = "echo ''"
 interval = 999999
 format = "{} "
 
 [custom_modules.mako]
-action = "~/Dotfiles/config/mako/scripts/walker.sh --menu"
+on_click = "bash ~/Dotfiles/config/mako/scripts/walker.sh --menu"
+on_click_right = "bash ~/Dotfiles/config/mako/scripts/riftbar.sh -d"
 exec = "bash ~/Dotfiles/config/mako/scripts/riftbar.sh"
 interval = 1
 format = "{}"
