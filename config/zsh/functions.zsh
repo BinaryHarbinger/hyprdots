@@ -29,8 +29,8 @@ if command -v fastfetch >/dev/null 2>&1; then
 fi
 
 man() {
-    if command -v bat >/dev/null 2>&1; then
-        command man "$@" | col -bx | bat -l man
+    if command -v nvim >/dev/null 2>&1; then
+        command man "$@" | nvim -R - 
     else
         command man
 fi
