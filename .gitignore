@@ -1,3 +1,5 @@
+bin/crop_to_square
+bin/sign-commits
 config/ewwii/coverart.png
 config/ewwii/info.txt
 config/mpv/script-opts/uosc.conf

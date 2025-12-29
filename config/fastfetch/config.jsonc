@@ -3,7 +3,7 @@
     "logo": {
       "type": "small",
       "padding": {
-        "top": 4,
+        "top": 5,
         "right": 4,
         "left": 4,
       }
@@ -40,6 +40,11 @@
         "type": "shell",
         "key": "‎‎‎‎   ",
         "keyColor": "#C8C8C8"
+      },
+      {
+        "type": "wm",
+        "key": "‎‎‎‎   ",
+        "keyColor": "#b4befe"
       },
       {
         "type": "uptime",
