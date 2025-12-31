@@ -32,7 +32,6 @@ change_theme () {
     ln -sf "$THEME_PATH/theme.scss" ~/.config/riftbar/theme.scss
     ln -sf "$THEME_PATH/theme.scss" ~/.config/walker/themes/binary_default/theme.scss
     ln -sf "$THEME_PATH/theme.css" ~/.config/waybar/theme.css
-    ln -sf "$THEME_PATH/theme.rasi" ~/.config/rofi/theme.rasi 
     ln -sf "$THEME_PATH/makoConfig" ~/.config/mako/config
     ln -sf "$THEME_PATH/hypr.conf" ~/.config/hypr/theme.conf
     ln -sf "$THEME_PATH/theme.py" ~/.config/qutebrowser/theme.py
@@ -121,9 +120,10 @@ END_PYTHON
     fi
     ( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) && hyprctl reload > /dev/null 2>&1 & disown
     
-    pgrep "mako" > /dev/null 2>&1 && makoctl reload /dev/null 2>&1 & disown
+    pgrep "mako" > /dev/null 2>&1 && makoctl reload > /dev/null 2>&1 & disown
     
-    pgrep "riftbar" > /dev/null && pkill riftbar >/dev/null 2>&1 & disown
+    pgrep "riftbar" > /dev/null && (pkill riftbar) > /dev/null 2>&1 & disown
+    sleep 0.5
     ( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) && riftbar >/dev/null 2>&1 & disown
 
     ewwii kill &&bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
