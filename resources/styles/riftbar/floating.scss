@@ -1,0 +1,48 @@
+@use "theme" as theme;
+
+@import "../../resources/styles/riftbar/default"
+
+.riftbar {
+  margin: 0px 5px;
+  background-color: theme.$bg_main;
+  border-radius: theme.$border_rad;
+  border: 2px solid theme.$border_main;
+}
+
+.workspaces {
+  background-color: theme.$bg_second;
+}
+
+.box-left, .box-right, .custom-mako, .workspaces {
+  border: 0px solid transparent;
+}
+
+.box-left {
+  margin-left: 15px;
+  background-color: theme.$bg_second;
+}
+
+.custom-search, .custom-arch, .custom-settings {
+  background-color: transparent;
+  border: 0px solid transparent;
+  &:hover {
+	  background-color: lighten($color: theme.$bg_second, $amount: 8);
+	}
+  &:active {
+      background-color: lighten($color: theme.$bg_second, $amount: 15);
+    }
+}
+
+.custom-mako {
+    background-color: theme.$bg_second;
+    padding: 0px 9px;
+    padding-right: 12px;
+    min-width: 25px;
+    margin-right: 15px;
+    &:hover {
+	  background-color: lighten($color: theme.$bg_second, $amount: 8);
+	}
+    &:active {
+      background-color: lighten($color: theme.$bg_second, $amount: 15);
+    }
+}

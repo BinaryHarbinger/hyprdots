@@ -1,0 +1,234 @@
+@use "theme" as theme;
+
+/* Riftbar Style Configuration */
+
+/* Global reset */
+
+* {
+	all: unset;
+	font-family:
+		"CaskaydiaMono Nerd Font";
+	font-weight: 700;
+	font-size: 12.5px;
+	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Riftbar main container */
+.bar-container {
+	padding-bottom: 0px;
+	color: theme.$fg_main;
+}
+
+.riftbar {
+  margin: 0px;
+  background: theme.$bg_main;
+}
+
+/* Tooltip */
+tooltip {
+	background-color: theme.$bg_main;
+	padding: 4px;
+	border-radius: calc(theme.$border_rad/2);
+	border: 1px solid theme.$fg_main;
+}
+
+/* Workspaces */
+.workspaces {
+	border-radius: theme.$border_radb;
+	padding: 3px 10px; 
+
+	button {
+		transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+		padding: 0px 4px;
+		margin: 6px 4px;
+		color: transparent;
+        font-family: "CaskaydiaMono Nerd Font";
+		background-color: theme.$fg_unactive;
+        border-radius: theme.$border_rad;
+
+		&.active {
+          	background-color: theme.$fg_main;
+			padding: 0px 18px;
+		}
+
+		&:hover {
+			background: theme.$bg_hover;
+			color: transparent;
+		}
+	}
+}
+
+/* Common modules */
+.mpris,
+.clock,
+.network,
+.audio,
+.battery,
+.custom-mako,
+.custom-search,
+.custom-settings,
+.custom-arch {
+	background-color: theme.$bg_main;
+	border-radius: theme.$border_radb;
+	padding: 0px 10px;
+	border: 0px solid theme.$border_main;
+	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+	label {
+		font-family: "Symbols Nerd Font", "CaskaydiaMono Nerd Font";
+		font-weight: bold;
+	}
+
+	&:hover {
+		background-color: theme.$bg_hover;
+	}
+}
+
+/* Custom Mako modules Styling */
+.custom-mako {
+    min-width: 26px;
+    padding: 0px 13px;
+    padding-left: 10px;
+    color: theme.$fg_main;
+    border-radius: theme.$border-radb;
+    background-color: theme.$bg_main;
+    margin-right: 5px;
+    transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+    label {
+      font-size: 20px;
+  }
+}
+
+/*  Custom Modules in Left side */
+.custom-arch, .custom-search, .custom-settings {
+  padding: 0px 7px;
+  padding-left: 9px; 
+}
+
+/* Tray Styling */
+.tray {
+  padding: 0px 10px;
+}
+
+.tray-menu { 
+    background-color: transparent;
+    border: 0px solid transparent;
+    contents {
+      padding: 2px 3px;
+      background-color: theme.$bg_main;
+      border: 2px solid theme.$border_main;
+      border-radius: calc(theme.$border_radb/2);
+      box {
+      border-radius: calc(theme.$border_radb/2);
+      
+      modelbutton {
+        margin: 1px 0px;
+        padding: 1px 2px;
+        border-radius: calc(theme.$border_radb/2);
+        
+        &:hover {
+          background-color: lighten($color: theme.$bg_main, $amount: 14);
+        }
+
+        &:active {
+        }
+
+        &:disabled {
+        }
+      }
+
+      separator {
+      }
+    }
+  }
+
+  arrow {
+  }
+}
+
+/* Clock */
+.clock {
+	padding: 0px 7px;
+	margin: 0px 6px;
+
+	label {
+		font-family: "Ubuntu Nerd Font";
+		font-size: 13px;
+		font-weight: 500;
+	}
+}
+
+/* MPRIS */
+.mpris {
+	transition: all 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
+	padding: 0px 10px;
+	min-width: 60px;
+
+	&.paused {
+		color: theme.$bg_third;
+	}
+}
+
+/* QuickCenter Widgets */
+.network,
+.audio,
+.battery {
+    background-color: transparent;
+	padding: 0px 2px;
+    
+    label {
+        min-width: 28px;
+      	font-size: 15px;
+    }
+
+    &:hover {
+      background-color: transparent;
+    } 
+}
+
+/* Box Widgets */
+.box-quickcenter {
+	background-color: theme.$bg_main;
+	border-radius: theme.$border_rad;
+	padding: 0px 8px;
+	margin: 0px 5px;
+
+	&:hover {
+		background-color: theme.$bg_hover;
+	}
+}
+
+/* Revealers */ 
+.revealer-tray {
+    border-radius: theme.$border_radb;
+	padding: 0px 10px;
+	margin: 0px 10px;
+
+  &:hover {
+    background-color: theme.$bg_hover;
+  }
+}
+
+/* Sides */
+.box-right,
+.box-left {
+	border-radius: theme.$border_rad;
+	background-color: theme.$bg_main;
+}
+
+/* Left side */
+.box-left {
+	padding: 0px 10px;
+	margin: 0px 10px;
+}
+
+/* Right side */
+.box-right {
+	margin: 0px 0px;
+	padding: 0px 10px 0px 2px;
+}
+
+.custom-seperator {
+  min-width: 30px;
+}
+

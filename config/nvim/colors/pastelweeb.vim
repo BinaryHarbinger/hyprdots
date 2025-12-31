@@ -1,4 +1,4 @@
-" Binary Harbinger neovim Theme
+" Pastel Weeb neovim Theme
 hi clear
 if exists("syntax_on")
   syntax reset
@@ -6,7 +6,6 @@ endif
 set background=dark
 let g:colors_name = "pastelweeb"
 
-" Temel renkler
 hi Normal       guifg=#8F96D1 guibg=#1A1B29
 hi Comment      guifg=#5f875f gui=italic
 hi Constant     guifg=#d7875f

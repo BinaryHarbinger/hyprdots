@@ -14,7 +14,7 @@ config/hypr/wallppr.png
 config/mako/config
 config/qutebrowser/__pycache__/
 config/qutebrowser/autoconfig.yml
-config/qutebrowser/newtab/static/theme.css
+config/qutebrowser/newtab/static/theme.scss
 config/qutebrowser/theme.py
 config/rofi/theme.rasi
 config/riftbar/config.toml

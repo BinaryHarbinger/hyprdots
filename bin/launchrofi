@@ -50,22 +50,22 @@ conf_launcher() {
 lock_menu() {
     # Menu options displayed in Walker
     cd ~/Dotfiles/scripts/
-    options=$(python ~/Dotfiles/scripts/style_lock.py dmenu)
+    options=$(python ~/Dotfiles/scripts/style-lock.py dmenu)
     # Prompt user to choose an option
     chosen=$(echo -e "󰌍\n$options" | walker -d -p "Go…" -t "system_menu")
     cd ~
     if [[ -z "$chosen" ]]; then 
         exit 1
     elif [[ "$chosen" = "󰌍" ]];then
-        customize_func
+        customize_menu
     else
         cd ~/Dotfiles/scripts/
         argument="${chosen:3}"
-        python style_lock.py "$argument"
+        python style-lock.py "$argument"
         lock_menu
     fi
 
-   $HOME/Dotfiles/bin/change-theme -c $chosen 
+   $HOME/Dotfiles/bin/change-theme -c "$chosen" 
 
 
 }
@@ -99,7 +99,7 @@ quick_menu() {
             system_menu
             ;;
         "")
-            manual_func
+            manual_menu
             ;;
         *)
             echo "No option selected"
@@ -149,7 +149,7 @@ widget_settings() {
     # Execute the corresponding command based on the selected option
     case $chosen in
         "󰌍")
-            customize_func
+            customize_menu
             ;;
         "  Desk Clock")
             bash ~/Dotfiles/scripts/widgets.sh three
@@ -180,7 +180,7 @@ widget_settings() {
     esac
 }
 
-default_apps_func() {
+default_apps_menu() {
     # Menu options displayed in Walker
     options="󰌍\n  Browser\n󰠮  Editor"
 
@@ -190,22 +190,22 @@ default_apps_func() {
     # Execute the corresponding command based on the selected option
     case $chosen in
         "󰌍")
-            settings_func
+            settings_menu
             ;;
         "  Browser")
             bash ~/Dotfiles/scripts/set-default-browser
-            default_apps_func
+            default_apps_menu
             ;;
         "󰠮  Editor")
             bash ~/Dotfiles/scripts/set-default-editor
-            default_apps_func
+            default_apps_menu
             ;;
         *)
             ;;
     esac
 }
 
-settings_func() {
+settings_menu() {
     # Menu options displayed in Walker
     options="󰌍\n  Activate Linux\n  Reload Shell\n  Set Default Apps\n󰌁  Customize Rice\n󰚰  Update Binarydots"
 
@@ -220,26 +220,29 @@ settings_func() {
         "  Activate Linux")
             bash ~/Dotfiles/scripts/widgets.sh four
             bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
-            settings_func
+            settings_menu
             ;;
         "  Reload Shell")
-            pkill riftbar >/dev/null 2>&1 && riftbar >/dev/null 2>&1 & disown 
-            pkill ewwii>/dev/null 2>&1 && bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
-            pgrep "walker" > /dev/null && pkill walker >/dev/null 2>&1 & disown
-( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) &&GSK_RENDERER=cairo walker --gapplication-service >/dev/null 2>&1 & disown
+            pkill -x riftbar 2>/dev/null || true
+            pkill -x walker 2>/dev/null || true 
+            sleep 0.1
+            riftbar >/dev/null 2>&1 & disown
+            ewwii kill >/dev/null 2>&1 || true
+            bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            GSK_RENDERER=cairo walker --gapplication-service >/dev/null 2>&1 & disown
             makoctl reload   
-            settings_func
+            settings_menu
             ;;
         "  Set Default Apps")
-           default_apps_func 
+           default_apps_menu 
             ;;
         "󰌁  Customize Rice")
-            customize_func
+            customize_menu
             ;;
         "󰚰  Update Binarydots")
             foot --override=colors.alpha=1 --app-id=Update -e bash ~/Dotfiles/bin/update_binarydots
             cd ~
-            settings_func
+            settings_menu
             ;;
         *)
             echo "No option selected"
@@ -248,7 +251,7 @@ settings_func() {
 }
 
 
-customize_func() {
+customize_menu() {
     # Menu options displayed in Walker
     options="󰌍\n  Set Style Locks\n  Widgets Settings\n  Wallpapers\n󰌁  Themes"
 
@@ -258,7 +261,7 @@ customize_func() {
     # Execute the corresponding command based on the selected option
     case $chosen in
         "󰌍")
-            settings_func
+            settings_menu
             ;;
         "  Set Style Locks")
             lock_menu
@@ -279,12 +282,11 @@ customize_func() {
 }
 
 set_wallpaper() {
-
     # Prompt user to choose an option
-    chosen=$(python ~/Dotfiles/scripts/wallpapers.py echoImageNames | walker -d -p "Go…" -t "system_menu")
+    chosen=$(python ~/Dotfiles/scripts/wallpapers.py --list | walker -d -p "Go…" -t "system_menu")
     # Execute the corresponding command based on the selected option
     echo $chosen
-    python ~/Dotfiles/scripts/wallpapers.py changeWallpaper $chosen
+    python ~/Dotfiles/scripts/wallpapers.py --set $chosen
 }
 
 maintain_menu() {
@@ -322,7 +324,7 @@ maintain_menu() {
     esac
 }
 
-manual_func() {
+manual_menu() {
     # Menu options displayed in Walker
     options="󰌍\n  Keybinds"
 
@@ -335,7 +337,7 @@ manual_func() {
             system_menu
             ;;
         "  Keybinds")
-            cat ~/.config/hypr/scripts/help.txt | walker -d
+            cat ~/Dotfiles/resources/manual/keyboard.txt | walker -d -t "wide_menu"
             ;;
         *)
             echo "No option selected"
@@ -343,7 +345,7 @@ manual_func() {
     esac
 }
 
-screenshot_func() {
+screenshot_menu() {
     # Menu options displayed in Walker
     options="󰌍\n  Screenshots\n  Fullscreen\n  Selection"
 
@@ -370,7 +372,7 @@ screenshot_func() {
     esac
 }
 
-connections_func() {
+connections_menu() {
     # Menu options displayed in Walker
     options="󰌍\n󰤨  WiFi\n  Bluetooth"
 
@@ -394,7 +396,7 @@ connections_func() {
     esac
 }
 
-misc_func() {
+misc_menu() {
     # Menu options displayed in Walker
     options="󰌍\n  Toggle DND\n  Toggle Cafein\n󰈈  Toggle Eye Saver"
 
@@ -408,15 +410,15 @@ misc_func() {
             ;;
         "  Toggle DND")
             makoctl mode -t dnd
-            misc_func
+            misc_menu
             ;;
         "  Toggle Cafein")
             bash $HOME/Dotfiles/scripts/cafein toggle -n
-            misc_func
+            misc_menu
             ;;
         "󰈈  Toggle Eye Saver")
             bash $HOME/Dotfiles/scripts/toggle-sunset
-            misc_func
+            misc_menu
             ;;
         *)
             echo "No option selected"
@@ -437,7 +439,7 @@ system_menu() {
             drun_launcher
             ;;
         "  Connections")
-            connections_func
+            connections_menu
             ;;
         "󰃢  Maintaining")
             maintain_menu
@@ -446,10 +448,10 @@ system_menu() {
             walker -s clippy -p "󰅇 Clipboard" 
             ;;
         "󰄀  Screenshot")
-            screenshot_func 
+            screenshot_menu 
             ;;
         "󰐱  Miscellaneous")
-            misc_func 
+            misc_menu 
             ;;
         "  Notifications")
             bash ~/.config/mako/scripts/walker.sh
@@ -464,10 +466,10 @@ system_menu() {
             theme_menu
             ;;
         "  Settings")
-            settings_func
+            settings_menu
             ;;
         "  Manual")
-            manual_func
+            manual_menu
                     ;;
         *)
             echo "No option selected"
@@ -476,7 +478,7 @@ system_menu() {
 }
 
 theme_menu() {
-   THEME_DIR="$HOME/.config/binarydots/themes"
+   THEME_DIR="$HOME/Dotfiles/resources/themes"
 
     # Menu options displayed in Walker
     THEMES=$(find "$THEME_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n')
@@ -524,13 +526,13 @@ case "$1" in
     	widget_settings
     	;;
      --rice_settings|-rs)
-     	settings_func
+     	settings_menu
      	;;
      --system_menu|--sys_menu|-sm)
      	system_menu
      	;;
     --screenshot_menu|--ss_menu|-ss)
-     	screenshot_func
+     	screenshot_menu
      	;;
     --conf_launcher|-cl)
         conf_launcher "$2" "$3"

@@ -210,7 +210,7 @@ mkdir -p "$HOME/dots.old"
 folders=(
     "binarydots" "cava" "ewwii" "fastfetch" "foot" "gtk-3.0" "gtk-4.0"
     "hypr" "mako" "mpd" "mpv" "nvim" "pcmanfm-qt" "nwg-look" "qt6ct" 
-    "qutebrowser" "rmpc" "rofi" "waybar" "wiremix" "yazi"
+    "qutebrowser" "rmpc" "walker" "riftbar" "wiremix" "yazi"
     "zsh"
 )
 
@@ -324,7 +324,6 @@ if [ "$current_shell" != "/usr/bin/zsh" ] && [ "$current_shell" != "/bin/zsh" ];
             
 
             ln -sf ~/Dotfiles/home/.zshrc $HOME/.zshrc
-            ln  -sf ~/Dotfiles/home/.profile $HOME/.profile
 
             info "Configured ZSH."
             if confirmation_alt "Install some rust utils? (Recommended)"; then

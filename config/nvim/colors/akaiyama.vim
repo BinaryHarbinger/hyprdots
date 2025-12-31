@@ -1,4 +1,4 @@
-" Binary Harbinger neovim Theme
+" Akaiyama neovim Theme
 hi clear
 if exists("syntax_on")
   syntax reset

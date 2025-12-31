@@ -6,7 +6,6 @@ endif
 set background=dark
 let g:colors_name = "binaryharbinger"
 
-" Temel renkler
 hi Normal       guifg=#b4befe guibg=#11111a
 hi Comment      guifg=#5f875f gui=italic
 hi Constant     guifg=#d7875f
@@ -17,7 +16,6 @@ hi Type         guifg=#87ffaf
 hi Special      guifg=#ff875f
 hi Todo         guifg=#ffff00 guibg=#5f0000
 
-" Satır numaraları ve seçim
 hi LineNr       guifg=#2b2b42
 hi CursorLineNr guifg=#b4befe gui=bold
 hi CursorLine   guibg=#2a2a2a

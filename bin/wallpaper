@@ -5,7 +5,7 @@ info() { gum style --foreground "#49A22C" -- <<< "➤ $1"; }
 error() { gum style --foreground "#FF5555" -- <<< "✖ $1"; }
 
 if [ -z "$1" ]; then
-    echo "Usage: $0 [--set <File Location> | --reload]"
+    echo "Usage: $0 [--set <File Location> | --reload| --list or -l]"
     exit 1
 fi
 
@@ -22,6 +22,7 @@ case $1 in
         fi
         ln -sf "$filepath" ~/.config/hypr/wallppr.png
 		swww img "$filepath" --transition-fps 60 --transition-step 255 --transition-type wipe --transition-angle 30 > /dev/null 2>&1 & disown
+        python ~/Dotfiles/scripts/wallpapers.py --set "$chosen" > /dev/null 2>&1
 		sleep 1
         info "Wallpaper set to $filepath."
         ;;
@@ -29,14 +30,17 @@ case $1 in
         pkill swww-deamon
         sleep 1
         nohup swww-daemon > /dev/null 2>&1 & disown
-        eww reload > /dev/null 2>&1 & disown
+        ewwii reload > /dev/null 2>&1 & disown
         info "Wallpaper Reloaded"
         ;;
+    --list|-l)
+        python ~/Dotfiles/scripts/wallpapers.py --list
+        ;;
     --prompt|-p)
-        WALLPAPERS=$(python ~/Dotfiles/scripts/wallpapers.py echoImageNames)
+        WALLPAPERS=$(python ~/Dotfiles/scripts/wallpapers.py --list)
         chosen=$(printf '%s\n' "$WALLPAPERS" | gum choose --header 'Select a Wallpaper')
-        python ~/Dotfiles/scripts/wallpapers.py changeWallpaper $chosen > /dev/null 2>&1
-        info "Wallpaper Reloaded"
+        python ~/Dotfiles/scripts/wallpapers.py --set "$chosen"
+        info "Wallpaper set to $chosen"
         ;;
     *)
         echo "Invalid option: $1"

@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd ~/Dotfiles/scripts/
+cd ~/Dotfiles/resources/data/ || exit 1
 
-python widgets.py $@
+exec python ~/Dotfiles/scripts/widgets.py $@

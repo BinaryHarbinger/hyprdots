@@ -1,84 +1,84 @@
-from subprocess import run as runCommand
+from subprocess import run as system_command
 import json
 import sys
+import os
 
 arguments = sys.argv[1:]
 
-data = defaultData = {
+HOME = os.path.expanduser("~")
+JSON_PATH = os.path.join(
+    HOME, "Dotfiles", "resources", "data", "widget_states.json"
+)
+
+data = default_data = {
     "status": 1,
     "desktopmusic": 1,
     "deskclock": 1,
     "activatelinux": 1,
 }
 
-defaultDataJson = json.dumps(defaultData, indent=3)
+default_data_json = json.dumps(default_data, indent=3)
 
 # Import the file
-def loadFile():
+def load_file():
     try:
-        with open('widgets.json','r') as file:
+        with open(JSON_PATH, 'r') as file:
             data = json.load(file)
-    except:
-        data = defaultDataJson
+    except (FileNotFoundError, json.JSONDecodeError):
+        data = default_data.copy()  # <- return dict
     return data
 
-#Write the file
-def writeFile(dataFile=defaultData):
+
+# Write the file
+def write_file(dataFile=default_data):
     jsonData = json.dumps(dataFile, indent=3)
-    with open('widgets.json','w') as file :
+    with open(JSON_PATH, 'w') as file:
         file.write(jsonData)
 
-def openWidgets(dataF=data):
+def open_widgets(dataF=data):
     for x in ["status", "desktopmusic", "deskclock", "activatelinux"]:
         if dataF.get(x):
             command = ["ewwii", "open", x]
-            runCommand(command)
-    
-changeArguments = {"one", "two", "three", "four"}
+            system_command(command)
+
+widget_arguments = {"one", "two", "three", "four"}
 
 try:
-    data = loadFile()
+    data = load_file()
 except:
     pass
 
 for argument in arguments:
-    if argument in changeArguments:
+    if argument in widget_arguments:
         if argument == "one":
             print("One detected")
             currentState = not data.get("status")
-            data.update(status = int(currentState))
+            data.update(status=int(currentState))
         elif argument == "two":
             print("Two detected")
             currentState = not data.get("desktopmusic")
-            data.update(desktopmusic = int(currentState))
+            data.update(desktopmusic=int(currentState))
         elif argument == "three":
             print("Three detected")
             currentState = not data.get("deskclock")
-            data.update(deskclock = int(currentState))
+            data.update(deskclock=int(currentState))
         elif argument == "four":
             print("Four detected")
             currentState = not data.get("activatelinux")
-            data.update(activatelinux = int(currentState))
+            data.update(activatelinux=int(currentState))
 
         print(data)
-        writeFile(data)
+        write_file(data)
     else:
         command = ["ewwii", "r"]
         if argument == "s":
-            command = ["ewwii", "r"]
-            runCommand(command)
-            openWidgets(data)
+            system_command(command)
+            open_widgets(data)
         elif argument == "r":
-            command = ["ewwii","close-all"]
-            runCommand(command)
-            command = ["pkill","ewwii"]
-            runCommand(command)
-            command = ["ewwii","kill"]
-            runCommand(command)
-            command = ["ewwii", "d"]
-            runCommand(command)
-            openWidgets(data)
-            command = ["ewwii", "r"]
+            system_command(["ewwii", "close-all"])
+            system_command(["pkill", "ewwii"])
+            system_command(["ewwii", "kill"])
+            system_command(["ewwii", "d"])
+            open_widgets(data)
+            system_command(["ewwii", "r"])
             print(data)
-
-exit()

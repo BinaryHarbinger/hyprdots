@@ -14,7 +14,7 @@ logfile="$HOME/.local/share/mako/notifications.log"
 [ -f "$logfile" ] || touch "$logfile"
 
 options="󰃢  Clear All\n󰔡  Toggle DND\n$(tac "$logfile" | head -n 50)"  # only last 50 notifications
-chosen=$(echo -e "$options" | walker -d -p "  Notifications")
+chosen=$(echo -e "$options" | walker -t "wide_menu" -d -p "  Notifications")
 [ -z "$chosen" ] && exit 0
 
 if [ "$chosen" = "󰃢  Clear All" ]; then
@@ -30,7 +30,7 @@ fi
 echo "$chosen"
 
 # Actions
-action=$(echo -e "󰌍\n  Resend\n  Delete\n  Copy" | walker -d -p "  Notifications")
+action=$(echo -e "󰌍\n  Resend\n  Delete\n  Copy" | walker -t "wide_menu" -d -p "  Notifications")
 line=$(echo "$chosen" | sed -E 's/^\[[0-9]{2}:[0-9]{2}\] //')
 title=$(echo "$line" | cut -d'|' -f1 | xargs)           
 body=$(echo "$line" | cut -d'|' -f2- | xargs)

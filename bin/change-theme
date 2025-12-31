@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-STYLE_PATH="$HOME/.config/binarydots/styles"
-THEME_DIR="$HOME/.config/binarydots/themes/"
+STYLE_PATH="$HOME/Dotfiles/resources/styles"
+THEME_DIR="$HOME/Dotfiles/resources/themes"
 THEMES=$(find "$THEME_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n')
 
 USAGE="\nUsage: $0 [OPTION] [ARGUMENT]
@@ -14,15 +14,15 @@ Options:
 "
 change_theme () {
     
-    if [ -f "$HOME/Dotfiles/scripts/style_lock.py" ]; then
-        cd ~/Dotfiles/scripts/
-        mapfile -t vals < <(python ~/Dotfiles/scripts/style_lock.py get_state)
+    if [ -f "$HOME/Dotfiles/scripts/style-lock.py" ]; then
+        cd "$HOME/Dotfiles/resources/data/"
+        mapfile -t vals < <(python ~/Dotfiles/scripts/style-lock.py get_state)
         cd ~
-        WAYBAR_LOCK="${vals[0]}"
+        BAR_LOCK="${vals[0]}"
         WIDGETS_LOCK="${vals[1]}"
         WALLPAPER_LOCK="${vals[2]}"
     else
-        WAYBAR_LOCK="0"
+        BAR_LOCK="0"
         WIDGETS_LOCK="0"
         WALLPAPER_LOCK="0"
     fi
@@ -31,11 +31,9 @@ change_theme () {
     ln -sf "$THEME_PATH/theme.scss" ~/.config/ewwii/theme.scss
     ln -sf "$THEME_PATH/theme.scss" ~/.config/riftbar/theme.scss
     ln -sf "$THEME_PATH/theme.scss" ~/.config/walker/themes/binary_default/theme.scss
-    ln -sf "$THEME_PATH/theme.css" ~/.config/waybar/theme.css
     ln -sf "$THEME_PATH/makoConfig" ~/.config/mako/config
     ln -sf "$THEME_PATH/hypr.conf" ~/.config/hypr/theme.conf
-    ln -sf "$THEME_PATH/theme.py" ~/.config/qutebrowser/theme.py
-    ln -sf "$THEME_PATH/theme.css" ~/.config/qutebrowser/newtab/static/theme.css
+    ln -sf "$THEME_PATH/theme.scss" ~/.config/qutebrowser/newtab/static/theme.scss
     ln -sf "$THEME_PATH/wiremix.toml" ~/.config/wiremix/wiremix.toml
     ln -sf "$THEME_PATH/foot.ini" ~/.config/foot/foot.ini
     ln -sf "$THEME_PATH/theme.toml" ~/.config/yazi/theme.toml
@@ -44,22 +42,20 @@ change_theme () {
     source "$THEME_PATH/theme.sh" # Export theme variables
     
     # Waybar Styles
-    echo $WAYBAR_LOCK
-    if [ "$WAYBAR_LOCK" = "0" ]; then
-        ln -sf "$HOME/.config/binarydots/styles/riftbar/${WAYBAR_STYLE}Config.toml" "$HOME/.config/riftbar/config.toml"
-        ln -sf "$HOME/.config/binarydots/styles/riftbar/${WAYBAR_STYLE}.scss" "$HOME/.config/riftbar/style.scss"
-        ln -sf "$HOME/.config/binarydots/styles/waybar/${WAYBAR_STYLE}Config" "$HOME/.config/waybar/config"
-        ln -sf "$HOME/.config/binarydots/styles/waybar/${WAYBAR_STYLE}.css" "$HOME/.config/waybar/style.css"
+    echo $BAR_LOCK
+    if [ "$BAR_LOCK" = "0" ]; then
+        ln -sf "$HOME/Dotfiles/resources/styles/riftbar/${BAR_STYLE}Config.toml" "$HOME/.config/riftbar/config.toml"
+        ln -sf "$HOME/Dotfiles/resources/styles/riftbar/${BAR_STYLE}.scss" "$HOME/.config/riftbar/style.scss"
     fi
 
     # Widget Styles
     if [ "$WIDGETS_LOCK" = "0" ]; then
         if [[ "$SCHEME" == "gnome" ]]; then
-            ln -sf "$HOME/.config/binarydots/styles/ewwii/gnome.rhai" "$HOME/.config/ewwii/style.rhai"
+            ln -sf "$HOME/Dotfiles/resources/styles/ewwii/gnome.rhai" "$HOME/.config/ewwii/style.rhai"
         elif [[ "$SCHEME" == "windoes" ]]; then
-            ln -sf "$HOME/.config/binarydots/styles/ewwii/windoes.rhai" "$HOME/.config/ewwii/style.rhai"
+            ln -sf "$HOME/Dotfiles/resources/styles/ewwii/windoes.rhai" "$HOME/.config/ewwii/style.rhai"
         else
-            ln -sf "$HOME/.config/binarydots/styles/ewwii/default.rhai" "$HOME/.config/ewwii/style.rhai"
+            ln -sf "$HOME/Dotfiles/resources/styles/ewwii/default.rhai" "$HOME/.config/ewwii/style.rhai"
         fi
     fi
 
@@ -77,52 +73,15 @@ change_theme () {
 
     sed -i "s/theme: \".*\",/theme: \"$SCHEME\",/" ~/.config/rmpc/config.ron || echo
 
-    if command -v qutebrowser >/dev/null 2>&1; then 
-        # --- Qutebrowser update ---
-        export QUTE_STATIC_DIR="$HOME/.config/qutebrowser/newtab/static"
-
-        # Run Python conversion of theme.css → theme_web.css
-        python3 >/dev/null 2>&1 - <<END_PYTHON
-import re, os
-
-gtk_path = os.path.join(os.environ['QUTE_STATIC_DIR'], "theme.css")
-web_path = os.path.join(os.environ['QUTE_STATIC_DIR'], "theme_web.css")
-
-props = []
-pattern = re.compile(r"@define-color\s+([\w-]+)\s+(.+?);")
-
-try:
-    with open(gtk_path, "r") as gtk_file:
-        for line in gtk_file:
-            line = line.strip()
-            match = pattern.match(line)
-            if match:
-                var_name = match.group(1)
-                var_value = match.group(2).strip()
-                props.append(f"  --{var_name}: {var_value};")
-except FileNotFoundError:
-    print(f"GTK file not found: {gtk_path}")
-    exit(1)
-
-if props:
-    with open(web_path, "w") as web_file:
-        web_file.write(":root {\n")
-        web_file.write("\n".join(props))
-        web_file.write("\n}\n")
-    print(f"Converted {len(props)} variables to {web_path}")
-else:
-    print("No GTK variables found in the file.")
-END_PYTHON
- 
-        if pgrep -x "qutebrowser" > /dev/null; then
-            qutebrowser ":config-source" >/dev/null 2>&1 & disown 
-        fi
+    if command -v qutebrowser >/dev/null 2>&1 && pgrep -x "qutebrowser" > /dev/null ; then 
+        # --- Qutebrowser update --- 
+        qutebrowser ":config-source" >/dev/null 2>&1 & disown 
     fi
     ( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) && hyprctl reload > /dev/null 2>&1 & disown
     
     pgrep "mako" > /dev/null 2>&1 && makoctl reload > /dev/null 2>&1 & disown
     
-    pgrep "riftbar" > /dev/null && (pkill riftbar) > /dev/null 2>&1 & disown
+    pgrep "riftbar" > /dev/null && (set +m; pkill riftbar; set -m) > /dev/null 2>&1 & disown
     sleep 0.5
     ( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) && riftbar >/dev/null 2>&1 & disown
 
