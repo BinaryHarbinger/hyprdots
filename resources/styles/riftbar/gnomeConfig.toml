@@ -106,10 +106,10 @@ modules = ["custom/search", "custom/settings", "custom/arch", "custom/seperator"
 spacing = 2
 
 [boxes.right]
-modules = ["revealer/tray","box/quickcenter"]
+modules = ["revealer/tray","box/quicksettings"]
 
 # Box widgets _ simple containers
-[boxes.quickcenter]
+[boxes.quicksettings]
 modules = ["network", "audio", "battery"]
 on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar"
 spacing = 5
