@@ -127,7 +127,7 @@ session_options() {
             ;;
 
         "  Lock")
-            hyprlock & disown
+            bash ~/Dotfiles/scripts/lock-script.sh
             ;;
         "󰍃  Logout")
             pkill -KILL -u $USER && sleep 1 && loginctl terminate-user "$USER"
@@ -315,7 +315,7 @@ maintain_menu() {
             maintain_menu
             ;;
         "󱘡  Clear Clipboard")
-            rm -rf ~/.cache/cliphist >/dev/null 2>&1 & disown
+            wl-copy --clear
             maintain_menu
             ;; 
         *)

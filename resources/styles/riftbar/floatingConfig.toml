@@ -59,6 +59,7 @@ interval = 100  # milliseconds
 tooltip = true
 # Custom on_clicks (leave empty for default behavior)
 on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar" # Default: toggle mute
+on_click_right = "nohup foot --override=colors.alpha=1 --app-id=Wiremix -e wiremix >/dev/null 2>&1 &"
 on_scroll_up = ""  # Default: increase volume by scroll_step
 on_scroll_down = ""  # Default: decrease volume by scroll_step
 scroll_step = 5  # Volume change step (percentage)

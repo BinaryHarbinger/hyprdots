@@ -13,7 +13,7 @@ def wallpapers():
     return sorted(
         os.path.splitext(f)[0]
         for f in os.listdir(WALLPAPER_DIR)
-        if f.lower().endswith((".png", ".jpg"))
+        if f.lower().endswith((".png", ".jpg", "gif"))
     )
 
 def list_wallpapers():
@@ -23,7 +23,7 @@ def list_wallpapers():
 def resolve_wallpaper(name: str) -> str:
     name = name.replace("", "").strip()
 
-    for ext in (".png", ".jpg"):
+    for ext in (".png", ".jpg", ".gif"):
         path = os.path.join(WALLPAPER_DIR, name + ext)
         if os.path.isfile(path):
             return path

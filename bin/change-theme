@@ -85,7 +85,7 @@ change_theme () {
     sleep 0.5
     ( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) && riftbar >/dev/null 2>&1 & disown
 
-    ewwii kill &&bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
+    bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
     ( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) && notify-send -u normal "🎨 Theme Changed" -i preferences-desktop-theme >/dev/null 2>&1 & disown
     echo -e "Theme changed to $chosen"
 }

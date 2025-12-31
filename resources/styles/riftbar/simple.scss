@@ -150,8 +150,7 @@ tooltip {
 }
 
 /* Box Widgets */
-.box-quickcenter,
-.revealer-quicksettings {
+.box-quicksettings {
 	background-color: theme.$bg_second;
 	border-radius: theme.$border_radb;
 	padding: 0px 8px;
@@ -160,6 +159,9 @@ tooltip {
 	&:hover {
 		background-color: theme.$bg_hover;
 	}
+    &:active {
+      background-color: lighten($color: theme.$bg_hover, $amount: 9);
+    }
 }
 
 /* Revealers */ 

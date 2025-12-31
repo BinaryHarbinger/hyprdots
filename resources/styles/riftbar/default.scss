@@ -30,7 +30,7 @@
 tooltip {
 	background-color: theme.$bg_main;
 	padding: 4px;
-	border-radius: 10px;
+	border-radius: theme.$border_radb;
 	border: 2px solid theme.$border_main;
 }
 
@@ -39,7 +39,7 @@ tooltip {
 	color: transparent;
 	margin-right: 1.5px;
 	margin-left: 1.5px;
-	border-radius: 12px;
+	border-radius: theme.$border_rad + 2;
 	border: 2px solid theme.$border_main;
 	background-color: theme.$bg_main;
 	padding: 0px 20px;
@@ -51,11 +51,11 @@ tooltip {
 		color: theme.$bg_main;
 		background-color: theme.$bg_third;
 		border-color: theme.$bg_main;
-		border-radius: 10px;
+        border-radius: theme.$border_rad + 2;
 
 		&.active {
 			color: theme.$bg_main;
-			border-radius: 8px;
+			border-radius: theme.$border_radb - 2;
 			background: theme.$fg_main;
 			padding: 2px 20px;
 		}
@@ -78,7 +78,7 @@ tooltip {
 .custom-settings,
 .custom-arch {
 	background-color: theme.$bg_main;
-	border-radius: 16px;
+	border-radius: calc( theme.$border_radb / 2);
 	padding: 0px 10px;
 	border: 0px solid theme.$border_main;
 	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -117,8 +117,9 @@ tooltip {
 
 /*  Custom Modules in Left side */
 .custom-arch, .custom-search, .custom-settings {
-  padding: 0px 7px;
-  padding-left: 9px; 
+  padding: 0px 6px;
+  padding-left: 8px;
+  margin: 0px 2px;
 }
 
 /* Tray Styling */
@@ -206,12 +207,12 @@ tooltip {
 /* Box Widgets */
 .box-quicksettings {
 	background-color: theme.$bg_second;
-	border-radius: 15px;
+	border-radius: theme.$border_radb + calc(theme.$border_radb / 2);
 	padding: 0px 8px;
 	margin: 0px 8px;
 
 	&:hover {
-		background-color: theme.$bg_hover;
+	  background-color: theme.$bg_hover;
 	}
 
     &:active {
@@ -221,7 +222,7 @@ tooltip {
 
 /* Revealers */ 
 .revealer-tray {
-    border-radius: 10px;
+    border-radius: theme.$border_radb;
 	padding: 0px 10px;
     margin-left: 18px;
     margin-right: 2px;
@@ -235,7 +236,7 @@ tooltip {
 .box-right,
 .box-left {
 	border: 2px solid theme.$border_main;
-	border-radius: 10px;
+	border-radius: theme.$border_rad;
 	background-color: theme.$bg_main;
 }
 

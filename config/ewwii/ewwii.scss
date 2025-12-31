@@ -249,7 +249,7 @@
 }
 
 .playbutton {
-  background-color: c.$ply-main;
+  background-color: c.$bg_hover;
   border: 3px solid c.$fg-main;
 }
 
@@ -257,7 +257,7 @@
   background-color: c.$ply-hover;
 }
 .playbutton:active{
-  background-color: c.$ply-act;
+  background-color: c.$bg_alt;
 }
 
 .musicbutton:hover, .musicbutton2:hover, .musicbutton2dis:hover{
@@ -265,7 +265,7 @@
 }
 
 .musicbutton:active, .musicbutton2:active, .musicbutton2dis:active{
-  background-color: c.$msc-act;
+  background-color: c.$bg_hover_alt;
 }
 
 .musicbutton2, .musicbutton2dis {

@@ -100,7 +100,7 @@ c.colors.statusbar.normal.fg = fg_main
 c.colors.statusbar.command.bg = bg_second
 c.colors.statusbar.command.fg = fg_main
 c.colors.statusbar.insert.bg = bg_second
-c.colors.statusbar.insert.fg = bg_third
+c.colors.statusbar.insert.fg = fg_main
 c.colors.statusbar.private.bg = bg_second
 c.colors.statusbar.private.fg = fg_main
 

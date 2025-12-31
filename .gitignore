@@ -13,6 +13,7 @@ config/hypr/theme.conf
 config/hypr/wallppr.png
 config/mako/config
 config/qutebrowser/__pycache__/
+config/qutebrowser/qsettings/
 config/qutebrowser/autoconfig.yml
 config/qutebrowser/newtab/static/theme.scss
 config/qutebrowser/theme.py
