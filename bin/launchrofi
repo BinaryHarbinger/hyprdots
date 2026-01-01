@@ -5,7 +5,7 @@ cd ~
 # Usage Information
 usage() {
     echo -e "\n Usage:
-      --drun                            : Launches the application launcher (drun).\n
+      --app_launcher                    : Launches the application launcher.\n
       --run                             : Launches the command runner (run). \n
       --menu                            : Displays a custom menu with multiple options. \n
       --window                          : Displays a open windows.\n 
@@ -16,12 +16,14 @@ usage() {
 }
 
 # Function: DRUN Launcher
-drun_launcher() {
+app_launcher() {
+    pgreep elephant >/dev/null 2>&1 | elephant >/dev/null 2>&1 & disown
     walker
 }
 
 # Function: RUN Launcher
 run_launcher() {
+    pgreep elephant >/dev/null 2>&1 | elephant >/dev/null 2>&1 & disown
     walker -s run -p " Runner"
 }
 
@@ -436,7 +438,7 @@ system_menu() {
     # Execute the corresponding command based on the selected option
     case $chosen in
         "  Apps")
-            drun_launcher
+            app_launcher
             ;;
         "  Connections")
             connections_menu
@@ -506,8 +508,8 @@ fi
 
 # Execute the appropriate function based on the provided flag
 case "$1" in
-    --drun|-d)
-        drun_launcher
+    --drun|-d|--app-launcher|--apps|-a)
+        app_launcher
         ;;
     --window|-w)
         walker -s window -p "󰘔  Windows"
