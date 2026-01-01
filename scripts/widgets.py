@@ -74,11 +74,10 @@ for argument in arguments:
         if argument == "s":
             system_command(command)
             open_widgets(data)
-        elif argument == "r":
+        elif argument in ["r", "reload"]:
             system_command(["ewwii", "close-all"])
             system_command(["pkill", "ewwii"])
             system_command(["ewwii", "kill"])
             system_command(["ewwii", "d"])
             open_widgets(data)
-            system_command(["ewwii", "r"])
             print(data)

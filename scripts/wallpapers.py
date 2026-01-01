@@ -59,7 +59,7 @@ def resolve_wallpaper(name: str) -> str:
     raise FileNotFoundError(f"No wallpaper named '{name}'")
 
 
-def set_wallpaper(name: str):
+def set_wallpaper(name: str, theme: bool = False):
     path = resolve_wallpaper(name)
 
     os.symlink(path, HYPR_WALL + ".tmp")
@@ -69,7 +69,10 @@ def set_wallpaper(name: str):
     else:
         is_mp4 = False
 
-    if not is_mp4:
+    if is_mp4 and is_running("ewwii"):
+        kill_process("ewwii")
+
+    if not is_mp4: 
         if is_running("mpvpaper"):
             kill_process("mpvpaper")
         if not is_running("swww-daemon"):
@@ -113,8 +116,16 @@ def set_wallpaper(name: str):
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
         start_new_session=True,
-    )
-    write_last_wallpaper(path)
+        )
+        while not is_running("mpvpaper"):
+            sleep(0.5)
+    while not is_running("riftbar"):
+        sleep(0.3)
+    if not is_running("ewwii"):
+        os.system("python ~/Dotfiles/scripts/widgets.py r")
+
+    write_last_wallpaper(path) 
+
 
 def write_last_wallpaper(name: str):
     WALLPAPER_DATA.parent.mkdir(parents=True, exist_ok=True)
@@ -131,6 +142,7 @@ def initialaze():
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--list", action="store_true", help="List wallpapers")
+    parser.add_argument("-t", "--theme_set", action="store_true", help="Call when setting theme")
     parser.add_argument("-s", "--set", metavar="NAME", help="Set wallpaper")
     parser.add_argument("-i", "--init", action="store_true", help="Initialize wallpaper")
 
@@ -146,6 +158,8 @@ def main():
         set_wallpaper(args.set)
     elif args.init:
         initialaze()
+    elif args.theme_set:
+        print("")
     else:
         parser.print_help()
 

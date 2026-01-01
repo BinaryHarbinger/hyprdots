@@ -288,7 +288,8 @@ set_wallpaper() {
     chosen=$(python ~/Dotfiles/scripts/wallpapers.py --list | walker -d -p "Go…" -t "system_menu")
     # Execute the corresponding command based on the selected option
     echo $chosen
-    python ~/Dotfiles/scripts/wallpapers.py --set $chosen
+    python ~/Dotfiles/scripts/wallpapers.py --set "$chosen"
+    ewwii r
 }
 
 maintain_menu() {

@@ -13,7 +13,8 @@ Options:
   -h, --help             Show this help message
 "
 change_theme () {
-    
+    ewwii kill
+    pgrep "riftbar" > /dev/null && (pkill riftbar) > /dev/null 2>&1 & disown
     if [ -f "$HOME/Dotfiles/scripts/style-lock.py" ]; then
         cd "$HOME/Dotfiles/resources/data/"
         mapfile -t vals < <(python ~/Dotfiles/scripts/style-lock.py get_state)
@@ -39,8 +40,8 @@ change_theme () {
     ln -sf "$THEME_PATH/theme.toml" ~/.config/yazi/theme.toml
     ln -sf "$THEME_PATH/mpv/script-opts/uosc.conf" ~/.config/mpv/script-opts
     
-    source "$THEME_PATH/theme.sh" # Export theme variables
-    
+    source "$THEME_PATH/theme.sh" # Export theme variables 
+
     # Waybar Styles
     echo $BAR_LOCK
     if [ "$BAR_LOCK" = "0" ]; then
@@ -59,8 +60,8 @@ change_theme () {
         fi
     fi
 
-    bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
-    
+    ( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) && riftbar >/dev/null 2>&1 & disown
+    # Wallpaper lock
     if [ "$WALLPAPER_LOCK" = "0" ]; then
         bash ~/Dotfiles/bin/wallpaper -s "$WALLPAPER"
     fi
@@ -80,12 +81,7 @@ change_theme () {
     ( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) && hyprctl reload > /dev/null 2>&1 & disown
     
     pgrep "mako" > /dev/null 2>&1 && makoctl reload > /dev/null 2>&1 & disown
-    
-    pgrep "riftbar" > /dev/null && (set +m; pkill riftbar; set -m) > /dev/null 2>&1 & disown
-    sleep 0.5
-    ( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) && riftbar >/dev/null 2>&1 & disown
 
-    bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
     ( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) && notify-send -u normal "🎨 Theme Changed" -i preferences-desktop-theme >/dev/null 2>&1 & disown
     echo -e "Theme changed to $chosen"
 }
