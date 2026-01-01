@@ -35,7 +35,7 @@ case $1 in
         [ -z "$chosen" ] && exit 1
         ;;
     *)
-        chosen=$(list_browsers_for_dmenu | rofi -dmenu -i -p " ")
+        chosen=$(list_browsers_for_dmenu | walker -d -p "  Set Default Browser")
         [ -z "$chosen" ] && exit 1
         ;;
 esac
