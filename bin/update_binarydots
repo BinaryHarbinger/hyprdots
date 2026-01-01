@@ -11,6 +11,12 @@ RESET="\e[0m"
 info() { gum style --foreground "#49A22C" -- <<< "➤ $1"; }
 error() { gum style --foreground "#FF5555" -- <<< "✖ $1"; }
 
+confirmation() {
+    local title="$1"
+    shift
+     gum confirm "$title" --selected.background="75" --prompt.foreground="1000"
+}
+
 process() {
     local title="$1"
     shift
@@ -31,7 +37,11 @@ echo -e "${GREEN}       ░█░█░█▀█░█▀▄░█▀█░▀�
        ░█░█░█▀▀░█░█░█▀█░░█░░█▀▀
        ░▀▀▀░▀░░░▀▀░░▀░▀░░▀░░▀▀▀${RESET}"
 
-echo 
+echo
+
+# Prompt the user for confirmation
+confirmation "" || exit 1
+
 cd ~/Dotfiles/ || { error "Dotfiles directory not found!"; wait_for_input; exit 1; }
 
 git fetch origin

@@ -240,7 +240,7 @@ settings_menu() {
             customize_menu
             ;;
         "󰚰  Update Binarydots")
-            foot --override=colors.alpha=1 --app-id=Update -e bash ~/Dotfiles/bin/update_binarydots
+            foot --override=colors.alpha=1 --app-id=binarydotsTUI -e bash ~/Dotfiles/bin/update_binarydots
             cd ~
             settings_menu
             ;;
@@ -460,7 +460,7 @@ system_menu() {
             session_options
             ;;
         "  Update System")
-            foot --override=colors.alpha=1 --app-id=Update -e bash ~/Dotfiles/bin/update
+            foot --override=colors.alpha=1 --app-id=binarydotsTUI -e bash ~/Dotfiles/bin/update
             ;;
         "󰌁  Themes")
             theme_menu
