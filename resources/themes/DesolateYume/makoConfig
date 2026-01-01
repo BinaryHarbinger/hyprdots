@@ -7,6 +7,7 @@ background-color=#535B56
 text-color=#AEE7E7
 border-color=#AEE7E7
 border-size=2
+border-radius=4
 default-timeout=5000
 font=CaskaydiaMono Nerd Font 12
 padding=8
