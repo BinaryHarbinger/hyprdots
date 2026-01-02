@@ -142,44 +142,34 @@ session_options() {
 
 
 widget_settings() {
-    # Menu options displayed in Walker
-    options="󰌍\n  Desk Clock\n  Change Stats\n  Change Music\n  Reload Widgets\n  Initalize"
+    while true; do
+        options="󰌍\n  Desk Clock\n  Change Stats\n  Change Music\n  Reload Widgets"
 
-    # Prompt user to choose an option
-    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
+        chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
-    # Execute the corresponding command based on the selected option
-    case $chosen in
-        "󰌍")
-            customize_menu
-            ;;
-        "  Desk Clock")
-            bash ~/Dotfiles/scripts/widgets.sh three
-            bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
-            widget_settings
-            ;;
-        "  Change Stats")
-            bash ~/Dotfiles/scripts/widgets.sh one
-            bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
-            widget_settings
-            ;;
-        "  Change Music")
-            bash ~/Dotfiles/scripts/widgets.sh two
-            bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
-            widget_settings
-            ;;
-        "  Reload Widgets")
-            bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
-            widget_settings
-            ;;
-        "  Initalize Widgets")
-            bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
-            widget_settings
-            ;;
-        *)
-            echo "No option selected"
-            ;;
-    esac
+        case $chosen in
+            "󰌍")
+                customize_menu
+                break
+                ;;
+            "  Desk Clock")
+                python ~/Dotfiles/scripts/widgets.py deskclock >/dev/null 2>&1 & disown
+                ;;
+            "  Change Stats")
+                python ~/Dotfiles/scripts/widgets.py status >/dev/null 2>&1 & disown
+                ;;
+            "  Change Music")
+                python ~/Dotfiles/scripts/widgets.py desktopmusic >/dev/null 2>&1 & disown
+                ;;
+            "  Reload Widgets")
+                python ~/Dotfiles/scripts/widgets.py r >/dev/null 2>&1 & disown
+                ;;
+            *)
+                echo "No option selected"
+                break
+                ;;
+        esac
+    done
 }
 
 default_apps_menu() {
@@ -220,8 +210,7 @@ settings_menu() {
             system_menu
             ;;
         "  Activate Linux")
-            bash ~/Dotfiles/scripts/widgets.sh four
-            bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            bash ~/Dotfiles/scripts/widgets.sh 'activate'
             settings_menu
             ;;
         "  Reload Shell")
