@@ -2,31 +2,16 @@ from subprocess import run as system_command
 import json
 import sys
 import os
-import psutil
 from time import sleep
+from pathlib import Path
 
-def is_running(process_name: str) -> bool:
-    for proc in psutil.process_iter(attrs=["name"]):
-        if proc.info["name"] == process_name:
-            return True
-    return False
-
-
-def kill_process(name: str):
-    for proc in psutil.process_iter(attrs=["name"]):
-        if proc.info["name"] == name:
-            proc.terminate()   # SIGTERM
-            try:
-                proc.wait(timeout=2)
-            except psutil.TimeoutExpired:
-                proc.kill()    # SIGKILL
+from dot_utils import is_running, kill_process
 
 arguments = sys.argv[1:]
 
 HOME = os.path.expanduser("~")
-JSON_PATH = os.path.join(
-    HOME, "Dotfiles", "resources", "data", "widget_states.json"
-)
+
+JSON_PATH = Path("~/.config/binarydots/widget_states.json").expanduser()
 
 data = default_data = {
     "status": 1,
@@ -59,6 +44,7 @@ def load_file():
 
 # Write the file
 def write_file(dataFile=default_data):
+    JSON_PATH.parent.mkdir(parents=True, exist_ok=True)
     jsonData = json.dumps(dataFile, indent=3)
     with open(JSON_PATH, 'w') as file:
         file.write(jsonData)

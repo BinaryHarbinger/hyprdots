@@ -3,31 +3,16 @@ import argparse
 import os
 import subprocess
 import sys
-import psutil
 from time import sleep
 from pathlib import Path
 
-WALLPAPER_DATA = Path("~/Dotfiles/resources/data/wallpaper.txt").expanduser()
+from dot_utils import is_running, kill_process
+
+WALLPAPER_DATA = Path("~/.config/binarydots/wallpaper.txt").expanduser()
 HOME = os.path.expanduser("~")
 WALLPAPER_DIR = os.path.join(HOME, "Dotfiles", "resources", "wallpapers")
 WALLPAPER_SCRIPT = os.path.join(HOME, "Dotfiles", "bin", "wallpaper")
 HYPR_WALL = os.path.join(HOME, ".config", "hypr", "wallppr.png")
-
-def is_running(process_name: str) -> bool:
-    for proc in psutil.process_iter(attrs=["name"]):
-        if proc.info["name"] == process_name:
-            return True
-    return False
-
-
-def kill_process(name: str):
-    for proc in psutil.process_iter(attrs=["name"]):
-        if proc.info["name"] == name:
-            proc.terminate()   # SIGTERM
-            try:
-                proc.wait(timeout=2)
-            except psutil.TimeoutExpired:
-                proc.kill()    # SIGKILL
 
 def wallpapers():
     return sorted(
