@@ -312,10 +312,9 @@ enter([
         initial: "0",
         cmd: "scripts/getVol.sh speaker listen"}),
 
-  poll("mic_percent", #{
+  listen("mic_percent", #{
       initial: "0",
-      interval: "10",
-      cmd: `scripts/getVol.sh mic`, // command to execute"
+      cmd: `scripts/getVol.sh mic listen`, // command to execute"
   }),
 
   poll("music_title", #{
