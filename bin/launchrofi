@@ -17,14 +17,16 @@ usage() {
 
 # Function: DRUN Launcher
 app_launcher() {
-    pgreep elephant >/dev/null 2>&1 | elephant >/dev/null 2>&1 & disown
+    pgrep elephant >/dev/null 2>&1 || elephant >/dev/null 2>&1 & disown
+    pgrep walker >/dev/null 2>&1 || walker --gapplication-service >/dev/null 2>&1 & disown && true
     walker
 }
 
 # Function: RUN Launcher
 run_launcher() {
-    pgreep elephant >/dev/null 2>&1 | elephant >/dev/null 2>&1 & disown
-    walker -s run -p " Runner"
+    pgreep elephant >/dev/null 2>&1 || elephant >/dev/null 2>&1 & disown
+    pgrep walker >/dev/null 2>&1 || walker --gapplication-service >/dev/null 2>&1 & disown && true
+    walker -s run -p " Runner" 
 }
 
 # Function: CONFIRMATION Launcher
@@ -210,7 +212,7 @@ settings_menu() {
             system_menu
             ;;
         "  Activate Linux")
-            bash ~/Dotfiles/scripts/widgets.sh 'activate'
+            python ~/Dotfiles/scripts/widgets.py 'activate'
             settings_menu
             ;;
         "  Reload Shell")
@@ -219,7 +221,7 @@ settings_menu() {
             sleep 0.1
             riftbar >/dev/null 2>&1 & disown
             ewwii kill >/dev/null 2>&1 || true
-            bash ~/Dotfiles/scripts/widgets.sh r >/dev/null 2>&1 & disown
+            python ~/Dotfiles/scripts/widgets.py r >/dev/null 2>&1 & disown
             GSK_RENDERER=cairo walker --gapplication-service >/dev/null 2>&1 & disown
             makoctl reload   
             settings_menu

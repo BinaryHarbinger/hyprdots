@@ -63,7 +63,7 @@ change_theme () {
     ( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) && riftbar >/dev/null 2>&1 & disown
     # Wallpaper lock
     if [ "$WALLPAPER_LOCK" = "0" ]; then
-        bash ~/Dotfiles/bin/wallpaper -s "$WALLPAPER"
+        python ~/Dotfiles/scripts/wallpapers.py -s "$WALLPAPER"
     fi
 
     sed -i "s/^THEME_VAR=\"[^\"]*\"/THEME_VAR=\"$SCHEME\"/" ~/.zshrc
