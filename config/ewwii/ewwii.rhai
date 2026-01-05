@@ -3,38 +3,44 @@ import "desktop_widgets.rhai" as desktop_widgets;
 
 import "std::command" as cmd;
 
-fn mini_player(musicartlink, music_title, music_position,music_position_percentage, music_loop, music_shuffle, music_lenght, playing_paused){
+fn mini_player(musicartlink, music_title, music_position,
+music_position_percentage, music_loop,
+music_shuffle, music_lenght, playing_paused) {
     return box(#{
-    orientation: "horizontal",
-    space_evenly: true,
-    halign: "center",
-    valign: "fill",
-    class: "musiccenter",
-  }, [
-    box(#{
-        orientation: "vertical",
+        orientation: "horizontal",
         space_evenly: false,
         halign: "center",
-        class: "musiccontrols"
-    }, [
-        label(#{ class: "musictitle", text: music_title, limit_width: 2 }),
+        valign: "center",
+        class: "musiccenter",
+  }, [
+       
+        box(#{class: "random", style: "margin: 5px"}, [
+            box(#{class: "musicart", style: "background-image: url(\"" + musicartlink + "\");"}, [ label(#{ text: "" })]),
+        ]),
         box(#{
-            orientation: "horizontal",
+            orientation: "vertical",
             space_evenly: false,
             halign: "center",
+            class: "musiccontrols"
         }, [
-            label(#{ class: "label" , style: "font-size: 13px", text: music_position } ),
-            scale(#{ class: "musicscale", 
+            label(#{ class: "musictitle", text: music_title, limit_width: 2 }),
+            box(#{
+                orientation: "horizontal",
                 space_evenly: false,
-                halign: "center", 
-                orientation: "horizontal", 
-                min:0, max:101, 
-                value: music_position_percentage,
-                onchange: ""
-            } ),            
-            label(#{  class: "label" , style: "font-size: 13px", text: music_lenght } ),
+                halign: "center",
+            }, [
+                label(#{ class: "label" , style: "font-size: 13px", text: music_position } ),
+                scale(#{ class: "musicscale", 
+                    space_evenly: false,
+                    halign: "center", 
+                    orientation: "horizontal", 
+                    min:0, max:101, 
+                    value: music_position_percentage,
+                    onchange: ""
+                } ),            
+                label(#{  class: "label" , style: "font-size: 13px", text: music_lenght } ),
 
-        ]), 
+            ]), 
 
         box(#{
             orientation: "horizontal",
@@ -42,12 +48,24 @@ fn mini_player(musicartlink, music_title, music_position,music_position_percenta
             halign: "center",
             spacing: 10,
         }, [
-            button(#{ class: if music_loop != "None" { "musicbutton2" } else { "musicbutton2dis" } , onclick: `playerctl loop $( [ "$(playerctl loop)" = "None" ] && echo "Playlist" || echo "None" )
-`, label: " " }),
-            button(#{ class: "musicbutton", onclick: `playerctl previous &`, label: "" }),
-            button(#{ class: "playbutton", onclick: `playerctl play-pause &`, label: if playing_paused != "Paused" { "" } else { "" } }),
-            button(#{ class: "musicbutton", onclick: `playerctl next &`, label: "" }),
-            button(#{ class: if music_shuffle != "Off" { "musicbutton2" } else { "musicbutton2dis" }, onclick: if music_shuffle != "Off" { "playerctl shuffle off" } else { "playerctl shuffle on" }, label: " " }),
+                button(#{ 
+                    class: if music_loop != "None" { "musicbutton2" } else { "musicbutton2dis" },
+                    onclick: `playerctl loop $( [ "$(playerctl loop)" = "None" ] && echo "Playlist" || echo "None" )`, label: " " 
+                }),
+                button(#{ 
+                    class: "musicbutton", onclick: `playerctl previous &`, label: "" 
+                }),
+                button(#{
+                    class: "playbutton", onclick: `playerctl play-pause &`,
+                    label: if playing_paused != "Paused" { "" } else { "" } 
+                }),
+                button(#{
+                    class: "musicbutton", onclick: `playerctl next &`, label: "" 
+                }),
+                button(#{ 
+                    class: if music_shuffle != "Off" { "musicbutton2" } else { "musicbutton2dis" },
+                    onclick: if music_shuffle != "Off" { "playerctl shuffle off" } else { "playerctl shuffle on" }, label: " " 
+                }),
         ]), 
     ]),
 
@@ -513,7 +531,7 @@ defwindow(
     #{
       monitor: 0,
       class: "random",
-      namespace: style_file::bar_widget_namespace(),
+      namespace: "binarydotsOSD",
       windowtype: "normal",
       stacking: "overlay",
        geometry: #{
@@ -543,6 +561,29 @@ defwindow(
         ]),
 
   ),
+  defwindow(
+    "mediaOSD",
+    #{
+      monitor: 0,
+      class: "random",
+      namespace: "binarydotsOSD",
+      windowtype: "normal",
+      stacking: "overlay",
+       geometry: #{
+        x: "8",
+        y: "2%",
+        width: "16%",
+        height: "0%",
+        anchor: style_file::calendar_anchor(),
+      },
+    },
+    mini_player(
+        musicartlink, music_title, music_position,
+        music_position_percentage, music_loop, music_shuffle,
+        music_lenght, playing_paused
+    )
+  ),
+
   defwindow(
     "calendar",
     #{
@@ -578,26 +619,12 @@ defwindow(
             anchor: style_file::quick_center_anchor(),
         },
     },
-       box(#{
-       halign: "start",
-       valign: "start",
-       yalign: "0",
-       space_evenly: false,
-       orientation: "vertical",
-
-       }, [       
-        revealer(#{transition: "slidedown", duration: 400 , reveal: true}, [
-        box(#{
-        class: "random",
-        space_evenly: false,
-        orientation: "vertical",
-        spacing: 10,
-        }, [quick_center_content(up_time, volume, brightness, mic_percent, network_status, bluetooth_status, dnd_status, sunset_status, cafein_status, power_mode),mini_player(musicartlink, music_title, music_position, music_position_percentage, music_loop, music_shuffle, music_lenght, playing_paused)])
-        ]) 
-] ),
-  ),
-
-
+            quick_center_content(
+                up_time, volume, brightness,
+                mic_percent, network_status, bluetooth_status,
+                dnd_status, sunset_status, cafein_status, power_mode
+            ),
+    ),
 ]);
 
 
