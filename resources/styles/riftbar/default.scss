@@ -78,7 +78,7 @@ tooltip {
 .custom-settings,
 .custom-arch {
 	background-color: theme.$bg_main;
-	border-radius: calc( theme.$border_radb / 2);
+	border-radius: calc( theme.$border_radb / 1.05);
 	padding: 0px 10px;
 	border: 0px solid theme.$border_main;
 	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
