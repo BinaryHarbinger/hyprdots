@@ -1,6 +1,5 @@
 
-----------------------------------------------------------------------------------------
-
+---
 <div style="text-align: center;">
 <pre>
 ██████╗ ██╗███╗   ██╗ █████╗ ██████╗ ██╗   ██╗██████╗  ██████╗ ████████╗███████╗
@@ -12,7 +11,7 @@
 </pre>
 </div>
 
-----------------------------------------------------------------------------------------
+---
 
 ## Features
 
@@ -22,7 +21,15 @@
 - Auto-install script (designed for Arch-based distros)
 - Git based update system
 
-## *Example Photos*
+## BinaryDots are powered by 
+- [Riftbar](https://github.com/BinaryHarbinger/riftbar) (GTK4 waybar alternative written with rust)
+- [ewwii](https://github.com/Ewwii-sh/ewwii/tree/main) (GTK4 and feature-fulll rewrite of eww)
+- [Walker](https://github.com/abenz1267/walker) (GTK4 applicaton launcher and dmenu alternative written with rust)
+- [Hyprland](https://hypr.land/) (Modern compositor with the looks)
+
+## Example Photos
+<details>
+  <summary>Click to extend</summary>
 
 <details><summary>
 🔍 Walker
@@ -79,7 +86,9 @@
 ![image](https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/preview/Desktop.png)
 
 <p></details>
-----------------------------------------------------------------------------------------
+</details>
+
+---
 
 ## Requirements
 
@@ -92,7 +101,8 @@
 
 ## How to install?
 
-I highly recommend using [Chaotic AUR](https://aur.chaotic.cx/docs)
+> [!WARNING]
+> Using [Chaotic AUR](https://aur.chaotic.cx/docs) is highly recommended!
 
 Run this command to install:
 ```
@@ -101,11 +111,20 @@ curl -fsSL -o install.sh https://raw.githubusercontent.com/BinaryHarbinger/binar
 
 # Installing manualy (For non-Arch based distros)
 
-» You have to install all the dependecies from your package manager.
+> [!WARNING]
+> I don't really recommend installing manually or using with non-Arch based distros.
+> BinaryDots uses some patched packages from AUR.
+> Install script uses symlinks for most of the configuration files. Without symlinks scripts will break.
 
-» Copy folders inside config and scripts folder itselft to your `~/.config` folder
+» Compile or install all applications in PACKAGES file.
 
-***
+» Put repository in your home directory as `Dotfiles`
+
+» Symlink all folders under `config` to `~/.config/`
+
+» Run `bash ~/Dotfiles/bin/change-theme -c Binary`
+
+---
 
 ## Check other Binary themes
 
@@ -113,6 +132,5 @@ curl -fsSL -o install.sh https://raw.githubusercontent.com/BinaryHarbinger/binar
 [Heroic Games Launcher](https://github.com/BinaryHarbinger/Heroic-Games-Launcher-Binary-Theme)
 
 
-----------------------------------------------------------------------------------------
-
+---
 
