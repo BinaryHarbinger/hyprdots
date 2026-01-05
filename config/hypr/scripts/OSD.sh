@@ -3,103 +3,63 @@
 widget="volOSD"
 media_widget="mediaOSD"
 timer_pid=""
-prev_vol=""
+prev_vol=$(pamixer --get-volume)
+prev_track=""
+prev_status=""
 
-# Kill any existing instances of this script
-existing_pids=$(pidof -x "$0")
-for pid in $existing_pids; do
-    if [ "$pid" != "$$" ]; then
-        kill "$pid" 2>/dev/null
-    fi
-done
-
-# Flag to ignore events during warmup
-ignore_events=true
-
-# Start a 2-second warmup timer
-(
-    sleep 2
-    ignore_events=false
-) &
-
-# Function to show volume OSD
+# --- Show volume OSD ---
 show_osd() {
     local vol
     vol=$(pamixer --get-volume)
-
-    # Only show if volume has changed
-    if [ "$vol" = "$prev_vol" ]; then
-        return
-    fi
+    [ "$vol" = "$prev_vol" ] && return
     prev_vol="$vol"
 
-    # Ignore events during warmup
-    if [ "$ignore_events" = true ]; then
-        return
-    fi
+    ewwii active-windows | grep -q "^$media_widget:" && ewwii close "$media_widget"
+    ! ewwii active-windows | grep -q "^$widget:" && ewwii open "$widget"
 
-    # Close media widget if open
-    if ewwii active-windows | grep -q "^$media_widget:"; then
-        ewwii close "$media_widget"
-    fi
-
-    # Open volume widget if not already open
-    if ! ewwii active-windows | grep -q "^$widget:"; then
-        ewwii open "$widget"
-    fi
-
-    # Kill previous timer if exists
-    if [ -n "$timer_pid" ] && kill -0 "$timer_pid" 2>/dev/null; then
-        kill "$timer_pid" 2>/dev/null
-    fi
-
-    # Close widget after 2 seconds
-    (
-        sleep 2
-        ewwii close "$widget"
-    ) &
+    [ -n "$timer_pid" ] && kill "$timer_pid" 2>/dev/null
+    ( sleep 2; ewwii close "$widget" ) &
     timer_pid=$!
 }
 
-# Function to show media OSD
+# --- Show media OSD ---
 show_media_osd() {
-    # Ignore events during warmup
-    if [ "$ignore_events" = true ]; then
-        return
-    fi
+    ewwii active-windows | grep -q "^$widget:" && ewwii close "$widget"
+    ! ewwii active-windows | grep -q "^$media_widget:" && ewwii open "$media_widget"
 
-    # Close volume widget if open
-    if ewwii active-windows | grep -q "^$widget:"; then
-        ewwii close "$widget"
-    fi
-
-    # Open media widget if not already open
-    if ! ewwii active-windows | grep -q "^$media_widget:"; then
-        echo "media"  # Media event detected
-        ewwii open "$media_widget"
-    fi
-
-    # Kill previous timer if exists
-    if [ -n "$timer_pid" ] && kill -0 "$timer_pid" 2>/dev/null; then
-        kill "$timer_pid" 2>/dev/null
-    fi
-
-    # Close media widget after 2 seconds
-    (
-        sleep 2
-        ewwii close "$media_widget"
-    ) &
+    [ -n "$timer_pid" ] && kill "$timer_pid" 2>/dev/null
+    ( sleep 2; ewwii close "$media_widget" ) &
     timer_pid=$!
 }
 
-# Monitor PipeWire events
-pw-mon | while read -r line; do
-    case "$line" in
-        *"Audio/Sink"*)   # Volume change event
-            show_osd
-            ;;
-        *"Player"*|*"Metadata"*)  # Only real media events
+# --- Volume watcher ---
+(
+    while true; do
+        vol=$(pamixer --get-volume)
+        [ "$vol" != "$prev_vol" ] && show_osd
+        sleep 0.1
+    done
+) &
+
+# --- Media watcher ---
+# Follow both title and playback status
+playerctl metadata --follow --format 'TITLE:{{xesam:title}}' 2>/dev/null | while read -r line; do
+    # Track title change
+    if [[ "$line" == TITLE:* ]]; then
+        track="${line#TITLE:}"
+        if [ "$track" != "$prev_track" ]; then
+            prev_track="$track"
             show_media_osd
-            ;;
-    esac
+        fi
+    fi
+done &
+
+# Separate status watcher
+playerctl --follow status 2>/dev/null | while read -r status; do
+    if [ "$status" != "$prev_status" ]; then
+        prev_status="$status"
+        show_media_osd
+    fi
 done
+
+wait
