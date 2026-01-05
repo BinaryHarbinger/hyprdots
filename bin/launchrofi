@@ -18,15 +18,21 @@ usage() {
 # Function: DRUN Launcher
 app_launcher() {
     pgrep elephant >/dev/null 2>&1 || elephant >/dev/null 2>&1 & disown
-    pgrep walker >/dev/null 2>&1 || walker --gapplication-service >/dev/null 2>&1 & disown && true
+    while ! pidof -x walker; do
+        pgrep walker >/dev/null 2>&1 || walker --gapplication-service >/dev/null 2>&1 & disown && true
+        sleep 0.2
+    done
     walker
 }
 
 # Function: RUN Launcher
 run_launcher() {
     pgreep elephant >/dev/null 2>&1 || elephant >/dev/null 2>&1 & disown
-    pgrep walker >/dev/null 2>&1 || walker --gapplication-service >/dev/null 2>&1 & disown && true
-    walker -s run -p " Runner" 
+    while ! pidof -x walker; do
+        pgrep walker >/dev/null 2>&1 || walker --gapplication-service >/dev/null 2>&1 & disown && true
+        sleep 0.2
+    done
+    walker -s run -p " Runner"
 }
 
 # Function: CONFIRMATION Launcher
@@ -500,7 +506,7 @@ fi
 
 # Execute the appropriate function based on the provided flag
 case "$1" in
-    --drun|-d|--app-launcher|--apps|-a)
+    --drun|-d|--app_launcher|--apps|-a)
         app_launcher
         ;;
     --window|-w)
