@@ -29,8 +29,7 @@ empty = ["clipboard"]
 max_results = 256 # 256 should be enough for everyone
 default = [
   "desktopapplications",
-  "menus",
-  "calc"
+  "menus"
 ]
 
 empty = ["desktopapplications"]
