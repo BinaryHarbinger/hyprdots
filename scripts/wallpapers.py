@@ -69,7 +69,7 @@ def set_wallpaper(name: str, theme: bool = False):
             stderr=subprocess.DEVNULL,
             start_new_session=True,
         )
-        sleep(0.1)
+        sleep(1.22)
         subprocess.Popen(
             [
                 "swww", "img", path,
