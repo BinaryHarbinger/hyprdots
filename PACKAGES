@@ -8,6 +8,6 @@
     mpv mpd mpdris2-rs rmpc
     base-devel
     python-flask python-requests python-psutil
-    pcmanfm-qt waybar riftbar-stable-git ewwii-bin
+    pcmanfm-qt waybar riftbar-bin ewwii-bin
     walker-binarydots-bin elephant-all-bin 
 
