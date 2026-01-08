@@ -9,5 +9,5 @@
     base-devel
     python-flask python-requests python-psutil
     pcmanfm-qt waybar riftbar-bin ewwii-bin
-    walker-binarydots-bin elephant-all-bin 
+    walker-bin elephant-all-bin 
 
