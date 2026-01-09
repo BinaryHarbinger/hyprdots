@@ -49,6 +49,7 @@ Applications:
 - SUPER + I           Reload Waybar, Eww, and SwayNC
 - SUPER + N           Launch editor ($editor)
 - SUPER + T           Launch terminal ($terminal)
+- SUPER + Return      Launch terminal in nvim ($terminal -e nvim +terminal)
 - SUPER + E           Launch file manager ($fileManager)
 - File Explorer       Launch file manager ($fileManager)
 - SUPER + B           Launch browser ($browser)

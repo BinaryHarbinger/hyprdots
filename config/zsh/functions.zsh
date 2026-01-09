@@ -40,5 +40,7 @@ hclear() {
     history -p
     rm -rf ~/.zsh_history
     clear
-    neofetch
+    if ! [[ -n "$NVIM" ]]; then
+            neofetch
+    fi
 }
