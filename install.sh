@@ -129,7 +129,7 @@ fi
 PACKAGES=(
     breeze nwg-look qt6ct papirus-icon-theme bibata-cursor-theme catppuccin-gtk-theme-mocha
     ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-fira-code ttf-firacode-nerd otf-fira-code-symbol ttf-material-design-iconic-font ttf-cascadia-mono-nerd noto-fonts-cjk
-    yazi wiremix neovim fzf
+    yazi wiremix fzf
     hyprland hyprlock hypridle hyprpolkitagent hyprsunset hyprpicker
     power-profiles-daemon udiskie network-manager-applet brightnessctl
     cliphist stow git zsh unzip fastfetch pamixer mako foot swww
@@ -209,7 +209,7 @@ mkdir -p "$HOME/dots.old"
 
 folders=(
     "binarydots" "cava" "ewwii" "fastfetch" "foot" "gtk-3.0" "gtk-4.0"
-    "hypr" "mako" "mpd" "mpv" "nvim" "pcmanfm-qt" "nwg-look" "qt6ct" 
+    "hypr" "mako" "mpd" "mpv" "pcmanfm-qt" "nwg-look" "qt6ct" 
     "qutebrowser" "rmpc" "walker" "riftbar" "wiremix" "yazi"
     "zsh"
 )
