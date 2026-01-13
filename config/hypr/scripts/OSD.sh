@@ -37,7 +37,7 @@ show_media_osd() {
     while true; do
         vol=$(pamixer --get-volume)
         [ "$vol" != "$prev_vol" ] && show_osd
-        sleep 0.1
+        sleep 0.8
     done
 ) &
 
