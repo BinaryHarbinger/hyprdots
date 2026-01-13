@@ -17,21 +17,11 @@ usage() {
 
 # Function: DRUN Launcher
 app_launcher() {
-    pgrep elephant >/dev/null 2>&1 || elephant >/dev/null 2>&1 & disown
-    while ! pidof -x walker; do
-        pgrep walker >/dev/null 2>&1 || walker --gapplication-service >/dev/null 2>&1 & disown && true
-        sleep 0.2
-    done
     walker
 }
 
 # Function: RUN Launcher
-run_launcher() {
-    pgreep elephant >/dev/null 2>&1 || elephant >/dev/null 2>&1 & disown
-    while ! pidof -x walker; do
-        pgrep walker >/dev/null 2>&1 || walker --gapplication-service >/dev/null 2>&1 & disown && true
-        sleep 0.2
-    done
+run_launcher() { 
     walker -s run -p " Runner"
 }
 
@@ -501,6 +491,12 @@ theme_menu() {
 if [[ $# -ne 1 ]]; then
     if [[ "$1" != "--conf_launcher" ]]; then
         usage 
+    else
+        pgreep elephant >/dev/null 2>&1 || elephant >/dev/null 2>&1 & disown
+        while ! pidof -x walker; do
+            pgrep walker >/dev/null 2>&1 || walker --gapplication-service >/dev/null 2>&1 & disown && true
+            sleep 0.2
+        done
     fi
 fi
 
