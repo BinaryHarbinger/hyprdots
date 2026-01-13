@@ -37,7 +37,7 @@ workspace_count=4
 [network]
 on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar"
 format = "{icon}"
-format_disconnected = ""
+format_disconnected = "󰌙"
 format_ethernet = " "
 interval = 5
 # interface = "wlan0"  # Optional: specify interface
@@ -75,7 +75,7 @@ format_nothing = "No Media"
 lenght_lim = 0
 interval = 100  # milliseconds
 tooltip = true
-tooltip_format = "{artist}\n{album}\n{title}"
+tooltip_format = "{artist}-{title}"
 
 # Available format placeholders for mpris:
 # {icon} _ Dynamic icon based on playback state

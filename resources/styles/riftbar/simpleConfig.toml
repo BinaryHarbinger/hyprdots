@@ -31,13 +31,14 @@ on_click = "ewwii open calendar --toggle --no-daemonize & ewwii close on_clickce
 # %Y _ Year with century
 
 [workspaces]
-workspace_count=4
+workspace_count = 4
+workspace_formating = { 1 = "一", 2 = "二", 3 = "三", 4 = "四", 5 = "五", 6 = "六", 7 = "七", 8 = "八", 9 = "九", 10 = "十"}
 
 # Network module configuration
 [network]
 on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar"
 format = "{icon}"
-format_disconnected = ""
+format_disconnected = "󰌙"
 format_ethernet = " "
 interval = 5
 # interface = "wlan0"  # Optional: specify interface

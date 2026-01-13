@@ -37,7 +37,7 @@ min_workspace_count=2
 [network]
 on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar"
 format = "{icon}"
-format_disconnected = ""
+format_disconnected = "󰌙"
 format_ethernet = " "
 interval = 5
 # interface = "wlan0"  # Optional: specify interface
