@@ -128,7 +128,7 @@ tooltip {
 	min-width: 60px;
 
 	&.paused {
-		color: lighten($color: theme.$bg_third, $amount: 30);
+        color: rgba(mix(theme.$fg_main, #888, 60%), 0.65);
 	}
 }
 

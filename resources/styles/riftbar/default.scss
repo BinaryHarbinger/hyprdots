@@ -183,8 +183,8 @@ tooltip {
 	min-width: 90px;
 
 	&.paused {
-		color: theme.$bg_third;
-	}
+	    color: rgba(mix(theme.$fg_main, #888, 60%), 0.65);
+    }
 }
 
 /* QuickCenter Widgets */
