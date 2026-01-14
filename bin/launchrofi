@@ -490,15 +490,22 @@ theme_menu() {
 # Check for flags and validate input
 if [[ $# -ne 1 ]]; then
     if [[ "$1" != "--conf_launcher" ]]; then
-        usage 
-    else
-        pgreep elephant >/dev/null 2>&1 || elephant >/dev/null 2>&1 & disown
-        while ! pidof -x walker; do
-            pgrep walker >/dev/null 2>&1 || walker --gapplication-service >/dev/null 2>&1 & disown && true
-            sleep 0.2
-        done
+        usage
     fi
 fi
+
+case "$1" in
+    --help|-h)
+        ;;
+    *)
+        pgrep elephant >/dev/null 2>&1 || elephant >/dev/null 2>&1 & disown
+        while ! pidof -x walker; do
+            pgrep walker >/dev/null 2>&1 || walker --gapplication-service >/dev/null 2>&1 & disown
+            sleep 0.2
+        done
+        ;;
+esac
+
 
 # Execute the appropriate function based on the provided flag
 case "$1" in
