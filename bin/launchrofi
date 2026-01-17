@@ -15,6 +15,12 @@ usage() {
     exit 1
 }
 
+restart_elephant() {
+    pkill --signal 9 elephant
+    sleep 0.5
+    pgrep elephant >/dev/null 2>&1 || elephant >/dev/null 2>&1 & disown
+}
+
 # Function: DRUN Launcher
 app_launcher() {
     walker
@@ -306,6 +312,8 @@ maintain_menu() {
             ;;
         "󱘡  Clear Clipboard")
             wl-copy --clear
+            rm -rf ~/.cache/elephant/clipboard.gob
+            restart_elephant
             maintain_menu
             ;; 
         *)
