@@ -72,7 +72,7 @@ scroll_step = 5  # Volume change step (percentage)
 [mpris]
 format = "{icon}  {status}"
 format_nothing = "No Media"
-lenght_lim = 0
+length_lim = 0
 interval = 100  # milliseconds
 tooltip = true
 tooltip_format = "{artist}-{title}"
