@@ -98,13 +98,17 @@ tooltip = true
 icon_size = 20
 spacing = 2
 
+[active_window]
+use_class = true
+# no_window_format = ""
+
 # Available format placeholders for battery:
 # {icon} _ Dynamic icon based on capacity and status
 # {capacity} _ Battery percentage
 # {status} _ Battery status (Charging, Discharging, Full, etc.)
 # {time} _ Time remaining/until full
 [boxes.left]
-modules = ["custom/search", "custom/settings", "custom/arch", "custom/seperator", "mpris"]
+modules = ["custom/search", "custom/settings", "custom/arch", "custom/seperator", "active_window"]
 spacing = 2
 
 [boxes.right]
