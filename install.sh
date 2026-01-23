@@ -113,17 +113,9 @@ fi
     fi
 fi
 
-if process "Updating system..." bash -c '
-    if ! paru -Syu --repo --noconfirm >/dev/null 2>&1; then
-        error "System update failed. Try to update manually."
-        exit 1
-    fi
-'; then
-    info "System updated."
-else
-    error "System update failed. Try manually."
-    exit 1
-fi
+info "Updating System..."
+paru -Syu --repo --no-confirm || error "Failed to Update system try manually." && exit 1
+info "System Updated."
 
 # --- Packages ---
 PACKAGES=(
@@ -136,8 +128,8 @@ PACKAGES=(
     mpv mpd mpdris2-rs rmpc
     base-devel
     python-flask python-requests
-    pcmanfm-qt waybar ewwii-bin
-    rofi rofimoji
+    pcmanfm-qt riftbar-bin ewwii-bin
+    walker-bin
 )
 
 PACKAGES_URL="https://raw.githubusercontent.com/BinaryHarbinger/binarydots/refs/heads/main/PACKAGES"
@@ -153,7 +145,7 @@ else
 fi
 
 if confirmation_alt "Install qutebrowser? (Not Recommended) A keyboard-driven, vim-like browser based on Python and Qt"; then
-    if paru -S qutebrowser; then
+    if paru -S --skip-installed qutebrowser; then
         info "Installed qutebrowser."
     else
         error "Failed to install qutebrowser"
