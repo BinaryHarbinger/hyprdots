@@ -7,7 +7,7 @@
 * {
 	all: unset;
 	font-family:
-		"CaskaydiaMono Nerd Font, JetBrainsMono Nerd Font", "Fira Mono";
+		"CaskaydiaMono Nerd Font, JetBrainsMono Nerd Font, M+1 Nerd Font";
 	font-weight: 700;
 	font-size: 12.5px;
 	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -68,15 +68,8 @@ tooltip {
 }
 
 /* Common modules */
-.mpris,
-.clock,
-.network,
-.audio,
-.battery,
-.custom-mako,
-.custom-search,
-.custom-settings,
-.custom-arch {
+.custom-module,
+.module {
 	background-color: theme.$bg_main;
 	border-radius: calc( theme.$border_radb / 1.05);
 	padding: 0px 10px;
@@ -84,7 +77,7 @@ tooltip {
 	transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
 
 	label {
-		font-family: "Symbols Nerd Font", "CaskaydiaMono Nerd Font";
+		font-family: "CaskaydiaMono Nerd Font";
 		font-weight: bold;
 	}
 

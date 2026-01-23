@@ -4,12 +4,19 @@
 * {
   all: unset; //Unsets everything so you can style everything from scratch
   font-weight: 600;
-  font-family: "CaskaydiaMono Nerd Font";
+  font-family: "CaskaydiaMono Nerd Font, M+1 Nerd Font";
   transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .random {
   all: unset;
+}
+
+.window {
+  background-color: c.$bg_main;
+  label {
+    color: c.$fg_main;
+  }
 }
 
 /*// === Bar ===
@@ -277,7 +284,6 @@
 }
 
 .musictitle{
-  font-family: "CaskaydiaMono Nerd Font","Fira Code";
   margin-top: 5px;
   font-size:13px;
   font-weight: 800;
