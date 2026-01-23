@@ -203,7 +203,7 @@ default_apps_menu() {
 
 settings_menu() {
     # Menu options displayed in Walker
-    options="󰌍\n  Activate Linux\n  Reload Shell\n  Set Default Apps\n󰌁  Customize Rice\n󰚰  Update Binarydots"
+    options="󰌍\n  Activate Linux\n  Reload Shell\n  Sound Settings\n  Set Default Apps\n󰌁  Customize Rice\n󰚰  Update Binarydots"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
@@ -228,8 +228,11 @@ settings_menu() {
             makoctl reload   
             settings_menu
             ;;
+        "  Sound Settings")
+            nohup foot --override=colors.alpha=1 --app-id=binarydotsTUI -e wiremix >/dev/null 2>&1 &
+            ;;
         "  Set Default Apps")
-           default_apps_menu 
+            default_apps_menu 
             ;;
         "󰌁  Customize Rice")
             customize_menu
