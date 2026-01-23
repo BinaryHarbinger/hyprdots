@@ -182,7 +182,7 @@ tooltip {
 	margin: 0px 8px;
 	min-width: 90px;
 
-	&.paused {
+	&.paused, &.stopped {
 	    color: rgba(mix(theme.$fg_main, #888, 60%), 0.65);
     }
 }
