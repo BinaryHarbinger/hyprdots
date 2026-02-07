@@ -1,0 +1,27 @@
+* {
+    border-color:               #2D2F49;
+    selected-normal-foreground: #C6CBF7;
+    normal-foreground:          #C6CBF7;
+    selected-normal-background: #2b2b42;
+    normal-background:          #1A1B29;
+    bg-selected:                #2b2b42;
+    input-bar-bg:               #272A3A;
+    background-color:           #1A1B29;
+    lightred:                   rgba ( 204, 85, 51, 100 % );
+    font:                       "JetbrainsMono Nerd Font 15";
+    dark:                       rgba ( 28, 28, 28, 100 % );
+    transparent:                transparent;
+    background-alt:             #26263d;
+    selected:                   #2E2F44;
+    background:                 #272A3A;
+    foreground:                 #C6CBF7;
+    foreground-alt:             #C6CBF7;
+    border-radius:              4px;
+    border-radius-win:          10px;
+    border-selected:            var(foreground);
+    location-var:               center;
+    anchor-var:                 center;
+    width-var:                  440px;
+    list-font:                  inherit;
+    lines-var:                  10;
+}
