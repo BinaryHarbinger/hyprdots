@@ -96,8 +96,7 @@
         queue: {
             "D":       DeleteAll,
             "<CR>":    Play,
-            "<C-s>":   Save,
-            "a":       AddToPlaylist,
+            "S":       Save,
             "d":       Delete,
             "C":       JumpToCurrent,
             "X":       Shuffle,
