@@ -67,7 +67,7 @@ change_theme () {
     fi
 
     sed -i "s/^THEME_VAR=\"[^\"]*\"/THEME_VAR=\"$SCHEME\"/" ~/.zshrc
-    if [ -f "$HOME/.config/nvim/lua/core/options.lua" ]; then    
+    if [ -f "$HOME/.config/nvim/lua/core/options.lua" ]; then 
         sed -i "s/vim\.cmd(\"colorscheme .*\")/vim.cmd(\"colorscheme $SCHEME\")/" ~/.config/nvim/lua/core/options.lua
     fi
 
