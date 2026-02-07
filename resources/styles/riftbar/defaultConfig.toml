@@ -6,15 +6,13 @@ modules_center = ["hyprland/workspaces"]
 modules_right = ["box/right","custom/mako"]
 
 [bar]
-height = 30
 position = "top"  # top, bottom
 layer = "top"     # background, bottom, top, overlay
-spacing = 10
 
 # Clock module configuration
 [clock]
 format = " %H:%M"
-interval = 1  # seconds
+interval = 5000  # milliseconds
 tooltip = true
 tooltip_format = "%d %B %Y"
 on_click = "ewwii open calendar --toggle --no-daemonize & ewwii close on_clickcenter musiccenter"  # Optional: command to run on click
@@ -31,7 +29,7 @@ on_click = "ewwii open calendar --toggle --no-daemonize & ewwii close on_clickce
 # %Y _ Year with century
 
 [workspaces]
-workspace_count=4
+min_workspace_count=4
 
 # Network module configuration
 [network]
@@ -40,16 +38,7 @@ format = "{icon}"
 format_disconnected = "󰌙"
 format_ethernet = " "
 interval = 5
-# interface = "wlan0"  # Optional: specify interface
 tooltip = true
-
-# Available format placeholders for network:
-# {icon} _ Dynamic icon based on signal strength
-# {essid} _ WiFi network name
-# {signalStrength} _ Signal strength (0_100)
-# {signalStrengthApp} _ Signal strength with % symbol
-# {ifname} _ Interface name
-# {ipaddr} _ IP address
 
 # Audio module configuration
 [audio]
@@ -57,16 +46,11 @@ format = "{icon}"
 format_muted = "{icon}"
 interval = 100  # milliseconds
 tooltip = true
-# Custom on_clicks (leave empty for default behavior)
-on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar" # Default: toggle mute
+on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar" 
 on_click_right = "nohup foot --override=colors.alpha=1 --app-id=binarydotsTUI -e wiremix >/dev/null 2>&1 &"
-on_scroll_up = ""  # Default: increase volume by scroll_step
-on_scroll_down = ""  # Default: decrease volume by scroll_step
-scroll_step = 5  # Volume change step (percentage)
-
-# Available format placeholders for audio:
-# {icon} _ Dynamic icon based on volume level
-# {volume} _ Volume percentage (0_100)
+on_scroll_up = ""
+on_scroll_down = ""
+scroll_step = 5 
 
 # MPRIS (Media Player) configuration
 [mpris]
@@ -77,31 +61,18 @@ interval = 100  # milliseconds
 tooltip = true
 tooltip_format = "{artist}-{title}"
 
-# Available format placeholders for mpris:
-# {icon} _ Dynamic icon based on playback state
-# {artist} _ Artist name
-# {title} _ Song title
-# {album} _ Album name
-# {status} _ Playback status (Playing, Paused, Stopped)
-
 # Battery configuration
 [battery]
 format = "{icon}"
-format_charging = "{icon}"
+charging_icon = "󰂄"
 on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar"
 interval = 30
-# battery = "BAT0"  # Optional: specify battery (default: auto_detect)
 tooltip = true
 
 [tray]
 icon_size = 20
 spacing = 2
 
-# Available format placeholders for battery:
-# {icon} _ Dynamic icon based on capacity and status
-# {capacity} _ Battery percentage
-# {status} _ Battery status (Charging, Discharging, Full, etc.)
-# {time} _ Time remaining/until full
 [boxes.left]
 modules = ["custom/search", "custom/settings", "custom/arch", "mpris"]
 spacing = 2
@@ -109,14 +80,12 @@ spacing = 2
 [boxes.right]
 modules = ["revealer/tray","box/quicksettings", "clock"]
 
-# Box widgets _ simple containers
 [boxes.quicksettings]
 modules = ["network", "audio", "battery"]
 on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar"
 spacing = 5
 orientation = "horizontal"  # horizontal or vertical (default: horizontal)
 
-# Revealer widgets _ containers that reveal on hover or click
 [revealers.tray]
 modules = ["tray"]
 spacing = 10
@@ -129,21 +98,15 @@ reveal_on_hover = false  # Reveal on hover instead of click
 # Custom modules
 [custom_modules.search]
 on_click = "~/Dotfiles/bin/launchrofi --drun"
-exec = "echo ''"
-interval = 999999
-format = "{} "
+format = " "
 
 [custom_modules.settings]
 on_click = "~/Dotfiles/bin/launchrofi -sm"
-exec = "echo ''"
-interval = 999999
-format = "{} "
+format = " "
 
 [custom_modules.arch]
 on_click = "~/Dotfiles/bin/launchrofi --menu"
-exec = "echo ''"
-interval = 999999
-format = "{} "
+format = " "
 
 [custom_modules.mako]
 on_click = "bash ~/Dotfiles/config/mako/scripts/walker.sh"
