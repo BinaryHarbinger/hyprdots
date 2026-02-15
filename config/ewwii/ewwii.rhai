@@ -1,7 +1,16 @@
 import "style.rhai" as style_file;
 import "desktop_widgets.rhai" as desktop_widgets;
+import "settings.rhai" as settings_file;
 
 import "std::command" as cmd;
+
+fn session_menu () {
+   flowbox(#{class: "status", focusable: true, can_target: true}, [
+        label(#{text: "Deneme", style: "&:selected {background: #fff}"}),
+        label(#{text: "Deneme"})
+
+   ]) 
+}
 
 fn mini_player(musicartlink, music_title, music_position,
 music_position_percentage, music_loop,
@@ -255,12 +264,9 @@ fn status_scales(volume, brightness) {
 ; 
 }
 
-enter([
+tree([
     
     poll("musictitle", #{
-      // It is recommended to have initial property passed.
-      // If not provided, it will default to no value which may cause problems when used.
-      // You can pass something like "" if you want no initial value.
       initial: "No Media",
       interval: "2",
       cmd: "playerctl metadata --format '{{ title }}' | cut -c1-30", // command to execute"
@@ -286,7 +292,7 @@ enter([
 
   poll("cafein_status", #{
       initial: "yes",
-      interval: "5",
+      interval: "3",
       cmd: `pid=$(pgrep hypridle | head -n1); if [ -z "$pid" ]; then echo "no-process"; else echo "$pid"; fi`, // command to execute"
   }),
 
@@ -385,7 +391,7 @@ enter([
 
 ]);
 
-enter([ 
+tree([ 
   // Desktop Music Player Window
   defwindow(
     "desktopmusic",
@@ -455,23 +461,64 @@ enter([
   ]),
 
   ),
-defwindow(
-    "status",
-    #{
-      monitor: 0,
-      class: "random",
-      windowtype: "normal",
-      stacking: "bg",
-       geometry: #{
-        x: "1%",
-        y: "1.4%",
-        width: "16.2%",
-        height: "10%",
-        anchor: "bottom left",
-      },
-    },
-    box(#{class: "status"}, [status_scales(volume, brightness)]),
+    
+    // Settings window
+    defwindow(
+        "settings_window",
+        #{
+            monitor: 0,
+            class: "window",
+            windowtype: "normal",
+            force_normal: true,
+            stacking: "fg",
+            geometry: #{
+                x: "1%",
+                y: "1.4%",
+            width: "16.2%",
+            height: "10%",
+            anchor: "center",
+        },
+        },
+        settings_file::settings_menu(), 
     ),
+
+    // Session options window
+    defwindow(
+        "session_menu_window",
+        #{
+            monitor: 0,
+            class: "random",
+            windowtype: "dialog",
+            stacking: "fg",
+            geometry: #{
+                x: "1%",
+                y: "1.4%",
+            width: "16.2%",
+            height: "10%",
+            anchor: "center",
+        },
+        },
+        session_menu()    
+    ),
+    // Status widget window
+    defwindow(
+        "status",
+        #{
+            monitor: 0,
+            class: "random",
+            windowtype: "normal",
+            stacking: "bg",
+            geometry: #{
+                x: "1%",
+                y: "1.4%",
+            width: "16.2%",
+            height: "10%",
+            anchor: "bottom left",
+        },
+        },
+            box(#{class: "status"}, [status_scales(volume, brightness)]),
+    ),
+
     defwindow(
     "deskclock",
     #{

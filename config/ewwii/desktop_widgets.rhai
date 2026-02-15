@@ -1,6 +1,6 @@
 import "std::command" as cmd;
 
-enter([
+tree([
   poll("musictitle", #{
       // It is recommended to have initial property passed.
       // If not provided, it will default to no value which may cause problems when used.
@@ -11,7 +11,7 @@ enter([
   }),
 ]);
 
-enter([ 
+tree([ 
   // Desktop Music Player Window
   defwindow(
     "desktopmusic",
