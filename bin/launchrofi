@@ -15,11 +15,11 @@ usage() {
     exit 1
 }
 
-restart_elephant() {
-    pkill --signal 9 elephant
-    sleep 0.5
-    pgrep elephant >/dev/null 2>&1 || elephant >/dev/null 2>&1 & disown
-}
+# restart_elephant() {
+#    pkill --signal 9 elephant
+#    sleep 0.5
+#    pgrep elephant >/dev/null 2>&1 || elephant >/dev/null 2>&1 & disown
+# }
 
 # Function: DRUN Launcher
 app_launcher() {
@@ -317,9 +317,13 @@ maintain_menu() {
             maintain_menu
             ;;
         "󱘡  Clear Clipboard")
+            bash -c '
             wl-copy --clear
             rm -rf ~/.cache/elephant/clipboard.gob
-            restart_elephant
+            pkill --signal 9 elephant
+            sleep 0.5
+            pgrep elephant >/dev/null 2>&1 || elephant >/dev/null 2>&1 & disown
+            ' >/dev/null 2>&1 & disown
             maintain_menu
             ;; 
         *)
