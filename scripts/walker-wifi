@@ -84,7 +84,7 @@ else
 		nmcli con up "$CHSSID"
 	else
 		if [[ "$CHENTRY" =~ "WPA2" ]] || [[ "$CHENTRY" =~ "WEP" ]]; then
-			WIFIPASS=$(echo "if connection is stored, hit enter" | walker -d -p "Super Secret Password" )
+			WIFIPASS=$(echo "if connection is stored, hit enter" | walker --password -d -p "Super Secret Password")
 		fi
 		nmcli dev wifi con "$CHSSID" password "$WIFIPASS"
 	fi
