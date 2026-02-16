@@ -2,6 +2,9 @@ source $HOME/.config/zsh/ewwiicomp.zsh
 
 unalias -m '*'
 
+if command -v ani-cli >/dev/null 2>&1; then
+    alias ac=ani-cli
+fi
 
 if command -v sudo-rs >/dev/null 2>&1; then
     alias sudo=sudo-rs
