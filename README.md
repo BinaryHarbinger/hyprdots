@@ -18,7 +18,7 @@
 - Powerfull system menu (SUPER + U)
 - System wide themes
 - Aesthetic widgets powered by <a href="https://github.com/Ewwii-sh/ewwii/tree/main">ewwii</a>
-- Auto-install script (designed for Arch-based distros)
+- Auto-install script (designed for Arch-based and Debian (experimental) distros)
 - Git based update system
 
 ## BinaryDots are powered by 
@@ -92,8 +92,9 @@
 
 ## Requirements
 
-
-**Recommended base**: Arch Linux or Arch-based distro (EndeavourOS, Manjaro, etc.).
+**Recommended base**: Arch Linux or Debian based distro (EndeavourOS, Manjaro, LMDE, Ubuntu etc.).
+> [!WARNING]
+> Debian support is experimental!
 
 **Optional/hardware**:
 - NVIDIA users: proprietary `nvidia-dkms` often required.
@@ -102,14 +103,16 @@
 ## How to install?
 
 > [!WARNING]
-> Using [Chaotic AUR](https://aur.chaotic.cx/docs) is highly recommended!
+> Using [Chaotic AUR](https://aur.chaotic.cx/docs) with Arch base is highly recommended.
+> Using Debian 13 (latest release for now) is highly recommended. 
+
 
 Run this command to install:
 ```
 curl -fsSL -o install.sh https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/install.sh && chmod +x install.sh && ./install.sh
 ```
 
-# Installing manualy (For non-Arch based distros)
+# Installing manualy (For non-Arch or Debian based distros)
 
 > [!WARNING]
 > I don't really recommend installing manually or using with non-Arch based distros.

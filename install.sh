@@ -25,14 +25,51 @@ check_dep() {
         echo -e "${RED}✖'$1' is not installed.${RESET}"
         return 1
     fi
+    return 0
 }
 
+get_distro_normals() {
+    . /etc/os-release
+
+    case "$ID ${ID_LIKE:-}" in
+        *arch*)
+            PKG_MANAGER="pacman"
+            PKG_INSTALL="paru -S --needed"
+            PKG_UPDATE="paru -Syu"
+            DISTRO="arch"
+            ;;
+        *debian*|*ubuntu*)
+            PKG_MANAGER="apt"
+            PKG_INSTALL="apt install -y"
+            PKG_UPDATE="apt update && apt upgrade -y"
+            DISTRO="debian"
+            ;;
+        *)
+            PKG_INSTALL=""
+            PKG_UPDATE=""
+            DISTRO="unknown"
+            echo "Your distro isn't supported. Exiting install"
+            exit 1
+            ;;
+    esac
+}
+
+get_distro_normals()
 
 # --- Gum check & install ---
 if ! check_dep gum; then
     echo -e "${BLUE}Installing gum...${RESET}"
-    if ! sudo pacman -S --noconfirm gum; then
-        echo -e "${RED}✖ Failed to install gum. Please install it manually. ${RESET}"
+
+    if [[ "$DISTRO" == "arch" ]]; then
+        sudo pacman -S --noconfirm gum
+    else
+        sudo $PKG_INSTALL gum
+    fi
+
+    if [[ $? -eq 0 ]]; then
+        echo -e "${GREEN}➤ Installed gum.${RESET}"
+    else
+        echo -e "${RED}✖ Failed to install gum. Please install it manually.${RESET}"
         exit 1
     fi
 fi
@@ -42,10 +79,8 @@ confirmation() {
     shift
 
     if [ -t 1 ]; then
-        # TTY var, renk seçenekleri olmadan çalıştır
         gum confirm "$title"
     else
-        # TTY yok, renkli seçeneklerle çalıştır
         gum confirm "$title" --selected.background="100" --prompt.foreground="1000"
     fi
 }
@@ -55,10 +90,8 @@ confirmation_alt() {
     shift
 
     if [ -t 1 ]; then
-        # TTY var, renk seçenekleri olmadan
         gum confirm "$title"
     else
-        # TTY yok, renkli seçeneklerle
         gum confirm "$title" --selected.background="75" --prompt.foreground="1000"
     fi
 }
@@ -92,33 +125,32 @@ echo -e "   Binary Harbinger's Hyprland dotfiles\n\n"
 confirmation "Proceed with setup?" || exit 0
 
 # --- Update system ---
-if ! check_dep paru; then
-    
-    if confirmation "Install paru?"; then
-        info "Installing dependecies..."
-        sudo pacman -S --needed base-devel git rust
-        if [ ! -d "paru" ]; then
-        process "Cloning paru repository..." git clone https://aur.archlinux.org/paru.git || error "Failed to clone paru"
-fi
-        info "Building package..."
-        cd paru
-        makepkg -si
-        cd ..
-        rm -rf paru
-        info "Package (paru) installed."
-    else
-        error "Aborting setup."
-        rm -rf paru 
-        exit 1
+if ! check_dep "$PKG_MANAGER"; then
+    if confirmation "Update system?"; then
+        info "Updating system..."
+        ($PKG_UPDATE && info "Updated system with no errors") || (error "Failed to update system! Please try mannually." && exit $1)
+    if [[ $DISTRO == "arch" ]] && ! check_dep paru && confirmation "Install paru?"; then
+        if ! check_dep paru && confirmation "Install paru?"; then
+            info "Installing dependecies..."
+            sudo pacman -S --needed base-devel git rust
+            if [ ! -d "paru" ]; then
+                process "Cloning paru repository..." git clone https://aur.archlinux.org/paru.git || error "Failed to clone paru"
+            fi
+            info "Building package..."
+            cd paru
+            makepkg -si
+            cd ..
+            rm -rf paru
+            info "Package (paru) installed."
+        else
+            error "Aborting setup."
+            rm -rf paru 
+            exit 1
     fi
 fi
 
-info "Updating System..."
-paru -Syu --repo --no-confirm || error "Failed to Update system try manually." && exit 1
-info "System Updated."
-
 # --- Packages ---
-PACKAGES=(
+ARCH_PACKAGES=(
     breeze nwg-look qt6ct papirus-icon-theme bibata-cursor-theme catppuccin-gtk-theme-mocha
     ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-fira-code ttf-firacode-nerd otf-fira-code-symbol ttf-material-design-iconic-font ttf-cascadia-mono-nerd noto-fonts-cjk
     yazi wiremix fzf
@@ -132,12 +164,12 @@ PACKAGES=(
     walker-bin
 )
 
-PACKAGES_URL="https://raw.githubusercontent.com/BinaryHarbinger/binarydots/refs/heads/main/PACKAGES"
+ARCH_PACKAGES_URL="https://raw.githubusercontent.com/BinaryHarbinger/binarydots/refs/heads/main/ARCH_PACKAGES"
 
-PACKAGES=($(curl -s "$PACKAGES_URL")) || true
+ARCH_PACKAGES=($(curl -s "$ARCH_PACKAGES_URL")) || true
 
 # --- Install packages ---
-if ! paru -S --needed "${PACKAGES[@]}"; then
+if ! $PKG_INSTALL "${ARCH_PACKAGES[@]}"; then
     error "Package installation failed."
     exit 1
 else
@@ -145,7 +177,7 @@ else
 fi
 
 if confirmation_alt "Install qutebrowser? (Not Recommended) A keyboard-driven, vim-like browser based on Python and Qt"; then
-    if paru -S --skip-installed qutebrowser; then
+    if $PKG_INSTALL qutebrowser; then
         info "Installed qutebrowser."
     else
         error "Failed to install qutebrowser"
@@ -157,7 +189,7 @@ NVIDIGPU="yes"
 if lspci | grep -qi 'NVIDIA'; then
     info "NVIDIA GPU detected."
     if ! pacman -Qi nvidia-dkms >/dev/null 2>&1; then
-        process "Installing nvidia-dkms (required for NVIDIA GPUs)..." paru -S --noconfirm --needed nvidia-dkms || error "Failed to install 'nvidia-dkms'. Please install manually" 
+        process "Installing nvidia-dkms (required for NVIDIA GPUs)..." $PKG_INSTALL nvidia-dkms || error "Failed to install 'nvidia-dkms'. Please install manually" 
         info "nvidia-dkms installed successfully."
     else
         info "nvidia-dkms already installed."
@@ -319,7 +351,7 @@ if [ "$current_shell" != "/usr/bin/zsh" ] && [ "$current_shell" != "/bin/zsh" ];
 
             info "Configured ZSH."
             if confirmation_alt "Install some rust utils? (Recommended)"; then
-                if process "Installing rust utilities" paru -S --needed --noconfirm eza sudo-rs bat ripgrep sd fd ; then
+                if process "Installing rust utilities" $PKG_INSTALL eza sudo-rs bat ripgrep sd fd ; then
                     info "Successfully installed rust utils." 
                 else
                     error "Failed to install rust utilities."
