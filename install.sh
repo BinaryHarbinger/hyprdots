@@ -150,7 +150,7 @@ if ! check_dep "$PKG_MANAGER"; then
 fi
 
 # --- Packages ---
-ARCH_PACKAGES=(
+PACKAGES=(
     breeze nwg-look qt6ct papirus-icon-theme bibata-cursor-theme catppuccin-gtk-theme-mocha
     ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-fira-code ttf-firacode-nerd otf-fira-code-symbol ttf-material-design-iconic-font ttf-cascadia-mono-nerd noto-fonts-cjk
     yazi wiremix fzf
@@ -164,12 +164,12 @@ ARCH_PACKAGES=(
     walker-bin
 )
 
-ARCH_PACKAGES_URL="https://raw.githubusercontent.com/BinaryHarbinger/binarydots/refs/heads/main/ARCH_PACKAGES"
+PACKAGES_URL="https://raw.githubusercontent.com/BinaryHarbinger/binarydots/refs/heads/main/${DISTRO^^}_PACKAGES"
 
-ARCH_PACKAGES=($(curl -s "$ARCH_PACKAGES_URL")) || true
+PACKAGES=($(curl -s "$PACKAGES_URL")) || true
 
 # --- Install packages ---
-if ! $PKG_INSTALL "${ARCH_PACKAGES[@]}"; then
+if ! $PKG_INSTALL "${PACKAGES[@]}"; then
     error "Package installation failed."
     exit 1
 else

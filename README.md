@@ -104,7 +104,7 @@
 
 > [!WARNING]
 > Using [Chaotic AUR](https://aur.chaotic.cx/docs) with Arch base is highly recommended.
-> Using Debian 13 (latest release for now) is highly recommended. 
+> Using Debian sid is highly recommended. 
 
 
 Run this command to install:
