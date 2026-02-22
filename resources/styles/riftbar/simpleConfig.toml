@@ -15,7 +15,7 @@ format = " %H:%M"
 interval = 5000  # milliseconds
 tooltip = true
 tooltip_format = "%d %B %Y"
-on_click = "ewwii open calendar --toggle --no-daemonize & ewwii close on_clickcenter musiccenter"  # Optional: command to run on click
+on_click = "ewwii open calendar --toggle --no-daemonize & ewwii close on_clickcenter musiccenter"
 
 # Available format placeholders (uses date command format):
 # %H _ Hour (00_23)
