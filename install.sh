@@ -56,6 +56,26 @@ get_distro_normals() {
 
 get_distro_normals()
 
+install_from_repo() {
+    local app_name="${1:?Usage: install_from_repo <app_name>}"
+    local cache_dir="$HOME/.cache"
+    local url="https://github.com/BinaryHarbinger/riftbar/releases/latest/download/${app_name}-x86_64"
+
+    mkdir -p "$cache_dir"
+
+    local tmp_file="$cache_dir/${app_name}-x86_64"
+
+    info "Downloading $app_name..."
+    curl -fL -o "$tmp_file" "$url" || return 1
+
+    chmod +x "$tmp_file"
+
+    info "Installing to /usr/local/bin/$app_name ..."
+    sudo mv "$tmp_file" "/usr/local/bin/$app_name"
+
+    echo "Done."
+}
+
 # --- Gum check & install ---
 if ! check_dep gum; then
     echo -e "${BLUE}Installing gum...${RESET}"
@@ -174,6 +194,10 @@ if ! $PKG_INSTALL "${PACKAGES[@]}"; then
     exit 1
 else
     info "Installed packages."    
+fi
+
+if [[ "$DISTRO" != "arch"]]; then
+   install_from_repo riftbar
 fi
 
 if confirmation_alt "Install qutebrowser? (Not Recommended) A keyboard-driven, vim-like browser based on Python and Qt"; then
