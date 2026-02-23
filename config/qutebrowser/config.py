@@ -145,11 +145,14 @@ c.content.autoplay = False
 
 c.editor.command = ["nvim", "-f", "{file}", "-c", "normal {line}G{column0}l"]
 
-# Bindings
+# Bindings and aliases
 config.bind("<Ctrl-Tab>", "tab-next")
 config.bind("<Ctrl-Shift-Tab>", "tab-prev")
 config.bind('M', "spawn --detach mpv --ytdl-format='bestvideo+bestaudio' {url}")
-
+c.aliases['bd'] = 'tab-close'
+c.aliases['bn'] = 'tab-next'
+c.aliases['bp'] = 'tab-prev'
+c.aliases['dc'] = 'download-clear'
 
 # Dark Mode
 c.colors.webpage.darkmode.enabled = True
