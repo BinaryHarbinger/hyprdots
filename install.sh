@@ -17,12 +17,12 @@ RESET=$(tput sgr0)
 # --- Get sudo password ---
 echo "Enter your sudo password:"
 sudo echo
-echo -e "${GREEN}➤ Succses. ${RESET}"
+echo -e "${GREEN}➤ Success. ${RESET}"  
 
-# --- Dependency check --
+# --- Dependency check ---
 check_dep() {
     if ! command -v "$1" >/dev/null 2>&1; then
-        echo -e "${RED}✖'$1' is not installed.${RESET}"
+        echo -e "${RED}✖ '$1' is not installed.${RESET}"
         return 1
     fi
     return 0
@@ -54,12 +54,13 @@ get_distro_normals() {
     esac
 }
 
-get_distro_normals()
+get_distro_normals
 
 install_from_repo() {
-    local app_name="${1:?Usage: install_from_repo <app_name>}"
+    local app_name="${1:?Usage: install_from_repo <app_name> <owner_name>}"
+    local owner_name="${2:?Usage: install_from_repo <app_name> <owner_name>}"
     local cache_dir="$HOME/.cache"
-    local url="https://github.com/BinaryHarbinger/riftbar/releases/latest/download/${app_name}-x86_64"
+    local url="https://github.com/${owner_name}/${app_name}/releases/latest/download/${app_name}-x86_64"
 
     mkdir -p "$cache_dir"
 
@@ -116,13 +117,12 @@ confirmation_alt() {
     fi
 }
 
-
 info() { gum style --foreground "#49A22C" -- <<< "➤ $1"; }
 
 process() {
     local title="$1"
     shift
-    gum spin --spinner dot --title "$title" -- "$@" 
+    gum spin --spinner dot --title "$title" -- "$@"
 }
 
 error() { gum style --foreground "#FF5555" -- <<< "✖ $1"; }
@@ -145,13 +145,15 @@ echo -e "   Binary Harbinger's Hyprland dotfiles\n\n"
 confirmation "Proceed with setup?" || exit 0
 
 # --- Update system ---
-if ! check_dep "$PKG_MANAGER"; then
+if check_dep "$PKG_MANAGER"; then
     if confirmation "Update system?"; then
         info "Updating system..."
-        ($PKG_UPDATE && info "Updated system with no errors") || (error "Failed to update system! Please try mannually." && exit $1)
-    if [[ $DISTRO == "arch" ]] && ! check_dep paru && confirmation "Install paru?"; then
-        if ! check_dep paru && confirmation "Install paru?"; then
-            info "Installing dependecies..."
+        ($PKG_UPDATE && info "Updated system with no errors") || (error "Failed to update system! Please try manually." && exit 1)
+    fi
+
+    if [[ $DISTRO == "arch" ]] && ! check_dep paru; then
+        if confirmation "Install paru?"; then
+            info "Installing dependencies..." 
             sudo pacman -S --needed base-devel git rust
             if [ ! -d "paru" ]; then
                 process "Cloning paru repository..." git clone https://aur.archlinux.org/paru.git || error "Failed to clone paru"
@@ -164,8 +166,9 @@ if ! check_dep "$PKG_MANAGER"; then
             info "Package (paru) installed."
         else
             error "Aborting setup."
-            rm -rf paru 
+            rm -rf paru
             exit 1
+        fi
     fi
 fi
 
@@ -186,18 +189,19 @@ PACKAGES=(
 
 PACKAGES_URL="https://raw.githubusercontent.com/BinaryHarbinger/binarydots/refs/heads/main/${DISTRO^^}_PACKAGES"
 
-PACKAGES=($(curl -s "$PACKAGES_URL")) || true
+# Only replaces if curl succeeds
+FETCHED=($(curl -s "$PACKAGES_URL")) && PACKAGES=("${FETCHED[@]}") || true
 
 # --- Install packages ---
 if ! $PKG_INSTALL "${PACKAGES[@]}"; then
     error "Package installation failed."
     exit 1
 else
-    info "Installed packages."    
+    info "Installed packages."
 fi
 
-if [[ "$DISTRO" != "arch"]]; then
-   install_from_repo riftbar
+if [[ "$DISTRO" != "arch" ]]; then
+    install_from_repo riftbar binaryharbinger
 fi
 
 if confirmation_alt "Install qutebrowser? (Not Recommended) A keyboard-driven, vim-like browser based on Python and Qt"; then
@@ -213,13 +217,13 @@ NVIDIGPU="yes"
 if lspci | grep -qi 'NVIDIA'; then
     info "NVIDIA GPU detected."
     if ! pacman -Qi nvidia-dkms >/dev/null 2>&1; then
-        process "Installing nvidia-dkms (required for NVIDIA GPUs)..." $PKG_INSTALL nvidia-dkms || error "Failed to install 'nvidia-dkms'. Please install manually" 
+        process "Installing nvidia-dkms (required for NVIDIA GPUs)..." $PKG_INSTALL nvidia-dkms || error "Failed to install 'nvidia-dkms'. Please install manually"
         info "nvidia-dkms installed successfully."
     else
         info "nvidia-dkms already installed."
     fi
 else
-NVIDIGPU="no"
+    NVIDIGPU="no"
 fi
 
 # --- Clone dotfiles ---
@@ -227,19 +231,18 @@ fi
 if [ ! -d "./config" ]; then
     [ -d "$HOME/Dotfiles.old" ] && rm -rf "$HOME/Dotfiles.old" || true
     [ -d "$HOME/Dotfiles" ] && mv ~/Dotfiles ~/Dotfiles.old || true
-    
+
     REPO_URL="https://github.com/BinaryHarbinger/binarydots.git"
     PROXY_URL="https://gh-proxy.com/$REPO_URL"
 
     process "Cloning binarydots repository..." git clone "$PROXY_URL" ~/Dotfiles
     if [ $? -ne 0 ]; then
         echo "Proxy failed, trying direct GitHub clone..."
-        process "Cloning binarydots repository (direct)..." git clone "$REPO_URL" || { 
+        process "Cloning binarydots repository (direct)..." git clone "$REPO_URL" || {
             error "Failed to clone repository."
             exit 1
         }
     fi
-
 
     info "Cloned Repository."
 
@@ -257,7 +260,7 @@ mkdir -p "$HOME/dots.old"
 
 folders=(
     "binarydots" "cava" "ewwii" "fastfetch" "foot" "gtk-3.0" "gtk-4.0"
-    "hypr" "mako" "mpd" "mpv" "pcmanfm-qt" "nwg-look" "qt6ct" 
+    "hypr" "mako" "mpd" "mpv" "pcmanfm-qt" "nwg-look" "qt6ct"
     "qutebrowser" "rmpc" "walker" "riftbar" "wiremix" "yazi"
     "zsh"
 )
@@ -289,12 +292,10 @@ chmod +x \
 info "Linked scripts and config files."
 
 if [ "$NVIDIGPU" != 'yes' ]; then
-  if confirmation_alt "Is your main monitor external?"; then
-    sed -i 's/^env = AQ_DRM_DEVICES,\/dev\/dri\/card0:\/dev\/dri\/card1/#&/' ~/.config/hypr/hyprland.conf
-  fi
+    if confirmation_alt "Is your main monitor external?"; then
+        sed -i 's/^env = AQ_DRM_DEVICES,\/dev\/dri\/card0:\/dev\/dri\/card1/#&/' ~/.config/hypr/hyprland.conf
+    fi
 fi
-
-
 
 # --- Polkit agent ---
 process "Setting up polkit agent..." systemctl --user enable --now hyprpolkitagent.service
@@ -310,8 +311,8 @@ fi
 if confirmation_alt "Set up MPD? (Not Recommended for new users)"; then
     process "Setting Up MPD" bash -c '
 
-    systemctl --user enable mpd 
-    
+    systemctl --user enable mpd
+
     systemctl --user start mpd
     '
 
@@ -321,8 +322,8 @@ if confirmation_alt "Set up MPD? (Not Recommended for new users)"; then
         error "MPD setup failed"
     fi
 else
-    rm -rf ~/.config/rmpc/ 
-    rm -rf ~/.config/mpd/ 
+    rm -rf ~/.config/rmpc/
+    rm -rf ~/.config/mpd/
     if [ -d "$HOME/dots.old/rmpc" ]; then
         cp -r "$HOME/dots.old/rmpc" "$HOME/.config/" > /dev/null 2>&1
     fi
@@ -351,32 +352,30 @@ if [ "$current_shell" != "/usr/bin/zsh" ] && [ "$current_shell" != "/bin/zsh" ];
             info "Default shell changed to zsh."
 
             if [ ! -d "$HOME/.oh-my-zsh" ]; then
-                sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
-            fi            
+                sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+            fi
             CUSTOM_PLUGIN_DIR="$HOME/.oh-my-zsh/custom/plugins"
             mkdir -p "$CUSTOM_PLUGIN_DIR"
             declare -A plugins
             plugins=(
-            [zsh-autosuggestions]="https://github.com/zsh-users/zsh-autosuggestions.git"
-            [zsh-syntax-highlighting]="https://github.com/zsh-users/zsh-syntax-highlighting.git"
-            [rust]="https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/rust.git"
+                [zsh-autosuggestions]="https://github.com/zsh-users/zsh-autosuggestions.git"
+                [zsh-syntax-highlighting]="https://github.com/zsh-users/zsh-syntax-highlighting.git"
             )
 
             # Clone each plugin silently
             for plugin in "${!plugins[@]}"; do
-            PLUGIN_DIR="$CUSTOM_PLUGIN_DIR/$plugin"
+                PLUGIN_DIR="$CUSTOM_PLUGIN_DIR/$plugin"
                 if [ ! -d "$PLUGIN_DIR" ]; then
                     git clone -q "${plugins[$plugin]}" "$PLUGIN_DIR" > /dev/null 2>&1
                 fi
             done
-            
 
             ln -sf ~/Dotfiles/home/.zshrc $HOME/.zshrc
 
             info "Configured ZSH."
             if confirmation_alt "Install some rust utils? (Recommended)"; then
-                if process "Installing rust utilities" $PKG_INSTALL eza sudo-rs bat ripgrep sd fd ; then
-                    info "Successfully installed rust utils." 
+                if process "Installing rust utilities" $PKG_INSTALL eza sudo-rs bat ripgrep sd fd; then
+                    info "Successfully installed rust utils."
                 else
                     error "Failed to install rust utilities."
                 fi
@@ -396,24 +395,23 @@ python ~/.config/hypr/scripts/wallpapers.py changeWallpaper Lines >/dev/null 2>&
 if pgrep Hyprland >/dev/null; then
     info "Detected Hyprland session."
 
-   process "Reloading Components..." bash -c '
-    
+    process "Reloading Components..." bash -c '
+
     pkill waybar >/dev/null 2>&1 & disown
-    
+
     # swww-daemon restart
     if pgrep swww-daemon >/dev/null; then
         pkill swww-daemon
         sleep 0.5
-    fi 
+    fi
 
     # ewwii restart
     if pgrep ewwii >/dev/null; then
         killall ewwii
         ewwii daemon >/dev/null 2>&1 & disown
-        for widget in "status" "desktopmusic" ; do
+        for widget in "status" "desktopmusic"; do
             ewwii open "$widget" >/dev/null 2>&1 &
         done
-
     fi
     setsid swww-daemon >/dev/null 2>&1 &
     hyprctl reload'
@@ -427,4 +425,4 @@ process "Cleaning up..." rm -rf binarydots
 info "Cleaned."
 
 $HOME/Dotfiles/bin/change-theme -c Binary >> /dev/null
-echo -e  "${GREEN}✅ Installation complete!"
+echo -e "${GREEN}✅ Installation complete!"
