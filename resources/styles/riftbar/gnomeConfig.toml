@@ -1,6 +1,6 @@
 # Riftbar Configuration
 
-# Module positions (MUST be at root level, BEFORE any [sections])
+[bars.main]
 modules_left = ["hyprland/workspaces"]
 modules_center = ["custom/mako", "clock"]
 modules_right = ["box/right"]
