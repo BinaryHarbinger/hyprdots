@@ -7,14 +7,10 @@
 @import "../../resources/styles/riftbar/default"
 
 /* Riftbar main container */
-.bar-container {
+.main {
     margin: 0px;
-	padding-bottom: 2px;
 	color: theme.$fg_main;
-}
-
-.riftbar {
-  background: theme.$bg_main;
+    background: theme.$bg_main;
 }
 
 /* Workspaces */

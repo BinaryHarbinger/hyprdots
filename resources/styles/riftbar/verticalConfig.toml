@@ -3,16 +3,17 @@
 [bars.main]
 modules_left = ["box/left"]
 modules_center = ["hyprland/workspaces"]
-modules_right = ["box/right","custom/mako"]
-position = "top"
+modules_right = ["box/right", "custom/mako"]
+position = "left"  # top, bottom
+layer = "top"     # background, bottom, top, overlay
 
 # Clock module configuration
 [clock]
-format = " %H:%M"
+format = "%I\n%M\n%p"
 interval = 5000  # milliseconds
 tooltip = true
 tooltip_format = "%d %B %Y"
-on_click = "ewwii open calendar --toggle --no-daemonize & ewwii close actioncenter musiccenter"  # Optional: command to run on click
+on_click = "ewwii open calendar --toggle --no-daemonize & ewwii close on_clickcenter musiccenter"
 
 # Available format placeholders (uses date command format):
 # %H _ Hour (00_23)
@@ -26,7 +27,10 @@ on_click = "ewwii open calendar --toggle --no-daemonize & ewwii close actioncent
 # %Y _ Year with century
 
 [workspaces]
-min_workspace_count=4
+# format = "{id} {icon}"
+# icons = { "active" = "A", "normal" = "N"}
+min_workspace_count = 4
+workspace_formating = { 1 = "一", 2 = "二", 3 = "三", 4 = "四", 5 = "五", 6 = "六", 7 = "七", 8 = "八", 9 = "九", 10 = "十"}
 
 # Network module configuration
 [network]
@@ -39,24 +43,23 @@ tooltip = true
 
 # Audio module configuration
 [audio]
-format = "{icon}"
-format_muted = "{icon}"
-interval = 100  # milliseconds
+format = " {icon}"
+interval = 150  # milliseconds
 tooltip = true
-on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar" 
+on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar"
 on_click_right = "nohup foot --override=colors.alpha=1 --app-id=binarydotsTUI -e wiremix >/dev/null 2>&1 &"
 on_scroll_up = ""
 on_scroll_down = ""
-scroll_step = 5 
+scroll_step = 5
 
 # MPRIS (Media Player) configuration
 [mpris]
-format = "{icon}  {status}"
+format = "{icon}  {title} - {artist}"
 format_nothing = "No Media"
-length_lim = 0
+length_lim = 32
 interval = 100  # milliseconds
 tooltip = true
-tooltip_format = "{artist}-{title}"
+tooltip_format = "{artist}\n{album}\n{title}"
 
 # Battery configuration
 [battery]
@@ -70,40 +73,48 @@ tooltip = true
 icon_size = 20
 spacing = 2
 
+[active_window]
+format = "{class}"
+use_class = true
+# no_window_format = ""
+
 [boxes.left]
-modules = ["custom/search", "custom/settings", "custom/arch", "mpris"]
+modules = ["custom/search", "custom/settings", "custom/arch", "custom/seperator"]
 spacing = 2
+orientation = "vertical"
 
 [boxes.right]
 modules = ["revealer/tray","box/quicksettings", "clock"]
+orientation = "vertical"
 
 [boxes.quicksettings]
 modules = ["network", "audio", "battery"]
 on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar"
 spacing = 5
-orientation = "horizontal"  # horizontal or vertical (default: horizontal)
+orientation = "vertical"
 
 [revealers.tray]
 modules = ["tray"]
 spacing = 10
-trigger = " "  # Text/icon for the trigger button
-transition = "slide_left"  # slide_left, slide_right, slide_up, slide_down, crossfade
+trigger = ""  # Text/icon for the trigger button
+transition = "slide_up"  # slide_left, slide_right, slide_up, slide_down, crossfade
 transition_duration = 600  # milliseconds
 reveal_on_hover = false  # Reveal on hover instead of click
+orientation = "vertical"  # horizontal or vertical (default: horizontal)
 # orientation = "horizontal"  # horizontal or vertical (default: horizontal)
 
 # Custom modules
 [custom_modules.search]
 on_click = "~/Dotfiles/bin/launchrofi --drun"
-format = " "
+format = ""
 
 [custom_modules.settings]
 on_click = "~/Dotfiles/bin/launchrofi -sm"
-format = " "
+format = ""
 
 [custom_modules.arch]
 on_click = "~/Dotfiles/bin/launchrofi --menu"
-format = " "
+format = ""
 
 [custom_modules.mako]
 on_click = "bash ~/Dotfiles/config/mako/scripts/walker.sh"
@@ -111,3 +122,6 @@ on_click_right = "bash ~/Dotfiles/config/mako/scripts/riftbar.sh -d"
 exec = "~/Dotfiles/config/mako/scripts/riftbar.sh"
 interval = 1
 format = "{}"
+
+[custom_modules.seperator]
+format = ""

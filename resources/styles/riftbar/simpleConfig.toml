@@ -97,6 +97,10 @@ transition = "slide_left"  # slide_left, slide_right, slide_up, slide_down, cros
 transition_duration = 600  # milliseconds
 reveal_on_hover = false  # Reveal on hover instead of click
 # orientation = "horizontal"  # horizontal or vertical (default: horizontal)
+[revealers.dock]
+modules = ["active_window"] 
+transition = "slide_up"
+reveal_on_hover = true
 
 # Custom modules
 [custom_modules.search]

@@ -14,12 +14,10 @@
 }
 
 /* Riftbar main container */
-.bar-container {
-    margin-top: 6px;
-	padding-bottom: 3px;
-    background: rgba(17, 17, 27, 0);
-	color: theme.$fg_main;
-    min-height: 22px;
+.main {
+  margin-top: 2px;  
+  background: rgba(17, 17, 27, 0);
+  color: theme.$fg_main;
 }
 
 .riftbar {
