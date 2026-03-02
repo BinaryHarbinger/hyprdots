@@ -55,6 +55,8 @@ change_theme () {
             ln -sf "$HOME/Dotfiles/resources/styles/ewwii/gnome.rhai" "$HOME/.config/ewwii/style.rhai"
         elif [[ "$SCHEME" == "windoes" ]]; then
             ln -sf "$HOME/Dotfiles/resources/styles/ewwii/windoes.rhai" "$HOME/.config/ewwii/style.rhai"
+        elif [[ "$SCHEME" == "7j3xm3" ]]; then
+            ln -sf "$HOME/Dotfiles/resources/styles/ewwii/vertical.rhai" "$HOME/.config/ewwii/style.rhai"
         else
             ln -sf "$HOME/Dotfiles/resources/styles/ewwii/default.rhai" "$HOME/.config/ewwii/style.rhai"
         fi
