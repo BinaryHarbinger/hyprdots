@@ -468,7 +468,7 @@ system_menu() {
             session_options
             ;;
         "  Update System")
-            foot --override=colors.alpha=1 --app-id=binarydotsTUI -e bash ~/Dotfiles/bin/update
+            foot --override=colors-dark.alpha=1 --app-id=binarydotsTUI -e bash ~/Dotfiles/bin/update
             ;;
         "󰌁  Themes")
             theme_menu
