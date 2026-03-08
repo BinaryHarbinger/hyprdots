@@ -232,3 +232,40 @@ tooltip {
   min-width: 30px;
 }
 
+/* OSD */
+.osd {
+  background-color: transparent;
+}
+
+.box-osd {
+  border: 1px solid theme.$fg_main;
+  background-color: theme.$bg_main;
+  margin: 0px;
+  padding: 4px 10px;
+  .audio {
+    label {
+      font-size: 18px;
+    }
+  }
+}
+
+.slider-osd {
+  min-width: 200px;
+  margin: 12px 10px;
+  
+   trough {
+    background-color: theme.$bg_hover_alt;
+    border-radius: theme.$border_rads;
+    min-width: 7px;
+    min-height: 7px;
+    fill {
+      color: theme.$fg_main;
+    }
+  }
+
+  highlight {
+      background-color: theme.$fg_main;
+      border-radius: theme.$border_rads;
+    }
+}
+

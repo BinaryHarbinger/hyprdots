@@ -1,13 +1,20 @@
 # Riftbar Configuration
+[general]
+enable_ipc = true
 
 [bars.main]
 modules_left = ["box/left", "mpris"]
 modules_center = ["hyprland/workspaces"]
 modules_right = ["box/right","custom/mako"]
 
-[bar]
-position = "top"  # top, bottom
-layer = "top"     # background, bottom, top, overlay
+[bars.osd]
+modules_center = ["box/osd"]
+layer = "overlay"
+reserve_space = false
+open_on_launch = false
+margin_top = 15
+margin_left = 820
+margin_right = 820
 
 # Clock module configuration
 [clock]
@@ -73,6 +80,10 @@ tooltip = true
 icon_size = 20
 spacing = 2
 
+[boxes.osd]
+modules = ["audio", "sliders/osd"]
+spacing = 10
+
 [boxes.left]
 modules = ["custom/search", "custom/settings", "custom/arch"]
 spacing = 2
@@ -96,6 +107,11 @@ reveal_on_hover = false  # Reveal on hover instead of click
 # orientation = "horizontal"  # horizontal or vertical (default: horizontal)
 
 # Custom modules
+[sliders.osd]
+listen = true
+exec = "bash ~/Dotfiles/scripts/vol_osd.sh"
+scroll_cmd = "pamixer --set-volume {}"
+
 [custom_modules.search]
 on_click = "~/Dotfiles/bin/launchrofi --drun"
 format = " "

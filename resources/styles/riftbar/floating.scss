@@ -48,3 +48,9 @@
       background-color: lighten($color: theme.$bg_second, $amount: 15);
     }
 }
+
+/* OSD */
+.osd {
+  background-color: transparent;
+  border: 0px solid white;
+}

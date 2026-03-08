@@ -1,15 +1,20 @@
 # Riftbar Configuration
+[general]
+enable_ipc = true
 
 [bars.main]
 modules_left = ["hyprland/workspaces"]
 modules_center = ["custom/mako", "clock"]
 modules_right = ["box/right"]
 
-[bar]
-height = 30
-position = "top"  # top, bottom
-layer = "top"     # background, bottom, top, overlay
-spacing = 10
+[bars.osd]
+modules_center = ["box/osd"]
+layer = "overlay"
+reserve_space = false
+open_on_launch = false
+margin_top = 15
+margin_left = 820
+margin_right = 820
 
 # Clock module configuration
 [clock]
@@ -65,9 +70,9 @@ tooltip = true
 icon_size = 20
 spacing = 2
 
-[boxes.left]
-modules = ["custom/search", "custom/settings", "custom/arch", "custom/seperator", "mpris"]
-spacing = 2
+[boxes.osd]
+modules = ["audio", "sliders/osd"]
+spacing = 10
 
 [boxes.right]
 modules = ["revealer/tray","box/quicksettings"]
@@ -90,18 +95,6 @@ reveal_on_hover = false  # Reveal on hover instead of click
 # orientation = "horizontal"  # horizontal or vertical (default: horizontal)
 
 # Custom modules
-[custom_modules.search]
-on_click = "~/Dotfiles/bin/launchrofi --drun"
-format = " "
-
-[custom_modules.settings]
-on_click = "~/Dotfiles/bin/launchrofi -sm"
-format = " "
-
-[custom_modules.arch]
-on_click = "~/Dotfiles/bin/launchrofi --menu"
-format = " "
-
 [custom_modules.mako]
 on_click = "bash ~/Dotfiles/config/mako/scripts/walker.sh"
 on_click_right = "bash ~/Dotfiles/config/mako/scripts/riftbar.sh -d"
@@ -109,5 +102,7 @@ exec = "~/Dotfiles/config/mako/scripts/riftbar.sh"
 interval = 1
 format = "{}"
 
-[custom_modules.seperator]
-format = "|"
+[sliders.osd]
+listen = true
+exec = "bash ~/Dotfiles/scripts/vol_osd.sh"
+scroll_cmd = "pamixer --set-volume {}"

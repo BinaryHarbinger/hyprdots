@@ -1,4 +1,15 @@
 # Riftbar Configuration
+[general]
+enable_ipc = true
+
+[bars.osd]
+modules_center = ["box/osd"]
+layer = "overlay"
+reserve_space = false
+open_on_launch = false
+margin_top = 15
+margin_left = 820
+margin_right = 820
 
 [bars.main]
 modules_left = ["box/left"]
@@ -83,6 +94,10 @@ on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar"
 spacing = 5
 orientation = "horizontal"  # horizontal or vertical (default: horizontal)
 
+[boxes.osd]
+modules = ["audio", "sliders/osd"]
+spacing = 10
+
 [revealers.tray]
 modules = ["tray"]
 spacing = 10
@@ -93,6 +108,11 @@ reveal_on_hover = false  # Reveal on hover instead of click
 # orientation = "horizontal"  # horizontal or vertical (default: horizontal)
 
 # Custom modules
+[sliders.osd]
+listen = true
+exec = "bash ~/Dotfiles/scripts/vol_osd.sh"
+scroll_cmd = "pamixer --set-volume {}"
+
 [custom_modules.search]
 on_click = "~/Dotfiles/bin/launchrofi --drun"
 format = " "
@@ -111,3 +131,4 @@ on_click_right = "bash ~/Dotfiles/config/mako/scripts/riftbar.sh -d"
 exec = "~/Dotfiles/config/mako/scripts/riftbar.sh"
 interval = 1
 format = "{}"
+

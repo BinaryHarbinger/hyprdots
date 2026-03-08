@@ -1,9 +1,20 @@
 # Riftbar Configuration
+[general]
+enable_ipc = true
 
 [bars.main]
 modules_left = ["box/left"]
 modules_center = ["hyprland/workspaces"]
 modules_right = ["box/right", "custom/mako"]
+
+[bars.osd]
+modules_center = ["box/osd"]
+layer = "overlay"
+reserve_space = false
+open_on_launch = false
+margin_top = 15
+margin_left = 820
+margin_right = 820
 
 # Clock module configuration
 [clock]
@@ -83,6 +94,10 @@ spacing = 2
 [boxes.right]
 modules = ["revealer/tray","box/quicksettings", "clock"]
 
+[boxes.osd]
+modules = ["audio", "sliders/osd"]
+spacing = 10
+
 [boxes.quicksettings]
 modules = ["network", "audio", "battery"]
 on_click = "bash ~/Dotfiles/scripts/quickcenter.sh &  ewwii close calendar"
@@ -103,6 +118,12 @@ transition = "slide_up"
 reveal_on_hover = true
 
 # Custom modules
+[sliders.osd]
+listen = true
+exec = "bash ~/Dotfiles/scripts/vol_osd.sh"
+scroll_cmd = "pamixer --set-volume {}"
+
+
 [custom_modules.search]
 on_click = "~/Dotfiles/bin/launchrofi --drun"
 format = " "
