@@ -3,9 +3,9 @@
 set -euo pipefail
 
 if [ ! -t 0 ]; then
-    curl -fsSL -o /tmp/install.sh https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/install.sh
-    chmod +x /tmp/install.sh
-    exec /tmp/install.sh "$@"
+	curl -fsSL -o /tmp/install.sh https://raw.githubusercontent.com/BinaryHarbinger/binarydots/main/install.sh
+	chmod +x /tmp/install.sh
+	exec /tmp/install.sh "$@"
 fi
 
 # --- Colors ---
@@ -17,115 +17,115 @@ RESET=$(tput sgr0)
 # --- Get sudo password ---
 echo "Enter your sudo password:"
 sudo echo
-echo -e "${GREEN}➤ Success. ${RESET}"  
+echo -e "${GREEN}➤ Success. ${RESET}"
 
 # --- Dependency check ---
 check_dep() {
-    if ! command -v "$1" >/dev/null 2>&1; then
-        echo -e "${RED}✖ '$1' is not installed.${RESET}"
-        return 1
-    fi
-    return 0
+	if ! command -v "$1" >/dev/null 2>&1; then
+		echo -e "${RED}✖ '$1' is not installed.${RESET}"
+		return 1
+	fi
+	return 0
 }
 
 get_distro_normals() {
-    . /etc/os-release
+	. /etc/os-release
 
-    case "$ID ${ID_LIKE:-}" in
-        *arch*)
-            PKG_MANAGER="pacman"
-            PKG_INSTALL="paru -S --needed"
-            PKG_UPDATE="paru -Syu"
-            DISTRO="arch"
-            ;;
-        *debian*|*ubuntu*)
-            PKG_MANAGER="apt"
-            PKG_INSTALL="apt install -y"
-            PKG_UPDATE="apt update && apt upgrade -y"
-            DISTRO="debian"
-            ;;
-        *)
-            PKG_INSTALL=""
-            PKG_UPDATE=""
-            DISTRO="unknown"
-            echo "Your distro isn't supported. Exiting install"
-            exit 1
-            ;;
-    esac
+	case "$ID ${ID_LIKE:-}" in
+	*arch*)
+		PKG_MANAGER="pacman"
+		PKG_INSTALL="paru -S --needed"
+		PKG_UPDATE="paru -Syu"
+		DISTRO="arch"
+		;;
+	*debian* | *ubuntu*)
+		PKG_MANAGER="apt"
+		PKG_INSTALL="apt install -y"
+		PKG_UPDATE="apt update && apt upgrade -y"
+		DISTRO="debian"
+		;;
+	*)
+		PKG_INSTALL=""
+		PKG_UPDATE=""
+		DISTRO="unknown"
+		echo "Your distro isn't supported. Exiting install"
+		exit 1
+		;;
+	esac
 }
 
 get_distro_normals
 
 install_from_repo() {
-    local app_name="${1:?Usage: install_from_repo <app_name> <owner_name>}"
-    local owner_name="${2:?Usage: install_from_repo <app_name> <owner_name>}"
-    local cache_dir="$HOME/.cache"
-    local url="https://github.com/${owner_name}/${app_name}/releases/latest/download/${app_name}-x86_64"
+	local app_name="${1:?Usage: install_from_repo <app_name> <owner_name>}"
+	local owner_name="${2:?Usage: install_from_repo <app_name> <owner_name>}"
+	local cache_dir="$HOME/.cache"
+	local url="https://github.com/${owner_name}/${app_name}/releases/latest/download/${app_name}-x86_64"
 
-    mkdir -p "$cache_dir"
+	mkdir -p "$cache_dir"
 
-    local tmp_file="$cache_dir/${app_name}-x86_64"
+	local tmp_file="$cache_dir/${app_name}-x86_64"
 
-    info "Downloading $app_name..."
-    curl -fL -o "$tmp_file" "$url" || return 1
+	info "Downloading $app_name..."
+	curl -fL -o "$tmp_file" "$url" || return 1
 
-    chmod +x "$tmp_file"
+	chmod +x "$tmp_file"
 
-    info "Installing to /usr/local/bin/$app_name ..."
-    sudo mv "$tmp_file" "/usr/local/bin/$app_name"
+	info "Installing to /usr/local/bin/$app_name ..."
+	sudo mv "$tmp_file" "/usr/local/bin/$app_name"
 
-    echo "Done."
+	echo "Done."
 }
 
 # --- Gum check & install ---
 if ! check_dep gum; then
-    echo -e "${BLUE}Installing gum...${RESET}"
+	echo -e "${BLUE}Installing gum...${RESET}"
 
-    if [[ "$DISTRO" == "arch" ]]; then
-        sudo pacman -S --noconfirm gum
-    else
-        sudo $PKG_INSTALL gum
-    fi
+	if [[ "$DISTRO" == "arch" ]]; then
+		sudo pacman -S --noconfirm gum
+	else
+		sudo $PKG_INSTALL gum
+	fi
 
-    if [[ $? -eq 0 ]]; then
-        echo -e "${GREEN}➤ Installed gum.${RESET}"
-    else
-        echo -e "${RED}✖ Failed to install gum. Please install it manually.${RESET}"
-        exit 1
-    fi
+	if [[ $? -eq 0 ]]; then
+		echo -e "${GREEN}➤ Installed gum.${RESET}"
+	else
+		echo -e "${RED}✖ Failed to install gum. Please install it manually.${RESET}"
+		exit 1
+	fi
 fi
 
 confirmation() {
-    local title="$1"
-    shift
+	local title="$1"
+	shift
 
-    if [ -t 1 ]; then
-        gum confirm "$title"
-    else
-        gum confirm "$title" --selected.background="100" --prompt.foreground="1000"
-    fi
+	if [ -t 1 ]; then
+		gum confirm "$title"
+	else
+		gum confirm "$title" --selected.background="100" --prompt.foreground="1000"
+	fi
 }
 
 confirmation_alt() {
-    local title="$1"
-    shift
+	local title="$1"
+	shift
 
-    if [ -t 1 ]; then
-        gum confirm "$title"
-    else
-        gum confirm "$title" --selected.background="75" --prompt.foreground="1000"
-    fi
+	if [ -t 1 ]; then
+		gum confirm "$title"
+	else
+		gum confirm "$title" --selected.background="75" --prompt.foreground="1000"
+	fi
 }
 
-info() { gum style --foreground "#49A22C" -- <<< "➤ $1"; }
+info() { gum style --foreground "#49A22C" -- <<<"➤ $1"; }
 
 process() {
-    local title="$1"
-    shift
-    gum spin --spinner dot --title "$title" -- "$@"
+	local title="$1"
+	shift
+	gum spin --spinner dot --title "$title" -- "$@"
 }
 
-error() { gum style --foreground "#FF5555" -- <<< "✖ $1"; }
+error() { gum style --foreground "#FF5555" -- <<<"✖ $1"; }
 
 echo -e "${BLUE}
 ██████╗ ██╗███╗   ██╗ █████╗ ██████╗ ██╗   ██╗██████╗  ██████╗ ████████╗███████╗
@@ -137,8 +137,8 @@ echo -e "${BLUE}
 
 # Root check for necessary commands
 if [[ $EUID -eq 0 ]]; then
-    error "Please do not run this script as root.\n"
-    exit 1
+	error "Please do not run this script as root.\n"
+	exit 1
 fi
 
 echo -e "   Binary Harbinger's Hyprland dotfiles\n\n"
@@ -146,45 +146,45 @@ confirmation "Proceed with setup?" || exit 0
 
 # --- Update system ---
 if check_dep "$PKG_MANAGER"; then
-    if confirmation "Update system?"; then
-        info "Updating system..."
-        ($PKG_UPDATE && info "Updated system with no errors") || (error "Failed to update system! Please try manually." && exit 1)
-    fi
+	if confirmation "Update system?"; then
+		info "Updating system..."
+		($PKG_UPDATE && info "Updated system with no errors") || (error "Failed to update system! Please try manually." && exit 1)
+	fi
 
-    if [[ $DISTRO == "arch" ]] && ! check_dep paru; then
-        if confirmation "Install paru?"; then
-            info "Installing dependencies..." 
-            sudo pacman -S --needed base-devel git rust
-            if [ ! -d "paru" ]; then
-                process "Cloning paru repository..." git clone https://aur.archlinux.org/paru.git || error "Failed to clone paru"
-            fi
-            info "Building package..."
-            cd paru
-            makepkg -si
-            cd ..
-            rm -rf paru
-            info "Package (paru) installed."
-        else
-            error "Aborting setup."
-            rm -rf paru
-            exit 1
-        fi
-    fi
+	if [[ $DISTRO == "arch" ]] && ! check_dep paru; then
+		if confirmation "Install paru?"; then
+			info "Installing dependencies..."
+			sudo pacman -S --needed base-devel git rust
+			if [ ! -d "paru" ]; then
+				process "Cloning paru repository..." git clone https://aur.archlinux.org/paru.git || error "Failed to clone paru"
+			fi
+			info "Building package..."
+			cd paru
+			makepkg -si
+			cd ..
+			rm -rf paru
+			info "Package (paru) installed."
+		else
+			error "Aborting setup."
+			rm -rf paru
+			exit 1
+		fi
+	fi
 fi
 
 # --- Packages ---
 PACKAGES=(
-    breeze nwg-look qt6ct papirus-icon-theme bibata-cursor-theme catppuccin-gtk-theme-mocha
-    ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-fira-code ttf-firacode-nerd otf-fira-code-symbol ttf-material-design-iconic-font ttf-cascadia-mono-nerd noto-fonts-cjk
-    yazi wiremix fzf
-    hyprland hyprlock hypridle hyprpolkitagent hyprsunset hyprpicker
-    power-profiles-daemon udiskie network-manager-applet brightnessctl
-    cliphist stow git zsh unzip fastfetch pamixer mako foot swww
-    mpv mpd mpdris2-rs rmpc
-    base-devel
-    python-flask python-requests
-    pcmanfm-qt riftbar-bin ewwii-bin
-    walker-bin
+	breeze nwg-look qt6ct papirus-icon-theme bibata-cursor-theme catppuccin-gtk-theme-mocha
+	ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-fira-code ttf-firacode-nerd otf-fira-code-symbol ttf-material-design-iconic-font ttf-cascadia-mono-nerd noto-fonts-cjk
+	yazi wiremix fzf
+	hyprland hyprlock hypridle hyprpolkitagent hyprsunset hyprpicker
+	power-profiles-daemon udiskie network-manager-applet brightnessctl
+	cliphist stow git zsh unzip fastfetch pamixer mako foot swww
+	mpv mpd mpdris2-rs rmpc
+	base-devel
+	python-flask python-requests
+	pcmanfm-qt riftbar-bin ewwii-bin
+	walker-bin
 )
 
 PACKAGES_URL="https://raw.githubusercontent.com/BinaryHarbinger/binarydots/refs/heads/main/${DISTRO^^}_PACKAGES"
@@ -194,60 +194,62 @@ FETCHED=($(curl -s "$PACKAGES_URL")) && PACKAGES=("${FETCHED[@]}") || true
 
 # --- Install packages ---
 if ! $PKG_INSTALL "${PACKAGES[@]}"; then
-    error "Package installation failed."
-    exit 1
+	error "Package installation failed."
+	exit 1
 else
-    info "Installed packages."
+	info "Installed packages."
 fi
 
 if [[ "$DISTRO" != "arch" ]]; then
-    install_from_repo riftbar binaryharbinger
+	install_from_repo riftbar binaryharbinger
 fi
 
 if confirmation_alt "Install qutebrowser? (Not Recommended) A keyboard-driven, vim-like browser based on Python and Qt"; then
-    if $PKG_INSTALL qutebrowser; then
-        info "Installed qutebrowser."
-    else
-        error "Failed to install qutebrowser"
-    fi
+	if $PKG_INSTALL qutebrowser; then
+		info "Installed qutebrowser."
+	else
+		error "Failed to install qutebrowser"
+	fi
 fi
 
 # --- NVIDIA detection & driver installation ---
 NVIDIGPU="yes"
 if lspci | grep -qi 'NVIDIA'; then
-    info "NVIDIA GPU detected."
-    if ! pacman -Qi nvidia-dkms >/dev/null 2>&1; then
-        process "Installing nvidia-dkms (required for NVIDIA GPUs)..." $PKG_INSTALL nvidia-dkms || error "Failed to install 'nvidia-dkms'. Please install manually"
-        info "nvidia-dkms installed successfully."
-    else
-        info "nvidia-dkms already installed."
-    fi
+	info "NVIDIA GPU detected."
+	if ! pacman -Qi nvidia-dkms >/dev/null 2>&1; then
+		process "Installing nvidia-dkms (required for NVIDIA GPUs)..." $PKG_INSTALL nvidia-dkms || error "Failed to install 'nvidia-dkms'. Please install manually"
+		info "nvidia-dkms installed successfully."
+	else
+		info "nvidia-dkms already installed."
+	fi
 else
-    NVIDIGPU="no"
+	NVIDIGPU="no"
 fi
 
 # --- Clone dotfiles ---
 
 if [ ! -d "./config" ]; then
-    [ -d "$HOME/Dotfiles.old" ] && rm -rf "$HOME/Dotfiles.old" || true
-    [ -d "$HOME/Dotfiles" ] && mv ~/Dotfiles ~/Dotfiles.old || true
+	[ -d "$HOME/Dotfiles.old" ] && rm -rf "$HOME/Dotfiles.old" || true
+	[ -d "$HOME/Dotfiles" ] && mv ~/Dotfiles ~/Dotfiles.old || true
 
-    REPO_URL="https://github.com/BinaryHarbinger/binarydots.git"
-    PROXY_URL="https://gh-proxy.com/$REPO_URL"
+	REPO_URL="https://github.com/BinaryHarbinger/binarydots.git"
+	PROXY_URL="https://gh-proxy.com/$REPO_URL"
 
-    process "Cloning binarydots repository..." git clone "$PROXY_URL" ~/Dotfiles
-    if [ $? -ne 0 ]; then
-        echo "Proxy failed, trying direct GitHub clone..."
-        process "Cloning binarydots repository (direct)..." git clone "$REPO_URL" || {
-            error "Failed to clone repository."
-            exit 1
-        }
-    fi
+	process "Cloning binarydots repository..." git clone "$PROXY_URL" ~/Dotfiles
+	if [ $? -ne 0 ]; then
+		echo "Proxy failed, trying direct GitHub clone..."
+		process "Cloning binarydots repository (direct)..." git clone "$REPO_URL" || {
+			error "Failed to clone repository."
+			exit 1
+		}
+	fi
+	process "Cloning mpv configuration repository..." git clone https://github.com/BinaryHarbinger/mpv-dotfiles.git ~/.config/mpv
+	process "Cloning neovim configuration repository..." git clone https://github.com/BinaryHarbinger/nvim-dotfiles.git ~/.config/nvim
 
-    info "Cloned Repository."
+	info "Cloned Repository."
 
 else
-    info "Files already installed."
+	info "Files already installed."
 fi
 
 # --- Link scripts/configs ---
@@ -292,44 +294,44 @@ chmod +x \
 info "Linked scripts and config files."
 
 if [ "$NVIDIGPU" != 'yes' ]; then
-    if confirmation_alt "Is your main monitor external?"; then
-        sed -i 's/^env = AQ_DRM_DEVICES,\/dev\/dri\/card0:\/dev\/dri\/card1/#&/' ~/.config/hypr/hyprland.conf
-    fi
+	if confirmation_alt "Is your main monitor external?"; then
+		sed -i 's/^env = AQ_DRM_DEVICES,\/dev\/dri\/card0:\/dev\/dri\/card1/#&/' ~/.config/hypr/hyprland.conf
+	fi
 fi
 
 # --- Polkit agent ---
 process "Setting up polkit agent..." systemctl --user enable --now hyprpolkitagent.service
 
 if [ $? -eq 0 ]; then
-    info "Polkit agent set up successfully."
+	info "Polkit agent set up successfully."
 else
-    error "Failed to enable polkit agent."
+	error "Failed to enable polkit agent."
 fi
 
 # --- MPD services ---
 
 if confirmation_alt "Set up MPD? (Not Recommended for new users)"; then
-    process "Setting Up MPD" bash -c '
+	process "Setting Up MPD" bash -c '
 
     systemctl --user enable mpd
 
     systemctl --user start mpd
     '
 
-    if [ $? -eq 0 ]; then
-        info "MPD setup succeeded"
-    else
-        error "MPD setup failed"
-    fi
+	if [ $? -eq 0 ]; then
+		info "MPD setup succeeded"
+	else
+		error "MPD setup failed"
+	fi
 else
-    rm -rf ~/.config/rmpc/
-    rm -rf ~/.config/mpd/
-    if [ -d "$HOME/dots.old/rmpc" ]; then
-        cp -r "$HOME/dots.old/rmpc" "$HOME/.config/" > /dev/null 2>&1
-    fi
-    if [ -d "$HOME/dots.old/mpd" ]; then
-        cp -r "$HOME/dots.old/mpd" "$HOME/.config/" > /dev/null 2>&1
-    fi
+	rm -rf ~/.config/rmpc/
+	rm -rf ~/.config/mpd/
+	if [ -d "$HOME/dots.old/rmpc" ]; then
+		cp -r "$HOME/dots.old/rmpc" "$HOME/.config/" >/dev/null 2>&1
+	fi
+	if [ -d "$HOME/dots.old/mpd" ]; then
+		cp -r "$HOME/dots.old/mpd" "$HOME/.config/" >/dev/null 2>&1
+	fi
 fi
 
 # --- Layout update ---
@@ -337,9 +339,9 @@ fi
 LAYOUT=$(localectl status | awk -F': ' '/X11 Layout/{print $2}')
 
 if [[ -z $LAYOUT ]]; then
-    error "Could not detect keyboard layout."
+	error "Could not detect keyboard layout."
 else
-    sed -i "s/kb_layout = tr/kb_layout = ${LAYOUT}/g" "$HOME/.config/hypr/hyprland.conf"
+	sed -i "s/kb_layout = tr/kb_layout = ${LAYOUT}/g" "$HOME/.config/hypr/hyprland.conf"
 fi
 
 # --- Change shell ---
@@ -347,55 +349,56 @@ fi
 current_shell=$(getent passwd "$USER" | cut -d: -f7)
 
 if [ "$current_shell" != "/usr/bin/zsh" ] && [ "$current_shell" != "/bin/zsh" ]; then
-    if confirmation_alt "Change default shell to zsh?"; then
-        if chsh -s /bin/zsh "$USER"; then
-            info "Default shell changed to zsh."
+	if confirmation_alt "Change default shell to zsh?"; then
+		if chsh -s /bin/zsh "$USER"; then
+			info "Default shell changed to zsh."
 
-            if [ ! -d "$HOME/.oh-my-zsh" ]; then
-                sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-            fi
-            CUSTOM_PLUGIN_DIR="$HOME/.oh-my-zsh/custom/plugins"
-            mkdir -p "$CUSTOM_PLUGIN_DIR"
-            declare -A plugins
-            plugins=(
-                [zsh-autosuggestions]="https://github.com/zsh-users/zsh-autosuggestions.git"
-                [zsh-syntax-highlighting]="https://github.com/zsh-users/zsh-syntax-highlighting.git"
-            )
+			if [ ! -d "$HOME/.oh-my-zsh" ]; then
+				sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+			fi
+			CUSTOM_PLUGIN_DIR="$HOME/.oh-my-zsh/custom/plugins"
+			mkdir -p "$CUSTOM_PLUGIN_DIR"
+			declare -A plugins
+			plugins=(
+				[zsh - autosuggestions]="https://github.com/zsh-users/zsh-autosuggestions.git"
+				[zsh - syntax - highlighting]="https://github.com/zsh-users/zsh-syntax-highlighting.git"
+			)
 
-            # Clone each plugin silently
-            for plugin in "${!plugins[@]}"; do
-                PLUGIN_DIR="$CUSTOM_PLUGIN_DIR/$plugin"
-                if [ ! -d "$PLUGIN_DIR" ]; then
-                    git clone -q "${plugins[$plugin]}" "$PLUGIN_DIR" > /dev/null 2>&1
-                fi
-            done
+			# Clone each plugin silently
+			for plugin in "${!plugins[@]}"; do
+				PLUGIN_DIR="$CUSTOM_PLUGIN_DIR/$plugin"
+				if [ ! -d "$PLUGIN_DIR" ]; then
+					git clone -q "${plugins[$plugin]}" "$PLUGIN_DIR" >/dev/null 2>&1
+				fi
+			done
 
-            ln -sf ~/Dotfiles/home/.zshrc $HOME/.zshrc
+			ln -sf ~/Dotfiles/home/.zshrc $HOME/.zshrc
 
-            info "Configured ZSH."
-            if confirmation_alt "Install some rust utils? (Recommended)"; then
-                if process "Installing rust utilities" $PKG_INSTALL eza sudo-rs bat ripgrep sd fd; then
-                    info "Successfully installed rust utils."
-                else
-                    error "Failed to install rust utilities."
-                fi
-            fi
-        else
-            error "Failed to change shell."
-        fi
-    fi
+			info "Configured ZSH."
+			if confirmation_alt "Install some rust utils? (Recommended)"; then
+				if process "Installing rust utilities" $PKG_INSTALL eza sudo-rs bat ripgrep sd fd; then
+					info "Successfully installed rust utils."
+				else
+					error "Failed to install rust utilities."
+				fi
+			fi
+		else
+			error "Failed to change shell."
+		fi
+	fi
 fi
 
 # --- Post installation ---
 
 ln -sf "$HOME/.config/hypr/wallpapers/lines.jpg" "$HOME/.config/hypr/wallppr.png"
 
-python ~/.config/hypr/scripts/wallpapers.py changeWallpaper Lines >/dev/null 2>&1 & disown
+python ~/.config/hypr/scripts/wallpapers.py changeWallpaper Lines >/dev/null 2>&1 &
+disown
 
 if pgrep Hyprland >/dev/null; then
-    info "Detected Hyprland session."
+	info "Detected Hyprland session."
 
-    process "Reloading Components..." bash -c '
+	process "Reloading Components..." bash -c '
 
     pkill waybar >/dev/null 2>&1 & disown
 
@@ -416,7 +419,7 @@ if pgrep Hyprland >/dev/null; then
     setsid swww-daemon >/dev/null 2>&1 &
     hyprctl reload'
 
-    info "Reloaded Components."
+	info "Reloaded Components."
 fi
 
 # --- Cleanup ---
@@ -424,5 +427,5 @@ cd ..
 process "Cleaning up..." rm -rf binarydots
 info "Cleaned."
 
-$HOME/Dotfiles/bin/change-theme -c Binary >> /dev/null
+$HOME/Dotfiles/bin/change-theme -c Binary >>/dev/null
 echo -e "${GREEN}✅ Installation complete!"
