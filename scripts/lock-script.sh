@@ -3,6 +3,8 @@ pkill riftbar
 pkill ewwii
 sleep 0.2
 hyprlock
-riftbar & disown
+riftbar &
+disown
 ewwii d
-python ~/Dotfiles/scripts/widgets.py r & disown 
+python ~/Dotfiles/scripts/widgets.py r &
+disown

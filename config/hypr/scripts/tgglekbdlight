@@ -3,7 +3,7 @@
 current_brightness=$(brightnessctl --device=rgb:kbd_backlight get)
 
 if [ "$current_brightness" -eq 0 ]; then
-    brightnessctl --device=rgb:kbd_backlight set 100%
+	brightnessctl --device=rgb:kbd_backlight set 100%
 else
-    brightnessctl --device=rgb:kbd_backlight set 0%
+	brightnessctl --device=rgb:kbd_backlight set 0%
 fi

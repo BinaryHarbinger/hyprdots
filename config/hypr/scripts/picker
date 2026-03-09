@@ -3,7 +3,6 @@
 COLOR=$(hyprpicker | grep '^#' | tr -d '\n')
 
 if [ -n "$COLOR" ]; then
-    echo -n "$COLOR" | wl-copy
-    notify-send -u normal "🎨 Color Picked" "Copied to clipboard: <b>$COLOR</b>" --icon=applications-graphics
+	echo -n "$COLOR" | wl-copy
+	notify-send -u normal "🎨 Color Picked" "Copied to clipboard: <b>$COLOR</b>" --icon=applications-graphics
 fi
-

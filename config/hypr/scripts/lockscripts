@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Script for Battery Stats
 if [ "$1" == "-bat" ]; then
 	# Get the current battery percentage
@@ -28,10 +27,6 @@ if [ "$1" == "-bat" ]; then
 
 	# Output the battery percentage and icon
 	echo "$battery_icon $battery_percentage%"
-
-
-
-
 
 # Script for Music Stats
 elif [ "$1" == "-music" ]; then
@@ -67,11 +62,11 @@ elif [ "$1" == "-music" ]; then
 		if [ -z "$title" ]; then
 			echo "Nothing Playing"
 		else
-			ten="          " 
+			ten="          "
 			thirty="$ten$ten$ten"
 			len=${#title}
 			end="   "
-			if ((len>18)); then
+			if ((len > 18)); then
 				len=18
 				end="..."
 			fi
@@ -104,11 +99,11 @@ elif [ "$1" == "-music" ]; then
 		if [ -z "$artist" ]; then
 			echo ""
 		else
-			ten="          " 
+			ten="          "
 			thirty="$ten$ten$ten"
 			len=${#artist}
 			end="   "
-			if ((len>12)); then
+			if ((len > 12)); then
 				len=12
 				end="..."
 			fi
