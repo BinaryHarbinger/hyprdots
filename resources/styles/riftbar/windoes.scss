@@ -43,7 +43,7 @@ tooltip {
 		margin: 6px 4px;
 		color: transparent;
         font-family: "CaskaydiaMono Nerd Font";
-		background-color: theme.$fg_unactive;
+		background-color: theme.$bg_hover;
         border-radius: theme.$border_rad;
 
 		&.active {
