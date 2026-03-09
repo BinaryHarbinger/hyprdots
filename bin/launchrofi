@@ -4,7 +4,7 @@ cd ~
 
 # Usage Information
 usage() {
-    echo -e "\n Usage:
+	echo -e "\n Usage:
       --app_launcher                    : Launches the application launcher.\n
       --run                             : Launches the command runner (run). \n
       --menu                            : Displays a custom menu with multiple options. \n
@@ -12,7 +12,7 @@ usage() {
       --sys_menu                        : Displays system menu. \n
       --screenshot_menu                 : Displays system menu. \n
       --conf_launcher [title] [options] : Launches a confirmation dialog\n"
-    exit 1
+	exit 1
 }
 
 # restart_elephant() {
@@ -23,594 +23,598 @@ usage() {
 
 # Function: DRUN Launcher
 app_launcher() {
-    walker
+	walker
 }
 
 # Function: RUN Launcher
-run_launcher() { 
-    walker -s run -p " Runner"
+run_launcher() {
+	walker -s run -p " Runner"
 }
 
 # Function: CONFIRMATION Launcher
 conf_launcher() {
-    
-    local title
-    if [[ -n "$1" ]]; then
-        options="$1"
-    else
-        options="Confirm"
-    fi
 
-   local options
-    if [[ -n "$2" ]]; then
-        options="$2"
-    else
-        options="Yes\nNo"
-    fi
+	local title
+	if [[ -n "$1" ]]; then
+		options="$1"
+	else
+		options="Confirm"
+	fi
 
-    [[ -z "$1" ]] || local title="$1"
-    chosen=$( echo -e "$options" |walker -d)
-    echo "$chosen"
+	local options
+	if [[ -n "$2" ]]; then
+		options="$2"
+	else
+		options="Yes\nNo"
+	fi
+
+	[[ -z "$1" ]] || local title="$1"
+	chosen=$(echo -e "$options" | walker -d)
+	echo "$chosen"
 }
 
 lock_menu() {
-    # Menu options displayed in Walker
-    cd ~/Dotfiles/scripts/
-    options=$(python ~/Dotfiles/scripts/style-lock.py dmenu)
-    # Prompt user to choose an option
-    chosen=$(echo -e "󰌍\n$options" | walker -d -p "Go…" -t "system_menu")
-    cd ~
-    if [[ -z "$chosen" ]]; then 
-        exit 1
-    elif [[ "$chosen" = "󰌍" ]];then
-        customize_menu
-    else
-        cd ~/Dotfiles/scripts/
-        argument="${chosen:3}"
-        python style-lock.py "$argument"
-        lock_menu
-    fi
+	# Menu options displayed in Walker
+	cd ~/Dotfiles/scripts/
+	options=$(python ~/Dotfiles/scripts/style-lock.py dmenu)
+	# Prompt user to choose an option
+	chosen=$(echo -e "󰌍\n$options" | walker -d -p "Go…" -t "system_menu")
+	cd ~
+	if [[ -z "$chosen" ]]; then
+		exit 1
+	elif [[ "$chosen" = "󰌍" ]]; then
+		customize_menu
+	else
+		cd ~/Dotfiles/scripts/
+		argument="${chosen:3}"
+		python style-lock.py "$argument"
+		lock_menu
+	fi
 
-   $HOME/Dotfiles/bin/change-theme -c "$chosen" 
-
+	$HOME/Dotfiles/bin/change-theme -c "$chosen"
 
 }
 
 # Function: Custom Menu
 quick_menu() {
-    # Menu options displayed in Walker
-    options="\n\n \n \n󰍂\n\n"
+	# Menu options displayed in Walker
+	options="\n\n \n \n󰍂\n\n"
 
-    # Prompt user to choose an option
-    chosen=$(echo -e "$options" | walker -d -n -t "quick_menu")
+	# Prompt user to choose an option
+	chosen=$(echo -e "$options" | walker -d -n -t "quick_menu")
 
-    # Execute the corresponding command based on the selected option
-    case $chosen in
-        "")
-            walker & disown
-            ;;
-        "")
-            pcmanfm-qt
-            ;;
-        "󰍂")
-            session_options
-            ;;
-        "")
-            foot
-            ;;
-        "")
-            bash ~/Dotfiles/scripts/open-browser
-            ;;
-        "")
-            system_menu
-            ;;
-        "")
-            manual_menu
-            ;;
-        *)
-            echo "No option selected"
-            ;;
-    esac
+	# Execute the corresponding command based on the selected option
+	case $chosen in
+	"")
+		walker &
+		disown
+		;;
+	"")
+		pcmanfm-qt
+		;;
+	"󰍂")
+		session_options
+		;;
+	"")
+		foot
+		;;
+	"")
+		bash ~/Dotfiles/scripts/open-browser
+		;;
+	"")
+		system_menu
+		;;
+	"")
+		manual_menu
+		;;
+	*)
+		echo "No option selected"
+		;;
+	esac
 }
 
 session_options() {
-    # Menu options displayed in Walker
-    options="  Shutdown\n  Reboot\n  Lock\n󰍃  Logout"
+	# Menu options displayed in Walker
+	options="  Shutdown\n  Reboot\n  Lock\n󰍃  Logout"
 
-    # Prompt user to choose an option
-    chosen=$(echo -e "$options" | walker -d -n -t "system_menu" --maxheight 500)
+	# Prompt user to choose an option
+	chosen=$(echo -e "$options" | walker -d -n -t "system_menu" --maxheight 500)
 
-    # Execute the corresponding command based on the selected option
-    case $chosen in
-        "󰌍")
-            system_menu
-            ;;
-        "  Shutdown")
-            systemctl poweroff
-            ;;
-        "  Reboot")
-            systemctl reboot
-            ;;
+	# Execute the corresponding command based on the selected option
+	case $chosen in
+	"󰌍")
+		system_menu
+		;;
+	"  Shutdown")
+		systemctl poweroff
+		;;
+	"  Reboot")
+		systemctl reboot
+		;;
 
-        "  Lock")
-            bash ~/Dotfiles/scripts/lock-script.sh
-            ;;
-        "󰍃  Logout")
-            pkill -KILL -u $USER && sleep 1 && loginctl terminate-user "$USER"
-            ;;
-        *)
-            echo "No option selected"
-            ;;
-    esac
+	"  Lock")
+		bash ~/Dotfiles/scripts/lock-script.sh
+		;;
+	"󰍃  Logout")
+		pkill -KILL -u $USER && sleep 1 && loginctl terminate-user "$USER"
+		;;
+	*)
+		echo "No option selected"
+		;;
+	esac
 }
 
-
 widget_settings() {
-    while true; do
-        options="󰌍\n  Desk Clock\n  Change Stats\n  Change Music\n  Reload Widgets"
+	while true; do
+		options="󰌍\n  Desk Clock\n  Change Stats\n  Change Music\n  Reload Widgets"
 
-        chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
+		chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
-        case $chosen in
-            "󰌍")
-                customize_menu
-                break
-                ;;
-            "  Desk Clock")
-                python ~/Dotfiles/scripts/widgets.py deskclock >/dev/null 2>&1 & disown
-                ;;
-            "  Change Stats")
-                python ~/Dotfiles/scripts/widgets.py status >/dev/null 2>&1 & disown
-                ;;
-            "  Change Music")
-                python ~/Dotfiles/scripts/widgets.py desktopmusic >/dev/null 2>&1 & disown
-                ;;
-            "  Reload Widgets")
-                python ~/Dotfiles/scripts/widgets.py r >/dev/null 2>&1 & disown
-                ;;
-            *)
-                echo "No option selected"
-                break
-                ;;
-        esac
-    done
+		case $chosen in
+		"󰌍")
+			customize_menu
+			break
+			;;
+		"  Desk Clock")
+			python ~/Dotfiles/scripts/widgets.py deskclock >/dev/null 2>&1 &
+			disown
+			;;
+		"  Change Stats")
+			python ~/Dotfiles/scripts/widgets.py status >/dev/null 2>&1 &
+			disown
+			;;
+		"  Change Music")
+			python ~/Dotfiles/scripts/widgets.py desktopmusic >/dev/null 2>&1 &
+			disown
+			;;
+		"  Reload Widgets")
+			python ~/Dotfiles/scripts/widgets.py r >/dev/null 2>&1 &
+			disown
+			;;
+		*)
+			echo "No option selected"
+			break
+			;;
+		esac
+	done
 }
 
 default_apps_menu() {
-    # Menu options displayed in Walker
-    options="󰌍\n  Browser\n󰠮  Editor"
+	# Menu options displayed in Walker
+	options="󰌍\n  Browser\n󰠮  Editor"
 
-    # Prompt user to choose an option
-    chosen=$(echo -e "$options" | walker -d -p "Select" -t "system_menu")
+	# Prompt user to choose an option
+	chosen=$(echo -e "$options" | walker -d -p "Select" -t "system_menu")
 
-    # Execute the corresponding command based on the selected option
-    case $chosen in
-        "󰌍")
-            settings_menu
-            ;;
-        "  Browser")
-            bash ~/Dotfiles/scripts/set-default-browser
-            default_apps_menu
-            ;;
-        "󰠮  Editor")
-            bash ~/Dotfiles/scripts/set-default-editor
-            default_apps_menu
-            ;;
-        *)
-            ;;
-    esac
+	# Execute the corresponding command based on the selected option
+	case $chosen in
+	"󰌍")
+		settings_menu
+		;;
+	"  Browser")
+		bash ~/Dotfiles/scripts/set-default-browser
+		default_apps_menu
+		;;
+	"󰠮  Editor")
+		bash ~/Dotfiles/scripts/set-default-editor
+		default_apps_menu
+		;;
+	*) ;;
+	esac
 }
 
 settings_menu() {
-    # Menu options displayed in Walker
-    options="󰌍\n  Activate Linux\n  Reload Shell\n󰤨  Connections\n  Sound Settings\n  Set Default Apps\n󰌁  Customize Rice\n󰚰  Update Binarydots"
+	# Menu options displayed in Walker
+	options="󰌍\n  Activate Linux\n  Reload Shell\n󰤨  Connections\n  Sound Settings\n  Set Default Apps\n󰌁  Customize Rice\n󰚰  Update Binarydots"
 
-    # Prompt user to choose an option
-    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
+	# Prompt user to choose an option
+	chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
-    # Execute the corresponding command based on the selected option
-    case $chosen in
-        "󰌍")
-            system_menu
-            ;;
-        "  Activate Linux")
-            python ~/Dotfiles/scripts/widgets.py 'activate'
-            settings_menu
-            ;;
-        "  Reload Shell")
-            pkill -x riftbar 2>/dev/null || true
-            pkill -x walker 2>/dev/null || true 
-            sleep 0.1
-            riftbar >/dev/null 2>&1 & disown
-            ewwii kill >/dev/null 2>&1 || true
-            python ~/Dotfiles/scripts/widgets.py r >/dev/null 2>&1 & disown
-            GSK_RENDERER=cairo walker --gapplication-service >/dev/null 2>&1 & disown
-            makoctl reload   
-            settings_menu
-            ;;
-        "󰤨  Connections")
-            connections_menu
-            ;;
-        "  Sound Settings")
-            nohup foot --override=colors.alpha=1 --app-id=binarydotsTUI -e wiremix >/dev/null 2>&1 &
-            ;;
-        "  Set Default Apps")
-            default_apps_menu 
-            ;;
-        "󰌁  Customize Rice")
-            customize_menu
-            ;;
-        "󰚰  Update Binarydots")
-            foot --override=colors.alpha=1 --app-id=binarydotsTUI -e bash ~/Dotfiles/bin/update_binarydots
-            cd ~
-            settings_menu
-            ;;
-        *)
-            echo "No option selected"
-            ;;
-    esac
+	# Execute the corresponding command based on the selected option
+	case $chosen in
+	"󰌍")
+		system_menu
+		;;
+	"  Activate Linux")
+		python ~/Dotfiles/scripts/widgets.py 'activate'
+		settings_menu
+		;;
+	"  Reload Shell")
+		pkill -x riftbar 2>/dev/null || true
+		pkill -x walker 2>/dev/null || true
+		sleep 0.1
+		riftbar >/dev/null 2>&1 &
+		disown
+		ewwii kill >/dev/null 2>&1 || true
+		python ~/Dotfiles/scripts/widgets.py r >/dev/null 2>&1 &
+		disown
+		GSK_RENDERER=cairo walker --gapplication-service >/dev/null 2>&1 &
+		disown
+		makoctl reload
+		settings_menu
+		;;
+	"󰤨  Connections")
+		connections_menu
+		;;
+	"  Sound Settings")
+		nohup foot --override=colors.alpha=1 --app-id=binarydotsTUI -e wiremix >/dev/null 2>&1 &
+		;;
+	"  Set Default Apps")
+		default_apps_menu
+		;;
+	"󰌁  Customize Rice")
+		customize_menu
+		;;
+	"󰚰  Update Binarydots")
+		foot --override=colors.alpha=1 --app-id=binarydotsTUI -e bash ~/Dotfiles/bin/update_binarydots
+		cd ~
+		settings_menu
+		;;
+	*)
+		echo "No option selected"
+		;;
+	esac
 }
 
-
 customize_menu() {
-    # Menu options displayed in Walker
-    options="󰌍\n  Style Locks\n  Widgets Settings\n  Bar Styles\n  Wallpapers\n󰌁  Themes"
+	# Menu options displayed in Walker
+	options="󰌍\n  Style Locks\n  Widgets Settings\n  Bar Styles\n  Wallpapers\n󰌁  Themes"
 
-    # Prompt user to choose an option
-    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
+	# Prompt user to choose an option
+	chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
-    # Execute the corresponding command based on the selected option
-    case $chosen in
-        "󰌍")
-            settings_menu
-            ;;
-        "  Style Locks")
-            lock_menu
-            ;;
-        "  Widgets Settings")
-            widget_settings
-            ;;
-        "󰌁  Themes")
-            theme_menu
-            ;;
-        "  Wallpapers")
-            set_wallpaper
-            ;;
-        "  Bar Styles")
-            bar_style_menu
-            ;;
-        *)
-            echo "No option selected"
-            ;;
-    esac
+	# Execute the corresponding command based on the selected option
+	case $chosen in
+	"󰌍")
+		settings_menu
+		;;
+	"  Style Locks")
+		lock_menu
+		;;
+	"  Widgets Settings")
+		widget_settings
+		;;
+	"󰌁  Themes")
+		theme_menu
+		;;
+	"  Wallpapers")
+		set_wallpaper
+		;;
+	"  Bar Styles")
+		bar_style_menu
+		;;
+	*)
+		echo "No option selected"
+		;;
+	esac
 }
 
 set_wallpaper() {
-    # Prompt user to choose an option
-    chosen=$(python ~/Dotfiles/scripts/wallpapers.py --list | walker -d -p "Go…" -t "system_menu")
-    # Execute the corresponding command based on the selected option
-    echo $chosen
-    python ~/Dotfiles/scripts/wallpapers.py --set "$chosen"
-    ewwii r
+	# Prompt user to choose an option
+	chosen=$(python ~/Dotfiles/scripts/wallpapers.py --list | walker -d -p "Go…" -t "system_menu")
+	# Execute the corresponding command based on the selected option
+	echo $chosen
+	python ~/Dotfiles/scripts/wallpapers.py --set "$chosen"
+	ewwii r
 }
 
 bar_style_menu() {
-    # Menu options displayed in Walker
-    options="󰌍\n  Minimal\n󰸸  Floating\n  Islands\n  Vertical\n󰊬  Gnome\n  Windoes"
+	# Menu options displayed in Walker
+	options="󰌍\n  Minimal\n󰸸  Floating\n  Islands\n  Vertical\n󰊬  Gnome\n  Windoes"
 
-    # Prompt user to choose an option
-    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
+	# Prompt user to choose an option
+	chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
-    # Execute the corresponding command based on the selected option
-    case $chosen in
-        "󰌍")
-            customize_menu
-            return 0
-            ;;
-        "  Minimal")
-            set_bar_style "simple"
-            ;;
-        "󰸸  Floating")
-            set_bar_style "floating"
-            ;;
-        "  Islands")
-            set_bar_style "default"
-            ;;
-        "  Vertical")
-            set_bar_style "vertical"
-            ;;
-        "󰊬  Gnome")
-            set_bar_style "gnome"
-            ;;
-        "  Windoes")
-            set_bar_style "windoes"
-            ;;
-        *)
-            echo "No option selected"
-            return 0
-            ;;
-    esac
-    pkill -x riftbar 2>/dev/null
-    sleep 0.3
-    nohup riftbar >/dev/null 2>&1 &
-    bar_style_menu
+	# Execute the corresponding command based on the selected option
+	case $chosen in
+	"󰌍")
+		customize_menu
+		return 0
+		;;
+	"  Minimal")
+		set_bar_style "simple"
+		;;
+	"󰸸  Floating")
+		set_bar_style "floating"
+		;;
+	"  Islands")
+		set_bar_style "default"
+		;;
+	"  Vertical")
+		set_bar_style "vertical"
+		;;
+	"󰊬  Gnome")
+		set_bar_style "gnome"
+		;;
+	"  Windoes")
+		set_bar_style "windoes"
+		;;
+	*)
+		echo "No option selected"
+		return 0
+		;;
+	esac
+	pkill -x riftbar 2>/dev/null
+	sleep 0.3
+	nohup riftbar >/dev/null 2>&1 &
+	bar_style_menu
 }
 
 set_bar_style() {
-    local BAR_STYLE=$1
-    ln -sf "$HOME/Dotfiles/resources/styles/riftbar/${BAR_STYLE}Config.toml" "$HOME/.config/riftbar/config.toml"
-    ln -sf "$HOME/Dotfiles/resources/styles/riftbar/${BAR_STYLE}.scss" "$HOME/.config/riftbar/style.scss"
+	local BAR_STYLE=$1
+	ln -sf "$HOME/Dotfiles/resources/styles/riftbar/${BAR_STYLE}Config.toml" "$HOME/.config/riftbar/config.toml"
+	ln -sf "$HOME/Dotfiles/resources/styles/riftbar/${BAR_STYLE}.scss" "$HOME/.config/riftbar/style.scss"
 
 }
 
 maintain_menu() {
-    # Menu options displayed in Walker
-    options="󰌍\n󰃢  Clear Cache\n󱘡  Clear Clipboard"
+	# Menu options displayed in Walker
+	options="󰌍\n󰃢  Clear Cache\n󱘡  Clear Clipboard"
 
-    # Prompt user to choose an option
-    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu" )
+	# Prompt user to choose an option
+	chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
-    # Execute the corresponding command based on the selected option
-    case $chosen in
-        "󰌍")
-            system_menu
-            ;;
-        "󰃢  Clear Cache")
-         	find ~/.cache -mindepth 1 -maxdepth 1 \
-         	  ! -name "spotify" \
-         	  ! -name "cliphist" \
-         	  ! -name "paru" \
-         	  ! -name "mcpelauncher-webview"\
-         	  ! -name "pip" \
-         	  ! -name "Hyprland Polkit Agent" \
-         	  ! -name "spotube" \
-         	  ! -name "oss.krtirtho.spotube" \
-         	  -exec rm -rf {} + >/dev/null 2>&1 & disown
-            maintain_menu
-            ;;
-        "󱘡  Clear Clipboard")
-            bash -c '
+	# Execute the corresponding command based on the selected option
+	case $chosen in
+	"󰌍")
+		system_menu
+		;;
+	"󰃢  Clear Cache")
+		find ~/.cache -mindepth 1 -maxdepth 1 \
+			! -name "spotify" \
+			! -name "cliphist" \
+			! -name "paru" \
+			! -name "mcpelauncher-webview" \
+			! -name "pip" \
+			! -name "Hyprland Polkit Agent" \
+			! -name "spotube" \
+			! -name "oss.krtirtho.spotube" \
+			-exec rm -rf {} + >/dev/null 2>&1 &
+		disown
+		maintain_menu
+		;;
+	"󱘡  Clear Clipboard")
+		bash -c '
             wl-copy --clear
             rm -rf ~/.cache/elephant/clipboard.gob
             pkill --signal 9 elephant
             sleep 0.5
             pgrep elephant >/dev/null 2>&1 || elephant >/dev/null 2>&1 & disown
-            ' >/dev/null 2>&1 & disown
-            maintain_menu
-            ;; 
-        *)
-            echo "No option selected"
-            ;;
-    esac
+            ' >/dev/null 2>&1 &
+		disown
+		maintain_menu
+		;;
+	*)
+		echo "No option selected"
+		;;
+	esac
 }
 
 manual_menu() {
-    # Menu options displayed in Walker
-    options="󰌍\n  Keybinds"
+	# Menu options displayed in Walker
+	options="󰌍\n  Keybinds"
 
-    # Prompt user to choose an option
-    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
+	# Prompt user to choose an option
+	chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
-    # Execute the corresponding command based on the selected option
-    case $chosen in
-        "󰌍")
-            system_menu
-            ;;
-        "  Keybinds")
-            cat ~/Dotfiles/resources/manual/keyboard.txt | walker -d -t "wide_menu"
-            ;;
-        *)
-            echo "No option selected"
-            ;;
-    esac
+	# Execute the corresponding command based on the selected option
+	case $chosen in
+	"󰌍")
+		system_menu
+		;;
+	"  Keybinds")
+		cat ~/Dotfiles/resources/manual/keyboard.txt | walker -d -t "wide_menu"
+		;;
+	*)
+		echo "No option selected"
+		;;
+	esac
 }
 
 screenshot_menu() {
-    # Menu options displayed in Walker
-    options="󰌍\n  Screenshots\n  Fullscreen\n  Selection"
+	# Menu options displayed in Walker
+	options="󰌍\n  Screenshots\n  Fullscreen\n  Selection"
 
-    # Prompt user to choose an option
-    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
+	# Prompt user to choose an option
+	chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
-    # Execute the corresponding command based on the selected option
-    case $chosen in
-        "󰌍")
-            system_menu
-            ;;
-        "  Screenshots")
-            foot -e yazi ~/Pictures/Screenshots/
-            ;;
-        "  Fullscreen")
-            hyprshot -m output -o ~/Pictures/Screenshots && notify-send -i camera "Hyprshot" "Saved to ~/Pictures/Screenshots"
-            ;;
-        "  Selection")
-            hyprshot -m region -o ~/Pictures/Screenshots && notify-send -i camera "Hyprshot" "Saved to ~/Pictures/Screenshots"
-            ;;
-        *)
-            echo "No option selected"
-            ;;
-    esac
+	# Execute the corresponding command based on the selected option
+	case $chosen in
+	"󰌍")
+		system_menu
+		;;
+	"  Screenshots")
+		foot -e yazi ~/Pictures/Screenshots/
+		;;
+	"  Fullscreen")
+		hyprshot -m output -o ~/Pictures/Screenshots && notify-send -i camera "Hyprshot" "Saved to ~/Pictures/Screenshots"
+		;;
+	"  Selection")
+		hyprshot -m region -o ~/Pictures/Screenshots && notify-send -i camera "Hyprshot" "Saved to ~/Pictures/Screenshots"
+		;;
+	*)
+		echo "No option selected"
+		;;
+	esac
 }
 
 connections_menu() {
-    # Menu options displayed in Walker
-    options="󰌍\n󰤨  WiFi\n  Bluetooth"
+	# Menu options displayed in Walker
+	options="󰌍\n󰤨  WiFi\n  Bluetooth"
 
-    # Prompt user to choose an option
-    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
+	# Prompt user to choose an option
+	chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
-    # Execute the corresponding command based on the selected option
-    case $chosen in
-        "󰌍")
-            system_menu
-            ;;
-        "󰤨  WiFi") 
-            bash ~/Dotfiles/scripts/walker-wifi
-            ;;
-        "  Bluetooth")
-            bash ~/Dotfiles/scripts/walker-bluetooth 
-            ;;
-        *)
-            echo "No option selected"
-            ;;
-    esac
+	# Execute the corresponding command based on the selected option
+	case $chosen in
+	"󰌍")
+		system_menu
+		;;
+	"󰤨  WiFi")
+		bash ~/Dotfiles/scripts/walker-wifi
+		;;
+	"  Bluetooth")
+		bash ~/Dotfiles/scripts/walker-bluetooth
+		;;
+	*)
+		echo "No option selected"
+		;;
+	esac
 }
 
 misc_menu() {
-    # Menu options displayed in Walker
-    options="󰌍\n  Toggle DND\n  Toggle Cafein\n󰈈  Toggle Eye Saver"
+	# Menu options displayed in Walker
+	options="󰌍\n  Toggle DND\n  Toggle Cafein\n󰈈  Toggle Eye Saver"
 
-    # Prompt user to choose an option
-    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
+	# Prompt user to choose an option
+	chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
-    # Execute the corresponding command based on the selected option
-    case $chosen in
-        "󰌍")
-            system_menu
-            ;;
-        "  Toggle DND")
-            makoctl mode -t dnd
-            misc_menu
-            ;;
-        "  Toggle Cafein")
-            bash $HOME/Dotfiles/scripts/cafein toggle -n
-            misc_menu
-            ;;
-        "󰈈  Toggle Eye Saver")
-            bash $HOME/Dotfiles/scripts/toggle-sunset
-            misc_menu
-            ;;
-        *)
-            echo "No option selected"
-            ;;
-    esac
+	# Execute the corresponding command based on the selected option
+	case $chosen in
+	"󰌍")
+		system_menu
+		;;
+	"  Toggle DND")
+		makoctl mode -t dnd
+		misc_menu
+		;;
+	"  Toggle Cafein")
+		bash $HOME/Dotfiles/scripts/cafein toggle -n
+		misc_menu
+		;;
+	"󰈈  Toggle Eye Saver")
+		bash $HOME/Dotfiles/scripts/toggle-sunset
+		misc_menu
+		;;
+	*)
+		echo "No option selected"
+		;;
+	esac
 }
 
 system_menu() {
-    # Menu options displayed in Walker
-    options="  Apps\n  Connections\n󰃢  Maintaining\n󰅇  Clipboard\n󰄀  Screenshot\n󰐱  Miscellaneous\n  Notifications\n󰍂  Session Options\n  Manual\n󰌁  Themes\n  Settings\n  Update System"
+	# Menu options displayed in Walker
+	options="  Apps\n  Connections\n󰃢  Maintaining\n󰅇  Clipboard\n󰄀  Screenshot\n󰐱  Miscellaneous\n  Notifications\n󰍂  Session Options\n  Manual\n󰌁  Themes\n  Settings\n  Update System"
 
-    # Prompt user to choose an option
-    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
+	# Prompt user to choose an option
+	chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
 
-    # Execute the corresponding command based on the selected option
-    case $chosen in
-        "  Apps")
-            app_launcher
-            ;;
-        "  Connections")
-            connections_menu
-            ;;
-        "󰃢  Maintaining")
-            maintain_menu
-            ;;
-        "󰅇  Clipboard")
-            walker -s clippy -p "󰅇 Clipboard" 
-            ;;
-        "󰄀  Screenshot")
-            screenshot_menu 
-            ;;
-        "󰐱  Miscellaneous")
-            misc_menu 
-            ;;
-        "  Notifications")
-            bash ~/.config/mako/scripts/walker.sh
-            ;;
-        "󰍂  Session Options")
-            session_options
-            ;;
-        "  Update System")
-            foot --override=colors-dark.alpha=1 --app-id=binarydotsTUI -e bash ~/Dotfiles/bin/update
-            ;;
-        "󰌁  Themes")
-            theme_menu
-            ;;
-        "  Settings")
-            settings_menu
-            ;;
-        "  Manual")
-            manual_menu
-                    ;;
-        *)
-            echo "No option selected"
-            ;;
-    esac
+	# Execute the corresponding command based on the selected option
+	case $chosen in
+	"  Apps")
+		app_launcher
+		;;
+	"  Connections")
+		connections_menu
+		;;
+	"󰃢  Maintaining")
+		maintain_menu
+		;;
+	"󰅇  Clipboard")
+		walker -s clippy -p "󰅇 Clipboard"
+		;;
+	"󰄀  Screenshot")
+		screenshot_menu
+		;;
+	"󰐱  Miscellaneous")
+		misc_menu
+		;;
+	"  Notifications")
+		bash ~/.config/mako/scripts/walker.sh
+		;;
+	"󰍂  Session Options")
+		session_options
+		;;
+	"  Update System")
+		foot --override=colors-dark.alpha=1 --app-id=binarydotsTUI -e bash ~/Dotfiles/bin/update
+		;;
+	"󰌁  Themes")
+		theme_menu
+		;;
+	"  Settings")
+		settings_menu
+		;;
+	"  Manual")
+		manual_menu
+		;;
+	*)
+		echo "No option selected"
+		;;
+	esac
 }
 
 theme_menu() {
-   THEME_DIR="$HOME/Dotfiles/resources/themes"
+	THEME_DIR="$HOME/Dotfiles/resources/themes"
 
-    # Menu options displayed in Walker
-    THEMES=$(find "$THEME_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n')
-    # Prompt user to choose an option
-    chosen=$(echo -e "󰌍\n$THEMES" | walker -d -p "Go…" -t "system_menu")
-    
-    if [[ -z "$chosen" ]]; then 
-        exit 1
-    elif [[ "$chosen" = "󰌍" ]];then
-        system_menu
-    fi
+	# Menu options displayed in Walker
+	THEMES=$(find "$THEME_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n')
+	# Prompt user to choose an option
+	chosen=$(echo -e "󰌍\n$THEMES" | walker -d -p "Go…" -t "system_menu")
 
-   $HOME/Dotfiles/bin/change-theme -c $chosen 
+	if [[ -z "$chosen" ]]; then
+		exit 1
+	elif [[ "$chosen" = "󰌍" ]]; then
+		system_menu
+	fi
+
+	$HOME/Dotfiles/bin/change-theme -c $chosen
 
 }
 
-
-
 # Check for flags and validate input
 if [[ $# -ne 1 ]]; then
-    if [[ "$1" != "--conf_launcher" ]]; then
-        usage
-    fi
+	if [[ "$1" != "--conf_launcher" ]]; then
+		usage
+	fi
 fi
 
 case "$1" in
-    --help|-h)
-        ;;
-    *)
-        pgrep elephant >/dev/null 2>&1 || elephant >/dev/null 2>&1 & disown
-        while ! pidof -x walker; do
-            pgrep walker >/dev/null 2>&1 ||GSK_RENDERER=cairo walker --gapplication-service >/dev/null 2>&1 & disown
-            sleep 0.2
-        done
-        ;;
+--help | -h) ;;
+*)
+	pgrep elephant >/dev/null 2>&1 || elephant >/dev/null 2>&1 &
+	disown
+	while ! pidof -x walker; do
+		pgrep walker >/dev/null 2>&1 || GSK_RENDERER=cairo walker --gapplication-service >/dev/null 2>&1 &
+		disown
+		sleep 0.2
+	done
+	;;
 esac
-
 
 # Execute the appropriate function based on the provided flag
 case "$1" in
-    --drun|-d|--app_launcher|--apps|-a)
-        app_launcher
-        ;;
-    --window|-w)
-        walker -s window -p "󰘔  Windows"
-        ;; 
+--drun | -d | --app_launcher | --apps | -a)
+	app_launcher
+	;;
+--window | -w)
+	walker -s window -p "󰘔  Windows"
+	;;
 
-    --run|-r)
-        run_launcher
-        ;;
-    --menu|-m|-qm)
-        quick_menu
-        ;;
-    --power-menu|-pm)
-        session_options
-        ;;
-    --widget_settings|-ws)
-    	widget_settings
-    	;;
-     --rice_settings|-rs)
-     	settings_menu
-     	;;
-     --system_menu|--sys_menu|-sm)
-     	system_menu
-     	;;
-    --screenshot_menu|--ss_menu|-ss)
-     	screenshot_menu
-     	;;
-    --conf_launcher|-cl)
-        conf_launcher "$2" "$3"
-        ;;
-    *)
-        usage
-        ;;
+--run | -r)
+	run_launcher
+	;;
+--menu | -m | -qm)
+	quick_menu
+	;;
+--power-menu | -pm)
+	session_options
+	;;
+--widget_settings | -ws)
+	widget_settings
+	;;
+--rice_settings | -rs)
+	settings_menu
+	;;
+--system_menu | --sys_menu | -sm)
+	system_menu
+	;;
+--screenshot_menu | --ss_menu | -ss)
+	screenshot_menu
+	;;
+--conf_launcher | -cl)
+	conf_launcher "$2" "$3"
+	;;
+*)
+	usage
+	;;
 esac

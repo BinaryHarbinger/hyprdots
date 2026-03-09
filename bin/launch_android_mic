@@ -10,8 +10,8 @@ sleep 0.5
 
 # Check whether scrcpy is still running
 if ! kill -0 "$SCRCPY_PID" 2>/dev/null; then
-  echo "Error: scrcpy failed to start or exited immediately" >&2
-  exit 1
+	echo "Error: scrcpy failed to start or exited immediately" >&2
+	exit 1
 fi
 
 # Detach scrcpy from this shell
@@ -19,9 +19,5 @@ disown "$SCRCPY_PID"
 
 # Create PipeWire loopback: scrcpy sink -> virtual microphone
 pw-loopback \
-  --capture=scrcpy \
-  --playback-props='{ media.class = "Audio/Source", node.description = "Android Mic" }'
-
-
-
-
+	--capture=scrcpy \
+	--playback-props='{ media.class = "Audio/Source", node.description = "Android Mic" }'

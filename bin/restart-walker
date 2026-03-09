@@ -2,16 +2,14 @@
 
 # Kill elephant if running
 if pidof -x elephant >/dev/null; then
-    pkill -x elephant
+	pkill -x elephant
 fi
 elephant >/dev/null 2>&1 &
 disown
 
 # Kill walker if running
 if pidof -x walker >/dev/null; then
-    pkill -x walker
+	pkill -x walker
 fi
 GSK_RENDERER=cairo walker --gapplication-service >/dev/null 2>&1 &
 disown
-
-

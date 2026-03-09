@@ -1,54 +1,54 @@
 #!/bin/bash
 
-info() { gum style --foreground "#49A22C" -- <<< "➤ $1"; }
-error() { gum style --foreground "#FF5555" -- <<< "✖ $1"; }
+info() { gum style --foreground "#49A22C" -- <<<"➤ $1"; }
+error() { gum style --foreground "#FF5555" -- <<<"✖ $1"; }
 
 if [ -z "$1" ]; then
-    echo "Usage: $0 [--set <File Location> | --reload | --list | --prompt]"
-    exit 1
+	echo "Usage: $0 [--set <File Location> | --reload | --list | --prompt]"
+	exit 1
 fi
 
 case "$1" in
-    --set|-s)
-        if [ -z "$2" ]; then
-            error "Failed. Missing file location for --set option."
-            exit 1
-        fi
+--set | -s)
+	if [ -z "$2" ]; then
+		error "Failed. Missing file location for --set option."
+		exit 1
+	fi
 
-        target="$2"
+	target="$2"
 
-        python ~/Dotfiles/scripts/wallpapers.py --set "$target" > /dev/null 2>&1
-        sleep 1
-        info "Wallpaper set to $target"
-        ;;
-    
-    --reload|-r)
-        pkill swww-daemon > /dev/null 2>&1
-        pkill mpvpaper > /dev/null 2>&1
-        sleep 1
-        python ~/Dotfiles/scripts/wallpapers.py --init
-        info "Wallpaper Reloaded"
-        ;;
-    
-    --list|-l)
-        python ~/Dotfiles/scripts/wallpapers.py --list
-        ;;
-    
-    --prompt|-p)
-        WALLPAPERS=$(python ~/Dotfiles/scripts/wallpapers.py --list)
-        chosen=$(printf '%s\n' "$WALLPAPERS" | gum choose --header 'Select a Wallpaper')
+	python ~/Dotfiles/scripts/wallpapers.py --set "$target" >/dev/null 2>&1
+	sleep 1
+	info "Wallpaper set to $target"
+	;;
 
-        if [ -z "$chosen" ]; then
-            exit 0
-        fi
+--reload | -r)
+	pkill swww-daemon >/dev/null 2>&1
+	pkill mpvpaper >/dev/null 2>&1
+	sleep 1
+	python ~/Dotfiles/scripts/wallpapers.py --init
+	info "Wallpaper Reloaded"
+	;;
 
-        python ~/Dotfiles/scripts/wallpapers.py --set "$chosen"
-        info "Wallpaper set to $chosen"
-        ;;
-    
-    *)
-        echo "Invalid option: $1"
-        echo "Usage: $0 [--set <File Location> | --reload | --list | --prompt]"
-        exit 1
-        ;;
+--list | -l)
+	python ~/Dotfiles/scripts/wallpapers.py --list
+	;;
+
+--prompt | -p)
+	WALLPAPERS=$(python ~/Dotfiles/scripts/wallpapers.py --list)
+	chosen=$(printf '%s\n' "$WALLPAPERS" | gum choose --header 'Select a Wallpaper')
+
+	if [ -z "$chosen" ]; then
+		exit 0
+	fi
+
+	python ~/Dotfiles/scripts/wallpapers.py --set "$chosen"
+	info "Wallpaper set to $chosen"
+	;;
+
+*)
+	echo "Invalid option: $1"
+	echo "Usage: $0 [--set <File Location> | --reload | --list | --prompt]"
+	exit 1
+	;;
 esac

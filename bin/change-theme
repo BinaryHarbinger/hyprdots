@@ -12,127 +12,134 @@ Options:
   -p, --prompt           Change theme with interactive prompt
   -h, --help             Show this help message
 "
-change_theme () {
-    ewwii kill
-    pgrep "riftbar" > /dev/null && (pkill riftbar) > /dev/null 2>&1 & disown
-    if [ -f "$HOME/Dotfiles/scripts/style-lock.py" ]; then
-        mapfile -t vals < <(python ~/Dotfiles/scripts/style-lock.py get_state)
-        cd ~
-        BAR_LOCK="${vals[0]}"
-        WIDGETS_LOCK="${vals[1]}"
-        WALLPAPER_LOCK="${vals[2]}"
-    else
-        BAR_LOCK="0"
-        WIDGETS_LOCK="0"
-        WALLPAPER_LOCK="0"
-    fi
+change_theme() {
+	ewwii kill
+	pgrep "riftbar" >/dev/null && (pkill riftbar) >/dev/null 2>&1 &
+	disown
+	if [ -f "$HOME/Dotfiles/scripts/style-lock.py" ]; then
+		mapfile -t vals < <(python ~/Dotfiles/scripts/style-lock.py get_state)
+		cd ~
+		BAR_LOCK="${vals[0]}"
+		WIDGETS_LOCK="${vals[1]}"
+		WALLPAPER_LOCK="${vals[2]}"
+	else
+		BAR_LOCK="0"
+		WIDGETS_LOCK="0"
+		WALLPAPER_LOCK="0"
+	fi
 
-    # Files
-    ln -sf "$THEME_PATH/theme.scss" ~/.config/ewwii/theme.scss
-    ln -sf "$THEME_PATH/theme.scss" ~/.config/riftbar/theme.scss
-    ln -sf "$THEME_PATH/theme.scss" ~/.config/walker/themes/binary_default/theme.scss
-    ln -sf "$THEME_PATH/makoConfig" ~/.config/mako/config
-    ln -sf "$THEME_PATH/hypr.conf" ~/.config/hypr/theme.conf
-    ln -sf "$THEME_PATH/theme.scss" ~/.config/qutebrowser/newtab/static/theme.scss
-    ln -sf "$THEME_PATH/wiremix.toml" ~/.config/wiremix/wiremix.toml
-    ln -sf "$THEME_PATH/foot.ini" ~/.config/foot/foot.ini
-    ln -sf "$THEME_PATH/theme.toml" ~/.config/yazi/theme.toml
-    ln -sf "$THEME_PATH/mpv/script-opts/uosc.conf" ~/.config/mpv/script-opts
-    
-    source "$THEME_PATH/theme.sh" # Export theme variables 
+	# Files
+	ln -sf "$THEME_PATH/theme.scss" ~/.config/ewwii/theme.scss
+	ln -sf "$THEME_PATH/theme.scss" ~/.config/riftbar/theme.scss
+	ln -sf "$THEME_PATH/theme.scss" ~/.config/walker/themes/binary_default/theme.scss
+	ln -sf "$THEME_PATH/makoConfig" ~/.config/mako/config
+	ln -sf "$THEME_PATH/hypr.conf" ~/.config/hypr/theme.conf
+	ln -sf "$THEME_PATH/theme.scss" ~/.config/qutebrowser/newtab/static/theme.scss
+	ln -sf "$THEME_PATH/wiremix.toml" ~/.config/wiremix/wiremix.toml
+	ln -sf "$THEME_PATH/foot.ini" ~/.config/foot/foot.ini
+	ln -sf "$THEME_PATH/theme.toml" ~/.config/yazi/theme.toml
+	ln -sf "$THEME_PATH/mpv/script-opts/uosc.conf" ~/.config/mpv/script-opts
 
-    # Waybar Styles
-    echo $BAR_LOCK
-    if [ "$BAR_LOCK" = "0" ]; then
-        ln -sf "$HOME/Dotfiles/resources/styles/riftbar/${BAR_STYLE}Config.toml" "$HOME/.config/riftbar/config.toml"
-        ln -sf "$HOME/Dotfiles/resources/styles/riftbar/${BAR_STYLE}.scss" "$HOME/.config/riftbar/style.scss"
-    fi
+	source "$THEME_PATH/theme.sh" # Export theme variables
 
-    # Widget Styles
-    if [ "$WIDGETS_LOCK" = "0" ]; then
-        if [[ "$SCHEME" == "gnome" ]]; then
-            ln -sf "$HOME/Dotfiles/resources/styles/ewwii/gnome.rhai" "$HOME/.config/ewwii/style.rhai"
-        elif [[ "$SCHEME" == "windoes" ]]; then
-            ln -sf "$HOME/Dotfiles/resources/styles/ewwii/windoes.rhai" "$HOME/.config/ewwii/style.rhai"
-        elif [[ "$SCHEME" == "7j3xm3" ]]; then
-            ln -sf "$HOME/Dotfiles/resources/styles/ewwii/vertical.rhai" "$HOME/.config/ewwii/style.rhai"
-        else
-            ln -sf "$HOME/Dotfiles/resources/styles/ewwii/default.rhai" "$HOME/.config/ewwii/style.rhai"
-        fi
-    fi
+	# Waybar Styles
+	echo $BAR_LOCK
+	if [ "$BAR_LOCK" = "0" ]; then
+		ln -sf "$HOME/Dotfiles/resources/styles/riftbar/${BAR_STYLE}Config.toml" "$HOME/.config/riftbar/config.toml"
+		ln -sf "$HOME/Dotfiles/resources/styles/riftbar/${BAR_STYLE}.scss" "$HOME/.config/riftbar/style.scss"
+	fi
 
-    ( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) && riftbar >/dev/null 2>&1 & disown
-    # Wallpaper lock
-    if [ "$WALLPAPER_LOCK" = "0" ]; then
-        python ~/Dotfiles/scripts/wallpapers.py -s "$WALLPAPER"
-    fi
+	# Widget Styles
+	if [ "$WIDGETS_LOCK" = "0" ]; then
+		if [[ "$SCHEME" == "gnome" ]]; then
+			ln -sf "$HOME/Dotfiles/resources/styles/ewwii/gnome.rhai" "$HOME/.config/ewwii/style.rhai"
+		elif [[ "$SCHEME" == "windoes" ]]; then
+			ln -sf "$HOME/Dotfiles/resources/styles/ewwii/windoes.rhai" "$HOME/.config/ewwii/style.rhai"
+		elif [[ "$SCHEME" == "7j3xm3" ]]; then
+			ln -sf "$HOME/Dotfiles/resources/styles/ewwii/vertical.rhai" "$HOME/.config/ewwii/style.rhai"
+		else
+			ln -sf "$HOME/Dotfiles/resources/styles/ewwii/default.rhai" "$HOME/.config/ewwii/style.rhai"
+		fi
+	fi
 
-    sed -i "s/^THEME_VAR=\"[^\"]*\"/THEME_VAR=\"$SCHEME\"/" ~/.zshrc
-    if [ -f "$HOME/.config/nvim/lua/core/options.lua" ]; then 
-        sed -i "s/vim\.cmd(\"colorscheme .*\")/vim.cmd(\"colorscheme $SCHEME\")/" ~/.config/nvim/lua/core/options.lua
-    fi
+	(pgrep "Hyprland" >/dev/null 2>&1 || pgrep "hyprland" >/dev/null 2>&1) && riftbar >/dev/null 2>&1 &
+	disown
+	# Wallpaper lock
+	if [ "$WALLPAPER_LOCK" = "0" ]; then
+		python ~/Dotfiles/scripts/wallpapers.py -s "$WALLPAPER"
+	fi
 
-    sed -i "s|\(color_scheme_path=.*/\).*|\1$SCHEME.conf|" ~/.config/qt6ct/qt6ct.conf
+	sed -i "s/^THEME_VAR=\"[^\"]*\"/THEME_VAR=\"$SCHEME\"/" ~/.zshrc
+	if [ -f "$HOME/.config/nvim/lua/core/options.lua" ]; then
+		sed -i "s/vim\.cmd(\"colorscheme .*\")/vim.cmd(\"colorscheme $SCHEME\")/" ~/.config/nvim/lua/core/options.lua
+	fi
 
-    sed -i "s/theme: \".*\",/theme: \"$SCHEME\",/" ~/.config/rmpc/config.ron || echo
+	sed -i "s|\(color_scheme_path=.*/\).*|\1$SCHEME.conf|" ~/.config/qt6ct/qt6ct.conf
 
-    if command -v qutebrowser >/dev/null 2>&1 && pgrep -x "qutebrowser" > /dev/null ; then 
-        # --- Qutebrowser update --- 
-        qutebrowser ":config-source" >/dev/null 2>&1 & disown 
-    fi
-    ( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) && hyprctl reload > /dev/null 2>&1 & disown
-    
-    pgrep "mako" > /dev/null 2>&1 && makoctl reload > /dev/null 2>&1 & disown
+	sed -i "s/theme: \".*\",/theme: \"$SCHEME\",/" ~/.config/rmpc/config.ron || echo
 
-    ( pgrep "Hyprland" > /dev/null 2>&1 || pgrep "hyprland" > /dev/null 2>&1 ) && notify-send -u normal "🎨 Theme Changed" -i preferences-desktop-theme >/dev/null 2>&1 & disown
-    echo -e "Theme changed to $chosen"
+	if command -v qutebrowser >/dev/null 2>&1 && pgrep -x "qutebrowser" >/dev/null; then
+		# --- Qutebrowser update ---
+		qutebrowser ":config-source" >/dev/null 2>&1 &
+		disown
+	fi
+	(pgrep "Hyprland" >/dev/null 2>&1 || pgrep "hyprland" >/dev/null 2>&1) && hyprctl reload >/dev/null 2>&1 &
+	disown
+
+	pgrep "mako" >/dev/null 2>&1 && makoctl reload >/dev/null 2>&1 &
+	disown
+
+	(pgrep "Hyprland" >/dev/null 2>&1 || pgrep "hyprland" >/dev/null 2>&1) && notify-send -u normal "🎨 Theme Changed" -i preferences-desktop-theme >/dev/null 2>&1 &
+	disown
+	echo -e "Theme changed to $chosen"
 }
 
 case $1 in
 
-    --list|-l)
-        echo -e "Available themes:\n$THEMES"
-        ;;
+--list | -l)
+	echo -e "Available themes:\n$THEMES"
+	;;
 
-    --change|-c)
-        chosen=$2
+--change | -c)
+	chosen=$2
 
-        if [[ -z "$chosen" ]]; then
-            echo "No theme selected."
-            exit 1
-        fi
+	if [[ -z "$chosen" ]]; then
+		echo "No theme selected."
+		exit 1
+	fi
 
-        THEME_PATH="$THEME_DIR/$chosen"
-        if [[ ! -d "$THEME_PATH" ]]; then
-            echo "Error: No such theme '$chosen'"
-            echo -e "Available themes:\n$THEMES"
-            exit 1
-        fi
+	THEME_PATH="$THEME_DIR/$chosen"
+	if [[ ! -d "$THEME_PATH" ]]; then
+		echo "Error: No such theme '$chosen'"
+		echo -e "Available themes:\n$THEMES"
+		exit 1
+	fi
 
-        change_theme
-        ;;
+	change_theme
+	;;
 
-    --prompt|-p)
-        chosen=$(gum choose --header 'Select a Theme' $THEMES)
+--prompt | -p)
+	chosen=$(gum choose --header 'Select a Theme' $THEMES)
 
-        if [[ -z "$chosen" ]]; then
-            echo "No theme selected."
-            exit 1
-        fi
+	if [[ -z "$chosen" ]]; then
+		echo "No theme selected."
+		exit 1
+	fi
 
-        THEME_PATH="$THEME_DIR/$chosen"
-        if [[ ! -d "$THEME_PATH" ]]; then
-            echo "Error: No such theme '$chosen'"
-            echo -e "Available themes:\n$THEMES"
-            exit 1
-        fi
-        change_theme 
-        ;;
+	THEME_PATH="$THEME_DIR/$chosen"
+	if [[ ! -d "$THEME_PATH" ]]; then
+		echo "Error: No such theme '$chosen'"
+		echo -e "Available themes:\n$THEMES"
+		exit 1
+	fi
+	change_theme
+	;;
 
-    --help|-h)
-        echo -e "$USAGE"
-        ;;
+--help | -h)
+	echo -e "$USAGE"
+	;;
 
-    *)
-        echo -e "Error: Unkown flag '$1'\n $USAGE"
+*)
+	echo -e "Error: Unkown flag '$1'\n $USAGE"
+	;;
 esac

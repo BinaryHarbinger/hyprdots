@@ -9,20 +9,23 @@ BLUE="\e[34m"
 RESET="\e[0m"
 
 confirmation() {
-    local title="$1"
-    shift
-    gum confirm "$title" --selected.background="100" --prompt.foreground="1000"
+	local title="$1"
+	shift
+	gum confirm "$title" --selected.background="100" --prompt.foreground="1000"
 }
 
 confirmation_alt() {
-    local title="$1"
-    shift
-     gum confirm "$title" --selected.background="75" --prompt.foreground="1000"
+	local title="$1"
+	shift
+	gum confirm "$title" --selected.background="75" --prompt.foreground="1000"
 }
 
-wait_for_input () {
-    echo -e ""
-    gum style --foreground "#CCCCFF" -- <<< "➤ Press Enter to continue…"; stty -echo; read; stty echo
+wait_for_input() {
+	echo -e ""
+	gum style --foreground "#CCCCFF" -- <<<"➤ Press Enter to continue…"
+	stty -echo
+	read
+	stty echo
 }
 
 echo -e "\n\n${RESET}░█▀▀░█░█░█▀▀░▀█▀░█▀▀░█▄█░░░█░█░█▀█░█▀▄░█▀█░▀█▀░█▀▀
@@ -38,22 +41,22 @@ echo -e "${BLUE}\n░█▀▀░█░█░█▀▀░▀█▀░█▀▀�
 ░▀▀▀░░▀░░▀▀▀░░▀░░▀▀▀░▀░▀░░░▀░░░▀░▀░▀▀▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀▀▀\n${RESET}"
 if paru; then
 	echo
-    echo -e "${BLUE}░█▀▀░█░░░█▀█░▀█▀░█▀█░█▀█░█░█░░░█▀█░█▀█░█▀▀░█░█░█▀▀
+	echo -e "${BLUE}░█▀▀░█░░░█▀█░▀█▀░█▀█░█▀█░█░█░░░█▀█░█▀█░█▀▀░█░█░█▀▀
 ░█▀▀░█░░░█▀█░░█░░█▀▀░█▀█░█▀▄░░░█▀▀░█▀█░█░░░█▀▄░▀▀█
 ░▀░░░▀▀▀░▀░▀░░▀░░▀░░░▀░▀░▀░▀░░░▀░░░▀░▀░▀▀▀░▀░▀░▀▀▀${RESET}"
 else
 	echo
-    echo -e "${RED}Failed to update system (pacman and AUR) packages.${RESET}"
-    exit 1
+	echo -e "${RED}Failed to update system (pacman and AUR) packages.${RESET}"
+	exit 1
 fi
 
 # Update Flatpak packages
 echo
 if flatpak update -y; then
-    echo -e ""
+	echo -e ""
 else
-    echo -e "${RED}Failed to update Flatpak packages.${RESET}"
-    exit 1
+	echo -e "${RED}Failed to update Flatpak packages.${RESET}"
+	exit 1
 fi
 echo
 echo -e "${GREEN}░█▀▀░█▀█░█▄█░█▀█░█░░░█▀▀░▀█▀░█▀▀░█▀▄
