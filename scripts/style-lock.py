@@ -6,11 +6,11 @@ arguments = sys.argv[1:]
 
 HOME = os.path.expanduser("~")
 JSON_PATH = os.path.join(
-    HOME, "Dotfiles", "resources", "data", "style_lock_data.json"
+    HOME, ".config", "binarydots", "style_lock_data.json"
 )
 
 default_data = {
-    "Waybar": 0,
+    "Riftbar": 0,
     "Widgets": 0,
     "Wallpaper": 0,
 }
@@ -53,7 +53,7 @@ def print_dmenu(data_file):
             print("  " + x)
 
 
-widget_arguments = {"Waybar", "Widgets", "Wallpaper"}
+widget_arguments = {"Riftbar", "Widgets", "Wallpaper"}
 
 data = load_file()
 
@@ -64,8 +64,8 @@ for argument in arguments:
         for name in data:
             print(data.get(name))
 
-    elif argument == "waybar":
-        data["Waybar"] = int(not data["Waybar"])
+    elif argument == "riftbar":
+        data["Riftbar"] = int(not data["Riftbar"])
         write_file(data)
 
     elif argument == "widgets":

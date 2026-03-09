@@ -254,7 +254,7 @@ settings_menu() {
 
 customize_menu() {
     # Menu options displayed in Walker
-    options="󰌍\n  Set Style Locks\n  Widgets Settings\n  Wallpapers\n󰌁  Themes"
+    options="󰌍\n  Style Locks\n  Widgets Settings\n  Bar Styles\n  Wallpapers\n󰌁  Themes"
 
     # Prompt user to choose an option
     chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
@@ -264,7 +264,7 @@ customize_menu() {
         "󰌍")
             settings_menu
             ;;
-        "  Set Style Locks")
+        "  Style Locks")
             lock_menu
             ;;
         "  Widgets Settings")
@@ -275,6 +275,9 @@ customize_menu() {
             ;;
         "  Wallpapers")
             set_wallpaper
+            ;;
+        "  Bar Styles")
+            bar_style_menu
             ;;
         *)
             echo "No option selected"
@@ -289,6 +292,55 @@ set_wallpaper() {
     echo $chosen
     python ~/Dotfiles/scripts/wallpapers.py --set "$chosen"
     ewwii r
+}
+
+bar_style_menu() {
+    # Menu options displayed in Walker
+    options="󰌍\n  Minimal\n󰸸  Floating\n  Islands\n  Vertical\n󰊬  Gnome\n  Windoes"
+
+    # Prompt user to choose an option
+    chosen=$(echo -e "$options" | walker -d -p "Go…" -t "system_menu")
+
+    # Execute the corresponding command based on the selected option
+    case $chosen in
+        "󰌍")
+            customize_menu
+            return 0
+            ;;
+        "  Minimal")
+            set_bar_style "simple"
+            ;;
+        "󰸸  Floating")
+            set_bar_style "floating"
+            ;;
+        "  Islands")
+            set_bar_style "default"
+            ;;
+        "  Vertical")
+            set_bar_style "vertical"
+            ;;
+        "󰊬  Gnome")
+            set_bar_style "gnome"
+            ;;
+        "  Windoes")
+            set_bar_style "windoes"
+            ;;
+        *)
+            echo "No option selected"
+            return 0
+            ;;
+    esac
+    pkill -x riftbar 2>/dev/null
+    sleep 0.3
+    nohup riftbar >/dev/null 2>&1 &
+    bar_style_menu
+}
+
+set_bar_style() {
+    local BAR_STYLE=$1
+    ln -sf "$HOME/Dotfiles/resources/styles/riftbar/${BAR_STYLE}Config.toml" "$HOME/.config/riftbar/config.toml"
+    ln -sf "$HOME/Dotfiles/resources/styles/riftbar/${BAR_STYLE}.scss" "$HOME/.config/riftbar/style.scss"
+
 }
 
 maintain_menu() {

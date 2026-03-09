@@ -16,7 +16,6 @@ change_theme () {
     ewwii kill
     pgrep "riftbar" > /dev/null && (pkill riftbar) > /dev/null 2>&1 & disown
     if [ -f "$HOME/Dotfiles/scripts/style-lock.py" ]; then
-        #cd "$HOME/Dotfiles/resources/data/"
         mapfile -t vals < <(python ~/Dotfiles/scripts/style-lock.py get_state)
         cd ~
         BAR_LOCK="${vals[0]}"
