@@ -218,6 +218,9 @@ tooltip {
 
 .custom-seperator {
   min-width: 30px;
+  &:hover {
+    background-color: theme.$bg_main
+  }
 }
 
 .revealer-dock {
