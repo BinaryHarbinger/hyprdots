@@ -4,7 +4,7 @@
     bluez-utils bc
     hyprland hyprlock hypridle polkit-gnome hyprsunset hyprpicker xdg-desktop-portal-hyprland 
     power-profiles-daemon udiskie network-manager-applet brightnessctl
-    cliphist git zsh dash unzip fastfetch pamixer mako foot swww mpvpaper
+    cliphist git zsh dash unzip fastfetch pamixer mako foot awww mpvpaper
     mpv mpd mpdris2-rs rmpc
     base-devel
     python-flask python-requests python-psutil

@@ -66,10 +66,10 @@ def set_wallpaper(name: str, theme: bool = False):
     if not is_mp4: 
         if is_running("mpvpaper"):
             kill_process("mpvpaper")
-        if not is_running("swww-daemon"):
+        if not is_running("awww-daemon"):
             subprocess.Popen(
             [
-                "swww-daemon"
+                "awww-daemon"
             ],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
@@ -78,7 +78,7 @@ def set_wallpaper(name: str, theme: bool = False):
         sleep(1.22)
         subprocess.Popen(
             [
-                "swww", "img", path,
+                "awww", "img", path,
                 "--transition-fps", "60",
                 "--transition-step", "255",
                 "--transition-type", "wipe",
@@ -89,7 +89,7 @@ def set_wallpaper(name: str, theme: bool = False):
             start_new_session=True,
         )
     else:
-        for wall_app in ["swww-daemon", "mpvpaper"]:
+        for wall_app in ["awww-daemon", "mpvpaper"]:
             if is_running(wall_app): 
                 kill_process(wall_app)
 
