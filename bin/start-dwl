@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+export XDG_SESSION_DESKTOP=dwl
+
+dwl -s 'sh $HOME/Dotfiles/scripts/autostart.sh <&-'
+

@@ -14,8 +14,8 @@ WALLPAPER_DIR = os.path.join(HOME, "Dotfiles", "resources", "wallpapers")
 WALLPAPER_SCRIPT = os.path.join(HOME, "Dotfiles", "bin", "wallpaper")
 HYPR_WALL = os.path.join(HOME, ".config", "hypr", "wallppr.png")
 
-def hyprland_running():
-    return is_running("hyprland") or is_running("start-hyprland") or is_running("Hyprland")
+def window_manager_running():
+    return is_running("dwl") or is_running("hyprland") or is_running("start-hyprland") or is_running("Hyprland")
 
 def wallpapers():
     return sorted(
@@ -52,7 +52,7 @@ def set_wallpaper(name: str, theme: bool = False):
 
     os.symlink(path, HYPR_WALL + ".tmp")
     os.replace(HYPR_WALL + ".tmp", HYPR_WALL)
-    if not hyprland_running():
+    if not window_manager_running():
         print("Hyprland is not running exiting.")
         sys.exit(0)
     if ".mp4" in path:

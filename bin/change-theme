@@ -62,7 +62,7 @@ change_theme() {
 		fi
 	fi
 
-	(pgrep "Hyprland" >/dev/null 2>&1 || pgrep "hyprland" >/dev/null 2>&1) && riftbar >/dev/null 2>&1 &
+	(pgrep "dwl" >/dev/null 2>&1 || pgrep "Hyprland" >/dev/null 2>&1 || pgrep "hyprland" >/dev/null 2>&1) && riftbar >/dev/null 2>&1 &
 	disown
 	# Wallpaper lock
 	if [ "$WALLPAPER_LOCK" = "0" ]; then
@@ -83,13 +83,13 @@ change_theme() {
 		qutebrowser ":config-source" >/dev/null 2>&1 &
 		disown
 	fi
-	(pgrep "Hyprland" >/dev/null 2>&1 || pgrep "hyprland" >/dev/null 2>&1) && hyprctl reload >/dev/null 2>&1 &
+	(pgrep "dwl" >/dev/null 2>&1 || pgrep "Hyprland" >/dev/null 2>&1 || pgrep "hyprland" >/dev/null 2>&1) && hyprctl reload >/dev/null 2>&1 &
 	disown
 
 	pgrep "mako" >/dev/null 2>&1 && makoctl reload >/dev/null 2>&1 &
 	disown
 
-	(pgrep "Hyprland" >/dev/null 2>&1 || pgrep "hyprland" >/dev/null 2>&1) && notify-send -u normal "🎨 Theme Changed" -i preferences-desktop-theme >/dev/null 2>&1 &
+	(pgrep "dwl" >/dev/null 2>&1 || pgrep "Hyprland" >/dev/null 2>&1 || pgrep "hyprland" >/dev/null 2>&1) && notify-send -u normal "🎨 Theme Changed" -i preferences-desktop-theme >/dev/null 2>&1 &
 	disown
 	echo -e "Theme changed to $chosen"
 }
