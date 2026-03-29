@@ -1,3 +1,6 @@
+> [!WARNING]
+> Moved to [codeberg](https://codeberg.org/BinaryHarbinger/binarydots)
+
 
 ---
 <div style="text-align: center;">
